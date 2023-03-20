@@ -1,26 +1,35 @@
 /* eslint-disable react/no-children-prop */
 import {
+  Flex,
   Input,
   InputGroup,
-  InputLeftElement,
-  Stack,
+  InputRightElement,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
-export function SearchBar() {
+export function SearchBox() {
   return (
-    <Stack w="full">
-      <InputGroup>
-        <InputLeftElement children={<MagnifyingGlass />} />
+    <Flex
+      as="label"
+      flex="1"
+      py="4"
+      px="8"
+      ml="6"
+      maxWidth={400}
+      alignSelf="center"
+      position="relative"
+    >
+      <InputGroup px="4">
+        <InputRightElement children={<MagnifyingGlass />} />
 
         <Input
           type="text"
-          placeholder="Buscar..."
           variant="flushed"
+          placeholder="Buscar..."
           focusBorderColor={useColorModeValue("gray.700", "gray.100")}
         />
       </InputGroup>
-    </Stack>
+    </Flex>
   );
 }

@@ -1,28 +1,46 @@
-import { Divider, Flex, Heading, HStack, IconButton } from "@chakra-ui/react";
-import { MoonStars } from "@phosphor-icons/react";
+import {
+  Divider,
+  Flex,
+  HStack,
+  IconButton,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
+import { MoonStars, SunDim } from "@phosphor-icons/react";
 import { Profile } from "./Profile";
+import { SearchBox } from "./SearchBox";
 
 export function Header() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Flex
       as="header"
       w="100%"
       maxWidth={1480}
       h="20"
-      px="6"
       mx="auto"
       mt="4"
+      px="6"
       align="center"
-      justify="space-between"
     >
-      <Heading as="h2" size="lg" fontWeight="normal">
+      <Text fontSize="3xl" fontWeight="normal" w="64">
         myStock
-      </Heading>
+      </Text>
 
-      <HStack h="full" spacing="4">
+      <SearchBox />
+
+      <HStack h="full" spacing="4" ml="auto">
         <IconButton
           aria-label="theme"
-          icon={<MoonStars size={24} />}
+          icon={
+            colorMode === "light" ? (
+              <MoonStars size={24} />
+            ) : (
+              <SunDim size={24} />
+            )
+          }
+          onClick={toggleColorMode}
           bg="none"
           isRound
         />

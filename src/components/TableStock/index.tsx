@@ -7,25 +7,19 @@ import {
   Thead,
   Tr,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { TriggerDelete } from "../Modals/Delete/Trigger";
 import { TriggerEdit } from "../Modals/Edit/Trigger";
 import { TriggerMovement } from "../Modals/Movement/Trigger";
 
 export function TableStock() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
-    <TableContainer
-      marginTop="8"
-      border="1px"
-      px="2"
-      py="4"
-      borderRadius="md"
-      borderColor={useColorModeValue("gray.200", "gray.600")}
-    >
-      <Table variant="striped" size="sm" colorScheme="blackAlpha">
+    <TableContainer w="full" marginTop="8" px="2" py="4" borderRadius="md">
+      <Table
+        variant="simple"
+        size="sm"
+        colorScheme={useColorModeValue("blackAlpha", "whiteAlpha")}
+      >
         <Thead>
           <Tr>
             <Th>Item</Th>
