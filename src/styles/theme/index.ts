@@ -5,6 +5,12 @@ const config: ThemeConfig = {
   useSystemColorMode: true,
 };
 
-const theme = extendTheme({ config });
+const theme = extendTheme({
+  config,
+  fonts: {
+    heading: "Ubuntu",
+    body: "Ubuntu",
+  },
+});
 
 export default theme;

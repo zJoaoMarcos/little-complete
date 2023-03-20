@@ -1,9 +1,6 @@
-import { TriggerCreate } from "@/components/Modals/Create/Trigger";
-import { SearchBar } from "@/components/SearchBar";
-import SidebarWithHeader from "@/components/SideBarWithHeader";
-import { TableStock } from "@/components/TableStock";
-import { Flex, HStack, IconButton, useColorModeValue } from "@chakra-ui/react";
-import { Funnel } from "@phosphor-icons/react";
+import { Header } from "@/components/Header";
+import { Sidebar } from "@/components/Sidebar";
+import { Flex } from "@chakra-ui/react";
 import Head from "next/head";
 
 export default function Home() {
@@ -15,25 +12,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <SidebarWithHeader>
-          <Flex flexDirection="row" justifyContent="space-between" w="full">
-            <SearchBar />
+      <Flex flexDir="column" h="100vh">
+        <Header />
 
-            <HStack mx="2">
-              <IconButton
-                aria-label="filter"
-                icon={<Funnel />}
-                textColor={useColorModeValue("black", "white")}
-                colorScheme={useColorModeValue("blackAlpha", "whiteAlpha")}
-              />
-              <TriggerCreate />
-            </HStack>
-          </Flex>
-
-          <TableStock />
-        </SidebarWithHeader>
-      </main>
+        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+          <Sidebar />
+        </Flex>
+      </Flex>
     </>
   );
 }

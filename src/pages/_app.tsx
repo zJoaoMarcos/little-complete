@@ -13,8 +13,8 @@ const ubuntu = Ubuntu({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider resetCSS>
-      <main className="poppins.classname">
+    <ChakraProvider>
+      <main className="ubuntu.classname">
         <ToastContainer />
         <Component {...pageProps} />
       </main>
