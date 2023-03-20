@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
+import { SidebarDrawerProvider } from "@/contexts/SidebarDrawerContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,10 +15,12 @@ const ubuntu = Ubuntu({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <main className="ubuntu.classname">
-        <ToastContainer />
-        <Component {...pageProps} />
-      </main>
+      <SidebarDrawerProvider>
+        <main className="ubuntu.classname">
+          <ToastContainer />
+          <Component {...pageProps} />
+        </main>
+      </SidebarDrawerProvider>
     </ChakraProvider>
   );
 }

@@ -1,13 +1,17 @@
+import { Input } from "@/components/Form/input";
 import {
+  AlertDialog,
+  AlertDialogOverlay,
+  Box,
   Button,
-  Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay,
+  Text,
 } from "@chakra-ui/react";
+import { useRef } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -15,18 +19,45 @@ interface ModalProps {
 }
 
 export function DeleteModal({ isOpen, onClose }: ModalProps) {
+  const cancelRef = useRef<HTMLButtonElement>(null);
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
+    <AlertDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      leastDestructiveRef={cancelRef}
+    >
+      <AlertDialogOverlay />
       <ModalContent>
-        <ModalHeader>Delete</ModalHeader>
+        <ModalHeader>
+          Excluir <Text textColor="pink.500">SSD 240Gb Kingston </Text>
+        </ModalHeader>
         <ModalCloseButton />
-        <ModalBody>Vai deletar, nerdola?</ModalBody>
+        <ModalBody>
+          <Box as="form">
+            <Text>
+              Por favor digite{" "}
+              <Text as="span" fontWeight="semibold">
+                João Matos/SDD
+              </Text>{" "}
+              para confirmar
+            </Text>
+
+            <Input name="delete" />
+          </Box>
+        </ModalBody>
 
         <ModalFooter>
-          <Button>Submit</Button>
+          <Button
+            w="full"
+            variant="outline"
+            color="red.500"
+            borderColor="red.500"
+          >
+            Eu entendo as consequências, excluir este item
+          </Button>
         </ModalFooter>
       </ModalContent>
-    </Modal>
+    </AlertDialog>
   );
 }

@@ -14,7 +14,7 @@ import { TriggerMovement } from "../Modals/Movement/Trigger";
 
 export function TableStock() {
   return (
-    <TableContainer w="full" marginTop="8" px="2" py="4" borderRadius="md">
+    <TableContainer w="100%" marginTop="8" px="2" py="4" borderRadius="md">
       <Table
         variant="simple"
         size="sm"
@@ -23,9 +23,9 @@ export function TableStock() {
         <Thead>
           <Tr>
             <Th>Item</Th>
-            <Th>Type</Th>
-            <Th>Place</Th>
-            <Th>Name</Th>
+            <Th>Tipo</Th>
+            <Th>Local</Th>
+            <Th>Qtd</Th>
             <Th></Th>
             <Th></Th>
             <Th></Th>

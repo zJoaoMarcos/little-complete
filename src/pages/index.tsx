@@ -24,6 +24,7 @@ export default function Home() {
             h="full"
             p="8"
             bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
+            overflowX="auto"
             borderRadius="md"
           >
             <Flex mb="8" justify="space-between" align="center">
