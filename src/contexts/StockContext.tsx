@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { toast } from "react-toastify";
 
 interface Item {
@@ -14,8 +14,6 @@ interface Item {
 
 interface StockProviderContextData {
   createItem: (data: Item) => Promise<void>;
-
-  isLoading: boolean;
 }
 
 const StockContext = createContext({} as StockProviderContextData);
@@ -25,14 +23,8 @@ interface StockProviderProps {
 }
 
 export function StockProvider({ children }: StockProviderProps) {
-  const [isLoading, setIsLoading] = useState(false);
-
   async function createItem(data: Item) {
-    setIsLoading(true);
-
-    console.log(data);
-
-    api
+    await api
       .post("api/stock/create", {
         ...data,
       })
@@ -41,12 +33,11 @@ export function StockProvider({ children }: StockProviderProps) {
         toast.error(
           "Desculpe não conseguimos adicionar o seu item, tente mais tarde"
         )
-      )
-      .finally(() => setIsLoading(false));
+      );
   }
 
   return (
-    <StockContext.Provider value={{ createItem, isLoading }}>
+    <StockContext.Provider value={{ createItem }}>
       {children}
     </StockContext.Provider>
   );
