@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model departments {
+  id             String    @id @db.Char(50)
+  cost_center    Int?
+  is_board       Boolean?
+  board          String?   @db.Char(50)
+  responsible_id String?   @db.Char(50)
+  user_adm       String?   @db.Char(50)
+  systems        systems[]
+}
+
+model machines {
+  id            String          @id @db.Char(20)
+  model         String?         @db.Char(15)
+  cpu           String?         @db.Char(30)
+  ram           String?         @db.Char(10)
+  storage0_type String?         @db.Char(5)
+  storage0_syze Int?
+  storage1_type String?         @db.Char(5)
+  storage1_syze Int?
+  video         String?         @db.Char(20)
+  supplier      String?         @db.Char(50)
+  invoice       String?         @db.Char(50)
+  warranty      String?         @db.Char(10)
+  purchase_date String?         @db.Char(20)
+  service_tag   String?         @db.Char(50)
+  fk_user       String?         @db.Char(15)
+  users         users?          @relation(fields: [fk_user], references: [badge_id], onDelete: NoAction, onUpdate: NoAction, map: "idUser")
+  machines_user machines_user[]
+}
+
+model machines_user {
+  id          Int       @id @default(autoincrement())
+  user_id     String?   @db.Char(10)
+  machines_id String?   @db.Char(20)
+  machines    machines? @relation(fields: [machines_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users?    @relation(fields: [user_id], references: [badge_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model mobile {
+  id             BigInt        @id
+  status         String?       @db.Char(20)
+  operator       String?       @db.Char(10)
+  owner          String?       @db.Char(20)
+  model          String?       @db.Char(20)
+  imei           BigInt?
+  phone_state    String?       @db.Char(20)
+  block          Boolean?
+  plan_value     Float?
+  gb_month       Float?
+  invoice        String?       @db.Char(50)
+  admission_date Int?
+  contract_term  Int?
+  mobile_user    mobile_user[]
+}
+
+model mobile_user {
+  id        Int     @id @default(autoincrement())
+  user_id   String? @db.Char(12)
+  mobile_id BigInt?
+  mobile    mobile? @relation(fields: [mobile_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     users?  @relation(fields: [user_id], references: [badge_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model monitor {
+  id            String         @id @db.Char(50)
+  model         String?        @db.Char(50)
+  size          Int?
+  supplier      String?        @db.Char(50)
+  invoice       String?        @db.Char(50)
+  purchase_date DateTime?      @db.Date
+  warranty      Int?
+  monitor_user  monitor_user[]
+}
+
+model monitor_user {
+  id         Int      @id @default(autoincrement())
+  user_id    String?  @db.Char(12)
+  monitor_id String?  @db.Char(12)
+  monitor    monitor? @relation(fields: [monitor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users?   @relation(fields: [user_id], references: [badge_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model systems {
+  id            Int            @id @default(autoincrement())
+  description   String?        @db.Char(100)
+  cost          Float?
+  type_licesing String?        @db.Char(20)
+  quantity      Int?
+  name          String?        @db.Char(50)
+  invoice       String?        @db.Char(10)
+  department    String?        @db.Char(50)
+  departments   departments?   @relation(fields: [department], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  systems_user  systems_user[]
+}
+
+model systems_user {
+  id            Int      @id @default(autoincrement())
+  user_badge_id String?  @db.Char(50)
+  system_id     Int?
+  username      String?  @db.Char(50)
+  systems       systems? @relation(fields: [system_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users         users?   @relation(fields: [user_badge_id], references: [badge_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model telephone {
+  id             String           @id @db.Char(20)
+  label          String?          @db.Char(20)
+  model          String?          @db.Char(20)
+  supplier       String?          @db.Char(50)
+  invoice        String?          @db.Char(50)
+  purchase_date  DateTime?        @db.Date
+  fk_user        String?          @db.Char(15)
+  users          users?           @relation(fields: [fk_user], references: [badge_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user")
+  telephone_user telephone_user[]
+}
+
+model telephone_user {
+  id           Int        @id @default(autoincrement())
+  user_id      String?    @db.Char(12)
+  telephone_id String?    @db.Char(20)
+  telephone    telephone? @relation(fields: [telephone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        users?     @relation(fields: [user_id], references: [badge_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model teste {
+  teste    String? @db.Char(100)
+  testinho String  @id @db.Char(100)
+  aaa      Int?
+}
+
+model users {
+  badge_id       String           @id @db.Char(15)
+  username       String?          @unique @db.Char(50)
+  complete_name  String?          @db.Char(100)
+  title          String?          @db.Char(50)
+  department_id  String?          @db.Char(50)
+  direct_boss    String?          @db.Char(50)
+  location       String?          @db.Char(50)
+  smtp           String?          @unique @db.Char(50)
+  admission_date DateTime?        @db.Date
+  demission_date DateTime?        @db.Date
+  status         String?          @db.Char(50)
+  fk_machine     String?          @db.Char(50)
+  fk_telephone   String?          @db.Char(20)
+  machines       machines[]
+  machines_user  machines_user[]
+  mobile_user    mobile_user[]
+  monitor_user   monitor_user[]
+  systems_user   systems_user[]
+  telephone      telephone[]
+  telephone_user telephone_user[]
+}
+
+model stock {
+  id          String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String  @db.VarChar(255)
+  description String?
+  type        String  @db.VarChar(50)
+  amount      Int
+  amount_min  Int
+  local       String  @db.VarChar(100)
+}

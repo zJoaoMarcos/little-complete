@@ -1,5 +1,6 @@
 import { Input } from "@/components/Form/input";
 import { Select } from "@/components/Form/Select";
+import { useStock } from "@/contexts/StockContext";
 import {
   Box,
   Button,
@@ -12,6 +13,37 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+
+interface CreateItemData {
+  name: string;
+  description: string;
+  type: string;
+  amount: number;
+  amount_min: number;
+  local: string;
+}
+
+const createItemFormSchema = yup.object().shape({
+  name: yup.string().required("O campo é obrigatório"),
+  description: yup.string().required("O campo é obrigatório"),
+  type: yup.string().required("O campo é obrigatório"),
+  amount: yup
+    .number()
+    .integer("O número deve ser inteiro")
+    .positive("O número deve ser positivo")
+    .moreThan(0, "O número deve ser maior o igual a 1")
+    .required(),
+  amount_min: yup
+    .number()
+    .integer("O número deve ser inteiro")
+    .positive("O número deve ser positivo")
+    .min(0, "O número deve ser maior o igual a zero")
+    .required(),
+  local: yup.string().required("O campo é obrigatório"),
+});
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,6 +51,29 @@ interface ModalProps {
 }
 
 export function CreateModal({ isOpen, onClose }: ModalProps) {
+  const { register, handleSubmit, formState, reset } = useForm<CreateItemData>({
+    resolver: yupResolver(createItemFormSchema),
+    defaultValues: {
+      amount_min: 0,
+    },
+  });
+
+  const { errors } = formState;
+
+  const { createItem } = useStock();
+
+  const handleCreateItem: SubmitHandler<CreateItemData> = async (
+    data,
+    event
+  ) => {
+    event?.preventDefault();
+
+    await createItem(data);
+
+    onClose();
+    reset();
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -32,14 +87,19 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
         <ModalHeader>Novo Item</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box as="form">
+          <Box as="form" onSubmit={handleSubmit(handleCreateItem)}>
             <Stack spacing="4">
-              <Input name="item" label="Item" />
+              <Input {...register("name")} error={errors.name} label="Item" />
 
-              <Input name="description" label="Descrição" />
+              <Input
+                {...register("description")}
+                error={errors.description}
+                label="Descrição"
+              />
 
               <Select
-                name="type"
+                {...register("type")}
+                error={errors.type}
                 label="Tipo"
                 placeholder="Hardware, Periféricos, etc..."
               >
@@ -48,29 +108,37 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
                 <option value="extension">Ramal</option>
               </Select>
 
-              <Input name="quantity" label="Quantidade" type="number" />
+              <Input
+                {...register("amount")}
+                error={errors.amount}
+                label="Quantidade"
+                type="number"
+              />
 
               <Input
-                name="min_quantity"
+                {...register("amount_min")}
+                error={errors.amount_min}
                 label="Quantidade Mínima"
                 type="number"
               />
 
               <Select
-                name="place"
+                {...register("local")}
+                error={errors.local}
                 label="Local"
                 placeholder="Selecione o local"
               >
                 <option value="8° Andar">8° Andar</option>
-                <option value="-1° Andar">-1° Andar</option>
+                <option value="-1° Andar">- 1° Andar</option>
               </Select>
             </Stack>
+            <ModalFooter>
+              <Button type="submit" colorScheme="pink">
+                Submit
+              </Button>
+            </ModalFooter>
           </Box>
         </ModalBody>
-
-        <ModalFooter>
-          <Button colorScheme="pink"> Submit</Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
