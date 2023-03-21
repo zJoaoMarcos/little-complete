@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <StockProvider>
         <SidebarDrawerProvider>
           <main className="ubuntu.classname">
-            <ToastContainer />
+            <ToastContainer theme={"colored"} />
             <Component {...pageProps} />
           </main>
         </SidebarDrawerProvider>
