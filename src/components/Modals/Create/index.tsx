@@ -58,7 +58,7 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
     },
   });
 
-  const { errors } = formState;
+  const { errors, isSubmitting } = formState;
 
   const { createItem } = useStock();
 
@@ -87,7 +87,11 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
         <ModalHeader>Novo Item</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box as="form" onSubmit={handleSubmit(handleCreateItem)}>
+          <Box
+            as="form"
+            onSubmit={handleSubmit(handleCreateItem)}
+            id="create_item"
+          >
             <Stack spacing="4">
               <Input {...register("name")} error={errors.name} label="Item" />
 
@@ -132,13 +136,18 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
                 <option value="-1° Andar">- 1° Andar</option>
               </Select>
             </Stack>
-            <ModalFooter>
-              <Button type="submit" colorScheme="pink">
-                Submit
-              </Button>
-            </ModalFooter>
           </Box>
         </ModalBody>
+        <ModalFooter>
+          <Button
+            form="create_item"
+            type="submit"
+            colorScheme="pink"
+            isLoading={isSubmitting}
+          >
+            Submit
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
