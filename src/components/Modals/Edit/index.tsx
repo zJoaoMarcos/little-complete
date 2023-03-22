@@ -14,7 +14,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
 
 interface Item {
   id: string;
@@ -36,6 +38,25 @@ type UpdateItemData = {
   local: string;
 };
 
+const updateItemFormSchema = yup.object().shape({
+  name: yup.string().required("O campo é obrigatório"),
+  description: yup.string().required("O campo é obrigatório"),
+  type: yup.string().required("O campo é obrigatório"),
+  amount: yup
+    .number()
+    .integer("O número deve ser inteiro")
+    .positive("O número deve ser positivo")
+    .moreThan(0, "O número deve ser maior o igual a 1")
+    .required(),
+  amount_min: yup
+    .number()
+    .integer("O número deve ser inteiro")
+    .positive("O número deve ser positivo")
+    .min(0, "O número deve ser maior o igual a zero")
+    .required(),
+  local: yup.string().required("O campo é obrigatório"),
+});
+
 interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -44,6 +65,7 @@ interface EditModalProps {
 
 export function EditModal({ isOpen, onClose, item }: EditModalProps) {
   const { register, handleSubmit, formState } = useForm<UpdateItemData>({
+    resolver: yupResolver(updateItemFormSchema),
     defaultValues: {
       id: item.id,
       name: item.name,
@@ -55,7 +77,7 @@ export function EditModal({ isOpen, onClose, item }: EditModalProps) {
     },
   });
 
-  const { errors, isSubmitting } = formState;
+  const { errors, isSubmitting, isDirty } = formState;
 
   const { updateItem } = useStock();
 
@@ -142,6 +164,7 @@ export function EditModal({ isOpen, onClose, item }: EditModalProps) {
             form="update_item"
             type="submit"
             colorScheme="pink"
+            isDisabled={!isDirty}
             isLoading={isSubmitting}
           >
             Alterar
