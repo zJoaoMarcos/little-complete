@@ -68,7 +68,7 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
   ) => {
     event?.preventDefault();
 
-    await createItem(data);
+    await createItem.mutateAsync(data);
 
     onClose();
     reset();
@@ -107,9 +107,9 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
                 label="Tipo"
                 placeholder="Hardware, Periféricos, etc..."
               >
-                <option value="hardware">Hardware</option>
-                <option value="peripheral">Periférico</option>
-                <option value="extension">Ramal</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Peripheral">Periférico</option>
+                <option value="Extension">Ramal</option>
               </Select>
 
               <Input
@@ -145,7 +145,7 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
             colorScheme="pink"
             isLoading={isSubmitting}
           >
-            Submit
+            Criar
           </Button>
         </ModalFooter>
       </ModalContent>

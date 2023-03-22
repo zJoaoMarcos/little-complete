@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    return res.status(201).json(newItem);
+    return res.status(201).json({ item: newItem });
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method not allowed");

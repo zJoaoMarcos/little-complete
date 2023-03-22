@@ -6,7 +6,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === "GET") {
-    const items = await prisma.stock.findMany();
+    const items = await prisma.stock.findMany({
+      orderBy: { created_at: "asc" },
+    });
 
     return res.status(201).json({ items: items });
   } else {
