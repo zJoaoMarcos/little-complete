@@ -2,10 +2,19 @@ import { Header } from "@/components/Header";
 import { TriggerCreate } from "@/components/Modals/Create/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { TableStock } from "@/components/TableStock";
-import { Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { useStockList } from "@/hooks/UseStockList";
+import {
+  Box,
+  Flex,
+  Heading,
+  Spinner,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Head from "next/head";
 
 export default function Home() {
+  const { data, isLoading, isFetching } = useStockList();
+
   return (
     <>
       <Head>
@@ -30,12 +39,20 @@ export default function Home() {
             <Flex mb="8" justify="space-between" align="center">
               <Heading as="h3" fontWeight="semibold">
                 Stock
+                {!isLoading && isFetching && (
+                  <Spinner size="sm" color="white" ml="4" />
+                )}
               </Heading>
 
               <TriggerCreate />
             </Flex>
-
-            <TableStock />
+            {isLoading ? (
+              <Flex justify="center">
+                <Spinner />
+              </Flex>
+            ) : (
+              <TableStock items={data?.items} />
+            )}
           </Box>
         </Flex>
       </Flex>

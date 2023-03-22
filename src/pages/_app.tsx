@@ -5,6 +5,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import { SidebarDrawerProvider } from "@/contexts/SidebarDrawerContext";
 import { StockProvider } from "@/contexts/StockContext";
+import { queryClient } from "@/lib/queryClient";
+import { QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,15 +17,17 @@ const ubuntu = Ubuntu({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <StockProvider>
-        <SidebarDrawerProvider>
-          <main className="ubuntu.classname">
-            <ToastContainer theme={"colored"} />
-            <Component {...pageProps} />
-          </main>
-        </SidebarDrawerProvider>
-      </StockProvider>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider>
+        <StockProvider>
+          <SidebarDrawerProvider>
+            <main className="ubuntu.classname">
+              <ToastContainer theme={"colored"} />
+              <Component {...pageProps} />
+            </main>
+          </SidebarDrawerProvider>
+        </StockProvider>
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 }

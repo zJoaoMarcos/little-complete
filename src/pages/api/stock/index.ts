@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (method === "GET") {
     const items = await prisma.stock.findMany();
 
-    return res.status(201).json({ data: items });
+    return res.status(201).json({ items: items });
   } else {
     res.setHeader("Allow", "GET");
     res.status(405).end("Method not allowed");

@@ -12,7 +12,21 @@ import { TriggerDelete } from "../Modals/Delete/Trigger";
 import { TriggerEdit } from "../Modals/Edit/Trigger";
 import { TriggerMovement } from "../Modals/Movement/Trigger";
 
-export function TableStock() {
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  amount: number;
+  amount_min: number;
+  local: string;
+}
+
+interface TableStockProps {
+  items: Item[] | undefined;
+}
+
+export function TableStock({ items }: TableStockProps) {
   return (
     <TableContainer w="100%" marginTop="8" px="2" py="4" borderRadius="md">
       <Table
@@ -32,21 +46,25 @@ export function TableStock() {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>SSD</Td>
-            <Td>Hardware</Td>
-            <Td>8°Andar</Td>
-            <Td>40</Td>
-            <Td>
-              <TriggerMovement />
-            </Td>
-            <Td>
-              <TriggerEdit />
-            </Td>
-            <Td>
-              <TriggerDelete />
-            </Td>
-          </Tr>
+          <>
+            {items?.map((item) => (
+              <Tr key={item.id}>
+                <Td>{item.name}</Td>
+                <Td>{item.type}</Td>
+                <Td>{item.local}</Td>
+                <Td>{item.amount}</Td>
+                <Td>
+                  <TriggerMovement />
+                </Td>
+                <Td>
+                  <TriggerEdit />
+                </Td>
+                <Td>
+                  <TriggerDelete />
+                </Td>
+              </Tr>
+            ))}
+          </>
         </Tbody>
       </Table>
     </TableContainer>
