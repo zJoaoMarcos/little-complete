@@ -57,7 +57,7 @@ export function DeleteModal({ isOpen, onClose, id, name }: ModalProps) {
       <AlertDialogOverlay />
       <ModalContent>
         <ModalHeader>
-          Excluir <Text textColor="pink.500">SSD 240Gb Kingston </Text>
+          Excluir <Text textColor="pink.500">{name}</Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>

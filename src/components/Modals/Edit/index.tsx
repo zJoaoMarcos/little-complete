@@ -1,5 +1,6 @@
 import { Input } from "@/components/Form/input";
 import { Select } from "@/components/Form/Select";
+import { useStock } from "@/contexts/StockContext";
 import {
   Box,
   Button,
@@ -13,13 +14,62 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  amount: number;
+  amount_min: number;
+  local: string;
 }
 
-export function EditModal({ isOpen, onClose }: ModalProps) {
+type UpdateItemData = {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  amount: number;
+  amount_min: number;
+  local: string;
+};
+
+interface EditModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  item: Item;
+}
+
+export function EditModal({ isOpen, onClose, item }: EditModalProps) {
+  const { register, handleSubmit, formState } = useForm<UpdateItemData>({
+    defaultValues: {
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      type: item.type,
+      amount: item.amount,
+      amount_min: item.amount_min,
+      local: item.local,
+    },
+  });
+
+  const { errors, isSubmitting } = formState;
+
+  const { updateItem } = useStock();
+
+  const handleUpdateItem: SubmitHandler<UpdateItemData> = async (
+    data,
+    event
+  ) => {
+    event?.preventDefault();
+
+    await updateItem.mutateAsync(data);
+
+    onClose();
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -31,44 +81,71 @@ export function EditModal({ isOpen, onClose }: ModalProps) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          Editar <Text textColor="pink.500">SSD 240Gb Kingston </Text>
+          Editar <Text textColor="pink.500">{item.name}</Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box as="form">
+          <Box
+            as="form"
+            onSubmit={handleSubmit(handleUpdateItem)}
+            id="update_item"
+          >
             <Stack spacing="4">
-              <Input name="item" label="Item" />
+              <Input {...register("name")} error={errors.name} label="Item" />
 
-              <Input name="description" label="Descrição" />
+              <Input
+                {...register("description")}
+                error={errors.description}
+                label="Descrição"
+              />
 
               <Select
-                name="type"
+                {...register("type")}
+                error={errors.type}
                 label="Tipo"
                 placeholder="Hardware, Periféricos, etc..."
               >
-                <option value="hardware">Hardware</option>
-                <option value="peripheral">Periférico</option>
-                <option value="extension">Ramal</option>
+                <option value="Hardware">Hardware</option>
+                <option value="Peripheral">Periférico</option>
+                <option value="Extension">Ramal</option>
               </Select>
 
-              <Input name="quantity" label="Quantidade" type="number" />
+              <Input
+                {...register("amount")}
+                error={errors.amount}
+                label="Quantidade"
+                type="number"
+              />
 
               <Input
-                name="min_quantity"
+                {...register("amount_min")}
+                error={errors.amount_min}
                 label="Quantidade Mínima"
                 type="number"
               />
 
-              <Select name="place" label="Local">
+              <Select
+                {...register("local")}
+                error={errors.local}
+                label="Local"
+                placeholder="Selecione o local"
+              >
                 <option value="8° Andar">8° Andar</option>
-                <option value="-1° Andar">-1° Andar</option>
+                <option value="-1° Andar">- 1° Andar</option>
               </Select>
             </Stack>
           </Box>
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="pink">Submit</Button>
+          <Button
+            form="update_item"
+            type="submit"
+            colorScheme="pink"
+            isLoading={isSubmitting}
+          >
+            Alterar
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

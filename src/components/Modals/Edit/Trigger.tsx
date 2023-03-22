@@ -2,7 +2,21 @@ import { IconButton, useDisclosure } from "@chakra-ui/react";
 import { Pencil } from "@phosphor-icons/react";
 import { EditModal } from "./index";
 
-export function TriggerEdit() {
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  amount: number;
+  amount_min: number;
+  local: string;
+}
+
+interface TriggerEditProps {
+  item: Item;
+}
+
+export function TriggerEdit({ item }: TriggerEditProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -14,7 +28,7 @@ export function TriggerEdit() {
         bg="transparent"
       />
 
-      <EditModal isOpen={isOpen} onClose={onClose} />
+      <EditModal isOpen={isOpen} onClose={onClose} item={item} />
     </>
   );
 }

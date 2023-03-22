@@ -17,14 +17,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-interface CreateItemData {
+type CreateItemData = {
   name: string;
   description: string;
   type: string;
   amount: number;
   amount_min: number;
   local: string;
-}
+};
 
 const createItemFormSchema = yup.object().shape({
   name: yup.string().required("O campo é obrigatório"),

@@ -17,6 +17,7 @@ interface Item {
 
 interface StockProviderContextData {
   createItem: UseMutationResult<Item, unknown, Item, unknown>;
+  updateItem: UseMutationResult<Item, unknown, Item, unknown>;
   deleteItem: UseMutationResult<Item, unknown, string, unknown>;
 }
 
@@ -68,8 +69,29 @@ export function StockProvider({ children }: StockProviderProps) {
     }
   );
 
+  const updateItem = useMutation(
+    async (data: Item) => {
+      const res = await api.put<Item>(`api/stock/${data.id}/update`, {
+        ...data,
+      });
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Item Adicionado com sucesso");
+        queryClient.invalidateQueries("stock");
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos adicionar o item, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
-    <StockContext.Provider value={{ createItem, deleteItem }}>
+    <StockContext.Provider value={{ createItem, updateItem, deleteItem }}>
       {children}
     </StockContext.Provider>
   );

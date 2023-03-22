@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    return res.status(202).json({ message: "ok", item_deleted: deletedItem });
+    return res.status(202).json({ item_deleted: deletedItem });
   } else {
     res.setHeader("Allow", "DELETE");
     res.status(405).end("Method not allowed");
