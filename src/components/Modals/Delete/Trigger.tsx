@@ -2,7 +2,12 @@ import { IconButton, useDisclosure } from "@chakra-ui/react";
 import { Trash } from "@phosphor-icons/react";
 import { DeleteModal } from "./index";
 
-export function TriggerDelete() {
+interface TriggerDeleteProps {
+  id: string;
+  name: string;
+}
+
+export function TriggerDelete({ id, name }: TriggerDeleteProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -15,7 +20,7 @@ export function TriggerDelete() {
         bg="transparent"
       />
 
-      <DeleteModal isOpen={isOpen} onClose={onClose} />
+      <DeleteModal isOpen={isOpen} onClose={onClose} id={id} name={name} />
     </>
   );
 }

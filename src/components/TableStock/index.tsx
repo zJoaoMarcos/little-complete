@@ -60,7 +60,7 @@ export function TableStock({ items }: TableStockProps) {
                   <TriggerEdit />
                 </Td>
                 <Td>
-                  <TriggerDelete />
+                  <TriggerDelete id={item.id} name={item.name} />
                 </Td>
               </Tr>
             ))}
