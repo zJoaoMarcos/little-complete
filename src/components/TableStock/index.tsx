@@ -8,7 +8,6 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { TriggerDelete } from "../Modals/Delete/Trigger";
 import { TriggerEdit } from "../Modals/Edit/Trigger";
 import { TriggerMovement } from "../Modals/Movement/Trigger";
 
@@ -42,7 +41,6 @@ export function TableStock({ items }: TableStockProps) {
             <Th>Qtd</Th>
             <Th></Th>
             <Th></Th>
-            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -54,13 +52,10 @@ export function TableStock({ items }: TableStockProps) {
                 <Td>{item.local}</Td>
                 <Td>{item.amount}</Td>
                 <Td>
-                  <TriggerMovement />
+                  <TriggerMovement id={item.id} />
                 </Td>
                 <Td>
                   <TriggerEdit item={item} />
-                </Td>
-                <Td>
-                  <TriggerDelete id={item.id} name={item.name} />
                 </Td>
               </Tr>
             ))}

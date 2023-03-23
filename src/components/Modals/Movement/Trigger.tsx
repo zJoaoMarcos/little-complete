@@ -2,7 +2,11 @@ import { IconButton, useDisclosure } from "@chakra-ui/react";
 import { ArrowsClockwise } from "@phosphor-icons/react";
 import { MovementModal } from ".";
 
-export function TriggerMovement() {
+interface TriggerMovementProps {
+  id: string;
+}
+
+export function TriggerMovement({ id }: TriggerMovementProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -14,7 +18,7 @@ export function TriggerMovement() {
         bg="transparent"
       />
 
-      <MovementModal isOpen={isOpen} onClose={onClose} />
+      <MovementModal isOpen={isOpen} onClose={onClose} id={id} />
     </>
   );
 }

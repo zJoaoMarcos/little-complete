@@ -42,12 +42,6 @@ const updateItemFormSchema = yup.object().shape({
   name: yup.string().required("O campo é obrigatório"),
   description: yup.string().required("O campo é obrigatório"),
   type: yup.string().required("O campo é obrigatório"),
-  amount: yup
-    .number()
-    .integer("O número deve ser inteiro")
-    .positive("O número deve ser positivo")
-    .moreThan(0, "O número deve ser maior o igual a 1")
-    .required(),
   amount_min: yup
     .number()
     .integer("O número deve ser inteiro")
@@ -131,13 +125,6 @@ export function EditModal({ isOpen, onClose, item }: EditModalProps) {
                 <option value="Peripheral">Periférico</option>
                 <option value="Extension">Ramal</option>
               </Select>
-
-              <Input
-                {...register("amount")}
-                error={errors.amount}
-                label="Quantidade"
-                type="number"
-              />
 
               <Input
                 {...register("amount_min")}

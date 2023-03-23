@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         name,
         description,
         type,
-        amount,
+        amount: 0,
         amount_min,
         local,
       },

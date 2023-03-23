@@ -10,15 +10,23 @@ interface Item {
   name: string;
   description: string;
   type: string;
-  amount: number;
+  amount?: number;
   amount_min: number;
   local: string;
+}
+
+interface Movement {
+  id: string;
+  type: string;
+  partner: string;
+  department: string;
+  amount: number;
 }
 
 interface StockProviderContextData {
   createItem: UseMutationResult<Item, unknown, Item, unknown>;
   updateItem: UseMutationResult<Item, unknown, Item, unknown>;
-  deleteItem: UseMutationResult<Item, unknown, string, unknown>;
+  movementItem: UseMutationResult<Movement, unknown, Movement, unknown>;
 }
 
 const StockContext = createContext({} as StockProviderContextData);
@@ -49,26 +57,6 @@ export function StockProvider({ children }: StockProviderProps) {
     }
   );
 
-  const deleteItem = useMutation(
-    async (id: string) => {
-      const res = await api.delete<Item>(`api/stock/${id}/delete`);
-      console.log(id);
-
-      return res.data;
-    },
-    {
-      onSuccess: () => {
-        toast.success("Item deletado com sucesso");
-        queryClient.invalidateQueries("stock");
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos deletar o item, tente mais tarde"
-        );
-      },
-    }
-  );
-
   const updateItem = useMutation(
     async (data: Item) => {
       const res = await api.put<Item>(`api/stock/${data.id}/update`, {
@@ -79,19 +67,38 @@ export function StockProvider({ children }: StockProviderProps) {
     },
     {
       onSuccess: () => {
-        toast.success("Item Adicionado com sucesso");
+        toast.success("Item Alterado com sucesso");
+        queryClient.invalidateQueries("stock");
+      },
+      onError: () => {
+        toast.error("Desculpe não conseguimos altera o item, tente mais tarde");
+      },
+    }
+  );
+
+  const movementItem = useMutation(
+    async (data: Movement) => {
+      const res = await api.put<Movement>(`api/stock/${data.id}/movement`, {
+        ...data,
+      });
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Item Movimentado com sucesso");
         queryClient.invalidateQueries("stock");
       },
       onError: () => {
         toast.error(
-          "Desculpe não conseguimos adicionar o item, tente mais tarde"
+          "Desculpe não conseguimos movimentar o item, tente mais tarde"
         );
       },
     }
   );
 
   return (
-    <StockContext.Provider value={{ createItem, updateItem, deleteItem }}>
+    <StockContext.Provider value={{ createItem, updateItem, movementItem }}>
       {children}
     </StockContext.Provider>
   );

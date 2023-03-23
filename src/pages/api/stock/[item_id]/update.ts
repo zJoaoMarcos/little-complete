@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (!itemExists) {
-      return res.status(400).json({ error: "Item don't exits" });
+      return res.status(404).json({ error: "Item don't exits" });
     }
 
     const updatedItem = await prisma.stock.update({

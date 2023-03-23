@@ -21,7 +21,6 @@ type CreateItemData = {
   name: string;
   description: string;
   type: string;
-  amount: number;
   amount_min: number;
   local: string;
 };
@@ -30,12 +29,6 @@ const createItemFormSchema = yup.object().shape({
   name: yup.string().required("O campo é obrigatório"),
   description: yup.string().required("O campo é obrigatório"),
   type: yup.string().required("O campo é obrigatório"),
-  amount: yup
-    .number()
-    .integer("O número deve ser inteiro")
-    .positive("O número deve ser positivo")
-    .moreThan(0, "O número deve ser maior o igual a 1")
-    .required(),
   amount_min: yup
     .number()
     .integer("O número deve ser inteiro")
@@ -93,12 +86,18 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
             id="create_item"
           >
             <Stack spacing="4">
-              <Input {...register("name")} error={errors.name} label="Item" />
+              <Input
+                {...register("name")}
+                error={errors.name}
+                label="Item"
+                placeholder="Nome"
+              />
 
               <Input
                 {...register("description")}
                 error={errors.description}
                 label="Descrição"
+                placeholder="Marca, modelo, especifações e etc... "
               />
 
               <Select
@@ -111,13 +110,6 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
                 <option value="Peripheral">Periférico</option>
                 <option value="Extension">Ramal</option>
               </Select>
-
-              <Input
-                {...register("amount")}
-                error={errors.amount}
-                label="Quantidade"
-                type="number"
-              />
 
               <Input
                 {...register("amount_min")}
