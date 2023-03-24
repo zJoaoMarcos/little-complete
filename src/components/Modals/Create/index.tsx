@@ -134,7 +134,7 @@ export function CreateModal({ isOpen, onClose }: ModalProps) {
           <Button
             form="create_item"
             type="submit"
-            colorScheme="pink"
+            colorScheme="purple"
             isLoading={isSubmitting}
           >
             Criar

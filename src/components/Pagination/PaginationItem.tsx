@@ -25,7 +25,7 @@ export function PaginationItem({
   }
 
   return (
-    <Button colorScheme="pink" onClick={() => onPageChange(number)} size="sm">
+    <Button colorScheme="purple" onClick={() => onPageChange(number)} size="sm">
       {number}
     </Button>
   );

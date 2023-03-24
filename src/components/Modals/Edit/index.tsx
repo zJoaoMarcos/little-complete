@@ -150,7 +150,7 @@ export function EditModal({ isOpen, onClose, item }: EditModalProps) {
           <Button
             form="update_item"
             type="submit"
-            colorScheme="pink"
+            colorScheme="purple"
             isDisabled={!isDirty}
             isLoading={isSubmitting}
           >

@@ -6,7 +6,7 @@ export function TriggerCreate() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen} leftIcon={<Plus />} colorScheme="pink">
+      <Button onClick={onOpen} leftIcon={<Plus />} colorScheme="purple">
         Novo
       </Button>
 

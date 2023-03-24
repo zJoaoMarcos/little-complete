@@ -126,7 +126,7 @@ export function MovementModal({ isOpen, onClose, id }: MovementModalProps) {
           <Button
             type="submit"
             form="movement_item"
-            colorScheme="pink"
+            colorScheme="purple"
             isLoading={isSubmitting}
           >
             Movimentar
