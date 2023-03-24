@@ -13,10 +13,11 @@ interface Item {
 
 interface Data {
   items: Item[];
+  totalCount: number;
 }
 
-export async function getStock(): Promise<Data> {
-  const { data } = await api.get<Data>("/api/stock");
+export async function getStock(skip: number, take: number): Promise<Data> {
+  const { data } = await api.get<Data>(`/api/stock?skip=${skip}&take=${take}`);
 
   const items = data.items.map((item) => {
     return {
@@ -30,11 +31,13 @@ export async function getStock(): Promise<Data> {
     };
   });
 
-  return { items };
+  const totalCount = data.totalCount;
+
+  return { items, totalCount };
 }
 
-export function useStockList() {
-  return useQuery("stock", getStock, {
+export function useStockList(page: number, skip: number, take: number) {
+  return useQuery(["stock", page], () => getStock(skip, take), {
     staleTime: 1000 * 5,
   });
 }

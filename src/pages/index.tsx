@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { TriggerCreate } from "@/components/Modals/Create/Trigger";
+import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
 import { TableStock } from "@/components/TableStock";
 import { useStockList } from "@/hooks/UseStockList";
@@ -11,9 +12,13 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useState } from "react";
 
 export default function Home() {
-  const { data, isLoading, isFetching } = useStockList();
+  const [page, setPage] = useState(1);
+  const take = 10;
+  const skip = (page - 1) * take;
+  const { data, isLoading, isFetching } = useStockList(page, skip, take);
 
   return (
     <>
@@ -53,6 +58,13 @@ export default function Home() {
             ) : (
               <TableStock items={data?.items} />
             )}
+
+            <Pagination
+              currentPage={page}
+              onPageChange={setPage}
+              registersPerPage={take}
+              totalCountofRegisters={data?.totalCount!}
+            />
           </Box>
         </Flex>
       </Flex>
