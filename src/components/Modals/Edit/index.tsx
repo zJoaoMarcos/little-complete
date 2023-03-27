@@ -23,6 +23,7 @@ interface Item {
   name: string;
   description: string;
   type: string;
+  value: string;
   amount: number;
   amount_min: number;
   local: string;
@@ -33,6 +34,7 @@ type UpdateItemData = {
   name: string;
   description: string;
   type: string;
+  value: string;
   amount: number;
   amount_min: number;
   local: string;
@@ -42,6 +44,10 @@ const updateItemFormSchema = yup.object().shape({
   name: yup.string().required("O campo é obrigatório"),
   description: yup.string().required("O campo é obrigatório"),
   type: yup.string().required("O campo é obrigatório"),
+  value: yup
+    .number()
+    .positive()
+    .min(0, "O número deve ser maior o igual a zero"),
   amount_min: yup
     .number()
     .integer("O número deve ser inteiro")
@@ -65,6 +71,7 @@ export function EditModal({ isOpen, onClose, item }: EditModalProps) {
       name: item.name,
       description: item.description,
       type: item.type,
+      value: item.value,
       amount: item.amount,
       amount_min: item.amount_min,
       local: item.local,
@@ -125,6 +132,13 @@ export function EditModal({ isOpen, onClose, item }: EditModalProps) {
                 <option value="Peripheral">Periférico</option>
                 <option value="Extension">Ramal</option>
               </Select>
+
+              <Input
+                {...register("value")}
+                error={errors.value}
+                label="Valor"
+                type="number"
+              />
 
               <Input
                 {...register("amount_min")}

@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (method === "POST") {
     const { name, description, type, amount_min, local, value } = body;
 
-    const session = await getSession();
+    const session = await getSession({ req });
 
     const newItem = await prisma.stock.create({
       data: {
@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         amount_min,
         local,
         value,
-        created_by: session?.user?.email,
+        created_by: session?.user?.email!,
       },
     });
 

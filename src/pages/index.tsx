@@ -35,7 +35,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex flexDir="column" h="100vh" justify="center" maxW={1040}>
+      <Flex flexDir="column" h="100vh" justify="center" px="20">
         <Grid templateColumns="repeat(2, 1fr)">
           <HStack>
             <Heading>Litle Complete.</Heading>

@@ -8,18 +8,17 @@ datasource db {
 }
 
 model stock {
-  id              String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name            String            @db.VarChar(255)
-  description     String?
-  type            String            @db.VarChar(50)
-  amount          Int
-  amount_min      Int
-  local           String            @db.VarChar(100)
-  created_at      DateTime          @default(now()) @db.Date
-  updated_at      DateTime?         @db.Date
-  created_by      String?           @db.VarChar(100)
-  value           Float?
-  stock_movements stock_movements[]
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String    @db.VarChar(255)
+  description String?
+  type        String    @db.VarChar(50)
+  amount      Int
+  amount_min  Int
+  local       String    @db.VarChar(100)
+  created_by  String
+  created_at  DateTime  @default(now()) @db.Date
+  updated_at  DateTime? @db.Date
+  value       String?
 }
 
 model departments {
@@ -111,7 +110,6 @@ model stock_movements {
   amount        Int
   created_at    DateTime @default(now())
   created_by    String?  @db.VarChar(100)
-  stock         stock    @relation(fields: [stock_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_stock_movement_stock_id")
 }
 
 model systems {

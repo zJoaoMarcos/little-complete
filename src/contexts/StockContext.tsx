@@ -10,6 +10,7 @@ interface Item {
   name: string;
   description: string;
   type: string;
+  value: string;
   amount?: number;
   amount_min: number;
   local: string;

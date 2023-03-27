@@ -6,6 +6,7 @@ interface Item {
   name: string;
   description: string;
   type: string;
+  value: string;
   amount: number;
   amount_min: number;
   local: string;
@@ -25,6 +26,7 @@ export async function getStock(skip: number, take: number): Promise<Data> {
       name: item.name,
       description: item.description,
       type: item.type,
+      value: item.value,
       amount: item.amount,
       amount_min: item.amount_min,
       local: item.local,
