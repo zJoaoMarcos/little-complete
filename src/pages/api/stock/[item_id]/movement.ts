@@ -1,14 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { prisma } from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query, body } = req;
 
   if (method === "PUT") {
+    const { partner, type, amount, department } = body;
     const item_id = query.item_id as string;
 
-    const { partner, type, amount, department } = body;
+    const session = await getSession({ req });
 
     const item = await prisma.stock.findUnique({
       where: {
@@ -45,6 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           partner,
           department,
           amount: updateAmount,
+          created_by: session?.user?.email,
         },
       }),
     ]);

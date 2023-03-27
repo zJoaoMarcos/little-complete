@@ -2,11 +2,15 @@
 import { prisma } from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
+import { getSession } from "next-auth/react";
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req;
 
   if (method === "POST") {
-    const { name, description, type, amount, amount_min, local } = body;
+    const { name, description, type, amount_min, local, value } = body;
+
+    const session = await getSession();
 
     const newItem = await prisma.stock.create({
       data: {
@@ -16,6 +20,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         amount: 0,
         amount_min,
         local,
+        value,
+        created_by: session?.user?.email,
       },
     });
 

@@ -25,6 +25,7 @@
     "eslint-config-next": "13.2.4",
     "framer-motion": "^10.3.0",
     "next": "13.2.4",
+    "next-auth": "^4.20.1",
     "prisma": "^4.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -17,6 +17,8 @@ model stock {
   local           String            @db.VarChar(100)
   created_at      DateTime          @default(now()) @db.Date
   updated_at      DateTime?         @db.Date
+  created_by      String?           @db.VarChar(100)
+  value           Float?
   stock_movements stock_movements[]
 }
 
@@ -108,6 +110,7 @@ model stock_movements {
   department    String   @db.VarChar(100)
   amount        Int
   created_at    DateTime @default(now())
+  created_by    String?  @db.VarChar(100)
   stock         stock    @relation(fields: [stock_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_stock_movement_stock_id")
 }
 

@@ -12,12 +12,17 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { CaretDown } from "@phosphor-icons/react";
+import { signOut } from "next-auth/react";
 
 interface ProfileProps {
   showProfileData?: boolean;
 }
 
 export function Profile({ showProfileData = true }: ProfileProps) {
+  const handleSingOut = () => {
+    signOut();
+  };
+
   return (
     <Flex align="center">
       <Menu>
@@ -42,7 +47,7 @@ export function Profile({ showProfileData = true }: ProfileProps) {
         <MenuList borderColor="gray.600">
           <MenuItem>Settings</MenuItem>
           <MenuDivider />
-          <MenuItem>Sign out</MenuItem>
+          <MenuItem onClick={handleSingOut}>Sign out</MenuItem>
         </MenuList>
       </Menu>
     </Flex>

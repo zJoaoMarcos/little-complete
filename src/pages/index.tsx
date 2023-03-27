@@ -1,72 +1,49 @@
-import { Header } from "@/components/Header";
-import { TriggerCreate } from "@/components/Modals/Create/Trigger";
-import { Pagination } from "@/components/Pagination";
-import { Sidebar } from "@/components/Sidebar";
-import { TableStock } from "@/components/TableStock";
-import { useStockList } from "@/hooks/UseStockList";
-import {
-  Box,
-  Flex,
-  Heading,
-  Spinner,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Button, Flex, Grid, Heading, HStack } from "@chakra-ui/react";
+import { Globe } from "@phosphor-icons/react";
+import { GetServerSideProps } from "next";
+import { getSession, signIn } from "next-auth/react";
 import Head from "next/head";
-import { useState } from "react";
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/stock",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};
 
 export default function Home() {
-  const [page, setPage] = useState(1);
-  const take = 10;
-  const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useStockList(page, skip, take);
+  const handleSignIn = () => {
+    signIn("azure-ad");
+  };
 
   return (
     <>
       <Head>
-        <title>myStock</title>
+        <title>Sign In</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex flexDir="column" h="100vh">
-        <Header />
+      <Flex flexDir="column" h="100vh" justify="center" maxW={1040}>
+        <Grid templateColumns="repeat(2, 1fr)">
+          <HStack>
+            <Heading>Litle Complete.</Heading>
+            <Globe size={40} />
+          </HStack>
 
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-          <Sidebar />
-
-          <Box
-            flex="1"
-            h="full"
-            p="8"
-            bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
-            overflowX="auto"
-            borderRadius="md"
-          >
-            <Flex mb="8" justify="space-between" align="center">
-              <Heading as="h3" fontWeight="semibold">
-                Stock
-                {!isLoading && isFetching && (
-                  <Spinner size="sm" color="white" ml="4" />
-                )}
-              </Heading>
-
-              <TriggerCreate />
-            </Flex>
-            {isLoading ? (
-              <Flex justify="center">
-                <Spinner />
-              </Flex>
-            ) : (
-              <TableStock items={data?.items} />
-            )}
-
-            <Pagination
-              currentPage={page}
-              onPageChange={setPage}
-              registersPerPage={take}
-              totalCountofRegisters={data?.totalCount!}
-            />
-          </Box>
-        </Flex>
+          <Button onClick={handleSignIn}>Entrar</Button>
+        </Grid>
       </Flex>
     </>
   );
