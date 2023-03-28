@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req;
 
   if (method === "POST") {
-    const { name, description, type, amount_min, local, value } = body;
+    const { name, description, type, amount_min, local } = body;
 
     const session = await getSession({ req });
 
@@ -20,7 +20,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         amount: 0,
         amount_min,
         local,
-        value,
         created_by: session?.user?.email!,
       },
     });

@@ -18,7 +18,6 @@ model stock {
   created_by  String
   created_at  DateTime  @default(now()) @db.Date
   updated_at  DateTime? @db.Date
-  value       String?
 }
 
 model departments {
@@ -109,7 +108,8 @@ model stock_movements {
   department    String   @db.VarChar(100)
   amount        Int
   created_at    DateTime @default(now())
-  created_by    String?  @db.VarChar(100)
+  created_by    String   @db.VarChar(100)
+  value         String?
 }
 
 model systems {

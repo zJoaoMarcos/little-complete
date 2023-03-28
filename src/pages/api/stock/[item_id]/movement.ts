@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query, body } = req;
 
   if (method === "PUT") {
-    const { partner, type, amount, department } = body;
+    const { partner, type, amount, department, value } = body;
     const item_id = query.item_id as string;
 
     const session = await getSession({ req });
@@ -47,7 +47,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           partner,
           department,
           amount: updateAmount,
-          created_by: session?.user?.email,
+          created_by: session?.user?.email!,
+          value,
         },
       }),
     ]);

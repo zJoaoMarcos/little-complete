@@ -24,6 +24,7 @@ type MovementItemData = {
   partner: string;
   department: string;
   amount: number;
+  value: string;
 };
 
 const movementItemFormSchema = yup.object().shape({
@@ -35,6 +36,16 @@ const movementItemFormSchema = yup.object().shape({
     .integer()
     .positive()
     .moreThan(0, "O número deve ser maior igual a 1"),
+  value: yup
+    .string()
+    .transform((value, originalValue) => originalValue.replace(",", "."))
+    .test("is-number", "Invalid price", (value) => !isNaN(parseFloat(value!)))
+    .test(
+      "is-positive",
+      "Price must be positive",
+      (value) => parseFloat(value!) >= 0
+    )
+    .min(0, "Preço precisa ser maior ou igual a 0."),
 });
 
 interface MovementModalProps {
@@ -44,7 +55,7 @@ interface MovementModalProps {
 }
 
 export function MovementModal({ isOpen, onClose, id }: MovementModalProps) {
-  const { register, handleSubmit, formState, reset } =
+  const { register, handleSubmit, formState, reset, watch, setValue } =
     useForm<MovementItemData>({
       resolver: yupResolver(movementItemFormSchema),
       defaultValues: {
@@ -52,6 +63,11 @@ export function MovementModal({ isOpen, onClose, id }: MovementModalProps) {
       },
     });
   const { errors, isSubmitting } = formState;
+  const type = watch("type");
+
+  if (type === "output") {
+    setValue("value", "0,00");
+  }
 
   const { movementItem } = useStock();
 
@@ -117,6 +133,14 @@ export function MovementModal({ isOpen, onClose, id }: MovementModalProps) {
                 label="Quantidade"
                 type="number"
                 placeholder="0"
+              />
+
+              <Input
+                {...register("value")}
+                error={errors.value}
+                placeholder="R$ 99,99"
+                label="Valor"
+                isDisabled={type === "output"}
               />
             </Stack>
           </Box>

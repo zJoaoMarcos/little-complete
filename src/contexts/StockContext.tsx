@@ -10,7 +10,6 @@ interface Item {
   name: string;
   description: string;
   type: string;
-  value: string;
   amount?: number;
   amount_min: number;
   local: string;
@@ -22,6 +21,7 @@ interface Movement {
   partner: string;
   department: string;
   amount: number;
+  value: string;
 }
 
 interface StockProviderContextData {
