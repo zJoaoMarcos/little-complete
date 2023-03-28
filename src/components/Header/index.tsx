@@ -49,9 +49,9 @@ export function Header() {
           aria-label="theme"
           icon={
             colorMode === "light" ? (
-              <MoonStars size={24} />
+              <MoonStars weight="fill" color="darkblue" size={24} />
             ) : (
-              <SunDim size={24} />
+              <SunDim weight="fill" color="yellow" size={24} />
             )
           }
           onClick={toggleColorMode}
