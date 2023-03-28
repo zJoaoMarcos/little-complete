@@ -1,16 +1,24 @@
 import { Header } from "@/components/Header";
+import { TriggerCreate } from "@/components/Modals/Create/Trigger";
+import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
+import { TableStock } from "@/components/TableStock";
+import { useShopList } from "@/hooks/UseShopList";
 import {
   Box,
   Flex,
   Heading,
-  Progress,
-  Text,
+  Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useState } from "react";
 
 export default function Shop() {
+  const [page, setPage] = useState(1);
+  const take = 10;
+  const skip = (page - 1) * take;
+  const { data, isLoading, isFetching } = useShopList(page, skip, take);
   return (
     <>
       <Head>
@@ -31,13 +39,30 @@ export default function Shop() {
             overflowX="auto"
             borderRadius="md"
           >
-            <Heading>Lista de Compras</Heading>
+            <Flex mb="8" justify="space-between" align="center">
+              <Heading as="h3" fontWeight="semibold">
+                Stock
+                {!isLoading && isFetching && (
+                  <Spinner size="sm" color="white" ml="4" />
+                )}
+              </Heading>
 
-            <Text textAlign="center" mt={20} fontSize="3xl" animation="running">
-              Novidades em breve... 🚀
-            </Text>
+              <TriggerCreate />
+            </Flex>
+            {isLoading ? (
+              <Flex justify="center">
+                <Spinner />
+              </Flex>
+            ) : (
+              <TableStock items={data?.items} />
+            )}
 
-            <Progress value={70} size="xs" hasStripe colorScheme="purple" />
+            <Pagination
+              currentPage={page}
+              onPageChange={setPage}
+              registersPerPage={take}
+              totalCountofRegisters={data?.totalCount!}
+            />
           </Box>
         </Flex>
       </Flex>
