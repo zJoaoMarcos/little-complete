@@ -41,7 +41,7 @@ export default function Shop() {
           >
             <Flex mb="8" justify="space-between" align="center">
               <Heading as="h3" fontWeight="semibold">
-                Stock
+                Lista de Compras
                 {!isLoading && isFetching && (
                   <Spinner size="sm" color="white" ml="4" />
                 )}
