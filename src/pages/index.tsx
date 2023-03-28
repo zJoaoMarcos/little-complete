@@ -1,5 +1,4 @@
 import { Button, Flex, Grid, Heading, HStack } from "@chakra-ui/react";
-import { Globe } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import Head from "next/head";
@@ -39,7 +38,6 @@ export default function Home() {
         <Grid templateColumns="repeat(2, 1fr)">
           <HStack>
             <Heading>Litle Complete.</Heading>
-            <Globe size={40} />
           </HStack>
 
           <Button onClick={handleSignIn}>Entrar</Button>

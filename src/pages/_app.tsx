@@ -1,4 +1,4 @@
-import { Ubuntu } from "@next/font/google";
+import { Ubuntu } from "next/font/google";
 import type { AppProps } from "next/app";
 
 import { ChakraProvider } from "@chakra-ui/react";
