@@ -38,9 +38,10 @@ export default function Home() {
       <Container maxW={"5xl"}>
         <Stack
           textAlign={"center"}
-          align={"center"}
+          alignItems={"center"}
+          justifyContent={"center"}
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 20, md: 28 }}
+          py={{ base: 56 }}
         >
           <Heading
             fontWeight={600}
@@ -48,25 +49,24 @@ export default function Home() {
             lineHeight={"110%"}
           >
             Little Complete{" "}
-            <Text as={"span"} color={"orange.400"}>
+            <Text as={"span"} color={"purple.400"}>
               {"</>"}
             </Text>
           </Heading>
-          <Text color={"gray.500"} maxW={"3xl"}>
-            Um pouquinho de tudo. O mió dos miores
+          <Text color={"gray.400"} maxW={"3xl"}>
+            Um pouco de tudo, de tudo um pouco. O mió dos miores.
           </Text>
-          <Stack spacing={6} direction={"row"}>
-            <Button
-              onClick={handleSignIn}
-              rounded={"full"}
-              px={6}
-              colorScheme={"orange"}
-              bg={"orange.400"}
-              _hover={{ bg: "orange.500" }}
-            >
-              Get started
-            </Button>
-          </Stack>
+          <Button
+            onClick={handleSignIn}
+            rounded={"full"}
+            px={10}
+            size={"lg"}
+            colorScheme={"purple"}
+            bg={"purple.400"}
+            _hover={{ bg: "purple.500" }}
+          >
+            Entrar
+          </Button>
         </Stack>
       </Container>
     </>
