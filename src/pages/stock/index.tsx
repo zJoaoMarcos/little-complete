@@ -20,8 +20,6 @@ export default function Stock() {
   const skip = (page - 1) * take;
   const { data, isLoading, isFetching } = useStockList(page, skip, take);
 
-  console.log(data);
-
   return (
     <>
       <Head>

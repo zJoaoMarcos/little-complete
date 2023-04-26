@@ -19,7 +19,7 @@ interface Data {
 
 export async function getStock(skip: number, take: number): Promise<Data> {
   const { data } = await api.get<Data>(`/api/stock?skip=${skip}&take=${take}`);
-  console.log(data);
+
   const items = data.items.map((item) => {
     return {
       id: item.id,
