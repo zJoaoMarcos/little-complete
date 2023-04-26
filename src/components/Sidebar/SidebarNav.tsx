@@ -14,13 +14,13 @@ export function SidebarNav() {
   return (
     <Stack spacing="8" align="flex-start">
       <NavSection title="DEPARTAMENTOS">
-        <NavLink icon={Buildings} href="/department">
+        <NavLink icon={Buildings} href="/departments">
           Departamentos
         </NavLink>
       </NavSection>
 
       <NavSection title="USUÁRIOS">
-        <NavLink icon={User} href="/user">
+        <NavLink icon={User} href="/users">
           Usuários
         </NavLink>
       </NavSection>
