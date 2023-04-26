@@ -25,8 +25,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     LIMIT ${take} OFFSET ${skip}`,
     ]);
 
-    console.log(totalCount);
-
     return res.status(201).json({ totalCount, items });
   } else {
     res.setHeader("Allow", "GET");
