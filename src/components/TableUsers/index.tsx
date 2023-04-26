@@ -1,4 +1,5 @@
 import {
+  Link,
   Table,
   TableContainer,
   Tbody,
@@ -8,7 +9,7 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { TriggerMovement } from "../Modals/Movement/Trigger";
+import { Eye } from "@phosphor-icons/react";
 
 interface User {
   user_name: string;
@@ -43,7 +44,6 @@ export function TableUser({ users }: TableStockProps) {
             <Th>Cargo</Th>
             <Th>Status</Th>
             <Th></Th>
-            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -56,11 +56,10 @@ export function TableUser({ users }: TableStockProps) {
                 <Td>{user.title}</Td>
                 <Td>{user.status}</Td>
                 <Td>
-                  <TriggerMovement id={user.user_name} />
+                  <Link href={`/users/${user.user_name}`}>
+                    <Eye size={20} />
+                  </Link>
                 </Td>
-                {/* <Td>
-                  <TriggerEdit item={user} />
-                </Td> */}
               </Tr>
             ))}
           </>
