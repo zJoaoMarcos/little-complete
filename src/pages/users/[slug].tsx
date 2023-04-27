@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartment/Trigger";
 import { TriggerChangeStatus } from "@/components/Modals/User/ChangeStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
+import { getOneUser, useUser } from "@/hooks/UseOneUser";
 import {
   Avatar,
   Badge,
@@ -17,7 +18,6 @@ import {
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -37,6 +37,8 @@ interface UserProps {
 }
 
 export default function User({ user }: UserProps) {
+  const { data } = useUser(user.user_name, { initialData: user });
+
   return (
     <>
       <Head>
@@ -59,11 +61,12 @@ export default function User({ user }: UserProps) {
           >
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
-                <Avatar name={user.complete_name} size="lg" />
+                <Avatar name={data.user.user_name} size="lg" />
 
                 <VStack justify={"start"} alignItems="start">
                   <Text fontWeight="semibold" fontSize={18}>
-                    Status: <Badge colorScheme="green">{user.status}</Badge>
+                    Status:{" "}
+                    <Badge colorScheme="green">{data.user.status}</Badge>
                   </Text>
 
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
@@ -74,14 +77,14 @@ export default function User({ user }: UserProps) {
 
               <HStack>
                 <TriggerChangeDepartment
-                  userName={user.user_name}
-                  title={user.title}
-                  departmentId={user.department_id}
-                  directBoss={user.direct_boss}
+                  userName={data.user.user_name}
+                  title={data.user.title}
+                  departmentId={data.user.department_id}
+                  directBoss={data.user.direct_boss}
                 />
                 <TriggerChangeStatus
-                  userName={user.user_name}
-                  currentStatus={user.status}
+                  userName={data.user.user_name}
+                  currentStatus={data.user.status}
                 />
               </HStack>
             </Flex>
@@ -95,14 +98,14 @@ export default function User({ user }: UserProps) {
                   <Text as={"span"} fontWeight={"bold"}>
                     Usuário:
                   </Text>{" "}
-                  {user.user_name}
+                  {data.user.user_name}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Cargo:
                   </Text>{" "}
-                  {user.title}
+                  {data.user.title}
                 </ListItem>
                 <ListItem>
                   {" "}
@@ -161,24 +164,11 @@ export default function User({ user }: UserProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params;
 
-  const { data } = await axios.get<UserProps>(
-    `http://localhost:3001/users/${slug}`
-  );
+  const user = await getOneUser(slug as string);
 
   return {
     props: {
-      user: {
-        user_name: data.user.user_name,
-        complete_name: data.user.complete_name,
-        title: data.user.title,
-        department_id: data.user.department_id,
-        telephone: data.user.telephone,
-        direct_boss: data.user.direct_boss,
-        smtp: data.user.smtp,
-        admission_date: data.user.admission_date,
-        demission_date: data.user.demission_date,
-        status: data.user.status,
-      },
+      user: user,
     },
   };
 };
