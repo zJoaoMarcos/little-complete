@@ -6,6 +6,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Divider,
   Flex,
   HStack,
   Heading,
@@ -56,7 +57,7 @@ export default function User({ user }: UserProps) {
             overflowX="auto"
             borderRadius="md"
           >
-            <Flex mb="20" justify="space-between" align="center">
+            <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
                 <Avatar name={user.complete_name} size="lg" />
 
@@ -77,11 +78,9 @@ export default function User({ user }: UserProps) {
               </HStack>
             </Flex>
 
-            <SimpleGrid
-              columns={{ base: 1, md: 2 }}
-              spacing={10}
-              marginTop={10}
-            >
+            <Divider />
+
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} marginTop={8}>
               <List spacing={6}>
                 <ListItem>
                   {" "}
