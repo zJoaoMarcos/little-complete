@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
+import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartment/Trigger";
 import { TriggerChangeStatus } from "@/components/Modals/User/ChangeStatus/Trigger";
-import { TriggerChangeTitle } from "@/components/Modals/User/ChangeTitle/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import {
   Avatar,
@@ -73,8 +73,16 @@ export default function User({ user }: UserProps) {
               </HStack>
 
               <HStack>
-                <TriggerChangeTitle />
-                <TriggerChangeStatus />
+                <TriggerChangeDepartment
+                  userName={user.user_name}
+                  title={user.title}
+                  departmentId={user.department_id}
+                  directBoss={user.direct_boss}
+                />
+                <TriggerChangeStatus
+                  userName={user.user_name}
+                  currentStatus={user.status}
+                />
               </HStack>
             </Flex>
 
