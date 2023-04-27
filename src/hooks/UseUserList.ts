@@ -1,4 +1,4 @@
-import axios from "axios";
+import { backend } from "@/lib/api";
 import { useQuery } from "react-query";
 
 interface User {
@@ -19,8 +19,8 @@ interface Data {
   totalCount: number;
 }
 
-export async function getUser(skip: number, take: number): Promise<Data> {
-  const { data } = await axios.get<Data>("http://localhost:3001/users");
+export async function getUsers(skip: number, take: number): Promise<Data> {
+  const { data } = await backend.get<Data>("/users");
 
   const users = data.users.map((user) => {
     return {
@@ -42,8 +42,8 @@ export async function getUser(skip: number, take: number): Promise<Data> {
   return { users, totalCount };
 }
 
-export function useUserList(page: number, skip: number, take: number) {
-  return useQuery(["user", page], () => getUser(skip, take), {
+export function useUsersList(page: number, skip: number, take: number) {
+  return useQuery(["user", page], () => getUsers(skip, take), {
     staleTime: 1000 * 5,
   });
 }

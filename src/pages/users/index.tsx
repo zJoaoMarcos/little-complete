@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { CreateUserTrigger } from "@/components/Modals/User/CreateUser/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { TableUser } from "@/components/TableUsers";
-import { useUserList } from "@/hooks/UseUserList";
+import { useUsersList } from "@/hooks/UseUserList";
 import {
   Box,
   Flex,
@@ -17,7 +17,7 @@ export default function User() {
   const [page, setPage] = useState(1);
   const take = 10;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useUserList(page, skip, take);
+  const { data, isLoading, isFetching } = useUsersList(page, skip, take);
 
   return (
     <>
@@ -54,7 +54,7 @@ export default function User() {
                 <Spinner />
               </Flex>
             ) : (
-              <TableUser users={data?.users} />
+              <TableUser users={data.users} />
             )}
 
             {/* <Pagination
