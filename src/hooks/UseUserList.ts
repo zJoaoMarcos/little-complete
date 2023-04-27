@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 
-interface Item {
+interface User {
   user_name: string;
   complete_name: string;
   title: string;
@@ -9,13 +9,13 @@ interface Item {
   telephone: number | null;
   direct_boss: string;
   smtp: string;
-  admission_date: string;
-  demission_date: string | null;
+  admission_date: Date;
+  demission_date: Date | null;
   status: string;
 }
 
 interface Data {
-  users: Item[];
+  users: User[];
   totalCount: number;
 }
 
