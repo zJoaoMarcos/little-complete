@@ -2,7 +2,15 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 import { ArrowsClockwise } from "@phosphor-icons/react";
 import { ChangeStatusModal } from ".";
 
-export function TriggerChangeStatus() {
+interface TriggerChangeStatusProps {
+  userName: string;
+  currentStatus: string;
+}
+
+export function TriggerChangeStatus({
+  userName,
+  currentStatus,
+}: TriggerChangeStatusProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -14,7 +22,12 @@ export function TriggerChangeStatus() {
         Status
       </Button>
 
-      <ChangeStatusModal isOpen={isOpen} onClose={onClose} />
+      <ChangeStatusModal
+        isOpen={isOpen}
+        onClose={onClose}
+        userName={userName}
+        currentStatus={currentStatus}
+      />
     </>
   );
 }

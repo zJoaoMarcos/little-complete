@@ -16,11 +16,35 @@ interface CreateUserData {
   admission_date?: Date;
 }
 
+interface ChangeStatusData {
+  user_name: string;
+  status: string;
+}
+
+interface ChangeDepartmentData {
+  user_name: string;
+  department_id: string;
+  title: string;
+  direct_boss: string;
+}
+
 interface StockProviderContextData {
   createUser: UseMutationResult<
     CreateUserData,
     unknown,
     CreateUserData,
+    unknown
+  >;
+  changeStatus: UseMutationResult<
+    ChangeStatusData,
+    unknown,
+    ChangeStatusData,
+    unknown
+  >;
+  changeDepartment: UseMutationResult<
+    ChangeDepartmentData,
+    unknown,
+    ChangeDepartmentData,
     unknown
   >;
 }
@@ -56,8 +80,58 @@ export function UserProvider({ children }: UserProviderProps) {
     }
   );
 
+  const changeStatus = useMutation(
+    async (data: ChangeStatusData) => {
+      const res = await axios.patch<ChangeStatusData>(
+        `http://localhost:3001/users/status/${data.user_name}`,
+        {
+          ...data,
+        }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Status alterado com sucesso");
+        queryClient.invalidateQueries("user");
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos alterar o status do usuário, tente mais tarde"
+        );
+      },
+    }
+  );
+
+  const changeDepartment = useMutation(
+    async (data: ChangeDepartmentData) => {
+      const res = await axios.patch<ChangeDepartmentData>(
+        `http://localhost:3001/users/department/${data.user_name}`,
+        {
+          ...data,
+        }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Status alterado com sucesso");
+        queryClient.invalidateQueries("user");
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos alterar o status do usuário, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
-    <StockContext.Provider value={{ createUser }}>
+    <StockContext.Provider
+      value={{ createUser, changeStatus, changeDepartment }}
+    >
       {children}
     </StockContext.Provider>
   );
