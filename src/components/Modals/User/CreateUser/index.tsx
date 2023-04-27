@@ -1,4 +1,5 @@
 import { Input } from "@/components/Form/input";
+import { useUser } from "@/contexts/UserContext";
 import {
   Box,
   Button,
@@ -36,13 +37,18 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
     useForm<CreateUserData>();
   const { errors, isSubmitting } = formState;
 
+  const { createUser } = useUser();
+
   const handleCreateUser: SubmitHandler<CreateUserData> = async (
     data,
     event
   ) => {
     event?.preventDefault();
 
-    console.log(data);
+    await createUser.mutateAsync(data);
+
+    onClose();
+    reset();
   };
 
   return (
@@ -70,38 +76,55 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
                 {...register("user_name")}
                 error={errors.user_name}
                 label="User Name"
+                type="text"
               />
 
               <Input
                 {...register("complete_name")}
                 error={errors.complete_name}
                 label="Nome Completo"
+                type="text"
+              />
+
+              <Input
+                {...register("department_id")}
+                error={errors.department_id}
+                label="Departamento"
               />
 
               <Input
                 {...register("title")}
                 error={errors.title}
                 label="Cargo"
+                type="text"
               />
 
               <Input
                 {...register("telephone")}
                 error={errors.telephone}
                 label="Ramal"
+                type="number"
               />
 
               <Input
                 {...register("direct_boss")}
                 error={errors.direct_boss}
                 label="Chefia Imediata"
+                type="text"
               />
 
-              <Input {...register("smtp")} error={errors.smtp} label="E-mail" />
+              <Input
+                {...register("smtp")}
+                error={errors.smtp}
+                label="E-mail"
+                type="email"
+              />
 
               <Input
                 {...register("admission_date")}
                 error={errors.admission_date}
                 label="Data de Admissão"
+                type="date"
               />
             </Stack>
           </Box>

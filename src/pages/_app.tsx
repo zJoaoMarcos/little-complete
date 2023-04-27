@@ -1,10 +1,11 @@
-import { Ubuntu } from "next/font/google";
 import type { AppProps } from "next/app";
+import { Ubuntu } from "next/font/google";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { SidebarDrawerProvider } from "@/contexts/SidebarDrawerContext";
 import { StockProvider } from "@/contexts/StockContext";
+import { UserProvider } from "@/contexts/UserContext";
 import { queryClient } from "@/lib/queryClient";
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider } from "react-query";
@@ -22,12 +23,14 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
           <StockProvider>
-            <SidebarDrawerProvider>
-              <main className="ubuntu.classname">
-                <ToastContainer theme={"colored"} />
-                <Component {...pageProps} />
-              </main>
-            </SidebarDrawerProvider>
+            <UserProvider>
+              <SidebarDrawerProvider>
+                <main className="ubuntu.classname">
+                  <ToastContainer theme={"colored"} />
+                  <Component {...pageProps} />
+                </main>
+              </SidebarDrawerProvider>
+            </UserProvider>
           </StockProvider>
         </ChakraProvider>
       </QueryClientProvider>
