@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { TriggerCreate } from "@/components/Modals/Create/Trigger";
+import { CreateUserTrigger } from "@/components/Modals/User/CreateUser/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { TableUser } from "@/components/TableUsers";
 import { useUserList } from "@/hooks/UseUserList";
@@ -47,7 +47,7 @@ export default function User() {
                 )}
               </Heading>
 
-              <TriggerCreate />
+              <CreateUserTrigger />
             </Flex>
             {isLoading ? (
               <Flex justify="center">

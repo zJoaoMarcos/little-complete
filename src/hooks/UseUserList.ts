@@ -36,6 +36,7 @@ export async function getUser(skip: number, take: number): Promise<Data> {
       status: user.status,
     };
   });
+
   const totalCount = data.totalCount;
 
   return { users, totalCount };
