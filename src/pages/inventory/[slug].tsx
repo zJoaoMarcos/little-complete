@@ -47,7 +47,7 @@ export default function User({ equipment }: EquipmentProps) {
   return (
     <>
       <Head>
-        <title>Equipment</title>
+        <title>{equipment.id} | Equipment</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -95,13 +95,6 @@ export default function User({ equipment }: EquipmentProps) {
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
-                    Departamento:
-                  </Text>{" "}
-                  {data.equipment.department}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
                     Fabricante:
                   </Text>{" "}
                   {data.equipment.brand}
@@ -112,6 +105,101 @@ export default function User({ equipment }: EquipmentProps) {
                     Modelo:
                   </Text>{" "}
                   {data.equipment.model}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Processador:
+                  </Text>{" "}
+                  {data.equipment.cpu}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Memória Ram:
+                  </Text>{" "}
+                  {data.equipment.ram}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Slots:
+                  </Text>{" "}
+                  {data.equipment.slots}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Tipo de Armazenamento (1):
+                  </Text>{" "}
+                  {data.equipment.storage0_type}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Tamanho do Armazenamento (1):
+                  </Text>{" "}
+                  {data.equipment.storage0_syze}
+                </ListItem>
+              </List>
+
+              <List spacing={6}>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Departamento:
+                  </Text>{" "}
+                  {data.equipment.department}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Data de Compra:
+                  </Text>{" "}
+                  {data.equipment.purchase_date}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Garantia:
+                  </Text>{" "}
+                  {data.equipment.warranty}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Placa de Video:
+                  </Text>{" "}
+                  {data.equipment.video}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Service Tag:
+                  </Text>{" "}
+                  {data.equipment.service_tag}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    N° da NF:
+                  </Text>{" "}
+                  {data.equipment.invoice}
+                </ListItem>
+
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Tipo de Armazenamento (2):
+                  </Text>{" "}
+                  {data.equipment.storage1_type}
+                </ListItem>
+                <ListItem>
+                  {" "}
+                  <Text as={"span"} fontWeight={"bold"}>
+                    Tamanho do Armazenamento (2):
+                  </Text>{" "}
+                  {data.equipment.storage1_syze}
                 </ListItem>
               </List>
             </SimpleGrid>
