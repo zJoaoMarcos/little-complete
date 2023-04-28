@@ -1,4 +1,4 @@
-import { backend } from "@/lib/api";
+import { backend } from "@/lib/backendApi";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
 interface User {

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext } from "react";
 
+import { backend } from "@/lib/backendApi";
 import { queryClient } from "@/lib/queryClient";
-import axios from "axios";
 import { useMutation, UseMutationResult } from "react-query";
 import { toast } from "react-toastify";
 
@@ -58,12 +58,9 @@ interface UserProviderProps {
 export function UserProvider({ children }: UserProviderProps) {
   const createUser = useMutation(
     async (data: CreateUserData) => {
-      const res = await axios.post<CreateUserData>(
-        "http://localhost:3001/users",
-        {
-          ...data,
-        }
-      );
+      const res = await backend.post<CreateUserData>("users", {
+        ...data,
+      });
 
       return res.data;
     },
@@ -82,8 +79,8 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const changeStatus = useMutation(
     async (data: ChangeStatusData) => {
-      const res = await axios.patch<ChangeStatusData>(
-        `http://localhost:3001/users/status/${data.user_name}`,
+      const res = await backend.patch<ChangeStatusData>(
+        `users/status/${data.user_name}`,
         {
           ...data,
         }
@@ -106,8 +103,8 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const changeDepartment = useMutation(
     async (data: ChangeDepartmentData) => {
-      const res = await axios.patch<ChangeDepartmentData>(
-        `http://localhost:3001/users/department/${data.user_name}`,
+      const res = await backend.patch<ChangeDepartmentData>(
+        `users/department/${data.user_name}`,
         {
           ...data,
         }
