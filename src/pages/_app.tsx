@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { Ubuntu } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -13,7 +13,7 @@ import { QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ubuntu = Ubuntu({
+const inter = Inter({
   weight: ["300", "500", "700"],
   subsets: ["latin"],
 });
@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <EquipmentProvider>
               <UserProvider>
                 <SidebarDrawerProvider>
-                  <main className="ubuntu.classname">
+                  <main className="inter.classname">
                     <ToastContainer theme={"colored"} />
                     <Component {...pageProps} />
                   </main>
