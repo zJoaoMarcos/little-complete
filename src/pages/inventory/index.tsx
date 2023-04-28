@@ -13,7 +13,7 @@ import {
 import Head from "next/head";
 import { useState } from "react";
 
-export default function Equipment() {
+export default function Inventory() {
   const [page, setPage] = useState(1);
   const take = 10;
   const skip = (page - 1) * take;
