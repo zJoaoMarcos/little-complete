@@ -1,9 +1,8 @@
 import { Header } from "@/components/Header";
-import { TriggerCreate } from "@/components/Modals/Create/Trigger";
-import { Pagination } from "@/components/Pagination";
+import { CreateUserTrigger } from "@/components/Modals/User/CreateUser/Trigger";
 import { Sidebar } from "@/components/Sidebar";
-import { TableStock } from "@/components/TableStock";
-import { useStockList } from "@/hooks/UseStockList";
+import { TableUser } from "@/components/TableUsers";
+import { useUsersList } from "@/hooks/UseUserList";
 import {
   Box,
   Flex,
@@ -14,16 +13,16 @@ import {
 import Head from "next/head";
 import { useState } from "react";
 
-export default function Stock() {
+export default function User() {
   const [page, setPage] = useState(1);
   const take = 10;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useStockList(page, skip, take);
+  const { data, isLoading, isFetching } = useUsersList(page, skip, take);
 
   return (
     <>
       <Head>
-        <title>Stock</title>
+        <title>Users</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -42,28 +41,28 @@ export default function Stock() {
           >
             <Flex mb="8" justify="space-between" align="center">
               <Heading as="h3" fontWeight="semibold">
-                Estoque
+                Usuários
                 {!isLoading && isFetching && (
                   <Spinner size="sm" color="white" ml="4" />
                 )}
               </Heading>
 
-              <TriggerCreate />
+              <CreateUserTrigger />
             </Flex>
             {isLoading ? (
               <Flex justify="center">
                 <Spinner />
               </Flex>
             ) : (
-              <TableStock items={data?.items} />
+              <TableUser users={data.users} />
             )}
 
-            <Pagination
+            {/* <Pagination
               currentPage={page}
               onPageChange={setPage}
               registersPerPage={take}
               totalCountofRegisters={data?.totalCount!}
-            />
+            /> */}
           </Box>
         </Flex>
       </Flex>
