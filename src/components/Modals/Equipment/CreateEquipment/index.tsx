@@ -51,7 +51,7 @@ export function CreateEquipmentModal({
 
   const { createEquipment } = useEquipment();
 
-  const handleCreateUser: SubmitHandler<CreateEquipmentData> = async (
+  const handleCreateEquipment: SubmitHandler<CreateEquipmentData> = async (
     data,
     event
   ) => {
@@ -81,7 +81,7 @@ export function CreateEquipmentModal({
           <Box
             as="form"
             id="create_equipment"
-            onSubmit={handleSubmit(handleCreateUser)}
+            onSubmit={handleSubmit(handleCreateEquipment)}
           >
             <Stack spacing="4">
               <Input
