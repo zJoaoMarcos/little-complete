@@ -1,20 +1,27 @@
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
+import { TableInventory } from "@/components/Tables/TableInventory";
+import { useInvetoryList } from "@/hooks/UseInventoryList";
 import {
   Box,
   Flex,
   Heading,
-  Progress,
-  Text,
+  Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useState } from "react";
 
-export default function Printers() {
+export default function Equipment() {
+  const [page, setPage] = useState(1);
+  const take = 10;
+  const skip = (page - 1) * take;
+  const { data, isLoading, isFetching } = useInvetoryList(page, skip, take);
+
   return (
     <>
       <Head>
-        <title>Inventory</title>
+        <title>Inventário</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -31,13 +38,28 @@ export default function Printers() {
             overflowX="auto"
             borderRadius="md"
           >
-            <Heading>Inventário</Heading>
+            <Flex mb="8" justify="space-between" align="center">
+              <Heading as="h3" fontWeight="semibold">
+                Inventário
+                {!isLoading && isFetching && (
+                  <Spinner size="sm" color="white" ml="4" />
+                )}
+              </Heading>
+            </Flex>
+            {isLoading ? (
+              <Flex justify="center">
+                <Spinner />
+              </Flex>
+            ) : (
+              <TableInventory equipments={data.equipments} />
+            )}
 
-            <Text textAlign="center" my={20} fontSize="3xl" animation="running">
-              Novidades em breve... 🚀
-            </Text>
-
-            <Progress value={70} size="xs" hasStripe colorScheme="purple" />
+            {/* <Pagination
+          currentPage={page}
+          onPageChange={setPage}
+          registersPerPage={take}
+          totalCountofRegisters={data?.totalCount!}
+        /> */}
           </Box>
         </Flex>
       </Flex>

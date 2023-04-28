@@ -24,11 +24,11 @@ interface User {
   status: string;
 }
 
-interface TableStockProps {
+interface TableUsersProps {
   users: User[] | undefined;
 }
 
-export function TableUser({ users }: TableStockProps) {
+export function TableUser({ users }: TableUsersProps) {
   return (
     <TableContainer w="100%" marginTop="8" px="2" py="4" borderRadius="md">
       <Table
