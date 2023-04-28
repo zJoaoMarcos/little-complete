@@ -34,7 +34,7 @@ export async function getOneEquipment(equipmentId: string): Promise<Data> {
   return { equipment };
 }
 
-export function useEquipment(equipmentId: string, options: UseQueryOptions) {
+export function useOneEquipment(equipmentId: string, options: UseQueryOptions) {
   return useQuery(["user"], () => getOneEquipment(equipmentId), {
     staleTime: 1000 * 5, // 5 minutes
     ...options,

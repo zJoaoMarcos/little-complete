@@ -26,7 +26,7 @@ export async function getOneUser(userId: string): Promise<Data> {
   return { user };
 }
 
-export function useUser(userId: string, options: UseQueryOptions) {
+export function useOneUser(userId: string, options: UseQueryOptions) {
   return useQuery(["user"], () => getOneUser(userId), {
     staleTime: 1000 * 5, // 5 minutes
     ...options,

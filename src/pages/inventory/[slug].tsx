@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
-import { getOneEquipment, useEquipment } from "@/hooks/UseOneEquipment";
+import { getOneEquipment, useOneEquipment } from "@/hooks/UseOneEquipment";
 import {
   Badge,
   Box,
@@ -42,7 +42,7 @@ interface EquipmentProps {
 }
 
 export default function User({ equipment }: EquipmentProps) {
-  const { data } = useEquipment(equipment.id, { initialData: equipment });
+  const { data } = useOneEquipment(equipment.id, { initialData: equipment });
 
   return (
     <>

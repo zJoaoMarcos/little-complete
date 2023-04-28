@@ -3,6 +3,7 @@ import { Ubuntu } from "next/font/google";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
+import { EquipmentProvider } from "@/contexts/EquipmetContext";
 import { SidebarDrawerProvider } from "@/contexts/SidebarDrawerContext";
 import { StockProvider } from "@/contexts/StockContext";
 import { UserProvider } from "@/contexts/UserContext";
@@ -23,14 +24,16 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
           <StockProvider>
-            <UserProvider>
-              <SidebarDrawerProvider>
-                <main className="ubuntu.classname">
-                  <ToastContainer theme={"colored"} />
-                  <Component {...pageProps} />
-                </main>
-              </SidebarDrawerProvider>
-            </UserProvider>
+            <EquipmentProvider>
+              <UserProvider>
+                <SidebarDrawerProvider>
+                  <main className="ubuntu.classname">
+                    <ToastContainer theme={"colored"} />
+                    <Component {...pageProps} />
+                  </main>
+                </SidebarDrawerProvider>
+              </UserProvider>
+            </EquipmentProvider>
           </StockProvider>
         </ChakraProvider>
       </QueryClientProvider>

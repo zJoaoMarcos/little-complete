@@ -1,5 +1,5 @@
 import { Input } from "@/components/Form/input";
-import { useUser } from "@/contexts/UserContext";
+import { useEquipment } from "@/contexts/EquipmetContext";
 import {
   Box,
   Button,
@@ -49,7 +49,7 @@ export function CreateEquipmentModal({
     useForm<CreateEquipmentData>();
   const { errors, isSubmitting } = formState;
 
-  const { createUser } = useUser();
+  const { createEquipment } = useEquipment();
 
   const handleCreateUser: SubmitHandler<CreateEquipmentData> = async (
     data,
@@ -57,10 +57,10 @@ export function CreateEquipmentModal({
   ) => {
     event?.preventDefault();
 
-    /* await createUser.mutateAsync(data);
+    await createEquipment.mutateAsync(data);
 
     onClose();
-    reset(); */
+    reset();
   };
 
   return (
@@ -114,7 +114,7 @@ export function CreateEquipmentModal({
               <Input
                 {...register("model")}
                 error={errors.model}
-                label="Departamento"
+                label="Modelo"
               />
 
               <Input
