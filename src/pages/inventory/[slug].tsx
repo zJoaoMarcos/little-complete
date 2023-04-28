@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { UpdateEquipmentTrigger } from "@/components/Modals/Equipment/UpdateEquipment/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { getOneEquipment, useOneEquipment } from "@/hooks/UseOneEquipment";
 import {
@@ -78,7 +79,9 @@ export default function User({ equipment }: EquipmentProps) {
                 </VStack>
               </HStack>
 
-              <HStack></HStack>
+              <HStack>
+                <UpdateEquipmentTrigger equipment={data.equipment} />
+              </HStack>
             </Flex>
 
             <Divider />
