@@ -19,7 +19,7 @@ interface Data {
 }
 
 export async function getOneUser(userId: string): Promise<Data> {
-  const { data } = await backend.get<Data>(`/users/${userId}`);
+  const { data } = await backend.get<Data>(`users/${userId}`);
 
   const user = data.user;
 

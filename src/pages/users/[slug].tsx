@@ -64,14 +64,14 @@ export default function User({ user }: UserProps) {
                 <Avatar name={data.user.user_name} size="lg" />
 
                 <VStack justify={"start"} alignItems="start">
-                  <Text fontWeight="semibold" fontSize={18}>
+                  <Heading as="h3" fontWeight="semibold" fontSize={18}>
+                    {data.user.complete_name}
+                  </Heading>
+
+                  <Text fontWeight="semibold" fontSize={16}>
                     Status:{" "}
                     <Badge colorScheme="green">{data.user.status}</Badge>
                   </Text>
-
-                  <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                    {user.complete_name}
-                  </Heading>
                 </VStack>
               </HStack>
 
@@ -112,14 +112,14 @@ export default function User({ user }: UserProps) {
                   <Text as={"span"} fontWeight={"bold"}>
                     Departamento:
                   </Text>{" "}
-                  {user.department_id}
+                  {data.user.department_id}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Chefia Imediata:
                   </Text>{" "}
-                  {user.direct_boss}
+                  {data.user.direct_boss}
                 </ListItem>
               </List>
 
@@ -129,28 +129,32 @@ export default function User({ user }: UserProps) {
                   <Text as={"span"} fontWeight={"bold"}>
                     E-mail:
                   </Text>{" "}
-                  {user.smtp}
+                  {data.user.smtp}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Ramal:
                   </Text>{" "}
-                  {user.telephone}
+                  {data.user.telephone}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Admissão:
                   </Text>{" "}
-                  {user.admission_date}
+                  {String(data.user.admission_date)}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Demissão:
                   </Text>{" "}
-                  {user.demission_date}
+                  {String(
+                    user.demission_date === undefined
+                      ? " - / / - "
+                      : user.demission_date
+                  )}
                 </ListItem>
               </List>
             </SimpleGrid>

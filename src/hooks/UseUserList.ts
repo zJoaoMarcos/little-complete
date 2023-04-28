@@ -20,20 +20,20 @@ interface Data {
 }
 
 export async function getUsers(skip: number, take: number): Promise<Data> {
-  const { data } = await backend.get<Data>("/users");
+  const { data } = await backend.get<Data>("users");
 
   const users = data.users.map((user) => {
     return {
-      user_name: user.user_name,
-      complete_name: user.complete_name,
-      title: user.title,
-      department_id: user.department_id,
+      user_name: user.user_name.trim(),
+      complete_name: user.complete_name.trim(),
+      title: user.title.trim(),
+      department_id: user.department_id.trim(),
       telephone: user.telephone,
-      direct_boss: user.direct_boss,
-      smtp: user.smtp,
+      direct_boss: user.direct_boss.trim(),
+      smtp: user.smtp.trim(),
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status,
+      status: user.status.trim(),
     };
   });
 
