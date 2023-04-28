@@ -24,16 +24,16 @@ export async function getUsers(skip: number, take: number): Promise<Data> {
 
   const users = data.users.map((user) => {
     return {
-      user_name: user.user_name.trim(),
-      complete_name: user.complete_name.trim(),
-      title: user.title.trim(),
-      department_id: user.department_id.trim(),
+      user_name: user.user_name,
+      complete_name: user.complete_name,
+      title: user.title,
+      department_id: user.department_id,
       telephone: user.telephone,
-      direct_boss: user.direct_boss.trim(),
-      smtp: user.smtp.trim(),
+      direct_boss: user.direct_boss,
+      smtp: user.smtp,
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status.trim(),
+      status: user.status,
     };
   });
 
