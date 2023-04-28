@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartment/Trigger";
 import { TriggerChangeStatus } from "@/components/Modals/User/ChangeStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
-import { getOneUser, useUser } from "@/hooks/UseOneUser";
+import { getOneUser, useOneUser } from "@/hooks/UseOneUser";
 import {
   Avatar,
   Badge,
@@ -37,7 +37,7 @@ interface UserProps {
 }
 
 export default function User({ user }: UserProps) {
-  const { data } = useUser(user.user_name, { initialData: user });
+  const { data } = useOneUser(user.user_name, { initialData: user });
 
   return (
     <>
