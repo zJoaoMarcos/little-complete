@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { CreateEquipmentTrigger } from "@/components/Modals/Equipment/CreateEquipment/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { TableInventory } from "@/components/Tables/TableInventory";
 import { useInvetoryList } from "@/hooks/UseInventoryList";
@@ -45,6 +46,8 @@ export default function Equipment() {
                   <Spinner size="sm" color="white" ml="4" />
                 )}
               </Heading>
+
+              <CreateEquipmentTrigger />
             </Flex>
             {isLoading ? (
               <Flex justify="center">
