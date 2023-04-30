@@ -9,14 +9,14 @@ import {
   Box,
   Divider,
   Flex,
-  HStack,
   Heading,
+  HStack,
   List,
   ListItem,
   SimpleGrid,
   Text,
-  VStack,
   useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -151,7 +151,7 @@ export default function User({ user }: UserProps) {
                     Data de Demissão:
                   </Text>{" "}
                   {String(
-                    user.demission_date === undefined
+                    data.user.demission_date === undefined
                       ? " - / / - "
                       : user.demission_date
                   )}
@@ -165,14 +165,17 @@ export default function User({ user }: UserProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.params;
+export const getServerSideProps: GetServerSideProps<
+  any,
+  { id: string }
+> = async ({ params }) => {
+  const slug = params.id;
 
-  const user = await getOneUser(slug as string);
+  const user = await getOneUser(slug);
 
   return {
     props: {
-      user: user,
+      user: user.user,
     },
   };
 };
