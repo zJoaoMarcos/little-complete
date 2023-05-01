@@ -1,3 +1,5 @@
+import { TriggerEdit } from "@/components/Modals/Edit/Trigger";
+import { TriggerMovement } from "@/components/Modals/Movement/Trigger";
 import {
   Table,
   TableContainer,
@@ -8,8 +10,6 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { TriggerEdit } from "../Modals/Edit/Trigger";
-import { TriggerMovement } from "../Modals/Movement/Trigger";
 
 interface Item {
   id: string;
