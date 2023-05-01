@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { CreateUserTrigger } from "@/components/Modals/User/CreateUser/Trigger";
 import { Sidebar } from "@/components/Sidebar";
-import { TableUser } from "@/components/TableUsers";
+import { TableUser } from "@/components/Tables/TableUsers";
 import { useUsersList } from "@/hooks/UseUserList";
 import {
   Box,
