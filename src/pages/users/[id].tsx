@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartment/Trigger";
 import { TriggerChangeStatus } from "@/components/Modals/User/ChangeStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
-import { getOneUser, useOneUser } from "@/hooks/UseOneUser";
+import { getOneUser } from "@/hooks/UseOneUser";
 import {
   Avatar,
   Badge,
@@ -37,8 +37,6 @@ interface UserProps {
 }
 
 export default function User({ user }: UserProps) {
-  const { data } = useOneUser(user.user_name, { initialData: user });
-
   return (
     <>
       <Head>
@@ -61,30 +59,29 @@ export default function User({ user }: UserProps) {
           >
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
-                <Avatar name={data.user.user_name} size="lg" />
+                <Avatar name={user.user_name} size="lg" />
 
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                    {data.user.complete_name}
+                    {user.complete_name}
                   </Heading>
 
                   <Text fontWeight="semibold" fontSize={16}>
-                    Status:{" "}
-                    <Badge colorScheme="green">{data.user.status}</Badge>
+                    Status: <Badge colorScheme="green">{user.status}</Badge>
                   </Text>
                 </VStack>
               </HStack>
 
               <HStack>
                 <TriggerChangeDepartment
-                  userName={data.user.user_name}
-                  title={data.user.title}
-                  departmentId={data.user.department_id}
-                  directBoss={data.user.direct_boss}
+                  userName={user.user_name}
+                  title={user.title}
+                  departmentId={user.department_id}
+                  directBoss={user.direct_boss}
                 />
                 <TriggerChangeStatus
-                  userName={data.user.user_name}
-                  currentStatus={data.user.status}
+                  userName={user.user_name}
+                  currentStatus={user.status}
                 />
               </HStack>
             </Flex>
@@ -98,28 +95,28 @@ export default function User({ user }: UserProps) {
                   <Text as={"span"} fontWeight={"bold"}>
                     Usuário:
                   </Text>{" "}
-                  {data.user.user_name}
+                  {user.user_name}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Cargo:
                   </Text>{" "}
-                  {data.user.title}
+                  {user.title}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Departamento:
                   </Text>{" "}
-                  {data.user.department_id}
+                  {user.department_id}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Chefia Imediata:
                   </Text>{" "}
-                  {data.user.direct_boss}
+                  {user.direct_boss}
                 </ListItem>
               </List>
 
@@ -129,32 +126,30 @@ export default function User({ user }: UserProps) {
                   <Text as={"span"} fontWeight={"bold"}>
                     E-mail:
                   </Text>{" "}
-                  {data.user.smtp}
+                  {user.smtp}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Ramal:
                   </Text>{" "}
-                  {data.user.telephone}
+                  {user.telephone}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Admissão:
                   </Text>{" "}
-                  {String(data.user.admission_date)}
+                  {String(user.admission_date)}
                 </ListItem>
                 <ListItem>
                   {" "}
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Demissão:
                   </Text>{" "}
-                  {String(
-                    data.user.demission_date === undefined
-                      ? " - / / - "
-                      : user.demission_date
-                  )}
+                  {user.demission_date === null
+                    ? " - / / - "
+                    : user.demission_date}
                 </ListItem>
               </List>
             </SimpleGrid>
@@ -169,13 +164,13 @@ export const getServerSideProps: GetServerSideProps<
   any,
   { id: string }
 > = async ({ params }) => {
-  const slug = params.id;
+  const id = params.id;
 
-  const user = await getOneUser(slug);
+  const { user } = await getOneUser(id);
 
   return {
     props: {
-      user: user.user,
+      user,
     },
   };
 };
