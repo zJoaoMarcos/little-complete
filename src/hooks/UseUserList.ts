@@ -20,7 +20,7 @@ interface Data {
 }
 
 export async function getUsers(skip: number, take: number): Promise<Data> {
-  const { data } = await backend.get<Data>("users");
+  const { data } = await backend.get<Data>(`/users?skip=${skip}&take=${take}`);
 
   const users = data.users.map((user) => {
     return {
