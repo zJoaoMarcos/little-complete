@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { TriggerCreate } from "@/components/Modals/Create/Trigger";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
-import { TableStock } from "@/components/TableStock";
+import { TableStock } from "@/components/Tables/TableStock";
 import { useShopList } from "@/hooks/UseShopList";
 import {
   Box,
