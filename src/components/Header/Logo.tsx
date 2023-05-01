@@ -1,10 +1,13 @@
-import { Text } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 
 export function Logo() {
   return (
-    <Text fontSize="3xl" fontWeight="normal" w="64">
-      Little Complete
-      <span color={"pink.300"}>{"</>"}</span>
-    </Text>
+    <HStack fontSize="2xl" fontWeight="normal" w="56">
+      <Text>Little</Text>
+      <Text fontWeight="semibold">Complete</Text>
+      <Text as="span" color={"purple.500"} fontWeight="semibold">
+        {"</>"}
+      </Text>
+    </HStack>
   );
 }
