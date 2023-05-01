@@ -24,7 +24,6 @@ type CreateUserData = {
   direct_boss: string;
   smtp: string;
   admission_date: Date;
-  status: string;
 };
 
 interface CreateUserModalProps {
@@ -33,8 +32,11 @@ interface CreateUserModalProps {
 }
 
 export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
-  const { register, handleSubmit, formState, reset } =
-    useForm<CreateUserData>();
+  const { register, handleSubmit, formState, reset } = useForm<CreateUserData>({
+    defaultValues: {
+      admission_date: new Date(),
+    },
+  });
   const { errors, isSubmitting } = formState;
 
   const { createUser } = useUser();
@@ -125,6 +127,7 @@ export function CreateUserModal({ isOpen, onClose }: CreateUserModalProps) {
                 error={errors.admission_date}
                 label="Data de Admissão"
                 type="date"
+                isRequired
               />
             </Stack>
           </Box>

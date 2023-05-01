@@ -13,7 +13,7 @@ interface CreateUserData {
   telephone: number | null;
   direct_boss: string;
   smtp: string;
-  admission_date?: Date;
+  admission_date: Date;
 }
 
 interface ChangeStatusData {
