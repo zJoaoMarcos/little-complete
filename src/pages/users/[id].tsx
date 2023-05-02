@@ -140,7 +140,9 @@ export default function User({ user }: UserProps) {
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Admissão:
                   </Text>{" "}
-                  {String(user.admission_date)}
+                  {user.demission_date === null
+                    ? " - / / - "
+                    : String(user.demission_date)}
                 </ListItem>
                 <ListItem>
                   {" "}
@@ -149,7 +151,7 @@ export default function User({ user }: UserProps) {
                   </Text>{" "}
                   {user.demission_date === null
                     ? " - / / - "
-                    : user.demission_date}
+                    : String(user.demission_date)}
                 </ListItem>
               </List>
             </SimpleGrid>
