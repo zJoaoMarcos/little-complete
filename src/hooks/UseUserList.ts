@@ -1,4 +1,6 @@
 import { backend } from "@/lib/backendApi";
+import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
+import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface User {
@@ -24,10 +26,10 @@ export async function getUsers(skip: number, take: number): Promise<Data> {
 
   const users = data.users.map((user) => {
     return {
-      user_name: user.user_name,
-      complete_name: user.complete_name,
-      title: user.title,
-      department_id: user.department_id,
+      user_name: user.user_name.trim(),
+      complete_name: concatFirstNameAndLastName(user.complete_name),
+      title: formatData(user.title),
+      department_id: formatData(user.department_id),
       telephone: user.telephone,
       direct_boss: user.direct_boss,
       smtp: user.smtp,
