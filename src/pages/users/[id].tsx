@@ -3,6 +3,7 @@ import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartme
 import { TriggerChangeStatus } from "@/components/Modals/User/ChangeStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { getOneUser } from "@/hooks/UseOneUser";
+import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
 import {
   Avatar,
   Badge,
@@ -59,7 +60,10 @@ export default function User({ user }: UserProps) {
           >
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
-                <Avatar name={user.user_name} size="lg" />
+                <Avatar
+                  name={concatFirstNameAndLastName(user.complete_name)}
+                  size="lg"
+                />
 
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>

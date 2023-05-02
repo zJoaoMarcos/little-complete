@@ -1,4 +1,5 @@
 import { backend } from "@/lib/backendApi";
+import { formatData } from "@/utils/formatData";
 import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
 
 interface User {
@@ -19,7 +20,18 @@ interface User {
 export async function getOneUser(userId: string): Promise<User> {
   const { data } = await backend.get<User>(`users/${userId}`);
 
-  const user = data.user;
+  const user = {
+    user_name: data.user.user_name.trim(),
+    complete_name: formatData(data.user.complete_name),
+    title: formatData(data.user.title),
+    department_id: formatData(data.user.department_id),
+    telephone: data.user.telephone,
+    direct_boss: formatData(data.user.direct_boss),
+    smtp: data.user.smtp,
+    admission_date: data.user.admission_date,
+    demission_date: data.user.demission_date,
+    status: data.user.status,
+  };
 
   return { user };
 }
