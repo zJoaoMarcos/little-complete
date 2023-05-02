@@ -53,12 +53,12 @@ export function UserCard({ user }: UserCardProps) {
           pl="2"
         >
           <HStack>
-            <Text>{user.complete_name}- </Text>
-            <Text>{`(${user.user_name.trim()})`}</Text>
+            <Text fontWeight="semibold">{user.complete_name} - </Text>
+            <Text color="purple.400">{`(${user.user_name})`}</Text>
           </HStack>
           <HStack>
-            <Text>{user.title} - </Text>
-            <Text>{user.department_id}</Text>
+            <Text fontSize="sm">{user.title} - </Text>
+            <Text fontSize="sm">{user.department_id}</Text>
           </HStack>
         </Flex>
       </HStack>
