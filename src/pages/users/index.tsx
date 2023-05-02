@@ -16,7 +16,7 @@ import { useState } from "react";
 
 export default function User() {
   const [page, setPage] = useState(1);
-  const take = 1;
+  const take = 20;
   const skip = (page - 1) * take;
   const { data, isLoading, isFetching } = useUsersList(page, skip, take);
 
