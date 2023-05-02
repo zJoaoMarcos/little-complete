@@ -64,7 +64,13 @@ export function UserCard({ user }: UserCardProps) {
       </HStack>
 
       {user.telephone && (
-        <Flex flex="row" align="center" color="purple.500">
+        <Flex
+          flex="row"
+          alignItems="center"
+          color="purple.500"
+          ml="auto"
+          pr="20"
+        >
           <Phone weight="fill" />
           <Text pl="1" color="gray.800">
             {user.telephone}
