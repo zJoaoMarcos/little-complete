@@ -1,8 +1,8 @@
 import { Header } from "@/components/Header";
+import { UsersList } from "@/components/Lists/UserLists";
 import { CreateUserTrigger } from "@/components/Modals/User/CreateUser/Trigger";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
-import { TableUser } from "@/components/Tables/TableUsers";
 import { useUsersList } from "@/hooks/UseUserList";
 import {
   Box,
@@ -29,7 +29,7 @@ export default function User() {
       <Flex flexDir="column" h="100vh">
         <Header />
 
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+        <Flex w="100%" py="30" maxWidth={1480} mx="auto" px="6">
           <Sidebar />
 
           <Box
@@ -55,7 +55,7 @@ export default function User() {
                 <Spinner />
               </Flex>
             ) : (
-              <TableUser users={data.users} />
+              <UsersList users={data.users} />
             )}
 
             <Pagination
