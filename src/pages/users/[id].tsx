@@ -19,6 +19,15 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import {
+  BagSimple,
+  Calendar,
+  MicrosoftOutlookLogo,
+  Phone,
+  UserCircle,
+  UserCircleGear,
+  Wrench,
+} from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -38,6 +47,8 @@ interface UserProps {
 }
 
 export default function User({ user }: UserProps) {
+  const colorStatus = user.status === "active" ? "green" : "orange";
+
   return (
     <>
       <Head>
@@ -71,7 +82,8 @@ export default function User({ user }: UserProps) {
                   </Heading>
 
                   <Text fontWeight="semibold" fontSize={16}>
-                    Status: <Badge colorScheme="green">{user.status}</Badge>
+                    Status:{" "}
+                    <Badge colorScheme={colorStatus}>{user.status}</Badge>
                   </Text>
                 </VStack>
               </HStack>
@@ -94,68 +106,127 @@ export default function User({ user }: UserProps) {
 
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} marginTop={8}>
               <List spacing={6}>
-                <ListItem>
-                  {" "}
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <UserCircle />
                   <Text as={"span"} fontWeight={"bold"}>
                     Usuário:
-                  </Text>{" "}
-                  {user.user_name}
+                  </Text>
+
+                  <Text pl="2">{user.user_name}</Text>
                 </ListItem>
-                <ListItem>
-                  {" "}
+
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <Wrench />
                   <Text as={"span"} fontWeight={"bold"}>
                     Cargo:
-                  </Text>{" "}
-                  {user.title}
+                  </Text>
+                  <Text>{user.title}</Text>
                 </ListItem>
-                <ListItem>
-                  {" "}
+
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <BagSimple />
                   <Text as={"span"} fontWeight={"bold"}>
                     Departamento:
-                  </Text>{" "}
-                  {user.department_id}
+                  </Text>
+                  <Text>{user.department_id}</Text>
                 </ListItem>
-                <ListItem>
-                  {" "}
+
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <UserCircleGear />
                   <Text as={"span"} fontWeight={"bold"}>
                     Chefia Imediata:
-                  </Text>{" "}
-                  {user.direct_boss}
+                  </Text>
+                  <Text>{user.direct_boss}</Text>
                 </ListItem>
               </List>
 
               <List spacing={6}>
-                <ListItem>
-                  {" "}
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <MicrosoftOutlookLogo />
                   <Text as={"span"} fontWeight={"bold"}>
                     E-mail:
-                  </Text>{" "}
-                  {user.smtp}
+                  </Text>
+                  <Text>{user.smtp}</Text>
                 </ListItem>
-                <ListItem>
-                  {" "}
+
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <Phone weight="fill" />
                   <Text as={"span"} fontWeight={"bold"}>
                     Ramal:
-                  </Text>{" "}
-                  {user.telephone}
+                  </Text>
+                  <Text>{user.telephone}</Text>
                 </ListItem>
-                <ListItem>
-                  {" "}
+
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <Calendar />
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Admissão:
-                  </Text>{" "}
-                  {user.demission_date === null
-                    ? " - / / - "
-                    : String(user.demission_date)}
+                  </Text>
+                  <Text>
+                    {user.demission_date === null
+                      ? " - / / - "
+                      : String(user.demission_date)}
+                  </Text>
                 </ListItem>
-                <ListItem>
-                  {" "}
+
+                <ListItem
+                  display="flex"
+                  flexDir="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap={1}
+                >
+                  <Calendar />
                   <Text as={"span"} fontWeight={"bold"}>
                     Data de Demissão:
-                  </Text>{" "}
-                  {user.demission_date === null
-                    ? " - / / - "
-                    : String(user.demission_date)}
+                  </Text>
+                  <Text>
+                    {user.demission_date === null
+                      ? " - / / - "
+                      : String(user.demission_date)}
+                  </Text>
                 </ListItem>
               </List>
             </SimpleGrid>
