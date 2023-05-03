@@ -44,7 +44,7 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
       alignItems="center"
       justify="space-between"
       border="1px"
-      borderColor={"gray.100"}
+      borderColor={useColorModeValue("gray.100", "blackAlpha.200")}
       shadow={"md"}
     >
       <HStack justifyContent="start">
