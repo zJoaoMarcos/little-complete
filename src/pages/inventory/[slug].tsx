@@ -1,3 +1,4 @@
+import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { Header } from "@/components/Header";
 import { UpdateEquipmentTrigger } from "@/components/Modals/Equipment/UpdateEquipment/Trigger";
 import { Sidebar } from "@/components/Sidebar";
@@ -10,9 +11,6 @@ import {
   Flex,
   HStack,
   Heading,
-  List,
-  ListItem,
-  SimpleGrid,
   Text,
   VStack,
   useColorModeValue,
@@ -56,7 +54,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
       <Flex flexDir="column" h="100vh">
         <Header />
 
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
 
           <Box
@@ -90,126 +88,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
 
             <Divider />
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} marginTop={8}>
-              <List spacing={6}>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    ID:
-                  </Text>{" "}
-                  {data.equipment.id}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Fabricante:
-                  </Text>{" "}
-                  {data.equipment.brand}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Modelo:
-                  </Text>{" "}
-                  {data.equipment.model}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Processador:
-                  </Text>{" "}
-                  {data.equipment.cpu}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Memória Ram:
-                  </Text>{" "}
-                  {data.equipment.ram}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Slots:
-                  </Text>{" "}
-                  {data.equipment.slots}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Tipo de Armazenamento (1):
-                  </Text>{" "}
-                  {data.equipment.storage0_type}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Tamanho do Armazenamento (1):
-                  </Text>{" "}
-                  {data.equipment.storage0_syze}
-                </ListItem>
-              </List>
-
-              <List spacing={6}>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Departamento:
-                  </Text>{" "}
-                  {data.equipment.department}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Data de Compra:
-                  </Text>{" "}
-                  {data.equipment.purchase_date}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Garantia:
-                  </Text>{" "}
-                  {data.equipment.warranty}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Placa de Video:
-                  </Text>{" "}
-                  {data.equipment.video}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Service Tag:
-                  </Text>{" "}
-                  {data.equipment.service_tag}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    N° da NF:
-                  </Text>{" "}
-                  {data.equipment.invoice}
-                </ListItem>
-
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Tipo de Armazenamento (2):
-                  </Text>{" "}
-                  {data.equipment.storage1_type}
-                </ListItem>
-                <ListItem>
-                  {" "}
-                  <Text as={"span"} fontWeight={"bold"}>
-                    Tamanho do Armazenamento (2):
-                  </Text>{" "}
-                  {data.equipment.storage1_syze}
-                </ListItem>
-              </List>
-            </SimpleGrid>
+            <EquipmentProfileGrid equipment={data.equipment} />
           </Box>
         </Flex>
       </Flex>
