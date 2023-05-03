@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
+import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { CreateEquipmentTrigger } from "@/components/Modals/Equipment/CreateEquipment/Trigger";
 import { Sidebar } from "@/components/Sidebar";
-import { TableInventory } from "@/components/Tables/TableInventory";
 import { useInvetoryList } from "@/hooks/UseInventoryList";
 import {
   Box,
@@ -54,7 +54,7 @@ export default function Inventory() {
                 <Spinner />
               </Flex>
             ) : (
-              <TableInventory equipments={data.equipments} />
+              <EquipmentsList equipments={data.equipments} />
             )}
 
             {/* <Pagination
