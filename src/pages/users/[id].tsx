@@ -1,3 +1,4 @@
+import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { UserProfileGrid } from "@/components/Grids/UserProfileGrid";
 import { Header } from "@/components/Header";
 import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartment/Trigger";
@@ -17,8 +18,30 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { Desktop } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+
+interface Equipment {
+  id: string;
+  brand: string;
+  model: string;
+  supplier: string | null;
+  invoice: string | null;
+  warranty: string | null;
+  purchase_date: string | null;
+  department: string;
+  status: string;
+  cpu: string | null;
+  ram: string | null;
+  slots: number | null;
+  storage0_type: string | null;
+  storage0_syze: number | null;
+  storage1_type: string | null;
+  storage1_syze: number | null;
+  video: string | null;
+  service_tag: string | null;
+}
 
 interface UserProps {
   user: {
@@ -33,9 +56,11 @@ interface UserProps {
     demission_date: string | null;
     status: string;
   };
+
+  equipments: Equipment[];
 }
 
-export default function User({ user }: UserProps) {
+export default function User({ user, equipments }: UserProps) {
   const colorStatus = user.status === "active" ? "green" : "orange";
 
   return (
@@ -47,7 +72,7 @@ export default function User({ user }: UserProps) {
       <Flex flexDir="column" h="100vh">
         <Header />
 
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
 
           <Box
@@ -94,6 +119,30 @@ export default function User({ user }: UserProps) {
             <Divider />
 
             <UserProfileGrid user={user} />
+
+            <>
+              {equipments.map((equip) => (
+                <>
+                  <Divider my="10" />
+                  <HStack spacing={8}>
+                    <Avatar size="md" icon={<Desktop size={30} />} />
+
+                    <VStack justify={"start"} alignItems="start">
+                      <Heading as="h3" fontWeight="semibold" fontSize={18}>
+                        {equip.id}
+                      </Heading>
+
+                      <Text fontWeight="semibold" fontSize={16}>
+                        Status:{" "}
+                        <Badge colorScheme="green">{equip.status}</Badge>
+                      </Text>
+                    </VStack>
+                  </HStack>
+
+                  <EquipmentProfileGrid key={equip.id} equipment={equip} />
+                </>
+              ))}
+            </>
           </Box>
         </Flex>
       </Flex>
@@ -107,11 +156,12 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({ params }) => {
   const id = params.id;
 
-  const { user } = await getOneUser(id);
+  const { user, equipments } = await getOneUser(id);
 
   return {
     props: {
       user,
+      equipments,
     },
   };
 };
