@@ -3,10 +3,12 @@ import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface Department {
+  id: number;
   name: string;
   cost_center: string;
   is_board: boolean;
   board: string;
+  responsible_id: string;
 }
 
 interface Data {
@@ -24,10 +26,12 @@ export async function getDepartmentsList(
 
   const departments = data.departments.map((department) => {
     return {
+      id: department.id,
       name: formatData(department.name),
       cost_center: department.cost_center,
       is_board: department.is_board,
       board: formatData(department.board),
+      responsible_id: department.responsible_id,
     };
   });
 

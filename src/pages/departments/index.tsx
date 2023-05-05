@@ -15,7 +15,7 @@ import { useState } from "react";
 
 export default function Departments() {
   const [page, setPage] = useState(1);
-  const take = 20;
+  const take = 10;
   const skip = (page - 1) * take;
   const { data, isLoading, isFetching } = useFetchDepartmentsList(
     page,

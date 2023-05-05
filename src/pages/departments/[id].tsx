@@ -17,10 +17,12 @@ import Head from "next/head";
 
 interface DepartmentProps {
   department: {
+    id: number;
     name: string;
     cost_center: string;
     is_board: boolean;
     board: string;
+    responsible_id: string;
   };
 }
 
@@ -72,7 +74,7 @@ export const getServerSideProps: GetServerSideProps<
   any,
   { id: string }
 > = async ({ params }) => {
-  const id = decodeURIComponent(params.id);
+  const id = Number(params.id);
 
   const { department } = await getDepartment(id);
 
