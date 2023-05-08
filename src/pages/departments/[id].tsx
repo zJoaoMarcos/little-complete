@@ -30,7 +30,7 @@ interface DepartmentProps {
   };
 }
 
-export default function User({ department }: DepartmentProps) {
+export default function Department({ department }: DepartmentProps) {
   const [isEditable, setIsEditable] = useState(true);
 
   return (
