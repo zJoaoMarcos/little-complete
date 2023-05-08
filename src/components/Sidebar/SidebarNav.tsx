@@ -3,7 +3,6 @@ import {
   Buildings,
   Notebook,
   Package,
-  Printer,
   Storefront,
   User,
 } from "@phosphor-icons/react";
@@ -26,9 +25,6 @@ export function SidebarNav() {
       <NavSection title="CONTROLES">
         <NavLink icon={Notebook} href="/inventory">
           Equipamentos
-        </NavLink>
-        <NavLink icon={Printer} href="/printers">
-          Impressoras
         </NavLink>
 
         <NavLink icon={Package} href="/stock">
