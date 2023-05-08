@@ -16,7 +16,7 @@ import { useState } from "react";
 
 export default function Inventory() {
   const [page, setPage] = useState(1);
-  const take = 10;
+  const take = 26;
   const skip = (page - 1) * take;
   const { data, isLoading, isFetching } = useInvetoryList(page, skip, take);
 
