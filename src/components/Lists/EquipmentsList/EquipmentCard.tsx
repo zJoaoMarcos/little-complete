@@ -48,7 +48,11 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
       shadow={"md"}
     >
       <HStack justifyContent="start">
-        <EquipmentAvatar iconSize={20} equipmentType={equipment.type} />
+        <EquipmentAvatar
+          avatarSize="md"
+          iconSize={30}
+          equipmentType={equipment.type}
+        />
         <Flex
           flexDir="column"
           align="start"
