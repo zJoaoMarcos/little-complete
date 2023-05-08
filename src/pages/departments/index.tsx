@@ -5,12 +5,14 @@ import { Sidebar } from "@/components/Sidebar";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Departments() {
@@ -22,6 +24,8 @@ export default function Departments() {
     skip,
     take
   );
+
+  const { push } = useRouter();
 
   return (
     <>
@@ -50,6 +54,13 @@ export default function Departments() {
                   <Spinner size="sm" color="white" ml="4" />
                 )}
               </Heading>
+
+              <Button
+                colorScheme="purple"
+                onClick={() => push("/departments/new")}
+              >
+                + Novo Departamento
+              </Button>
             </Flex>
             {isLoading ? (
               <Flex justify="center">
