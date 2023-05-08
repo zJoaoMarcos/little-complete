@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
+import { DepartmentProvider } from "@/contexts/DepartmentContext";
 import { EquipmentProvider } from "@/contexts/EquipmetContext";
 import { SidebarDrawerProvider } from "@/contexts/SidebarDrawerContext";
 import { StockProvider } from "@/contexts/StockContext";
@@ -25,14 +26,16 @@ export default function App({ Component, pageProps }: AppProps) {
         <ChakraProvider>
           <StockProvider>
             <EquipmentProvider>
-              <UserProvider>
-                <SidebarDrawerProvider>
-                  <main className="inter.classname">
-                    <ToastContainer theme={"colored"} />
-                    <Component {...pageProps} />
-                  </main>
-                </SidebarDrawerProvider>
-              </UserProvider>
+              <DepartmentProvider>
+                <UserProvider>
+                  <SidebarDrawerProvider>
+                    <main className="inter.classname">
+                      <ToastContainer theme={"colored"} />
+                      <Component {...pageProps} />
+                    </main>
+                  </SidebarDrawerProvider>
+                </UserProvider>
+              </DepartmentProvider>
             </EquipmentProvider>
           </StockProvider>
         </ChakraProvider>
