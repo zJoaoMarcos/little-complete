@@ -30,7 +30,9 @@ interface Data {
 }
 
 export async function getInventory(skip: number, take: number): Promise<Data> {
-  const { data } = await backend.get<Data>("equipments");
+  const { data } = await backend.get<Data>(
+    `equipments?skip=${skip}&take=${take}`
+  );
 
   console.log(data);
 

@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { CreateEquipmentTrigger } from "@/components/Modals/Equipment/CreateEquipment/Trigger";
+import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
 import { useInvetoryList } from "@/hooks/UseInventoryList";
 import {
@@ -57,12 +58,12 @@ export default function Inventory() {
               <EquipmentsList equipments={data.equipments} />
             )}
 
-            {/* <Pagination
-          currentPage={page}
-          onPageChange={setPage}
-          registersPerPage={take}
-          totalCountofRegisters={data?.totalCount!}
-        /> */}
+            <Pagination
+              currentPage={page}
+              onPageChange={setPage}
+              registersPerPage={take}
+              totalCountofRegisters={data?.totalCount!}
+            />
           </Box>
         </Flex>
       </Flex>
