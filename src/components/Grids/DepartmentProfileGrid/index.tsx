@@ -1,5 +1,5 @@
 import { Input } from "@/components/Form/input";
-import { Button, SimpleGrid } from "@chakra-ui/react";
+import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 type UpdateDepartmentData = {
@@ -45,25 +45,51 @@ export function DepartmentProfileGrid({
       spacing={10}
       marginTop={8}
     >
-      <Input {...register("name")} label="Nome" isDisabled={isEditable} />
-      <Input {...register("board")} label="Board" isDisabled={isEditable} />
+      <Input
+        {...register("name")}
+        label="Nome"
+        isDisabled={isEditable}
+        size="sm"
+      />
+
+      <Input
+        {...register("board")}
+        label="Board"
+        isDisabled={isEditable}
+        size="sm"
+      />
+
       <Input
         {...register("cost_center")}
         label="Centro de Custo"
         isDisabled={isEditable}
+        size="sm"
       />
-      <Input {...register("is_board")} label="Owner" isDisabled={isEditable} />
+
+      <Checkbox
+        size="md"
+        mb="auto"
+        colorScheme="purple"
+        borderColor="purple"
+        {...register("is_board")}
+        placeholder="É Diretoria"
+      >
+        É uma Diretoria ?:
+      </Checkbox>
+
       <Input
         {...register("responsible_id")}
         label="Usuário Responsável"
         isDisabled={isEditable}
+        size="sm"
       />
+
       <Button
         hidden={isEditable}
+        ml="auto"
         type="submit"
-        isDisabled={isEditable}
         mt="auto"
-        size="lg"
+        size="sm"
         colorScheme="purple"
       >
         Alterar
