@@ -1,18 +1,18 @@
+import { EquipmentAvatar } from "@/components/Grids/EquipmentProfileGrid/EquipmentAvatar";
 import {
-  Avatar,
-  AvatarBadge,
   Flex,
   HStack,
   IconButton,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { CaretRight, Desktop, Prohibit } from "@phosphor-icons/react";
+import { CaretRight, Prohibit } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 interface EquipmentCardProps {
   equipment: {
     id: string;
+    type: string | null;
     brand: string;
     model: string;
     supplier: string | null;
@@ -48,9 +48,7 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
       shadow={"md"}
     >
       <HStack justifyContent="start">
-        <Avatar icon={<Desktop />}>
-          <AvatarBadge borderColor="papayawhip" bg="tomato" boxSize="1em" />
-        </Avatar>
+        <EquipmentAvatar iconSize={20} equipmentType={equipment.type} />
         <Flex
           flexDir="column"
           align="start"
@@ -60,7 +58,10 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
           pl="2"
         >
           <HStack>
-            <Text fontWeight="semibold">Notebook -</Text>
+            <Text fontWeight="semibold">
+              {equipment.type}
+              {" - "}
+            </Text>
             <Text fontWeight="semibold" color="purple.300">
               ({equipment.brand} {equipment.model})
             </Text>

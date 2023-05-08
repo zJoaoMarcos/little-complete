@@ -3,6 +3,7 @@ import { EquipmentCard } from "./EquipmentCard";
 
 interface Equipment {
   id: string;
+  type: string | null;
   brand: string;
   model: string;
   supplier: string | null;

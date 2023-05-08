@@ -1,10 +1,10 @@
 import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
+import { EquipmentAvatar } from "@/components/Grids/EquipmentProfileGrid/EquipmentAvatar";
 import { Header } from "@/components/Header";
 import { UpdateEquipmentTrigger } from "@/components/Modals/Equipment/UpdateEquipment/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { getOneEquipment, useOneEquipment } from "@/hooks/UseOneEquipment";
 import {
-  Avatar,
   Badge,
   Box,
   Divider,
@@ -15,13 +15,13 @@ import {
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Desktop } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
 interface EquipmentProps {
   equipment: {
     id: string;
+    type: string | null;
     brand: string;
     model: string;
     supplier: string | null;
@@ -67,11 +67,17 @@ export default function Inventory({ equipment }: EquipmentProps) {
           >
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
-                <Avatar size="xl" icon={<Desktop size={50} />} />
-
+                <EquipmentAvatar
+                  equipmentType={data.equipment.type}
+                  avatarSize="lg"
+                  iconSize={40}
+                />
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                    {data.equipment.id}
+                    {data.equipment.type} -{" "}
+                    <Text as="span" color="purple.400">
+                      {data.equipment.id}
+                    </Text>
                   </Heading>
 
                   <Text fontWeight="semibold" fontSize={16}>
