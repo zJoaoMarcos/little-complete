@@ -1,8 +1,10 @@
 import { Input } from "@/components/Form/input";
+import { useDepartment } from "@/contexts/DepartmentContext";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 type UpdateDepartmentData = {
+  id: number;
   name: string;
   cost_center: string;
   is_board: boolean;
@@ -30,6 +32,7 @@ export function DepartmentProfileGrid({
   const { register, handleSubmit, formState, reset } =
     useForm<UpdateDepartmentData>({
       defaultValues: {
+        id: department.id,
         name: department.name,
         cost_center: department.cost_center,
         is_board: department.is_board,
@@ -38,9 +41,26 @@ export function DepartmentProfileGrid({
       },
     });
 
+  const { isSubmitting } = formState;
+
+  const { updateDepartment } = useDepartment();
+
+  const handleUpdate: SubmitHandler<UpdateDepartmentData> = async (
+    data,
+    event
+  ) => {
+    event.preventDefault();
+
+    await updateDepartment.mutateAsync(data);
+
+    reset();
+  };
+
   return (
     <SimpleGrid
       as="form"
+      id="update_form"
+      onSubmit={handleSubmit(handleUpdate)}
       columns={{ base: 1, md: 2 }}
       spacing={10}
       marginTop={8}
@@ -73,8 +93,9 @@ export function DepartmentProfileGrid({
         borderColor="purple"
         {...register("is_board")}
         placeholder="É Diretoria"
+        isDisabled={isEditable}
       >
-        É uma Diretoria ?:
+        É uma Diretoria ?
       </Checkbox>
 
       <Input
@@ -85,12 +106,15 @@ export function DepartmentProfileGrid({
       />
 
       <Button
+        form="update_form"
         hidden={isEditable}
         ml="auto"
         type="submit"
         mt="auto"
         size="sm"
         colorScheme="purple"
+        isDisabled={isSubmitting}
+        isLoading={isSubmitting}
       >
         Alterar
       </Button>

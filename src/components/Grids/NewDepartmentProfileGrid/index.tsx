@@ -1,4 +1,5 @@
 import { Input } from "@/components/Form/input";
+import { useDepartment } from "@/contexts/DepartmentContext";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -14,17 +15,25 @@ export function NewDepartmentProfileGrid() {
   const { register, handleSubmit, formState, reset } =
     useForm<CreateDepartmentData>({});
 
-  const handleCreateDepartment: SubmitHandler<CreateDepartmentData> = (
+  const { createDepartment } = useDepartment();
+
+  const handleCreateDepartment: SubmitHandler<CreateDepartmentData> = async (
     data,
     event
   ) => {
     event.preventDefault();
+
+    console.log(data);
+
+    await createDepartment.mutateAsync(data);
+
+    reset();
   };
 
   return (
     <SimpleGrid
       as="form"
-      id="new_user"
+      id="new_department"
       onSubmit={handleSubmit(handleCreateDepartment)}
       columns={{ base: 1, md: 2 }}
       spacing={10}
@@ -37,6 +46,7 @@ export function NewDepartmentProfileGrid() {
         type="text"
         placeholder="Ex: Tecnologia da Informação"
       />
+
       <Input
         size="sm"
         {...register("board")}
@@ -44,6 +54,7 @@ export function NewDepartmentProfileGrid() {
         type="text"
         placeholder="Ex: Vice Presidência"
       />
+
       <Input
         size="sm"
         {...register("cost_center")}
@@ -51,6 +62,7 @@ export function NewDepartmentProfileGrid() {
         type="number"
         placeholder="Ex: 999999"
       />
+
       <Checkbox
         size="md"
         mb="auto"
@@ -59,8 +71,9 @@ export function NewDepartmentProfileGrid() {
         {...register("is_board")}
         placeholder="É Diretoria"
       >
-        É uma Diretoria ?:
+        É uma Diretoria ?
       </Checkbox>
+
       <Input
         size="sm"
         {...register("responsible_id")}
@@ -68,8 +81,9 @@ export function NewDepartmentProfileGrid() {
         type="text"
         placeholder="Ex: Carlos Alexandre"
       />
+
       <Button
-        form="new_user"
+        form="new_department"
         type="submit"
         mt="auto"
         ml="auto"
