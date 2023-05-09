@@ -1,8 +1,6 @@
 import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { UserProfileGrid } from "@/components/Grids/UserProfileGrid";
 import { Header } from "@/components/Header";
-import { TriggerChangeDepartment } from "@/components/Modals/User/ChangeDepartment/Trigger";
-import { TriggerChangeStatus } from "@/components/Modals/User/ChangeStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { getOneUser } from "@/hooks/UseOneUser";
 import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
@@ -10,6 +8,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Button,
   Divider,
   Flex,
   Heading,
@@ -18,9 +17,10 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { Desktop } from "@phosphor-icons/react";
+import { Desktop, Pencil, X } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { useState } from "react";
 
 interface Equipment {
   id: string;
@@ -52,8 +52,8 @@ interface UserProps {
     telephone: number | null;
     direct_boss: string;
     smtp: string;
-    admission_date: string;
-    demission_date: string | null;
+    admission_date: Date | null;
+    demission_date: Date | null;
     status: string;
   };
 
@@ -63,10 +63,12 @@ interface UserProps {
 export default function User({ user, equipments }: UserProps) {
   const colorStatus = user.status === "active" ? "green" : "orange";
 
+  const [isEditable, setIsEditable] = useState(true);
+
   return (
     <>
       <Head>
-        <title> Profile</title>
+        <title>Profile</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -103,22 +105,30 @@ export default function User({ user, equipments }: UserProps) {
               </HStack>
 
               <HStack>
-                <TriggerChangeDepartment
-                  userName={user.user_name}
-                  title={user.title}
-                  departmentId={user.department_id}
-                  directBoss={user.direct_boss}
-                />
-                <TriggerChangeStatus
-                  userName={user.user_name}
-                  currentStatus={user.status}
-                />
+                <Button
+                  onClick={() => setIsEditable(!isEditable)}
+                  leftIcon={isEditable ? <Pencil /> : <X />}
+                  colorScheme={isEditable ? "purple" : "red"}
+                >
+                  {isEditable ? "Editar" : "Cancelar"}
+                </Button>
+
+                <Button
+                  hidden={isEditable}
+                  form="update_user"
+                  mr="auto"
+                  type="submit"
+                  size="md"
+                  colorScheme="purple"
+                >
+                  Enviar
+                </Button>
               </HStack>
             </Flex>
 
             <Divider />
 
-            <UserProfileGrid user={user} />
+            <UserProfileGrid user={user} isEditable={isEditable} />
 
             <>
               {equipments.map((equip) => (
