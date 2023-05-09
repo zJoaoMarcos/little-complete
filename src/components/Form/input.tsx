@@ -1,11 +1,11 @@
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
 import {
+  Input as ChakraInput,
+  InputProps as ChakraInputProps,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input as ChakraInput,
-  InputProps as ChakraInputProps,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FieldError } from "react-hook-form";
@@ -36,6 +36,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         size="lg"
         {...rest}
         ref={ref}
+        _readOnly={{ cursor: "default" }}
       />
 
       {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}

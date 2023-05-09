@@ -1,11 +1,11 @@
 import { forwardRef, ForwardRefRenderFunction } from "react";
 
 import {
+  Select as ChakraSelect,
+  SelectProps as ChakraSelectProps,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Select as ChakraSelect,
-  SelectProps as ChakraSelectProps,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FieldError } from "react-hook-form";
@@ -32,6 +32,7 @@ const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
         id={name}
         variant="filled"
         _hover={{ bgColor: useColorModeValue("gray.300", "gray.800") }}
+        _readOnly={{ cursor: "default" }}
         focusBorderColor="pink.400"
         size="lg"
         {...rest}

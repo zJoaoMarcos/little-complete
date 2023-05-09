@@ -9,7 +9,7 @@ type UpdateUserData = {
   user_name: string;
   complete_name: string;
   title: string;
-  department_id: string;
+  department_id: number;
   telephone: number | null;
   direct_boss: string;
   smtp: string;
@@ -35,12 +35,20 @@ interface UserProfileGridProps {
 }
 
 export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
+  const { data } = useFetchDepartmentsList();
+
+  const currentUserDepartment = data?.departments.find(
+    (department) => department.name === user.department_id
+  );
+
+  console.log(user);
+
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
     defaultValues: {
       user_name: user.user_name,
       complete_name: user.complete_name,
       title: user.title,
-      department_id: user.department_id,
+      department_id: currentUserDepartment?.id,
       telephone: user.telephone,
       direct_boss: user.direct_boss,
       smtp: user.smtp,
@@ -53,8 +61,6 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
   const { isSubmitting } = formState;
 
   const { updateUser } = useUser();
-
-  const { data } = useFetchDepartmentsList();
 
   const handleUpdate: SubmitHandler<UpdateUserData> = async (data, event) => {
     event.preventDefault();
@@ -92,8 +98,11 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
         <Select
           label="Departamento"
           {...register("department_id")}
-          placeholder="Selecione o Departamento"
+          isDisabled={isEditable}
         >
+          <option value={currentUserDepartment?.id}>
+            {currentUserDepartment?.name}
+          </option>
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
