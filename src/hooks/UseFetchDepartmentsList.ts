@@ -41,11 +41,15 @@ export async function getDepartmentsList(
 }
 
 export function useFetchDepartmentsList(
-  page: number,
-  skip: number,
-  take: number
+  page?: number,
+  skip?: number,
+  take?: number
 ) {
-  return useQuery(["departments", page], () => getDepartmentsList(skip, take), {
-    staleTime: 1000 * 5,
-  });
+  return useQuery(
+    ["departments", page],
+    () => getDepartmentsList((skip = 0), (take = 0)),
+    {
+      staleTime: 1000 * 5,
+    }
+  );
 }

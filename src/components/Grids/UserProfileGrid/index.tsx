@@ -1,5 +1,7 @@
+import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useUser } from "@/contexts/UserContext";
+import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { List, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -52,6 +54,8 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
 
   const { updateUser } = useUser();
 
+  const { data } = useFetchDepartmentsList();
+
   const handleUpdate: SubmitHandler<UpdateUserData> = async (data, event) => {
     event.preventDefault();
 
@@ -74,7 +78,8 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           size="md"
           label="Usuário"
           {...register("user_name")}
-          isDisabled={isEditable}
+          isReadOnly
+          isDisabled={!isEditable}
         />
 
         <Input
@@ -84,12 +89,17 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           isDisabled={isEditable}
         />
 
-        <Input
-          size="md"
+        <Select
           label="Departamento"
           {...register("department_id")}
-          isDisabled={isEditable}
-        />
+          placeholder="Selecione o Departamento"
+        >
+          {data?.departments.map((department) => (
+            <option key={department.id} value={department.id}>
+              {department.name}
+            </option>
+          ))}
+        </Select>
 
         <Input
           size="md"

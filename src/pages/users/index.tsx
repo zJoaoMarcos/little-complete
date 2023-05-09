@@ -1,17 +1,18 @@
 import { Header } from "@/components/Header";
 import { UsersList } from "@/components/Lists/UserLists";
-import { CreateUserTrigger } from "@/components/Modals/User/CreateUser/Trigger";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
 import { useUsersList } from "@/hooks/UseUserList";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Users() {
@@ -19,6 +20,8 @@ export default function Users() {
   const take = 20;
   const skip = (page - 1) * take;
   const { data, isLoading, isFetching } = useUsersList(page, skip, take);
+
+  const { push } = useRouter();
 
   return (
     <>
@@ -48,7 +51,10 @@ export default function Users() {
                 )}
               </Heading>
 
-              <CreateUserTrigger />
+              <Button onClick={() => push("users/new")} colorScheme="purple">
+                {" "}
+                + Novo Usuário
+              </Button>
             </Flex>
             {isLoading ? (
               <Flex justify="center">
