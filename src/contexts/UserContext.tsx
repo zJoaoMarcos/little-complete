@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext } from "react";
 
 import { backend } from "@/lib/backendApi";
 import { queryClient } from "@/lib/queryClient";
+import { AxiosError } from "axios";
 import { useMutation, UseMutationResult } from "react-query";
 import { toast } from "react-toastify";
 
@@ -16,16 +17,17 @@ interface CreateUserData {
   admission_date: Date;
 }
 
-interface ChangeStatusData {
+interface UpdateUserData {
   user_name: string;
-  status: string;
-}
-
-interface ChangeDepartmentData {
-  user_name: string;
-  department_id: string;
+  complete_name: string;
   title: string;
+  department_id: string;
+  telephone: number | null;
   direct_boss: string;
+  smtp: string;
+  admission_date: Date | null;
+  demission_date: Date | null;
+  status: string;
 }
 
 interface StockProviderContextData {
@@ -35,16 +37,10 @@ interface StockProviderContextData {
     CreateUserData,
     unknown
   >;
-  changeStatus: UseMutationResult<
-    ChangeStatusData,
+  updateUser: UseMutationResult<
+    UpdateUserData,
     unknown,
-    ChangeStatusData,
-    unknown
-  >;
-  changeDepartment: UseMutationResult<
-    ChangeDepartmentData,
-    unknown,
-    ChangeDepartmentData,
+    UpdateUserData,
     unknown
   >;
 }
@@ -69,18 +65,18 @@ export function UserProvider({ children }: UserProviderProps) {
         toast.success("Usuário criado com sucesso");
         queryClient.invalidateQueries("user");
       },
-      onError: () => {
+      onError: (error: AxiosError) => {
         toast.error(
-          "Desculpe não conseguimos criar o usuário, tente mais tarde"
+          `Desculpe não conseguimos criar o usuário, tente mais tarde. ${error.response.data}`
         );
       },
     }
   );
 
-  const changeStatus = useMutation(
-    async (data: ChangeStatusData) => {
-      const res = await backend.patch<ChangeStatusData>(
-        `users/status/${data.user_name}`,
+  const updateUser = useMutation(
+    async (data: UpdateUserData) => {
+      const res = await backend.patch<UpdateUserData>(
+        `users/${data.user_name}`,
         {
           ...data,
         }
@@ -90,45 +86,19 @@ export function UserProvider({ children }: UserProviderProps) {
     },
     {
       onSuccess: () => {
-        toast.success("Status alterado com sucesso");
+        toast.success("Dados do Usuário alterado com sucesso");
         queryClient.invalidateQueries("user");
       },
       onError: () => {
         toast.error(
-          "Desculpe não conseguimos alterar o status do usuário, tente mais tarde"
-        );
-      },
-    }
-  );
-
-  const changeDepartment = useMutation(
-    async (data: ChangeDepartmentData) => {
-      const res = await backend.patch<ChangeDepartmentData>(
-        `users/department/${data.user_name}`,
-        {
-          ...data,
-        }
-      );
-
-      return res.data;
-    },
-    {
-      onSuccess: () => {
-        toast.success("Status alterado com sucesso");
-        queryClient.invalidateQueries("user");
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos alterar o status do usuário, tente mais tarde"
+          "Desculpe não conseguimos alterar os dados do usuário, tente mais tarde. "
         );
       },
     }
   );
 
   return (
-    <StockContext.Provider
-      value={{ createUser, changeStatus, changeDepartment }}
-    >
+    <StockContext.Provider value={{ createUser, updateUser }}>
       {children}
     </StockContext.Provider>
   );
