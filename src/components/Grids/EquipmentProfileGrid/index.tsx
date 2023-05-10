@@ -63,26 +63,28 @@ export function EquipmentProfileGrid({
     (department) => department.name === equipment.department
   );
 
-  const { register, handleSubmit, formState } = useForm<UpdateEquipmentData>({
-    defaultValues: {
-      id: equipment.id,
-      brand: equipment.brand,
-      model: equipment.model,
-      supplier: equipment.supplier,
-      invoice: equipment.invoice,
-      warranty: equipment.warranty,
-      purchase_date: equipment.purchase_date,
-      cpu: equipment.cpu,
-      ram: equipment.ram,
-      slots: equipment.slots,
-      service_tag: equipment.service_tag,
-      storage0_type: equipment.storage0_type,
-      storage0_syze: equipment.storage0_syze,
-      storage1_type: equipment.storage1_type,
-      storage1_syze: equipment.storage1_syze,
-      video: equipment.video,
-    },
-  });
+  const { register, handleSubmit, formState, reset } =
+    useForm<UpdateEquipmentData>({
+      defaultValues: {
+        id: equipment.id,
+        brand: equipment.brand,
+        model: equipment.model,
+        supplier: equipment.supplier,
+        invoice: equipment.invoice,
+        warranty: equipment.warranty,
+        department: currentEquipmentDepartment?.id,
+        purchase_date: equipment.purchase_date,
+        cpu: equipment.cpu,
+        ram: equipment.ram,
+        slots: equipment.slots,
+        service_tag: equipment.service_tag,
+        storage0_type: equipment.storage0_type,
+        storage0_syze: equipment.storage0_syze,
+        storage1_type: equipment.storage1_type,
+        storage1_syze: equipment.storage1_syze,
+        video: equipment.video,
+      },
+    });
 
   const { updateEquipment } = useEquipment();
 
@@ -119,8 +121,11 @@ export function EquipmentProfileGrid({
           label="Departamento"
           {...register("department")}
           isDisabled={isBlocked}
-          defaultValue={currentEquipmentDepartment?.id}
         >
+          <option value={currentEquipmentDepartment?.id}>
+            {currentEquipmentDepartment?.name}
+          </option>
+
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
