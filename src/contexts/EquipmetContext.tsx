@@ -13,6 +13,26 @@ interface CreateEquipmentData {
   warranty: string | null;
   purchase_date: string | null;
   department: string;
+  cpu: string | null;
+  ram: string | null;
+  slots: number | null;
+  storage0_type: string | null;
+  storage0_syze: number | null;
+  storage1_type: string | null;
+  storage1_syze: number | null;
+  video: string | null;
+  service_tag: string | null;
+}
+
+interface UpdateEquipmentData {
+  id: string;
+  brand: string;
+  model: string;
+  supplier: string | null;
+  invoice: string | null;
+  warranty: string | null;
+  purchase_date: string | null;
+  department: string;
   status: string;
   cpu: string | null;
   ram: string | null;
@@ -30,6 +50,12 @@ interface StockProviderContextData {
     CreateEquipmentData,
     unknown,
     CreateEquipmentData,
+    unknown
+  >;
+  updateEquipment: UseMutationResult<
+    UpdateEquipmentData,
+    unknown,
+    UpdateEquipmentData,
     unknown
   >;
 }
@@ -62,8 +88,32 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     }
   );
 
+  const updateEquipment = useMutation(
+    async (data: UpdateEquipmentData) => {
+      const res = await backend.patch<UpdateEquipmentData>(
+        `equipments/${data.id}`,
+        {
+          ...data,
+        }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Equipamento salvo com sucesso");
+        queryClient.invalidateQueries("user");
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos editar o equipamento, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
-    <EquipmentContext.Provider value={{ createEquipment }}>
+    <EquipmentContext.Provider value={{ createEquipment, updateEquipment }}>
       {children}
     </EquipmentContext.Provider>
   );

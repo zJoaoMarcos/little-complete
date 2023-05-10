@@ -1,17 +1,18 @@
 import { Header } from "@/components/Header";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
-import { CreateEquipmentTrigger } from "@/components/Modals/Equipment/CreateEquipment/Trigger";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
 import { useInvetoryList } from "@/hooks/UseInventoryList";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Inventory() {
@@ -19,6 +20,8 @@ export default function Inventory() {
   const take = 26;
   const skip = (page - 1) * take;
   const { data, isLoading, isFetching } = useInvetoryList(page, skip, take);
+
+  const { push } = useRouter();
 
   return (
     <>
@@ -48,7 +51,12 @@ export default function Inventory() {
                 )}
               </Heading>
 
-              <CreateEquipmentTrigger />
+              <Button
+                colorScheme="purple"
+                onClick={() => push("inventory/new")}
+              >
+                + Novo Equipamento
+              </Button>
             </Flex>
             {isLoading ? (
               <Flex justify="center">

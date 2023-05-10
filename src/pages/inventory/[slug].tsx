@@ -1,12 +1,12 @@
 import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { EquipmentAvatar } from "@/components/Grids/EquipmentProfileGrid/EquipmentAvatar";
 import { Header } from "@/components/Header";
-import { UpdateEquipmentTrigger } from "@/components/Modals/Equipment/UpdateEquipment/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { getOneEquipment, useOneEquipment } from "@/hooks/UseOneEquipment";
 import {
   Badge,
   Box,
+  Button,
   Divider,
   Flex,
   HStack,
@@ -15,8 +15,10 @@ import {
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { useState } from "react";
 
 interface EquipmentProps {
   equipment: {
@@ -29,7 +31,6 @@ interface EquipmentProps {
     warranty: string | null;
     purchase_date: string | null;
     department: string;
-    status: string;
     cpu: string | null;
     ram: string | null;
     slots: number | null;
@@ -43,12 +44,13 @@ interface EquipmentProps {
 }
 
 export default function Inventory({ equipment }: EquipmentProps) {
+  const [isBlocked, setIsBlocked] = useState(true);
   const { data } = useOneEquipment(equipment.id, { initialData: equipment });
 
   return (
     <>
       <Head>
-        <title>{equipment.id} | Equipment</title>
+        <title>Equipment</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -88,13 +90,32 @@ export default function Inventory({ equipment }: EquipmentProps) {
               </HStack>
 
               <HStack>
-                <UpdateEquipmentTrigger equipment={data.equipment} />
+                <Button
+                  onClick={() => setIsBlocked(!isBlocked)}
+                  leftIcon={isBlocked ? <Pencil /> : <X />}
+                  colorScheme={isBlocked ? "purple" : "red"}
+                >
+                  {isBlocked ? "Editar" : "Cancelar"}
+                </Button>
+
+                <Button
+                  form="update_equipment"
+                  type="submit"
+                  hidden={isBlocked}
+                  leftIcon={<Archive />}
+                  colorScheme="blue"
+                >
+                  Salvar
+                </Button>
               </HStack>
             </Flex>
 
             <Divider />
 
-            <EquipmentProfileGrid equipment={data.equipment} />
+            <EquipmentProfileGrid
+              equipment={data.equipment}
+              isBlocked={isBlocked}
+            />
           </Box>
         </Flex>
       </Flex>
