@@ -34,8 +34,6 @@ export async function getInventory(skip: number, take: number): Promise<Data> {
     `equipments?skip=${skip}&take=${take}`
   );
 
-  console.log(data);
-
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id,
@@ -66,7 +64,7 @@ export async function getInventory(skip: number, take: number): Promise<Data> {
 }
 
 export function useInvetoryList(page: number, skip: number, take: number) {
-  return useQuery(["user", page], () => getInventory(skip, take), {
+  return useQuery(["equipments", page], () => getInventory(skip, take), {
     staleTime: 1000 * 5,
   });
 }
