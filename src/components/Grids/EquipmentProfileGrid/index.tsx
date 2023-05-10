@@ -12,7 +12,7 @@ type UpdateEquipmentData = {
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
-  purchase_date: string | null;
+  purchase_date: Date | null;
   department: string;
   status: string;
   cpu: string | null;
@@ -34,7 +34,7 @@ interface EquipmentProfileGridProps {
     supplier: string | null;
     invoice: string | null;
     warranty: string | null;
-    purchase_date: string | null;
+    purchase_date: Date | null;
     department: string;
     status: string;
     cpu: string | null;
@@ -161,6 +161,7 @@ export function EquipmentProfileGrid({
           {...register("purchase_date")}
           label="Data de Compra"
           isReadOnly={isBlocked}
+          type="date"
         />
 
         <Input

@@ -11,7 +11,7 @@ interface CreateEquipmentData {
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
-  purchase_date: string | null;
+  purchase_date: Date | null;
   department: string;
   cpu: string | null;
   ram: string | null;
@@ -31,7 +31,7 @@ interface UpdateEquipmentData {
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
-  purchase_date: string | null;
+  purchase_date: Date | null;
   department: string;
   status: string;
   cpu: string | null;

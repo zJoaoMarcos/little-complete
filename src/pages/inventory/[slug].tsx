@@ -29,7 +29,7 @@ interface EquipmentProps {
     supplier: string | null;
     invoice: string | null;
     warranty: string | null;
-    purchase_date: string | null;
+    purchase_date: Date | null;
     department: string;
     cpu: string | null;
     ram: string | null;
