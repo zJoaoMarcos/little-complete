@@ -12,8 +12,8 @@ type CreateEquipmentData = {
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
-  purchase_date: string | null;
-  department: string;
+  purchase_date: Date | null;
+  department: number;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
@@ -28,7 +28,16 @@ type CreateEquipmentData = {
 export function NewEquipmentProfileGrid() {
   const { data } = useFetchDepartmentsList();
 
-  const { register, handleSubmit, formState } = useForm<CreateEquipmentData>();
+  const { register, handleSubmit, formState, reset } =
+    useForm<CreateEquipmentData>({
+      defaultValues: {
+        slots: null,
+        storage0_syze: null,
+        storage1_syze: null,
+      },
+    });
+
+  const { isDirty, isSubmitting } = formState;
 
   const { createEquipment } = useEquipment();
 
@@ -38,9 +47,9 @@ export function NewEquipmentProfileGrid() {
   ) => {
     event.preventDefault();
 
-    /* await createEquipment.mutateAsync(data); */
+    await createEquipment.mutateAsync(data);
 
-    console.log(data);
+    reset();
   };
 
   return (
@@ -53,9 +62,15 @@ export function NewEquipmentProfileGrid() {
       marginTop={8}
     >
       <List spacing={6}>
-        <Input size="md" {...register("id")} label="ID" />
+        <Input size="md" {...register("id")} label="ID" isRequired />
 
-        <Select size="md" label="Departamento" {...register("department")}>
+        <Select
+          size="md"
+          label="Departamento"
+          {...register("department")}
+          placeholder="Selecione o Departamento"
+          isRequired
+        >
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
@@ -63,9 +78,9 @@ export function NewEquipmentProfileGrid() {
           ))}
         </Select>
 
-        <Input size="md" {...register("brand")} label="Fabricante" />
+        <Input size="md" {...register("brand")} label="Fabricante" isRequired />
 
-        <Input size="md" {...register("model")} label="Modelo" />
+        <Input size="md" {...register("model")} label="Modelo" isRequired />
 
         <Input size="md" {...register("service_tag")} label="Service Tag" />
 
@@ -75,6 +90,7 @@ export function NewEquipmentProfileGrid() {
           size="md"
           {...register("purchase_date")}
           label="Data de Compra"
+          type="date"
         />
 
         <Input size="md" {...register("warranty")} label="Garantia" />
@@ -94,6 +110,7 @@ export function NewEquipmentProfileGrid() {
           {...register("slots")}
           label="Qtd. de Slots"
           type="number"
+          defaultValue={null}
         />
 
         <Input
@@ -101,6 +118,7 @@ export function NewEquipmentProfileGrid() {
           {...register("storage0_syze")}
           label="Tamanho de Armazenamento"
           type="number"
+          defaultValue={null}
         />
 
         <Input
@@ -115,6 +133,7 @@ export function NewEquipmentProfileGrid() {
           {...register("storage1_syze")}
           label="Tamanho de Armazenamento (2)"
           type="number"
+          defaultValue={null}
         />
 
         <Input

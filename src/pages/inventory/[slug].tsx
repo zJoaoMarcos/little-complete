@@ -113,6 +113,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
             <Divider />
 
             <EquipmentProfileGrid
+              setIsBlocked={() => setIsBlocked(!isBlocked)}
               equipment={data.equipment}
               isBlocked={isBlocked}
             />

@@ -13,7 +13,7 @@ type UpdateEquipmentData = {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: string;
+  department: number;
   status: string;
   cpu: string | null;
   ram: string | null;
@@ -49,15 +49,17 @@ interface EquipmentProfileGridProps {
   };
 
   isBlocked: boolean;
+  setIsBlocked: (isBlocked: boolean) => void;
 }
 
 export function EquipmentProfileGrid({
   equipment,
   isBlocked,
+  setIsBlocked,
 }: EquipmentProfileGridProps) {
   const { data } = useFetchDepartmentsList();
 
-  const currentUserDepartment = data?.departments.find(
+  const currentEquipmentDepartment = data?.departments.find(
     (department) => department.name === equipment.department
   );
 
@@ -70,7 +72,6 @@ export function EquipmentProfileGrid({
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
-      department: equipment.department,
       cpu: equipment.cpu,
       ram: equipment.ram,
       slots: equipment.slots,
@@ -92,6 +93,8 @@ export function EquipmentProfileGrid({
     event.preventDefault();
 
     await updateEquipment.mutateAsync(data);
+
+    setIsBlocked(isBlocked);
   };
 
   return (
@@ -115,12 +118,9 @@ export function EquipmentProfileGrid({
           size="md"
           label="Departamento"
           {...register("department")}
-          isReadOnly={isBlocked}
+          isDisabled={isBlocked}
+          defaultValue={currentEquipmentDepartment?.id}
         >
-          <option value={currentUserDepartment?.id}>
-            {currentUserDepartment?.name}
-          </option>
-
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
@@ -211,14 +211,6 @@ export function EquipmentProfileGrid({
 
         <Input
           size="md"
-          {...register("storage0_syze")}
-          label="Tamanho de Armazenamento"
-          isReadOnly={isBlocked}
-          type="number"
-        />
-
-        <Input
-          size="md"
           {...register("storage0_type")}
           label="Tipo de Armazenamento"
           isReadOnly={isBlocked}
@@ -227,8 +219,8 @@ export function EquipmentProfileGrid({
 
         <Input
           size="md"
-          {...register("storage1_syze")}
-          label="Tamanho de Armazenamento (2)"
+          {...register("storage0_syze")}
+          label="Tamanho de Armazenamento"
           isReadOnly={isBlocked}
           type="number"
         />
@@ -239,6 +231,14 @@ export function EquipmentProfileGrid({
           label="Tipo de Armazenamento (2)"
           isReadOnly={isBlocked}
           type="text"
+        />
+
+        <Input
+          size="md"
+          {...register("storage1_syze")}
+          label="Tamanho de Armazenamento (2)"
+          isReadOnly={isBlocked}
+          type="number"
         />
       </List>
     </SimpleGrid>
