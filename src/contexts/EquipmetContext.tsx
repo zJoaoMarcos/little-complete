@@ -78,7 +78,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     {
       onSuccess: () => {
         toast.success("Equipamento registrado com sucesso");
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries("equipments");
       },
       onError: () => {
         toast.error(
@@ -102,7 +102,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     {
       onSuccess: () => {
         toast.success("Equipamento salvo com sucesso");
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries("equipments");
       },
       onError: () => {
         toast.error(
