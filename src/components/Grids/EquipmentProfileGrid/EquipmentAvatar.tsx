@@ -35,7 +35,7 @@ export function EquipmentAvatar({
         icon={<Monitor size={iconSize} />}
       />
     );
-  } else if (equipmentType === "telephone") {
+  } else if (equipmentType === "Telephone") {
     return (
       <Avatar
         size={avatarSize}
