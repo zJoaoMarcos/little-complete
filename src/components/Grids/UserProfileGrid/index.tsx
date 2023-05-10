@@ -41,8 +41,6 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
     (department) => department.name === user.department_id
   );
 
-  console.log(user);
-
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
     defaultValues: {
       user_name: user.user_name,
