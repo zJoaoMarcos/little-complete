@@ -15,7 +15,7 @@ interface UserCardProps {
     user_name: string;
     complete_name: string;
     title: string;
-    department_id: string;
+    department: { id: number; name: string };
     telephone: number | null;
     direct_boss: string;
     smtp: string;
@@ -58,7 +58,7 @@ export function UserCard({ user }: UserCardProps) {
           </HStack>
           <HStack>
             <Text fontSize="sm">{user.title} - </Text>
-            <Text fontSize="sm">{user.department_id}</Text>
+            <Text fontSize="sm">{user.department.id}</Text>
           </HStack>
         </Flex>
       </HStack>

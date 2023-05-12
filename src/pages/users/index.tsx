@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { UsersList } from "@/components/Lists/UserLists";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
-import { useUsersList } from "@/hooks/UseUserList";
+import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import {
   Box,
   Button,
@@ -19,7 +19,7 @@ export default function Users() {
   const [page, setPage] = useState(1);
   const take = 20;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useUsersList(page, skip, take);
+  const { data, isLoading, isFetching } = useFetchUsersList(page, skip, take);
 
   const { push } = useRouter();
 

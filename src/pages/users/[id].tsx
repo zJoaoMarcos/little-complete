@@ -2,7 +2,7 @@ import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { UserProfileGrid } from "@/components/Grids/UserProfileGrid";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
-import { getOneUser } from "@/hooks/UseOneUser";
+import { getUser } from "@/hooks/UseFindUser";
 import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
 import {
   Avatar,
@@ -166,7 +166,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async ({ params }) => {
   const id = params.id;
 
-  const { user, equipments } = await getOneUser(id);
+  const { user, equipments } = await getUser(id);
 
   return {
     props: {

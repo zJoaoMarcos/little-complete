@@ -39,7 +39,7 @@ interface User {
   equipments: Equipment[];
 }
 
-export async function getOneUser(userId: string): Promise<User> {
+export async function getUser(userId: string): Promise<User> {
   const { data } = await backend.get<User>(`users/${userId}`);
 
   const user = {
@@ -81,8 +81,8 @@ export async function getOneUser(userId: string): Promise<User> {
   return { user, equipments };
 }
 
-export function useOneUser(userId: string, options: UseQueryOptions) {
-  return useQuery(["user"], () => getOneUser(userId), {
+export function useFindUser(userId: string, options: UseQueryOptions) {
+  return useQuery(["user"], () => getUser(userId), {
     staleTime: 1000 * 5, // 5 minutes
     ...options,
   }) as UseQueryResult<User, unknown>;
