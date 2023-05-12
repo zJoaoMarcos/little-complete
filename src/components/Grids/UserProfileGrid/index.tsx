@@ -86,13 +86,13 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           size="md"
           label="Cargo"
           {...register("title")}
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         />
 
         <Select
           label="Departamento"
           {...register("department_id")}
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         >
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
@@ -105,7 +105,7 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           size="md"
           label="Chefia Imediata"
           {...register("direct_boss")}
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         />
       </List>
 
@@ -114,14 +114,14 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           size="md"
           label="E-mail"
           {...register("smtp")}
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         />
 
         <Input
           size="md"
           label="Ramal"
           {...register("telephone")}
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         />
 
         <Input
@@ -129,7 +129,7 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           label="Data de Admissão"
           {...register("admission_date")}
           type="date"
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         />
 
         <Input
@@ -137,7 +137,7 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           label="Data de Demissão"
           {...register("demission_date")}
           type="date"
-          isDisabled={isEditable}
+          isReadOnly={isEditable}
         />
       </List>
     </SimpleGrid>

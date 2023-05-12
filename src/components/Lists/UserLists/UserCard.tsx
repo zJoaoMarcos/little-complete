@@ -58,7 +58,7 @@ export function UserCard({ user }: UserCardProps) {
           </HStack>
           <HStack>
             <Text fontSize="sm">{user.title} - </Text>
-            <Text fontSize="sm">{user.department.id}</Text>
+            <Text fontSize="sm">{user.department.name}</Text>
           </HStack>
         </Flex>
       </HStack>
