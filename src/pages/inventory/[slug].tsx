@@ -2,7 +2,7 @@ import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { EquipmentAvatar } from "@/components/Grids/EquipmentProfileGrid/EquipmentAvatar";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
-import { getEquipment, useFindEquipment } from "@/hooks/UseFindEquipment";
+import { getEquipment } from "@/hooks/UseFindEquipment";
 import {
   Badge,
   Box,
@@ -31,6 +31,7 @@ interface EquipmentProps {
     warranty: string | null;
     purchase_date: Date | null;
     department: { id: number; name: string };
+    status: string;
     cpu: string | null;
     ram: string | null;
     slots: number | null;
@@ -45,7 +46,6 @@ interface EquipmentProps {
 
 export default function Inventory({ equipment }: EquipmentProps) {
   const [isBlocked, setIsBlocked] = useState(true);
-  const { data } = useFindEquipment(equipment.id, { initialData: equipment });
 
   return (
     <>
@@ -70,21 +70,21 @@ export default function Inventory({ equipment }: EquipmentProps) {
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
                 <EquipmentAvatar
-                  equipmentType={data.equipment.type}
+                  equipmentType={equipment.type}
                   avatarSize="lg"
                   iconSize={40}
                 />
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                    {data.equipment.type} -{" "}
+                    {equipment.type} -{" "}
                     <Text as="span" color="purple.400">
-                      {data.equipment.id}
+                      {equipment.id}
                     </Text>
                   </Heading>
 
                   <Text fontWeight="semibold" fontSize={16}>
                     Status:{" "}
-                    <Badge colorScheme="green">{data.equipment.status}</Badge>
+                    <Badge colorScheme="green">{equipment.status}</Badge>
                   </Text>
                 </VStack>
               </HStack>
@@ -114,7 +114,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
 
             <EquipmentProfileGrid
               setIsBlocked={() => setIsBlocked(!isBlocked)}
-              equipment={data.equipment}
+              equipment={equipment}
               isBlocked={isBlocked}
             />
           </Box>
@@ -131,7 +131,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      equipment: equipment,
+      equipment: equipment.equipment,
     },
   };
 };

@@ -3,6 +3,7 @@ import { Input } from "@/components/Form/input";
 import { useEquipment } from "@/contexts/EquipmetContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { List, SimpleGrid } from "@chakra-ui/react";
+import { SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type UpdateEquipmentData = {
@@ -48,8 +49,8 @@ interface EquipmentProfileGridProps {
     service_tag: string | null;
   };
 
-  isBlocked?: boolean;
-  setIsBlocked?: (isBlocked: boolean) => void;
+  isBlocked: boolean;
+  setIsBlocked: (value: SetStateAction<boolean>) => void;
 }
 
 export function EquipmentProfileGrid({
@@ -88,7 +89,7 @@ export function EquipmentProfileGrid({
     data,
     event
   ) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     await updateEquipment.mutateAsync(data);
 
@@ -110,6 +111,7 @@ export function EquipmentProfileGrid({
           {...register("id")}
           label="ID"
           isReadOnly={isBlocked}
+          isDisabled={isBlocked}
         />
 
         <Select
