@@ -12,7 +12,7 @@ interface Equipment {
     invoice: string | null;
     warranty: string | null;
     purchase_date: Date | null;
-    department: string;
+    department: { id: number; name: string };
     status: string;
     cpu: string | null;
     ram: string | null;
@@ -26,7 +26,7 @@ interface Equipment {
   };
 }
 
-export async function getOneEquipment(equipmentId: string): Promise<Equipment> {
+export async function getEquipment(equipmentId: string): Promise<Equipment> {
   const { data } = await backend.get<Equipment>(`equipments/${equipmentId}`);
 
   const equipment = {
@@ -38,7 +38,10 @@ export async function getOneEquipment(equipmentId: string): Promise<Equipment> {
     invoice: formatData(data.equipment.invoice),
     warranty: data.equipment.warranty,
     purchase_date: data.equipment.purchase_date,
-    department: formatData(data.equipment.department),
+    department: {
+      id: data.equipment.department.id,
+      name: formatData(data.equipment.department.name),
+    },
     status: data.equipment.status,
     cpu: data.equipment.cpu,
     ram: data.equipment.ram,
@@ -54,8 +57,11 @@ export async function getOneEquipment(equipmentId: string): Promise<Equipment> {
   return { equipment };
 }
 
-export function useOneEquipment(equipmentId: string, options: UseQueryOptions) {
-  return useQuery(["user"], () => getOneEquipment(equipmentId), {
+export function useFindEquipment(
+  equipmentId: string,
+  options: UseQueryOptions
+) {
+  return useQuery(["user"], () => getEquipment(equipmentId), {
     staleTime: 1000 * 5, // 5 minutes
     ...options,
   }) as UseQueryResult<Equipment, unknown>;

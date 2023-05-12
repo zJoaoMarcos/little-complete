@@ -11,7 +11,7 @@ interface Equipment {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: string;
+  department: { id: number; name: string };
   status: string;
   cpu: string | null;
   ram: string | null;
@@ -29,7 +29,10 @@ interface Data {
   totalCount: number;
 }
 
-export async function getInventory(skip: number, take: number): Promise<Data> {
+export async function getInventoryList(
+  skip: number,
+  take: number
+): Promise<Data> {
   const { data } = await backend.get<Data>(
     `equipments?skip=${skip}&take=${take}`
   );
@@ -63,8 +66,8 @@ export async function getInventory(skip: number, take: number): Promise<Data> {
   return { equipments, totalCount };
 }
 
-export function useInvetoryList(page: number, skip: number, take: number) {
-  return useQuery(["equipments", page], () => getInventory(skip, take), {
+export function useFetchInvetoryList(page: number, skip: number, take: number) {
+  return useQuery(["equipments", page], () => getInventoryList(skip, take), {
     staleTime: 1000 * 5,
   });
 }

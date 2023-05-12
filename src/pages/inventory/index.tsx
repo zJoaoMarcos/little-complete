@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { Pagination } from "@/components/Pagination";
 import { Sidebar } from "@/components/Sidebar";
-import { useInvetoryList } from "@/hooks/UseInventoryList";
+import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import {
   Box,
   Button,
@@ -19,7 +19,11 @@ export default function Inventory() {
   const [page, setPage] = useState(1);
   const take = 26;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useInvetoryList(page, skip, take);
+  const { data, isLoading, isFetching } = useFetchInvetoryList(
+    page,
+    skip,
+    take
+  );
 
   const { push } = useRouter();
 

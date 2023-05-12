@@ -2,7 +2,7 @@ import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { EquipmentAvatar } from "@/components/Grids/EquipmentProfileGrid/EquipmentAvatar";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
-import { getOneEquipment, useOneEquipment } from "@/hooks/UseOneEquipment";
+import { getEquipment, useFindEquipment } from "@/hooks/UseFindEquipment";
 import {
   Badge,
   Box,
@@ -30,7 +30,7 @@ interface EquipmentProps {
     invoice: string | null;
     warranty: string | null;
     purchase_date: Date | null;
-    department: string;
+    department: { id: number; name: string };
     cpu: string | null;
     ram: string | null;
     slots: number | null;
@@ -45,7 +45,7 @@ interface EquipmentProps {
 
 export default function Inventory({ equipment }: EquipmentProps) {
   const [isBlocked, setIsBlocked] = useState(true);
-  const { data } = useOneEquipment(equipment.id, { initialData: equipment });
+  const { data } = useFindEquipment(equipment.id, { initialData: equipment });
 
   return (
     <>
@@ -127,7 +127,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params;
 
-  const equipment = await getOneEquipment(slug as string);
+  const equipment = await getEquipment(slug as string);
 
   return {
     props: {

@@ -13,7 +13,7 @@ type UpdateEquipmentData = {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: number;
+  department_id: number;
   status: string;
   cpu: string | null;
   ram: string | null;
@@ -35,7 +35,7 @@ interface EquipmentProfileGridProps {
     invoice: string | null;
     warranty: string | null;
     purchase_date: Date | null;
-    department: string;
+    department: { id: number; name: string };
     status: string;
     cpu: string | null;
     ram: string | null;
@@ -48,8 +48,8 @@ interface EquipmentProfileGridProps {
     service_tag: string | null;
   };
 
-  isBlocked: boolean;
-  setIsBlocked: (isBlocked: boolean) => void;
+  isBlocked?: boolean;
+  setIsBlocked?: (isBlocked: boolean) => void;
 }
 
 export function EquipmentProfileGrid({
@@ -58,10 +58,6 @@ export function EquipmentProfileGrid({
   setIsBlocked,
 }: EquipmentProfileGridProps) {
   const { data } = useFetchDepartmentsList();
-
-  const currentEquipmentDepartment = data?.departments.find(
-    (department) => department.name === equipment.department
-  );
 
   const { register, handleSubmit, formState, reset } =
     useForm<UpdateEquipmentData>({
@@ -72,7 +68,7 @@ export function EquipmentProfileGrid({
         supplier: equipment.supplier,
         invoice: equipment.invoice,
         warranty: equipment.warranty,
-        department: currentEquipmentDepartment?.id,
+        department_id: equipment.department.id,
         purchase_date: equipment.purchase_date,
         cpu: equipment.cpu,
         ram: equipment.ram,
@@ -119,13 +115,9 @@ export function EquipmentProfileGrid({
         <Select
           size="md"
           label="Departamento"
-          {...register("department")}
+          {...register("department_id")}
           isDisabled={isBlocked}
         >
-          <option value={currentEquipmentDepartment?.id}>
-            {currentEquipmentDepartment?.name}
-          </option>
-
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}

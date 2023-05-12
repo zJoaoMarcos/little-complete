@@ -13,7 +13,7 @@ type CreateEquipmentData = {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: number;
+  department_id: number;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
@@ -67,7 +67,7 @@ export function NewEquipmentProfileGrid() {
         <Select
           size="md"
           label="Departamento"
-          {...register("department")}
+          {...register("department_id")}
           placeholder="Selecione o Departamento"
           isRequired
         >

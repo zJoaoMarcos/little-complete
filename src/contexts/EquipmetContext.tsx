@@ -12,7 +12,7 @@ interface CreateEquipmentData {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: number;
+  department_id: number;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
@@ -32,8 +32,7 @@ interface UpdateEquipmentData {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: number;
-  status: string;
+  department_id: number;
   cpu: string | null;
   ram: string | null;
   slots: number | null;

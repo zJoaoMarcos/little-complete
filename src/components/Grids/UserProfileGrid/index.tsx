@@ -23,7 +23,7 @@ interface UserProfileGridProps {
     user_name: string;
     complete_name: string;
     title: string;
-    department_id: string;
+    department: { id: number; name: string };
     telephone: number | null;
     direct_boss: string;
     smtp: string;
@@ -37,16 +37,12 @@ interface UserProfileGridProps {
 export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
   const { data } = useFetchDepartmentsList();
 
-  const currentUserDepartment = data?.departments.find(
-    (department) => department.name === user.department_id
-  );
-
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
     defaultValues: {
       user_name: user.user_name,
       complete_name: user.complete_name,
       title: user.title,
-      department_id: currentUserDepartment?.id,
+      department_id: user.department.id,
       telephone: user.telephone,
       direct_boss: user.direct_boss,
       smtp: user.smtp,
@@ -98,9 +94,6 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           {...register("department_id")}
           isDisabled={isEditable}
         >
-          <option value={currentUserDepartment?.id}>
-            {currentUserDepartment?.name}
-          </option>
           {data?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
