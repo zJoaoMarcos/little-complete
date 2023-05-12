@@ -68,21 +68,21 @@ export function DepartmentProfileGrid({
       <Input
         {...register("name")}
         label="Nome"
-        isDisabled={isEditable}
+        isReadOnly={isEditable}
         size="sm"
       />
 
       <Input
         {...register("board")}
         label="Board"
-        isDisabled={isEditable}
+        isReadOnly={isEditable}
         size="sm"
       />
 
       <Input
         {...register("cost_center")}
         label="Centro de Custo"
-        isDisabled={isEditable}
+        isReadOnly={isEditable}
         size="sm"
       />
 
@@ -93,7 +93,7 @@ export function DepartmentProfileGrid({
         borderColor="purple"
         {...register("is_board")}
         placeholder="É Diretoria"
-        isDisabled={isEditable}
+        isReadOnly={isEditable}
       >
         É uma Diretoria ?
       </Checkbox>
@@ -101,7 +101,7 @@ export function DepartmentProfileGrid({
       <Input
         {...register("responsible_id")}
         label="Usuário Responsável"
-        isDisabled={isEditable}
+        isReadOnly={isEditable}
         size="sm"
       />
 

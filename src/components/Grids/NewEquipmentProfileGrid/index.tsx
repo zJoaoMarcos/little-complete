@@ -3,34 +3,40 @@ import { Input } from "@/components/Form/input";
 import { useEquipment } from "@/contexts/EquipmetContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { List, SimpleGrid } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type CreateEquipmentData = {
-  id: string;
-  brand: string;
-  model: string;
-  supplier: string | null;
-  invoice: string | null;
-  warranty: string | null;
-  purchase_date: Date | null;
-  department_id: number;
-  cpu: string | null;
-  ram: string | null;
-  slots: number | null;
-  storage0_type: string | null;
-  storage0_syze: number | null;
-  storage1_type: string | null;
-  storage1_syze: number | null;
-  video: string | null;
-  service_tag: string | null;
-};
+const createEquipmetSchema = z.object({
+  id: z.string().nonempty("O id é obrigatório"),
+  brand: z.string(),
+  model: z.string(),
+  supplier: z.string().nullable(),
+  invoice: z.string().nullable(),
+  warranty: z.string().nullable(),
+  department_id: z.coerce.number(),
+  purchase_date: z.date().nullable(),
+  cpu: z.string().nullable(),
+  ram: z.string().nullable(),
+  slots: z.coerce.number().nullable(),
+  storage0_type: z.string().nullable(),
+  storage0_syze: z.coerce.number().nullable(),
+  storage1_type: z.string().nullable(),
+  storage1_syze: z.coerce.number().nullable(),
+  video: z.string().nullable(),
+  service_tag: z.string().nullable(),
+});
+
+type CreateEquipmentData = z.infer<typeof createEquipmetSchema>;
 
 export function NewEquipmentProfileGrid() {
   const { data } = useFetchDepartmentsList();
 
   const { register, handleSubmit, formState, reset } =
     useForm<CreateEquipmentData>({
+      resolver: zodResolver(createEquipmetSchema),
       defaultValues: {
+        purchase_date: null,
         slots: null,
         storage0_syze: null,
         storage1_syze: null,
@@ -45,7 +51,7 @@ export function NewEquipmentProfileGrid() {
     data,
     event
   ) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     await createEquipment.mutateAsync(data);
 
@@ -110,7 +116,6 @@ export function NewEquipmentProfileGrid() {
           {...register("slots")}
           label="Qtd. de Slots"
           type="number"
-          defaultValue={null}
         />
 
         <Input
@@ -118,30 +123,31 @@ export function NewEquipmentProfileGrid() {
           {...register("storage0_syze")}
           label="Tamanho de Armazenamento"
           type="number"
-          defaultValue={null}
         />
 
-        <Input
-          size="md"
+        <Select
           {...register("storage0_type")}
-          label="Tipo de Armazenamento"
-          type="text"
-        />
+          placeholder="Tipo de Armazenamento"
+        >
+          <option value="hd">HD</option>
+          <option value="ssd">SSD</option>
+        </Select>
 
         <Input
           size="md"
           {...register("storage1_syze")}
           label="Tamanho de Armazenamento (2)"
           type="number"
-          defaultValue={null}
         />
 
-        <Input
-          size="md"
+        <Select
           {...register("storage1_type")}
-          label="Tipo de Armazenamento (2)"
-          type="text"
-        />
+          placeholder="Tipo de Armazenamento"
+          label="Tipo de Armazenamento (1)"
+        >
+          <option value="hd">HD</option>
+          <option value="ssd">SSD</option>
+        </Select>
       </List>
     </SimpleGrid>
   );
