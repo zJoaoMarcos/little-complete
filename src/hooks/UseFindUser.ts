@@ -9,8 +9,8 @@ interface Equipment {
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
-  purchase_date: string | null;
-  department: string;
+  purchase_date: Date | null;
+  department: { id: number; name: string };
   status: string;
   cpu: string | null;
   ram: string | null;
@@ -28,7 +28,7 @@ interface User {
     user_name: string;
     complete_name: string;
     title: string;
-    department_id: string;
+    department: { id: number; name: string };
     telephone: number | null;
     direct_boss: string;
     smtp: string;
@@ -46,7 +46,10 @@ export async function getUser(userId: string): Promise<User> {
     user_name: data.user.user_name.trim(),
     complete_name: formatData(data.user.complete_name),
     title: formatData(data.user.title),
-    department_id: formatData(data.user.department_id),
+    department: {
+      id: data.user.department.id,
+      name: formatData(data.user.department.name),
+    },
     telephone: data.user.telephone,
     direct_boss: formatData(data.user.direct_boss),
     smtp: data.user.smtp,
@@ -64,7 +67,10 @@ export async function getUser(userId: string): Promise<User> {
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
-      department: equipment.department,
+      department: {
+        id: data.user.department.id,
+        name: formatData(data.user.department.name),
+      },
       status: equipment.status,
       cpu: equipment.cpu,
       ram: equipment.ram,
