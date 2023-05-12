@@ -111,7 +111,7 @@ export function EquipmentProfileGrid({
           {...register("id")}
           label="ID"
           isReadOnly={isBlocked}
-          isDisabled={isBlocked}
+          isDisabled={!isBlocked}
         />
 
         <Select
