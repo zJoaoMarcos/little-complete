@@ -1,5 +1,6 @@
 import { Avatar } from "@chakra-ui/react";
 import {
+  Desktop,
   DesktopTower,
   Laptop,
   Monitor,
@@ -68,4 +69,6 @@ export function EquipmentAvatar({
       />
     );
   }
+
+  return <Avatar size={avatarSize} bgColor="purple.400" icon={<Desktop />} />;
 }
