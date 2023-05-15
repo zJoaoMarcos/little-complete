@@ -15,14 +15,14 @@ interface User {
 }
 
 interface UserListProps {
-  users: User[];
+  users: User[] | undefined;
 }
 
 export function UsersList({ users }: UserListProps) {
   return (
     <SimpleGrid columns={1} spacingX={10} spacingY={6} mb={10}>
       <>
-        {users.map((user) => (
+        {users?.map((user) => (
           <UserCard key={user.user_name} user={user} />
         ))}
       </>

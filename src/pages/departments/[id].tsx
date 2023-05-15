@@ -1,14 +1,12 @@
-import { DepartmentProfileGrid } from "@/components/Grids/DepartmentProfileGrid";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
+import { DepartmentTab } from "@/components/Tabs/Department";
 import { getDepartment } from "@/hooks/UseFetchDepartment";
 import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
 import { formatData } from "@/utils/formatData";
 import {
   Avatar,
   Box,
-  Button,
-  Divider,
   Flex,
   Heading,
   HStack,
@@ -17,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useState } from "react";
 
 interface DepartmentProps {
   department: {
@@ -31,8 +28,6 @@ interface DepartmentProps {
 }
 
 export default function Department({ department }: DepartmentProps) {
-  const [isEditable, setIsEditable] = useState(true);
-
   return (
     <>
       <Head>
@@ -66,20 +61,9 @@ export default function Department({ department }: DepartmentProps) {
                   </Heading>
                 </VStack>
               </HStack>
-              <Button
-                colorScheme="purple"
-                onClick={() => setIsEditable(!isEditable)}
-              >
-                Editar
-              </Button>
             </Flex>
 
-            <Divider />
-
-            <DepartmentProfileGrid
-              department={department}
-              isEditable={isEditable}
-            />
+            <DepartmentTab department={department} />
           </Box>
         </Flex>
       </Flex>
