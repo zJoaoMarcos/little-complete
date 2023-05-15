@@ -47,8 +47,8 @@ export async function getUsersList(skip: number, take: number): Promise<Data> {
   return { users, totalCount };
 }
 
-export function useFetchUsersList(page: number, skip: number, take: number) {
-  return useQuery(["user", page], () => getUsersList(skip, take), {
+export function useFetchUsersList(page?: number, skip?: number, take?: number) {
+  return useQuery(["user", page], () => getUsersList((skip = 0), (take = 0)), {
     staleTime: 1000 * 5,
   });
 }
