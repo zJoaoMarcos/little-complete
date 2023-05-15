@@ -2,6 +2,7 @@ import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useUser } from "@/contexts/UserContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { List, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -37,11 +38,10 @@ export function NewUserProfileGrid() {
   const { createUser } = useUser();
 
   const { data } = useFetchDepartmentsList();
-
-  console.log(data);
+  const { data: users } = useFetchUsersList();
 
   const handleCreate: SubmitHandler<CreateUserData> = async (data, event) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     await createUser.mutateAsync(data);
 
@@ -92,7 +92,17 @@ export function NewUserProfileGrid() {
 
         <Input size="md" label="Cargo" {...register("title")} />
 
-        <Input size="md" label="Chefia Imediata" {...register("direct_boss")} />
+        <Select
+          label="Chefia Imediata"
+          {...register("direct_boss")}
+          placeholder="Selecione a Chefia imediata"
+        >
+          {users?.users.map((user) => (
+            <option key={user.user_name} value={user.user_name}>
+              {user.user_name}
+            </option>
+          ))}
+        </Select>
       </List>
     </SimpleGrid>
   );

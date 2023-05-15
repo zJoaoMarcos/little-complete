@@ -2,6 +2,7 @@ import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useUser } from "@/contexts/UserContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { List, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -35,7 +36,8 @@ interface UserProfileGridProps {
 }
 
 export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
-  const { data } = useFetchDepartmentsList();
+  const { data: departments } = useFetchDepartmentsList();
+  const { data: users } = useFetchUsersList();
 
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
     defaultValues: {
@@ -57,7 +59,7 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
   const { updateUser } = useUser();
 
   const handleUpdate: SubmitHandler<UpdateUserData> = async (data, event) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     await updateUser.mutateAsync(data);
 
@@ -94,19 +96,20 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
           {...register("department_id")}
           isReadOnly={isEditable}
         >
-          {data?.departments.map((department) => (
+          {departments?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
             </option>
           ))}
         </Select>
 
-        <Input
-          size="md"
-          label="Chefia Imediata"
-          {...register("direct_boss")}
-          isReadOnly={isEditable}
-        />
+        <Select label="Chefia Imediata" {...register("direct_boss")}>
+          {users?.users.map((user) => (
+            <option key={user.user_name} value={user.user_name}>
+              {user.user_name}
+            </option>
+          ))}
+        </Select>
       </List>
 
       <List spacing={6}>
