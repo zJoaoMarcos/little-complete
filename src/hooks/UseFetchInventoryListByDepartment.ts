@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 interface Equipment {
   id: string;
-  type: string | null;
+  type: string;
   brand: string;
   model: string;
   supplier: string | null;
@@ -39,7 +39,7 @@ export async function getInventoryListByDepartment(
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id,
-      type: equipment.type ? formatData(equipment.type) : null,
+      type: formatData(equipment.type),
       brand: equipment.brand,
       model: equipment.model,
       supplier: equipment.supplier,

@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 interface EquipmentCardProps {
   equipment: {
     id: string;
-    type: string | null;
+    type: string;
     brand: string;
     model: string;
     supplier: string | null;

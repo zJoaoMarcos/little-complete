@@ -6,7 +6,6 @@ import { getEquipment } from "@/hooks/UseFindEquipment";
 import {
   Badge,
   Box,
-  Button,
   Divider,
   Flex,
   HStack,
@@ -15,15 +14,13 @@ import {
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useState } from "react";
 
 interface EquipmentProps {
   equipment: {
     id: string;
-    type: string | null;
+    type: string;
     brand: string;
     model: string;
     supplier: string | null;
@@ -45,8 +42,6 @@ interface EquipmentProps {
 }
 
 export default function Inventory({ equipment }: EquipmentProps) {
-  const [isBlocked, setIsBlocked] = useState(true);
-
   return (
     <>
       <Head>
@@ -88,35 +83,11 @@ export default function Inventory({ equipment }: EquipmentProps) {
                   </Text>
                 </VStack>
               </HStack>
-
-              <HStack>
-                <Button
-                  onClick={() => setIsBlocked(!isBlocked)}
-                  leftIcon={isBlocked ? <Pencil /> : <X />}
-                  colorScheme={isBlocked ? "purple" : "red"}
-                >
-                  {isBlocked ? "Editar" : "Cancelar"}
-                </Button>
-
-                <Button
-                  form="update_equipment"
-                  type="submit"
-                  hidden={isBlocked}
-                  leftIcon={<Archive />}
-                  colorScheme="blue"
-                >
-                  Salvar
-                </Button>
-              </HStack>
             </Flex>
 
             <Divider />
 
-            <EquipmentProfileGrid
-              setIsBlocked={() => setIsBlocked(!isBlocked)}
-              equipment={equipment}
-              isBlocked={isBlocked}
-            />
+            <EquipmentProfileGrid equipment={equipment} />
           </Box>
         </Flex>
       </Flex>

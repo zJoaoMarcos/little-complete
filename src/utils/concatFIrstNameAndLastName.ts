@@ -1,6 +1,6 @@
 export const concatFirstNameAndLastName = (completeName: string) => {
   if (completeName === null || undefined) {
-    return null;
+    completeName;
   }
 
   const spacedNames = completeName.trim().split(" ");

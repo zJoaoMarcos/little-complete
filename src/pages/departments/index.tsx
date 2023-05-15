@@ -67,7 +67,7 @@ export default function Departments() {
                 <Spinner />
               </Flex>
             ) : (
-              <DepartmentsList departments={data.departments} />
+              <DepartmentsList departments={data?.departments!} />
             )}
 
             <Pagination

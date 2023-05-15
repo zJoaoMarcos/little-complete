@@ -15,7 +15,7 @@ interface User {
 }
 
 interface UserListProps {
-  users: User[] | undefined;
+  users: User[];
 }
 
 export function UsersList({ users }: UserListProps) {

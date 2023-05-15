@@ -59,7 +59,7 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
       },
       onError: (err: AxiosError) => {
         toast.error(
-          `Desculpe não conseguimos criar o departamento ${err.response.data}, tente mais tarde`
+          `Desculpe não conseguimos criar o departamento ${err.response?.data}, tente mais tarde`
         );
       },
     }

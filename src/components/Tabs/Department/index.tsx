@@ -34,7 +34,7 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
         </TabPanel>
 
         <TabPanel>
-          <UsersList users={users?.users} />
+          <UsersList users={users?.users!} />
         </TabPanel>
 
         <TabPanel>

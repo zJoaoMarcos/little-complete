@@ -3,7 +3,7 @@ import { Input } from "@/components/Form/input";
 import { useEquipment } from "@/contexts/EquipmetContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { List, SimpleGrid } from "@chakra-ui/react";
-import { SetStateAction } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type UpdateEquipmentData = {
@@ -48,16 +48,10 @@ interface EquipmentProfileGridProps {
     video: string | null;
     service_tag: string | null;
   };
-
-  isBlocked: boolean;
-  setIsBlocked: (value: SetStateAction<boolean>) => void;
 }
 
-export function EquipmentProfileGrid({
-  equipment,
-  isBlocked,
-  setIsBlocked,
-}: EquipmentProfileGridProps) {
+export function EquipmentProfileGrid({ equipment }: EquipmentProfileGridProps) {
+  const [isBlocked, setIsBlocked] = useState(true);
   const { data } = useFetchDepartmentsList();
 
   const { register, handleSubmit, formState, reset } =

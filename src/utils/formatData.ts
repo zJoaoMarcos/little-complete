@@ -1,6 +1,6 @@
 export const formatData = (data: string) => {
   if (data === null || undefined) {
-    return null;
+    return data;
   }
 
   const words = data.toLocaleLowerCase().trim().split(" ");

@@ -66,7 +66,7 @@ export function UserProvider({ children }: UserProviderProps) {
       },
       onError: (error: AxiosError) => {
         toast.error(
-          `Desculpe não conseguimos criar o usuário, tente mais tarde. ${error.response.data}`
+          `Desculpe não conseguimos criar o usuário, tente mais tarde. ${error.response?.data}`
         );
       },
     }
