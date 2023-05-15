@@ -1,5 +1,4 @@
 import { backend } from "@/lib/backendApi";
-import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface Equipment {
@@ -39,7 +38,7 @@ export async function getInventoryListByDepartment(
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id,
-      type: formatData(equipment.type),
+      type: equipment.type,
       brand: equipment.brand,
       model: equipment.model,
       supplier: equipment.supplier,
@@ -71,11 +70,7 @@ export function useFetchInvetoryListByDepartment(
   skip?: number,
   take?: number
 ) {
-  return useQuery(
-    ["equipments", page],
-    () => getInventoryListByDepartment(id, (skip = 0), (take = 0)),
-    {
-      staleTime: 1000 * 5,
-    }
+  return useQuery(["equipments_by_department", page], () =>
+    getInventoryListByDepartment(id, (skip = 0), (take = 0))
   );
 }

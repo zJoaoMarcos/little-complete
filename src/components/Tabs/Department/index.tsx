@@ -3,7 +3,14 @@ import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { UsersList } from "@/components/Lists/UserLists";
 import { useFetchInvetoryListByDepartment } from "@/hooks/UseFetchInventoryListByDepartment";
 import { useFetchUsersListByDepartment } from "@/hooks/UseFetchUsersListByDepartment";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Skeleton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 
 interface DepartmentTabProps {
   department: {
@@ -18,7 +25,10 @@ interface DepartmentTabProps {
 
 export function DepartmentTab({ department }: DepartmentTabProps) {
   const { data: users } = useFetchUsersListByDepartment(department.id);
-  const { data: equipments } = useFetchInvetoryListByDepartment(department.id);
+
+  const { data: equipments, isLoading } = useFetchInvetoryListByDepartment(
+    department.id
+  );
 
   return (
     <Tabs colorScheme="purple">
@@ -34,11 +44,14 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
         </TabPanel>
 
         <TabPanel>
-          <UsersList users={users?.users!} />
+          {isLoading ? <Skeleton /> : <UsersList users={users?.users!} />}
         </TabPanel>
-
         <TabPanel>
-          <EquipmentsList equipments={equipments?.equipments!} />
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            <EquipmentsList equipments={equipments?.equipments!} />
+          )}
         </TabPanel>
       </TabPanels>
     </Tabs>
