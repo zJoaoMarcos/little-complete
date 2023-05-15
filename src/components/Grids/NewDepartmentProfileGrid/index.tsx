@@ -1,5 +1,7 @@
+import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useDepartment } from "@/contexts/DepartmentContext";
+import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -16,12 +18,13 @@ export function NewDepartmentProfileGrid() {
     useForm<CreateDepartmentData>({});
 
   const { createDepartment } = useDepartment();
+  const { data: users } = useFetchUsersList();
 
   const handleCreateDepartment: SubmitHandler<CreateDepartmentData> = async (
     data,
     event
   ) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     console.log(data);
 
@@ -74,13 +77,13 @@ export function NewDepartmentProfileGrid() {
         É uma Diretoria ?
       </Checkbox>
 
-      <Input
-        size="sm"
-        {...register("responsible_id")}
-        label="Usuário Responsável"
-        type="text"
-        placeholder="Ex: Carlos Alexandre"
-      />
+      <Select label="Responsável" {...register("responsible_id")}>
+        {users?.users.map((user) => (
+          <option key={user.user_name} value={user.user_name}>
+            {user.user_name}
+          </option>
+        ))}
+      </Select>
 
       <Button
         form="new_department"

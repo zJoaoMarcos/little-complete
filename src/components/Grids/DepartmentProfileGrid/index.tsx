@@ -1,5 +1,7 @@
+import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useDepartment } from "@/contexts/DepartmentContext";
+import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -43,13 +45,15 @@ export function DepartmentProfileGrid({
 
   const { isSubmitting } = formState;
 
+  const { data: users } = useFetchUsersList();
+
   const { updateDepartment } = useDepartment();
 
   const handleUpdate: SubmitHandler<UpdateDepartmentData> = async (
     data,
     event
   ) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     await updateDepartment.mutateAsync(data);
 
@@ -69,21 +73,21 @@ export function DepartmentProfileGrid({
         {...register("name")}
         label="Nome"
         isReadOnly={isEditable}
-        size="sm"
+        size="md"
       />
 
       <Input
         {...register("board")}
         label="Board"
         isReadOnly={isEditable}
-        size="sm"
+        size="md"
       />
 
       <Input
         {...register("cost_center")}
         label="Centro de Custo"
         isReadOnly={isEditable}
-        size="sm"
+        size="md"
       />
 
       <Checkbox
@@ -93,17 +97,24 @@ export function DepartmentProfileGrid({
         borderColor="purple"
         {...register("is_board")}
         placeholder="É Diretoria"
-        isReadOnly={isEditable}
+        isDisabled={isEditable}
+        defaultChecked={department.is_board}
       >
         É uma Diretoria ?
       </Checkbox>
 
-      <Input
+      <Select
+        label="Responsável"
         {...register("responsible_id")}
-        label="Usuário Responsável"
-        isReadOnly={isEditable}
-        size="sm"
-      />
+        size="md"
+        isDisabled={isEditable}
+      >
+        {users?.users.map((user) => (
+          <option key={user.user_name} value={user.user_name}>
+            {user.user_name}
+          </option>
+        ))}
+      </Select>
 
       <Button
         form="update_form"
