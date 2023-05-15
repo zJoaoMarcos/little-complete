@@ -16,7 +16,7 @@ export default function NewDepartment() {
   return (
     <>
       <Head>
-        <title>Novo departamento</title>
+        <title>Novo usuário</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
