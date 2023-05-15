@@ -1,5 +1,4 @@
 import { backend } from "@/lib/backendApi";
-import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface Department {
@@ -27,10 +26,10 @@ export async function getDepartmentsList(
   const departments = data.departments.map((department) => {
     return {
       id: department.id,
-      name: formatData(department.name),
+      name: department.name,
       cost_center: department.cost_center,
       is_board: department.is_board,
-      board: formatData(department.board),
+      board: department.board,
       responsible_id: department.responsible_id,
     };
   });

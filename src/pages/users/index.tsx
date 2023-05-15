@@ -61,7 +61,7 @@ export default function Users() {
                 <Spinner />
               </Flex>
             ) : (
-              <UsersList users={data.users} />
+              <UsersList users={data?.users!} />
             )}
 
             <Pagination

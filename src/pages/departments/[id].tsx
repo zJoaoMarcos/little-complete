@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps<
   any,
   { id: string }
 > = async ({ params }) => {
-  const id = Number(params.id);
+  const id = Number(params?.id);
 
   const { department } = await getDepartment(id);
 

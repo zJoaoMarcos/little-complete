@@ -1,8 +1,4 @@
 export const concatFirstNameAndLastName = (completeName: string) => {
-  if (completeName === null || undefined) {
-    completeName;
-  }
-
   const spacedNames = completeName.trim().split(" ");
   const firstName = spacedNames[0]
     .toLowerCase()

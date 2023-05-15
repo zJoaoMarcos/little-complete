@@ -164,9 +164,9 @@ export const getServerSideProps: GetServerSideProps<
   any,
   { id: string }
 > = async ({ params }) => {
-  const id = params.id;
+  const id = params?.id;
 
-  const { user, equipments } = await getUser(id);
+  const { user, equipments } = await getUser(id as string);
 
   return {
     props: {

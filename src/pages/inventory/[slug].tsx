@@ -95,8 +95,11 @@ export default function Inventory({ equipment }: EquipmentProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.params;
+export const getServerSideProps: GetServerSideProps<
+  any,
+  { slug: string }
+> = async ({ params }) => {
+  const slug = params?.slug;
 
   const equipment = await getEquipment(slug as string);
 

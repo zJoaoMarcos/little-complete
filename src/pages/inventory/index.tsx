@@ -67,7 +67,7 @@ export default function Inventory() {
                 <Spinner />
               </Flex>
             ) : (
-              <EquipmentsList equipments={data.equipments} />
+              <EquipmentsList equipments={data?.equipments!} />
             )}
 
             <Pagination

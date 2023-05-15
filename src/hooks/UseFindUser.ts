@@ -1,6 +1,6 @@
 import { backend } from "@/lib/backendApi";
 import { formatData } from "@/utils/formatData";
-import { useQuery, UseQueryOptions, UseQueryResult } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 
 interface Equipment {
   id: string;
@@ -90,6 +90,5 @@ export async function getUser(userId: string): Promise<User> {
 export function useFindUser(userId: string, options: UseQueryOptions) {
   return useQuery(["user"], () => getUser(userId), {
     staleTime: 1000 * 5, // 5 minutes
-    ...options,
-  }) as UseQueryResult<User, unknown>;
+  });
 }
