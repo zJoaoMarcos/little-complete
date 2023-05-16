@@ -107,7 +107,7 @@ export default function User({ user, equipments }: UserProps) {
 
             <>
               {equipments.map((equip) => (
-                <>
+                <Box key={equip.id}>
                   <Divider my="10" />
                   <HStack spacing={8}>
                     <Avatar size="md" icon={<Desktop size={30} />} />
@@ -125,7 +125,7 @@ export default function User({ user, equipments }: UserProps) {
                   </HStack>
 
                   <EquipmentProfileGrid key={equip.id} equipment={equip} />
-                </>
+                </Box>
               ))}
             </>
           </Box>
