@@ -10,7 +10,7 @@ interface Equipment {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: { id: number; name: string };
+  department: { id: number; name: string } | null;
   status: string;
   cpu: string | null;
   ram: string | null;
@@ -67,10 +67,12 @@ export async function getUser(userId: string): Promise<User> {
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
-      department: {
-        id: data.user.department.id,
-        name: formatData(data.user.department.name),
-      },
+      department: equipment.department
+        ? {
+            id: equipment.department.id,
+            name: formatData(equipment.department.name),
+          }
+        : null,
       status: equipment.status,
       cpu: equipment.cpu,
       ram: equipment.ram,
