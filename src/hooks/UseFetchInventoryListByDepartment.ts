@@ -1,4 +1,5 @@
 import { backend } from "@/lib/backendApi";
+import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface Equipment {
@@ -30,15 +31,15 @@ interface Data {
 
 export async function getInventoryListByDepartment(
   id: number,
-  skip?: number,
-  take?: number
+  skip = 0,
+  take = 0
 ): Promise<Data> {
   const { data } = await backend.get<Data>(`equipments/department/${id}`);
 
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id,
-      type: equipment.type,
+      type: formatData(equipment.type),
       brand: equipment.brand,
       model: equipment.model,
       supplier: equipment.supplier,
@@ -67,10 +68,10 @@ export async function getInventoryListByDepartment(
 export function useFetchInvetoryListByDepartment(
   id: number,
   page?: number,
-  skip?: number,
-  take?: number
+  skip = 0,
+  take = 0
 ) {
   return useQuery(["equipments_by_department", page], () =>
-    getInventoryListByDepartment(id, (skip = 0), (take = 0))
+    getInventoryListByDepartment(id, skip, take)
   );
 }

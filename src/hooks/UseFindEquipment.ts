@@ -60,7 +60,11 @@ export function useFindEquipment(
   equipmentId: string,
   options: UseQueryOptions
 ) {
-  return useQuery(["user"], () => getEquipment(equipmentId), {
-    staleTime: 1000 * 5, // 5 minutes
-  });
+  return useQuery(
+    [`equipment-${equipmentId}`],
+    () => getEquipment(equipmentId),
+    {
+      staleTime: 1000 * 5, // 5 minutes
+    }
+  );
 }
