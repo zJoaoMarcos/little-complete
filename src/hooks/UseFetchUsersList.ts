@@ -19,7 +19,7 @@ interface Data {
   totalCount: number;
 }
 
-export async function getUsersList(skip: number, take: number): Promise<Data> {
+export async function getUsersList(skip = 0, take = 0): Promise<Data> {
   const { data } = await backend.get<Data>(`/users?skip=${skip}&take=${take}`);
 
   const users = data.users.map((user) => {
@@ -45,8 +45,8 @@ export async function getUsersList(skip: number, take: number): Promise<Data> {
   return { users, totalCount };
 }
 
-export function useFetchUsersList(page?: number, skip?: number, take?: number) {
-  return useQuery(["user", page], () => getUsersList((skip = 0), (take = 0)), {
+export function useFetchUsersList(page: number, skip = 0, take = 0) {
+  return useQuery(["user", page], () => getUsersList(skip, take), {
     staleTime: 1000 * 5,
   });
 }
