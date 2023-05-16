@@ -39,12 +39,12 @@ export async function getUsersListByDepartment(
         id: user.department.id,
         name: formatData(user.department.name),
       },
-      telephone: user.telephone,
+      telephone: user.telephone ? user.telephone : null,
       direct_boss: user.direct_boss,
-      smtp: user.smtp,
-      admission_date: user.admission_date,
+      smtp: user.smtp.trim(),
+      admission_date: user.admission_date ? user.demission_date : null,
       demission_date: user.demission_date ? user.demission_date : null,
-      status: user.status,
+      status: user.status.trim(),
     };
   });
 

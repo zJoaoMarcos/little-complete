@@ -1,6 +1,6 @@
 import { backend } from "@/lib/backendApi";
 import { formatData } from "@/utils/formatData";
-import { useQuery, UseQueryOptions } from "react-query";
+import { useQuery } from "react-query";
 
 interface Equipment {
   id: string;
@@ -32,7 +32,7 @@ interface User {
     telephone: number | null;
     direct_boss: string;
     smtp: string;
-    admission_date: Date;
+    admission_date: Date | null;
     demission_date: Date | null;
     status: string;
   };
@@ -50,20 +50,20 @@ export async function getUser(userId: string): Promise<User> {
       id: data.user.department.id,
       name: formatData(data.user.department.name),
     },
-    telephone: data.user.telephone,
-    direct_boss: formatData(data.user.direct_boss),
-    smtp: data.user.smtp,
-    admission_date: data.user.admission_date,
-    demission_date: data.user.demission_date,
-    status: data.user.status,
+    telephone: data.user.telephone ? data.user.telephone : null,
+    direct_boss: data.user.direct_boss,
+    smtp: data.user.smtp.trim(),
+    admission_date: data.user.admission_date ? data.user.demission_date : null,
+    demission_date: data.user.demission_date ? data.user.demission_date : null,
+    status: data.user.status.trim(),
   };
 
   const equipments = data.equipments.map((equipment) => {
     return {
-      id: equipment.id,
+      id: equipment.id.trim(),
       brand: equipment.brand,
       model: equipment.model,
-      supplier: equipment.supplier,
+      supplier: equipment.supplier ? equipment.supplier : null,
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
@@ -87,8 +87,8 @@ export async function getUser(userId: string): Promise<User> {
   return { user, equipments };
 }
 
-export function useFindUser(userId: string, options: UseQueryOptions) {
-  return useQuery(["user"], () => getUser(userId), {
-    staleTime: 1000 * 5, // 5 minutes
+export function useFindUser(userId: string) {
+  return useQuery([`user-${userId}`], () => getUser(userId), {
+    staleTime: 1000 * 60, // 60 minutes
   });
 }
