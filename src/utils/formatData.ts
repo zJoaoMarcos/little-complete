@@ -1,9 +1,15 @@
 export const formatData = (data: string) => {
-  const words = data.toLocaleLowerCase().trim().split(" ");
-  const capitalizedWords = words.map((word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  });
-  const updatedData = capitalizedWords.join(" ");
+  const prepositions: string[] = ["a", "com", "de", "do", "em", "e"];
+  const words: string[] = data.split(" ");
 
-  return updatedData;
+  for (let i = 0; i < words.length; i++) {
+    if (i === 0 || !prepositions.includes(words[i].toLocaleLowerCase())) {
+      words[i] =
+        words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+    } else {
+      words[i] = words[i].toLowerCase();
+    }
+  }
+
+  return words.join(" ");
 };

@@ -1,4 +1,6 @@
 import { backend } from "@/lib/backendApi";
+import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
+import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface User {
@@ -25,18 +27,18 @@ export async function getUsersList(skip = 0, take = 0): Promise<Data> {
   const users = data.users.map((user) => {
     return {
       user_name: user.user_name.trim(),
-      complete_name: user.complete_name,
-      title: user.title,
+      complete_name: concatFirstNameAndLastName(user.complete_name),
+      title: formatData(user.title),
       department: {
         id: user.department.id,
-        name: user.department.name,
+        name: formatData(user.department.name),
       },
       telephone: user.telephone,
       direct_boss: user.direct_boss,
-      smtp: user.smtp,
+      smtp: user.smtp.trim(),
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status,
+      status: user.status.trim(),
     };
   });
 
@@ -46,7 +48,7 @@ export async function getUsersList(skip = 0, take = 0): Promise<Data> {
 }
 
 export function useFetchUsersList(page: number, skip = 0, take = 0) {
-  return useQuery(["user", page], () => getUsersList(skip, take), {
+  return useQuery(["users", page], () => getUsersList(skip, take), {
     staleTime: 1000 * 5,
   });
 }
