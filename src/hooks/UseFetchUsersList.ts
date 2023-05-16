@@ -9,7 +9,7 @@ interface User {
   telephone: number | null;
   direct_boss: string;
   smtp: string;
-  admission_date: Date;
+  admission_date: Date | null;
   demission_date: Date | null;
   status: string;
 }
