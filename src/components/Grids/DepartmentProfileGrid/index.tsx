@@ -6,21 +6,24 @@ import { Button, Checkbox, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type UpdateDepartmentData = {
-  id: number;
-  name: string;
-  cost_center: string;
-  is_board: boolean;
-  board: string;
-  responsible_id: string;
-};
+const updateDepartmentSchema = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  cost_center: z.coerce.number(),
+  is_board: z.boolean(),
+  board: z.string(),
+  responsible_id: z.string(),
+});
+
+type UpdateDepartmentData = z.infer<typeof updateDepartmentSchema>;
 
 interface DepartmentProfileGridProps {
   department: {
     id: number;
     name: string;
-    cost_center: string;
+    cost_center: number;
     is_board: boolean;
     board: string;
     responsible_id: string;
@@ -47,7 +50,6 @@ export function DepartmentProfileGrid({
   const { isSubmitting } = formState;
 
   const { data: users } = useFetchUsersList();
-
   const { updateDepartment } = useDepartment();
 
   const handleUpdate: SubmitHandler<UpdateDepartmentData> = async (
@@ -58,7 +60,7 @@ export function DepartmentProfileGrid({
 
     await updateDepartment.mutateAsync(data);
 
-    reset();
+    setIsEditable(true);
   };
 
   return (
@@ -72,6 +74,7 @@ export function DepartmentProfileGrid({
           size="md"
           colorScheme="purple"
           leftIcon={<Archive />}
+          isLoading={isSubmitting}
         >
           Salvar
         </Button>
@@ -133,6 +136,10 @@ export function DepartmentProfileGrid({
           size="md"
           isDisabled={isEditable}
         >
+          <option value={department.responsible_id}>
+            {department.responsible_id}
+          </option>
+
           {users?.users.map((user) => (
             <option key={user.user_name} value={user.user_name}>
               {user.user_name}

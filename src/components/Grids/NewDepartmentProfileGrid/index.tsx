@@ -4,14 +4,17 @@ import { useDepartment } from "@/contexts/DepartmentContext";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type CreateDepartmentData = {
-  name: string;
-  cost_center: string;
-  is_board: boolean;
-  board: string;
-  responsible_id: string;
-};
+const createDepartmentSchema = z.object({
+  name: z.string(),
+  cost_center: z.coerce.number(),
+  is_board: z.boolean(),
+  board: z.string(),
+  responsible_id: z.string(),
+});
+
+type CreateDepartmentData = z.infer<typeof createDepartmentSchema>;
 
 export function NewDepartmentProfileGrid() {
   const { register, handleSubmit, formState, reset } =
