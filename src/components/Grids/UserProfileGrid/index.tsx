@@ -3,7 +3,9 @@ import { Input } from "@/components/Form/input";
 import { useUser } from "@/contexts/UserContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
-import { List, SimpleGrid } from "@chakra-ui/react";
+import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
+import { Archive, Pencil, X } from "@phosphor-icons/react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type UpdateUserData = {
@@ -32,10 +34,11 @@ interface UserProfileGridProps {
     demission_date: Date | null;
     status: string;
   };
-  isEditable: boolean;
 }
 
-export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
+export function UserProfileGrid({ user }: UserProfileGridProps) {
+  const [isEditable, setIsEditable] = useState(true);
+
   const { data: departments } = useFetchDepartmentsList();
   const { data: users } = useFetchUsersList();
 
@@ -67,86 +70,110 @@ export function UserProfileGrid({ user, isEditable }: UserProfileGridProps) {
   };
 
   return (
-    <SimpleGrid
-      as="form"
-      id="update_user"
-      onSubmit={handleSubmit(handleUpdate)}
-      columns={{ base: 1, md: 2 }}
-      spacing={10}
-      marginTop={8}
-    >
-      <List spacing={6}>
-        <Input
-          size="md"
-          label="Usuário"
-          {...register("user_name")}
-          isReadOnly
-          isDisabled={!isEditable}
-        />
-
-        <Input
-          size="md"
-          label="Cargo"
-          {...register("title")}
-          isReadOnly={isEditable}
-        />
-
-        <Select
-          label="Departamento"
-          {...register("department_id")}
-          isDisabled={isEditable}
+    <Flex flexDir="column">
+      <HStack ml="auto">
+        <Button
+          onClick={() => setIsEditable(!isEditable)}
+          leftIcon={isEditable ? <Pencil /> : <X />}
+          colorScheme={isEditable ? "purple" : "red"}
         >
-          {departments?.departments.map((department) => (
-            <option key={department.id} value={department.id}>
-              {department.name}
-            </option>
-          ))}
-        </Select>
+          {isEditable ? "Editar" : "Cancelar"}
+        </Button>
 
-        <Select
-          label="Chefia Imediata"
-          {...register("direct_boss")}
-          isDisabled={isEditable}
+        <Button
+          hidden={isEditable}
+          form="update_user"
+          mr="auto"
+          type="submit"
+          size="md"
+          colorScheme="purple"
+          leftIcon={<Archive />}
         >
-          {users?.users.map((user) => (
-            <option key={user.user_name} value={user.user_name}>
-              {user.user_name}
-            </option>
-          ))}
-        </Select>
-      </List>
+          Enviar
+        </Button>
+      </HStack>
 
-      <List spacing={6}>
-        <Input
-          size="md"
-          label="E-mail"
-          {...register("smtp")}
-          isReadOnly={isEditable}
-        />
+      <SimpleGrid
+        as="form"
+        id="update_user"
+        onSubmit={handleSubmit(handleUpdate)}
+        columns={{ base: 1, md: 2 }}
+        spacing={10}
+        marginTop={8}
+      >
+        <List spacing={6}>
+          <Input
+            size="md"
+            label="Usuário"
+            {...register("user_name")}
+            isReadOnly
+            isDisabled={!isEditable}
+          />
 
-        <Input
-          size="md"
-          label="Ramal"
-          {...register("telephone")}
-          isReadOnly={isEditable}
-        />
+          <Input
+            size="md"
+            label="Cargo"
+            {...register("title")}
+            isReadOnly={isEditable}
+          />
 
-        <Input
-          size="md"
-          label="Data de Admissão"
-          {...register("admission_date")}
-          type="date"
-          isReadOnly={isEditable}
-        />
+          <Select
+            label="Departamento"
+            {...register("department_id")}
+            isDisabled={isEditable}
+          >
+            {departments?.departments.map((department) => (
+              <option key={department.id} value={department.id}>
+                {department.name}
+              </option>
+            ))}
+          </Select>
 
-        <Input
-          size="md"
-          label="Data de Demissão"
-          {...register("demission_date")}
-          type="date"
-          isReadOnly={isEditable}
-        />
-      </List>
-    </SimpleGrid>
+          <Select
+            label="Chefia Imediata"
+            {...register("direct_boss")}
+            isDisabled={isEditable}
+          >
+            {users?.users.map((user) => (
+              <option key={user.user_name} value={user.user_name}>
+                {user.user_name}
+              </option>
+            ))}
+          </Select>
+        </List>
+
+        <List spacing={6}>
+          <Input
+            size="md"
+            label="E-mail"
+            {...register("smtp")}
+            isReadOnly={isEditable}
+          />
+
+          <Input
+            size="md"
+            label="Ramal"
+            {...register("telephone")}
+            isReadOnly={isEditable}
+          />
+
+          <Input
+            size="md"
+            label="Data de Admissão"
+            {...register("admission_date")}
+            type="date"
+            isReadOnly={isEditable}
+          />
+
+          <Input
+            size="md"
+            label="Data de Demissão"
+            {...register("demission_date")}
+            type="date"
+            isReadOnly={isEditable}
+          />
+        </List>
+      </SimpleGrid>
+    </Flex>
   );
 }

@@ -8,7 +8,6 @@ import {
   Avatar,
   Badge,
   Box,
-  Button,
   Divider,
   Flex,
   Heading,
@@ -17,10 +16,9 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { Desktop, Pencil, X } from "@phosphor-icons/react";
+import { Desktop } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useState } from "react";
 
 interface Equipment {
   id: string;
@@ -63,12 +61,10 @@ interface UserProps {
 export default function User({ user, equipments }: UserProps) {
   const colorStatus = user.status === "active" ? "green" : "orange";
 
-  const [isEditable, setIsEditable] = useState(true);
-
   return (
     <>
       <Head>
-        <title>Profile</title>
+        <title>{user.user_name}</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -103,32 +99,11 @@ export default function User({ user, equipments }: UserProps) {
                   </Text>
                 </VStack>
               </HStack>
-
-              <HStack>
-                <Button
-                  onClick={() => setIsEditable(!isEditable)}
-                  leftIcon={isEditable ? <Pencil /> : <X />}
-                  colorScheme={isEditable ? "purple" : "red"}
-                >
-                  {isEditable ? "Editar" : "Cancelar"}
-                </Button>
-
-                <Button
-                  hidden={isEditable}
-                  form="update_user"
-                  mr="auto"
-                  type="submit"
-                  size="md"
-                  colorScheme="purple"
-                >
-                  Enviar
-                </Button>
-              </HStack>
             </Flex>
 
             <Divider />
 
-            <UserProfileGrid user={user} isEditable={isEditable} />
+            <UserProfileGrid user={user} />
 
             <>
               {equipments.map((equip) => (
