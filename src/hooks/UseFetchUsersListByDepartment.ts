@@ -23,8 +23,8 @@ interface Data {
 
 export async function getUsersListByDepartment(
   id: number,
-  skip: number,
-  take: number
+  skip = 0,
+  take = 0
 ): Promise<Data> {
   const { data } = await backend.get<Data>(
     `/users/department/${id}?skip=${skip}&take=${take}`
@@ -55,13 +55,13 @@ export async function getUsersListByDepartment(
 
 export function useFetchUsersListByDepartment(
   id: number,
-  page?: number,
-  skip?: number,
-  take?: number
+  page = 1,
+  skip = 0,
+  take = 0
 ) {
   return useQuery(
-    ["user", page],
-    () => getUsersListByDepartment(id, (skip = 0), (take = 0)),
+    ["users-by-department", page],
+    () => getUsersListByDepartment(id, skip, take),
     {
       staleTime: 1000 * 5,
     }
