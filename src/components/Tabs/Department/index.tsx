@@ -16,7 +16,7 @@ interface DepartmentTabProps {
   department: {
     id: number;
     name: string;
-    cost_center: string;
+    cost_center: number;
     is_board: boolean;
     board: string;
     responsible_id: string;
@@ -26,9 +26,11 @@ interface DepartmentTabProps {
 export function DepartmentTab({ department }: DepartmentTabProps) {
   const { data: users } = useFetchUsersListByDepartment(department.id);
 
-  const { data: equipments, isLoading } = useFetchInvetoryListByDepartment(
-    department.id
-  );
+  const {
+    data: equipments,
+    isLoading,
+    isError,
+  } = useFetchInvetoryListByDepartment(department.id);
 
   return (
     <Tabs colorScheme="purple">
@@ -46,6 +48,7 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
         <TabPanel>
           {isLoading ? <Skeleton /> : <UsersList users={users?.users!} />}
         </TabPanel>
+
         <TabPanel>
           {isLoading ? (
             <Skeleton />
