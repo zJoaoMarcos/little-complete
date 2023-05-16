@@ -24,7 +24,7 @@ export async function getDepartment(id: number): Promise<Data> {
     cost_center: data.department.cost_center,
     is_board: data.department.is_board,
     board: formatData(data.department.board),
-    responsible_id: formatData(data.department.responsible_id),
+    responsible_id: data.department.responsible_id,
   };
 
   return { department };
