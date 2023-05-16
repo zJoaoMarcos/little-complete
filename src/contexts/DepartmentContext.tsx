@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 interface CreateDepartmentData {
   name: string;
-  cost_center: string;
+  cost_center: number;
   is_board: boolean;
   board: string;
   responsible_id: string;
@@ -16,7 +16,7 @@ interface CreateDepartmentData {
 interface UpdateDepartmentData {
   id: number;
   name: string;
-  cost_center: string;
+  cost_center: number;
   is_board: boolean;
   board: string;
   responsible_id: string;
