@@ -28,10 +28,7 @@ interface Data {
   totalCount: number;
 }
 
-export async function getInventoryList(
-  skip: number,
-  take: number
-): Promise<Data> {
+export async function getInventoryList(skip = 0, take = 0): Promise<Data> {
   const { data } = await backend.get<Data>(
     `equipments?skip=${skip}&take=${take}`
   );
@@ -65,8 +62,8 @@ export async function getInventoryList(
   return { equipments, totalCount };
 }
 
-export function useFetchInvetoryList(page: number, skip: number, take: number) {
+export function useFetchInvetoryList(page?: number, skip = 0, take = 0) {
   return useQuery(["equipments", page], () => getInventoryList(skip, take), {
-    staleTime: 1000 * 5,
+    staleTime: 1000 * 60, //60 minutes
   });
 }
