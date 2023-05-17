@@ -3,29 +3,33 @@ import { Input } from "@/components/Form/input";
 import { useEquipment } from "@/contexts/EquipmetContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { List, SimpleGrid } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type UpdateEquipmentData = {
-  id: string;
-  brand: string;
-  model: string;
-  supplier: string | null;
-  invoice: string | null;
-  warranty: string | null;
-  purchase_date: Date | null;
-  department_id: number;
-  status: string;
-  cpu: string | null;
-  ram: string | null;
-  slots: number | null;
-  storage0_type: string | null;
-  storage0_syze: number | null;
-  storage1_type: string | null;
-  storage1_syze: number | null;
-  video: string | null;
-  service_tag: string | null;
-};
+const updateEquipmentSchema = z.object({
+  id: z.string(),
+  brand: z.string(),
+  model: z.string(),
+  supplier: z.string().nullable(),
+  invoice: z.string().nullable(),
+  warranty: z.string().nullable(),
+  purchase_date: z.date().nullable(),
+  department_id: z.coerce.number(),
+  status: z.string(),
+  cpu: z.string().nullable(),
+  ram: z.string().nullable(),
+  slots: z.coerce.number(),
+  storage0_type: z.string().nullable(),
+  storage0_syze: z.coerce.number(),
+  storage1_type: z.string().nullable(),
+  storage1_syze: z.coerce.number(),
+  video: z.string().nullable(),
+  service_tag: z.string().nullable(),
+});
+
+type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
 
 interface EquipmentProfileGridProps {
   equipment: {
@@ -40,11 +44,11 @@ interface EquipmentProfileGridProps {
     status: string;
     cpu: string | null;
     ram: string | null;
-    slots: number | null;
+    slots: number;
     storage0_type: string | null;
-    storage0_syze: number | null;
+    storage0_syze: number;
     storage1_type: string | null;
-    storage1_syze: number | null;
+    storage1_syze: number;
     video: string | null;
     service_tag: string | null;
   };
@@ -56,6 +60,7 @@ export function EquipmentProfileGrid({ equipment }: EquipmentProfileGridProps) {
 
   const { register, handleSubmit, formState, reset } =
     useForm<UpdateEquipmentData>({
+      resolver: zodResolver(updateEquipmentSchema),
       defaultValues: {
         id: equipment.id,
         brand: equipment.brand,
