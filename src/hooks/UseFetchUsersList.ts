@@ -13,7 +13,7 @@ interface User {
   smtp: string;
   admission_date: Date | null;
   demission_date: Date | null;
-  status: string;
+  status: string | null;
 }
 
 interface Data {
@@ -38,7 +38,7 @@ export async function getUsersList(skip = 0, take = 0): Promise<Data> {
       smtp: user.smtp.trim(),
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status.trim(),
+      status: user.status ? user.status.trim() : null,
     };
   });
 
