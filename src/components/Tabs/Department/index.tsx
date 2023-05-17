@@ -18,7 +18,10 @@ interface DepartmentTabProps {
 
 export function DepartmentTab({ department }: DepartmentTabProps) {
   const { data: users } = useFetchUsersListByDepartment(department.id);
-  const { data: equipments } = useFetchInvetoryListByDepartment(department.id);
+  const { data: equipments, isLoading } = useFetchInvetoryListByDepartment(
+    department.id
+  );
+  console.log(equipments);
 
   return (
     <Tabs colorScheme="purple">
@@ -38,7 +41,9 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
         </TabPanel>
 
         <TabPanel>
-          <EquipmentsList equipments={equipments?.equipments!} />
+          {equipments && (
+            <EquipmentsList equipments={equipments?.equipments!} />
+          )}
         </TabPanel>
       </TabPanels>
     </Tabs>

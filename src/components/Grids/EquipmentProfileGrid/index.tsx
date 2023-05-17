@@ -35,8 +35,8 @@ interface EquipmentProfileGridProps {
   equipment: {
     id: string;
     type: string;
-    brand: string;
-    model: string;
+    brand: string | null;
+    model: string | null;
     supplier: string | null;
     invoice: string | null;
     warranty: string | null;
@@ -67,8 +67,8 @@ export function EquipmentProfileGrid({ equipment }: EquipmentProfileGridProps) {
       resolver: zodResolver(updateEquipmentSchema),
       defaultValues: {
         id: equipment.id,
-        brand: equipment.brand,
-        model: equipment.model,
+        brand: equipment.brand ? equipment.brand : undefined,
+        model: equipment.model ? equipment.model : undefined,
         supplier: equipment.supplier,
         invoice: equipment.invoice,
         warranty: equipment.warranty,

@@ -15,11 +15,11 @@ interface CreateDepartmentData {
 
 interface UpdateDepartmentData {
   id: number;
-  name: string;
-  cost_center: number;
-  is_board: boolean;
-  board: string;
-  responsible_id: string;
+  name: string | null;
+  cost_center: number | null;
+  is_board: boolean | null;
+  board: string | null;
+  responsible_id: string | null;
 }
 
 interface DepartmentProviderContextData {

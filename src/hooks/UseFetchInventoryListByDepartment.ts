@@ -5,8 +5,8 @@ import { useQuery } from "react-query";
 interface Equipment {
   id: string;
   type: string;
-  brand: string;
-  model: string;
+  brand: string | null;
+  model: string | null;
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
@@ -49,7 +49,10 @@ export async function getInventoryListByDepartment(
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
-      department: equipment.department,
+      department: {
+        id: equipment.department.id,
+        name: equipment.department.name,
+      },
       status: equipment.status,
       cpu: equipment.cpu,
       ram: equipment.ram,
@@ -74,7 +77,11 @@ export function useFetchInvetoryListByDepartment(
   skip = 0,
   take = 0
 ) {
-  return useQuery(["equipments_by_department", page], () =>
-    getInventoryListByDepartment(id, skip, take)
+  return useQuery(
+    [`equipments_by_department-${id}`, page],
+    () => getInventoryListByDepartment(id, skip, take),
+    {
+      staleTime: 1000 * 60, // 60 minutes
+    }
   );
 }

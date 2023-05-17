@@ -13,8 +13,8 @@ interface EquipmentCardProps {
   equipment: {
     id: string;
     type: string;
-    brand: string;
-    model: string;
+    brand: string | null;
+    model: string | null;
     supplier: string | null;
     invoice: string | null;
     warranty: string | null;
