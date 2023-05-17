@@ -4,6 +4,7 @@ import { useUser } from "@/contexts/UserContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -46,6 +47,7 @@ export function UserProfileGrid({ user }: UserProfileGridProps) {
   const { data: users } = useFetchUsersList();
 
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
+    resolver: zodResolver(UpdateUserSchema),
     defaultValues: {
       user_name: user.user_name,
       complete_name: user.complete_name,
