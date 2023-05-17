@@ -12,10 +12,10 @@ import { z } from "zod";
 const updateDepartmentSchema = z.object({
   id: z.coerce.number(),
   name: z.string(),
-  cost_center: z.coerce.number(),
-  is_board: z.boolean(),
-  board: z.string(),
-  responsible_id: z.string(),
+  cost_center: z.coerce.number().nullable(),
+  is_board: z.boolean().nullable(),
+  board: z.string().nullable(),
+  responsible_id: z.string().nullable(),
 });
 
 type UpdateDepartmentData = z.infer<typeof updateDepartmentSchema>;
@@ -24,10 +24,10 @@ interface DepartmentProfileGridProps {
   department: {
     id: number;
     name: string;
-    cost_center: number;
-    is_board: boolean;
-    board: string;
-    responsible_id: string;
+    cost_center: number | null;
+    is_board: boolean | null;
+    board: string | null;
+    responsible_id: string | null;
   };
 }
 
@@ -45,7 +45,9 @@ export function DepartmentProfileGrid({
         cost_center: department.cost_center,
         is_board: department.is_board,
         board: department.board,
-        responsible_id: department.responsible_id,
+        responsible_id: department.responsible_id
+          ? department.responsible_id
+          : null,
       },
     });
 
@@ -127,7 +129,6 @@ export function DepartmentProfileGrid({
           {...register("is_board")}
           placeholder="É Diretoria"
           isDisabled={isEditable}
-          defaultChecked={department.is_board}
         >
           É uma Diretoria ?
         </Checkbox>
@@ -138,9 +139,11 @@ export function DepartmentProfileGrid({
           size="md"
           isDisabled={isEditable}
         >
-          <option value={department.responsible_id}>
-            {department.responsible_id}
-          </option>
+          {department.responsible_id && (
+            <option value={department.responsible_id}>
+              {department.responsible_id}
+            </option>
+          )}
 
           {users?.users.map((user) => (
             <option key={user.user_name} value={user.user_name}>
