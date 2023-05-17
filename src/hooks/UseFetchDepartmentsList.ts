@@ -5,10 +5,10 @@ import { useQuery } from "react-query";
 interface Department {
   id: number;
   name: string;
-  cost_center: string;
-  is_board: boolean;
-  board: string;
-  responsible_id: string;
+  cost_center: string | null;
+  is_board: boolean | null;
+  board: string | null;
+  responsible_id: string | null;
 }
 
 interface Data {
@@ -27,8 +27,10 @@ export async function getDepartmentsList(skip = 0, take = 0): Promise<Data> {
       name: formatData(department.name),
       cost_center: department.cost_center,
       is_board: department.is_board,
-      board: formatData(department.board),
-      responsible_id: department.responsible_id,
+      board: department.board ? formatData(department.board) : null,
+      responsible_id: department.responsible_id
+        ? department.responsible_id
+        : null,
     };
   });
 
