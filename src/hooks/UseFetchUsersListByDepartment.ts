@@ -13,7 +13,7 @@ interface User {
   smtp: string;
   admission_date: Date | null;
   demission_date: Date | null;
-  status: string;
+  status: string | null;
 }
 
 interface Data {
@@ -27,7 +27,7 @@ export async function getUsersListByDepartment(
   take = 0
 ): Promise<Data> {
   const { data } = await backend.get<Data>(
-    `/users/department/${id}?skip=${skip}&take=${take}`
+    `users/department/${id}?skip=${skip}&take=${take}`
   );
 
   const users = data.users.map((user) => {
@@ -44,7 +44,7 @@ export async function getUsersListByDepartment(
       smtp: user.smtp.trim(),
       admission_date: user.admission_date ? user.demission_date : null,
       demission_date: user.demission_date ? user.demission_date : null,
-      status: user.status.trim(),
+      status: user.status ? user.status.trim() : null,
     };
   });
 
@@ -60,10 +60,10 @@ export function useFetchUsersListByDepartment(
   take = 0
 ) {
   return useQuery(
-    ["users-by-department", page],
+    [`users-by-department-${id}`, page],
     () => getUsersListByDepartment(id, skip, take),
     {
-      staleTime: 1000 * 5,
+      staleTime: 1000 * 60, // 60 minutes
     }
   );
 }
