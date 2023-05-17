@@ -7,19 +7,22 @@ import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type UpdateUserData = {
-  user_name: string;
-  complete_name: string;
-  title: string;
-  department_id: number;
-  telephone: number | null;
-  direct_boss: string;
-  smtp: string;
-  admission_date: Date | null;
-  demission_date: Date | null;
-  status: string;
-};
+const UpdateUserSchema = z.object({
+  user_name: z.string(),
+  complete_name: z.string(),
+  title: z.string(),
+  department_id: z.coerce.number(),
+  telephone: z.coerce.number().nullable(),
+  direct_boss: z.string(),
+  smtp: z.string(),
+  demission_date: z.date().nullable(),
+  admission_date: z.date().nullable(),
+  status: z.string(),
+});
+
+type UpdateUserData = z.infer<typeof UpdateUserSchema>;
 
 interface UserProfileGridProps {
   user: {
@@ -88,6 +91,7 @@ export function UserProfileGrid({ user }: UserProfileGridProps) {
           size="md"
           colorScheme="purple"
           leftIcon={<Archive />}
+          isLoading={isSubmitting}
         >
           Enviar
         </Button>
