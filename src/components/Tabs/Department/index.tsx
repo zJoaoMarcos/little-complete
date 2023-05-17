@@ -21,7 +21,6 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
   const { data: equipments, isLoading } = useFetchInvetoryListByDepartment(
     department.id
   );
-  console.log(equipments);
 
   return (
     <Tabs colorScheme="purple">
