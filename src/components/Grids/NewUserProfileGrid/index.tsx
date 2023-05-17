@@ -1,43 +1,51 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useUser } from "@/contexts/UserContext";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { List, SimpleGrid } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-type CreateUserData = {
-  user_name: string;
-  complete_name: string;
-  title: string;
-  department_id: number;
-  telephone: number | null;
-  direct_boss: string;
-  smtp: string;
-};
+const createUserSchema = z.object({
+  user_name: z.string().nonempty(),
+  complete_name: z.string().nonempty(),
+  title: z.string(),
+  department_id: z.coerce.number(),
+  telephone: z.coerce.number().nullable(),
+  direct_boss: z.string().nonempty(),
+  smtp: z.string().nonempty(),
+});
 
-/* interface NewUserProfileGridProps {
-  departments?: Department[];
-} */
+type CreateUserData = z.infer<typeof createUserSchema>;
 
-interface Department {
-  id: number;
-  name: string;
-  cost_center: string;
-  is_board: boolean;
-  board: string;
-  responsible_id: string;
+interface NewUserProfileGridProps {
+  isSending: boolean;
+  setIsSending: Dispatch<SetStateAction<boolean>>;
 }
 
-export function NewUserProfileGrid() {
-  const { register, handleSubmit, formState, reset } =
-    useForm<CreateUserData>();
+export function NewUserProfileGrid({
+  isSending,
+  setIsSending,
+}: NewUserProfileGridProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = useForm<CreateUserData>({
+    resolver: zodResolver(createUserSchema),
+  });
 
-  const { isSubmitting } = formState;
+  useEffect(() => {
+    () => setIsSending(!isSending);
+  }, [isSubmitting]);
 
   const { createUser } = useUser();
-
-  const { data } = useFetchDepartmentsList();
+  const { data: departments } = useFetchDepartmentsList();
   const { data: users } = useFetchUsersList();
 
   const handleCreate: SubmitHandler<CreateUserData> = async (data, event) => {
@@ -83,7 +91,7 @@ export function NewUserProfileGrid() {
           {...register("department_id")}
           placeholder="Selecione o Departamento"
         >
-          {data?.departments.map((department) => (
+          {departments?.departments.map((department) => (
             <option key={department.id} value={department.id}>
               {department.name}
             </option>
