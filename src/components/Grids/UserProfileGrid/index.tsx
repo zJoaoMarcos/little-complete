@@ -122,6 +122,7 @@ export function UserProfileGrid({ user }: UserProfileGridProps) {
             {...register("department_id")}
             isDisabled={isEditable}
           >
+            <option value={user.department.id}>{user.department.name}</option>
             {departments?.departments.map((department) => (
               <option key={department.id} value={department.id}>
                 {department.name}
@@ -134,6 +135,7 @@ export function UserProfileGrid({ user }: UserProfileGridProps) {
             {...register("direct_boss")}
             isDisabled={isEditable}
           >
+            <option value={user.direct_boss}>{user.direct_boss}</option>
             {users?.users.map((user) => (
               <option key={user.user_name} value={user.user_name}>
                 {user.user_name}

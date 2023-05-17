@@ -34,7 +34,7 @@ interface User {
     smtp: string;
     admission_date: Date | null;
     demission_date: Date | null;
-    status: string;
+    status: string | null;
   };
   equipments: Equipment[];
 }
@@ -53,9 +53,9 @@ export async function getUser(userId: string): Promise<User> {
     telephone: data.user.telephone ? data.user.telephone : null,
     direct_boss: data.user.direct_boss,
     smtp: data.user.smtp.trim(),
-    admission_date: data.user.admission_date ? data.user.demission_date : null,
-    demission_date: data.user.demission_date ? data.user.demission_date : null,
-    status: data.user.status.trim(),
+    admission_date: data.user.admission_date,
+    demission_date: data.user.demission_date,
+    status: data.user.status ? data.user.status.trim() : null,
   };
 
   const equipments = data.equipments.map((equipment) => {
