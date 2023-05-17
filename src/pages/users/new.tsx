@@ -11,8 +11,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { useState } from "react";
 
 export default function NewDepartment() {
+  const [isSending, setIsSending] = useState(false);
+
   return (
     <>
       <Head>
@@ -39,14 +42,22 @@ export default function NewDepartment() {
                   Novo Usuário
                 </Heading>
               </HStack>
-              <Button type="submit" form="create_user" colorScheme="purple">
+              <Button
+                type="submit"
+                form="create_user"
+                colorScheme="purple"
+                isLoading={isSending}
+              >
                 Enviar
               </Button>
             </Flex>
 
             <Divider />
 
-            <NewUserProfileGrid />
+            <NewUserProfileGrid
+              isSending={isSending}
+              setIsSending={setIsSending}
+            />
           </Box>
         </Flex>
       </Flex>
