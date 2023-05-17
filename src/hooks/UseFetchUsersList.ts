@@ -34,7 +34,7 @@ export async function getUsersList(skip = 0, take = 0): Promise<Data> {
         name: formatData(user.department.name),
       },
       telephone: user.telephone,
-      direct_boss: user.direct_boss,
+      direct_boss: user.direct_boss.trim(),
       smtp: user.smtp.trim(),
       admission_date: user.admission_date,
       demission_date: user.demission_date,
