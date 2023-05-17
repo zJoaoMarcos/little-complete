@@ -3,6 +3,7 @@ import { Input } from "@/components/Form/input";
 import { useDepartment } from "@/contexts/DepartmentContext";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -37,6 +38,7 @@ export function DepartmentProfileGrid({
 
   const { register, handleSubmit, formState, reset } =
     useForm<UpdateDepartmentData>({
+      resolver: zodResolver(updateDepartmentSchema),
       defaultValues: {
         id: department.id,
         name: department.name,
