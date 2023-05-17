@@ -3,34 +3,22 @@ import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { UsersList } from "@/components/Lists/UserLists";
 import { useFetchInvetoryListByDepartment } from "@/hooks/UseFetchInventoryListByDepartment";
 import { useFetchUsersListByDepartment } from "@/hooks/UseFetchUsersListByDepartment";
-import {
-  Skeleton,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 interface DepartmentTabProps {
   department: {
     id: number;
     name: string;
-    cost_center: number;
-    is_board: boolean;
-    board: string;
-    responsible_id: string;
+    cost_center: number | null;
+    is_board: boolean | null;
+    board: string | null;
+    responsible_id: string | null;
   };
 }
 
 export function DepartmentTab({ department }: DepartmentTabProps) {
   const { data: users } = useFetchUsersListByDepartment(department.id);
-
-  const {
-    data: equipments,
-    isLoading,
-    isError,
-  } = useFetchInvetoryListByDepartment(department.id);
+  const { data: equipments } = useFetchInvetoryListByDepartment(department.id);
 
   return (
     <Tabs colorScheme="purple">
@@ -46,15 +34,11 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
         </TabPanel>
 
         <TabPanel>
-          {isLoading ? <Skeleton /> : <UsersList users={users?.users!} />}
+          <UsersList users={users?.users!} />
         </TabPanel>
 
         <TabPanel>
-          {isLoading ? (
-            <Skeleton />
-          ) : (
-            <EquipmentsList equipments={equipments?.equipments!} />
-          )}
+          <EquipmentsList equipments={equipments?.equipments!} />
         </TabPanel>
       </TabPanels>
     </Tabs>
