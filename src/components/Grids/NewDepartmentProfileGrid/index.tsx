@@ -3,6 +3,7 @@ import { Input } from "@/components/Form/input";
 import { useDepartment } from "@/contexts/DepartmentContext";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,8 +18,14 @@ const createDepartmentSchema = z.object({
 type CreateDepartmentData = z.infer<typeof createDepartmentSchema>;
 
 export function NewDepartmentProfileGrid() {
-  const { register, handleSubmit, formState, reset } =
-    useForm<CreateDepartmentData>({});
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = useForm<CreateDepartmentData>({
+    resolver: zodResolver(createDepartmentSchema),
+  });
 
   const { createDepartment } = useDepartment();
   const { data: users } = useFetchUsersList();
@@ -28,8 +35,6 @@ export function NewDepartmentProfileGrid() {
     event
   ) => {
     event?.preventDefault();
-
-    console.log(data);
 
     await createDepartment.mutateAsync(data);
 
@@ -96,6 +101,7 @@ export function NewDepartmentProfileGrid() {
         size="sm"
         w={40}
         colorScheme="purple"
+        isLoading={isSubmitting}
       >
         Enviar
       </Button>
