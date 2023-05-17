@@ -36,7 +36,7 @@ interface UserProfileGridProps {
     smtp: string;
     admission_date: Date | null;
     demission_date: Date | null;
-    status: string;
+    status: string | null;
   };
 }
 
@@ -58,7 +58,7 @@ export function UserProfileGrid({ user }: UserProfileGridProps) {
       smtp: user.smtp,
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status,
+      status: user.status ? user.status : undefined,
     },
   });
 

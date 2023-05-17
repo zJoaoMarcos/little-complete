@@ -1,14 +1,12 @@
-import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
-import { UserProfileGrid } from "@/components/Grids/UserProfileGrid";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
+import { UserTab } from "@/components/Tabs/User";
 import { getUser } from "@/hooks/UseFindUser";
 import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
 import {
   Avatar,
   Badge,
   Box,
-  Divider,
   Flex,
   Heading,
   HStack,
@@ -16,7 +14,6 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { Desktop } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -102,33 +99,7 @@ export default function User({ user, equipments }: UserProps) {
               </HStack>
             </Flex>
 
-            <Divider />
-
-            <UserProfileGrid user={user} />
-
-            <>
-              {equipments.map((equip) => (
-                <Box key={equip.id}>
-                  <Divider my="10" />
-                  <HStack spacing={8}>
-                    <Avatar size="md" icon={<Desktop size={30} />} />
-
-                    <VStack justify={"start"} alignItems="start">
-                      <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                        {equip.id}
-                      </Heading>
-
-                      <Text fontWeight="semibold" fontSize={16}>
-                        Status:{" "}
-                        <Badge colorScheme="green">{equip.status}</Badge>
-                      </Text>
-                    </VStack>
-                  </HStack>
-
-                  <EquipmentProfileGrid key={equip.id} equipment={equip} />
-                </Box>
-              ))}
-            </>
+            <UserTab user={user} equipments={equipments} />
           </Box>
         </Flex>
       </Flex>
