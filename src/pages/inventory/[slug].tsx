@@ -27,8 +27,11 @@ interface EquipmentProps {
     invoice: string | null;
     warranty: string | null;
     purchase_date: Date | null;
-    department: { id: number; name: string };
-    status: string;
+    department: {
+      id: number | null;
+      name: string | null;
+    };
+    status: string | null;
     cpu: string | null;
     ram: string | null;
     slots: number | null;

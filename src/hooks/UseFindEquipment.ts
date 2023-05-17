@@ -4,15 +4,18 @@ import { useQuery } from "react-query";
 interface Equipment {
   equipment: {
     id: string;
-    type: string | null;
+    type: string;
     brand: string;
     model: string;
     supplier: string | null;
     invoice: string | null;
     warranty: string | null;
     purchase_date: Date | null;
-    department: { id: number; name: string };
-    status: string;
+    department: {
+      id: number | null;
+      name: string | null;
+    };
+    status: string | null;
     cpu: string | null;
     ram: string | null;
     slots: number | null;

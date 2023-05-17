@@ -34,21 +34,25 @@ type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
 interface EquipmentProfileGridProps {
   equipment: {
     id: string;
+    type: string;
     brand: string;
     model: string;
     supplier: string | null;
     invoice: string | null;
     warranty: string | null;
     purchase_date: Date | null;
-    department: { id: number; name: string };
-    status: string;
+    department: {
+      id: number | null;
+      name: string | null;
+    };
+    status: string | null;
     cpu: string | null;
     ram: string | null;
-    slots: number;
+    slots: number | null;
     storage0_type: string | null;
-    storage0_syze: number;
+    storage0_syze: number | null;
     storage1_type: string | null;
-    storage1_syze: number;
+    storage1_syze: number | null;
     video: string | null;
     service_tag: string | null;
   };
@@ -68,16 +72,16 @@ export function EquipmentProfileGrid({ equipment }: EquipmentProfileGridProps) {
         supplier: equipment.supplier,
         invoice: equipment.invoice,
         warranty: equipment.warranty,
-        department_id: equipment.department.id,
+        department_id: Number(equipment.department.id),
         purchase_date: equipment.purchase_date,
         cpu: equipment.cpu,
         ram: equipment.ram,
-        slots: equipment.slots,
+        slots: Number(equipment.slots),
         service_tag: equipment.service_tag,
         storage0_type: equipment.storage0_type,
-        storage0_syze: equipment.storage0_syze,
+        storage0_syze: Number(equipment.storage0_syze),
         storage1_type: equipment.storage1_type,
-        storage1_syze: equipment.storage1_syze,
+        storage1_syze: Number(equipment.storage1_syze),
         video: equipment.video,
       },
     });

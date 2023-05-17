@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 interface Department {
   id: number;
   name: string;
-  cost_center: string | null;
+  cost_center: number | null;
   is_board: boolean | null;
   board: string | null;
   responsible_id: string | null;

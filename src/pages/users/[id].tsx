@@ -22,6 +22,7 @@ import Head from "next/head";
 
 interface Equipment {
   id: string;
+  type: string;
   brand: string;
   model: string;
   supplier: string | null;

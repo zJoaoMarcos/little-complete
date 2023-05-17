@@ -11,8 +11,11 @@ interface Equipment {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: { id: number; name: string };
-  status: string;
+  department: {
+    id: number | null;
+    name: string | null;
+  };
+  status: string | null;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
@@ -44,7 +47,10 @@ export async function getInventoryList(skip = 0, take = 0): Promise<Data> {
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
-      department: equipment.department,
+      department: {
+        id: equipment.department.id,
+        name: equipment.department.name,
+      },
       status: equipment.status,
       cpu: equipment.cpu,
       ram: equipment.ram,
