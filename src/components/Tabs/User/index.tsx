@@ -1,7 +1,7 @@
 import { UserProfileGrid } from "@/components/Grids/UserProfileGrid";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { TriggerAssociateEquipment } from "@/components/Modals/AssociateEquipment/Trigger";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 interface Equipment {
   id: string;
@@ -61,7 +61,9 @@ export function UserTab({ user, equipments }: UserTabProps) {
           justifyContent="center"
           w="full"
         >
-          <TriggerAssociateEquipment />
+          <Box ml="auto" mb="10">
+            <TriggerAssociateEquipment />
+          </Box>
           {equipments && <EquipmentsList equipments={equipments} />}
         </TabPanel>
       </TabPanels>
