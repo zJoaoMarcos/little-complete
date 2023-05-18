@@ -1,3 +1,4 @@
+import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import {
   Accordion,
@@ -78,6 +79,11 @@ export function AvaliableEquipmentsList() {
               <AccordionItem border="none">
                 <HStack as="span" flexDir="row" justifyContent="space-between">
                   <HStack>
+                    <EquipmentAvatar
+                      type={equip.type}
+                      avatarSize="sm"
+                      iconSize="20"
+                    />
                     <Text fontWeight="semibold">{equip.type} - </Text>
                     <Text>{equip.id}</Text>
                   </HStack>
