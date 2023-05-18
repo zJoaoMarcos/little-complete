@@ -1,5 +1,4 @@
 import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
-import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import {
   Accordion,
   AccordionButton,
@@ -17,7 +16,7 @@ import {
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 interface RadioCardProps extends RadioProps {
   children: ReactNode;
@@ -59,12 +58,37 @@ function RadioCard({ children, ...rest }: RadioCardProps) {
   );
 }
 
-export function AvaliableEquipmentsList() {
-  const [value, setValue] = useState("");
+interface Equipment {
+  id: string;
+  type: string;
+  brand: string;
+  model: string;
+  supplier: string | null;
+  invoice: string | null;
+  warranty: string | null;
+  purchase_date: Date | null;
+  department: {
+    id: number | null;
+    name: string | null;
+  };
+  status: string | null;
+  cpu: string | null;
+  ram: string | null;
+  slots: number | null;
+  storage0_type: string | null;
+  storage0_syze: number | null;
+  storage1_type: string | null;
+  storage1_syze: number | null;
+  video: string | null;
+  service_tag: string | null;
+}
 
-  const status = "stock";
-  const { data } = useFetchInvetoryList({ status });
+interface Props {
+  setValue: Dispatch<SetStateAction<string>>;
+  equipments: Equipment[];
+}
 
+export function AvaliableEquipmentsInput({ setValue, equipments }: Props) {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "equipments_available",
     onChange: setValue,
@@ -72,7 +96,7 @@ export function AvaliableEquipmentsList() {
 
   return (
     <VStack {...getRootProps()}>
-      {data?.equipments.map((equip) => {
+      {equipments.map((equip) => {
         return (
           <RadioCard key={equip.id} {...getRadioProps({ value: equip.id })}>
             <Accordion allowToggle>

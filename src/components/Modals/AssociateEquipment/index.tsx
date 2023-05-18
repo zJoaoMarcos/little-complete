@@ -1,3 +1,4 @@
+import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import {
   Box,
   Button,
@@ -11,9 +12,10 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { AvaliableEquipmentsList } from "./AvaliableEquipmentsList";
+import { AvaliableEquipmentsInput } from "./AvaliableEquipmentsInput";
 
 const associateEquipmentSchema = z.object({
   equipment_id: z.string(),
@@ -29,12 +31,14 @@ interface ModalProps {
 
 export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
   const {
-    register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<AssociateEquipmentData>({
     resolver: zodResolver(associateEquipmentSchema),
+    defaultValues: {
+      username: "02-004-0333",
+    },
   });
 
   const handleCreateItem: SubmitHandler<AssociateEquipmentData> = async (
@@ -50,6 +54,11 @@ export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
     onClose();
     reset();
   };
+
+  const [value, setValue] = useState("");
+  const [status, setStatus] = useState("stock");
+
+  const { data } = useFetchInvetoryList({ status });
 
   return (
     <Modal
@@ -71,7 +80,10 @@ export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
           >
             <Stack spacing="4">Equipmts Avaliable</Stack>
 
-            <AvaliableEquipmentsList />
+            <AvaliableEquipmentsInput
+              equipments={data?.equipments!}
+              setValue={setValue}
+            />
           </Box>
         </ModalBody>
         <ModalFooter>
