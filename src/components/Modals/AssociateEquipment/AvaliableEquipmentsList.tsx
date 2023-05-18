@@ -39,12 +39,14 @@ function RadioCard({ children, ...rest }: RadioCardProps) {
         borderRadius="md"
         boxShadow="md"
         _hover={{
-          bg: "purple.200",
+          bg: "purple.100",
         }}
         _checked={{
-          bg: "purple.600",
-          color: "white",
-
+          bg: "purple.200",
+          color: "black",
+          borderColor: "purple.300",
+        }}
+        _focus={{
           borderColor: "purple.800",
         }}
         px={5}
@@ -72,34 +74,57 @@ export function AvaliableEquipmentsList() {
       {data?.equipments.map((equip) => {
         return (
           <RadioCard key={equip.id} {...getRadioProps({ value: equip.id })}>
-            <Accordion allowToggle w="full">
-              <AccordionItem>
-                <AccordionButton color="black">
-                  <HStack as="span" flex="1" textAlign="left" flexDir="row">
+            <Accordion allowToggle>
+              <AccordionItem border="none">
+                <HStack as="span" flexDir="row" justifyContent="space-between">
+                  <HStack>
                     <Text fontWeight="semibold">{equip.type} - </Text>
-                    <Text fontWeight="semibold">{equip.id}</Text>
+                    <Text>{equip.id}</Text>
                   </HStack>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel>
+
+                  <AccordionButton
+                    color="black"
+                    display="flex"
+                    w="10"
+                    alignItems="center"
+                    justifyContent="center"
+                    rounded="md"
+                  >
+                    <AccordionIcon />
+                  </AccordionButton>
+                </HStack>
+
+                <AccordionPanel w="full">
                   <SimpleGrid columns={{ base: 1, md: 2 }} spacing="2">
                     <List spacing="2">
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Departamento - ${equip.department.name}`}
                         readOnly
                         size="xs"
                       />
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Fabricante - ${equip.brand}`}
                         readOnly
                         size="xs"
                       />
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Modelo - ${equip.model}`}
                         readOnly
                         size="xs"
                       />
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Armazenamento  - ${equip.storage0_type}/ ${equip.storage0_syze}`}
                         readOnly
                         size="xs"
@@ -108,21 +133,33 @@ export function AvaliableEquipmentsList() {
 
                     <List spacing="2">
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Placa de Video - ${equip.video}`}
                         readOnly
                         size="xs"
                       />
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Processador - ${equip.cpu}`}
                         readOnly
                         size="xs"
                       />
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Memória - ${equip.ram}`}
                         readOnly
                         size="xs"
                       />
                       <Input
+                        borderColor="purple.400"
+                        rounded={6}
+                        _focus={{ border: "none" }}
                         value={`Armazenamento 1 - ${equip.storage1_type}/ ${equip.storage1_syze}`}
                         readOnly
                         size="xs"
