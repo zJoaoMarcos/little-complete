@@ -13,6 +13,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
+import { AvaliableEquipmentsList } from "./AvaliableEquipmentsList";
 
 const associateEquipmentSchema = z.object({
   equipment_id: z.string(),
@@ -56,7 +57,7 @@ export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
       onClose={onClose}
       isCentered
       scrollBehavior="inside"
-      size="lg"
+      size="xl"
     >
       <ModalOverlay />
       <ModalContent>
@@ -69,6 +70,8 @@ export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
             id="associate_equipment"
           >
             <Stack spacing="4">Equipmts Avaliable</Stack>
+
+            <AvaliableEquipmentsList />
           </Box>
         </ModalBody>
         <ModalFooter>
