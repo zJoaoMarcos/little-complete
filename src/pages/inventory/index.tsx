@@ -19,11 +19,11 @@ export default function Inventory() {
   const [page, setPage] = useState(1);
   const take = 26;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useFetchInvetoryList(
+  const { data, isLoading, isFetching } = useFetchInvetoryList({
     page,
     skip,
-    take
-  );
+    take,
+  });
 
   const { push } = useRouter();
 
