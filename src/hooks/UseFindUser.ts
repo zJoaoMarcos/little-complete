@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 
 interface Equipment {
   id: string;
+  type: string;
   brand: string;
   model: string;
   supplier: string | null;
@@ -61,6 +62,7 @@ export async function getUser(userId: string): Promise<User> {
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id.trim(),
+      type: formatData(equipment.type),
       brand: equipment.brand,
       model: equipment.model,
       supplier: equipment.supplier ? equipment.supplier : null,
