@@ -1,10 +1,12 @@
+import {
+  EquipmentAvatar,
+  EquipmentBagdeStatus,
+} from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
-import { EquipmentAvatar } from "@/components/Grids/EquipmentProfileGrid/EquipmentAvatar";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { getEquipment } from "@/hooks/UseFindEquipment";
 import {
-  Badge,
   Box,
   Divider,
   Flex,
@@ -68,9 +70,9 @@ export default function Inventory({ equipment }: EquipmentProps) {
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
                 <EquipmentAvatar
-                  equipmentType={equipment.type}
+                  type={equipment.type}
                   avatarSize="lg"
-                  iconSize={40}
+                  iconSize="40"
                 />
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
@@ -82,7 +84,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
 
                   <Text fontWeight="semibold" fontSize={16}>
                     Status:{" "}
-                    <Badge colorScheme="green">{equipment.status}</Badge>
+                    <EquipmentBagdeStatus status={equipment.status || ""} />
                   </Text>
                 </VStack>
               </HStack>

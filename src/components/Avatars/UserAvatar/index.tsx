@@ -24,7 +24,7 @@ function BadgeStatus(status: string) {
       <AvatarBadge borderColor="orange.50" bg="orange.400" boxSize="1em" />
     );
   }
-  return <AvatarBadge borderColor="purple.50" bg="purple.400" boxSize="1em" />;
+  return <AvatarBadge borderColor="yellow.50" bg="yellow.400" boxSize="1em" />;
 }
 interface UserBadgeStatusProps {
   status: string;
@@ -39,5 +39,5 @@ export function UserBagdeStatus({ status = "" }: UserBadgeStatusProps) {
     return <Badge colorScheme="orange">Férias/Afastado</Badge>;
   }
 
-  return <Badge colorScheme="purple">verificar</Badge>;
+  return <Badge colorScheme="yellow">verificar</Badge>;
 }
