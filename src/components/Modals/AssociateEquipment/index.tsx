@@ -1,3 +1,4 @@
+import { useEquipment } from "@/contexts/EquipmetContext";
 import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import {
   Box,
@@ -9,56 +10,34 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Stack,
 } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
 import { AvaliableEquipmentsInput } from "./AvaliableEquipmentsInput";
-
-const associateEquipmentSchema = z.object({
-  equipment_id: z.string(),
-  username: z.string(),
-});
-
-type AssociateEquipmentData = z.infer<typeof associateEquipmentSchema>;
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  username: string;
+  department_id: number;
 }
 
-export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
-  const {
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<AssociateEquipmentData>({
-    resolver: zodResolver(associateEquipmentSchema),
-    defaultValues: {
-      username: "02-004-0333",
-    },
-  });
-
-  const handleCreateItem: SubmitHandler<AssociateEquipmentData> = async (
-    data,
-    event
-  ) => {
-    event?.preventDefault();
-
-    /* await createItem.mutateAsync(data); */
-
-    console.log(data);
-
-    onClose();
-    reset();
-  };
-
+export function AssociateEquipmenteModal({
+  isOpen,
+  onClose,
+  username,
+  department_id,
+}: ModalProps) {
   const [value, setValue] = useState("");
-  const [status, setStatus] = useState("stock");
+  const [status, setStatus] = useState("avaliable");
 
   const { data } = useFetchInvetoryList({ status });
+
+  const { associateEquipment } = useEquipment();
+  const handleAssociate = async () => {
+    await associateEquipment.mutateAsync({ username, equipment_id: value });
+
+    onClose();
+  };
 
   return (
     <Modal
@@ -66,32 +45,27 @@ export function AssociateEquipmenteModal({ isOpen, onClose }: ModalProps) {
       onClose={onClose}
       isCentered
       scrollBehavior="inside"
-      size="xl"
+      size="2xl"
     >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Atribuir Equipamento</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box
-            as="form"
-            onSubmit={handleSubmit(handleCreateItem)}
-            id="associate_equipment"
-          >
-            <Stack spacing="4">Equipmts Avaliable</Stack>
-
+          <Box as="form" id="update_item">
             <AvaliableEquipmentsInput
               equipments={data?.equipments!}
               setValue={setValue}
             />
           </Box>
         </ModalBody>
+
         <ModalFooter>
           <Button
-            form="associate_equipment"
-            type="submit"
+            form="associate_equip"
             colorScheme="purple"
-            isLoading={isSubmitting}
+            type="submit"
+            onClick={() => handleAssociate()}
           >
             Atribuir
           </Button>

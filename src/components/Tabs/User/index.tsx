@@ -64,7 +64,7 @@ export function UserTab({ user, equipments }: UserTabProps) {
           <Box ml="auto" mb="10">
             <TriggerAssociateEquipment />
           </Box>
-          {equipments && <EquipmentsList equipments={equipments} />}
+          <EquipmentsList equipments={equipments} />
         </TabPanel>
       </TabPanels>
     </Tabs>
