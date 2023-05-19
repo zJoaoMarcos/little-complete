@@ -1,5 +1,6 @@
 import {
   EquipmentAvatar,
+  EquipmentAvatarBadge,
   EquipmentBagdeStatus,
 } from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
@@ -73,7 +74,12 @@ export default function Inventory({ equipment }: EquipmentProps) {
                   type={equipment.type}
                   avatarSize="lg"
                   iconSize="40"
-                />
+                >
+                  <EquipmentAvatarBadge
+                    status={equipment.status}
+                    badgeSize="0.80em"
+                  />
+                </EquipmentAvatar>
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
                     {equipment.type} -{" "}
@@ -83,8 +89,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
                   </Heading>
 
                   <Text fontWeight="semibold" fontSize={16}>
-                    Status:{" "}
-                    <EquipmentBagdeStatus status={equipment.status || ""} />
+                    Status: <EquipmentBagdeStatus status={equipment.status!} />
                   </Text>
                 </VStack>
               </HStack>

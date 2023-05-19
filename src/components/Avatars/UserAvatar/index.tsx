@@ -1,12 +1,16 @@
 import { Avatar, AvatarBadge, Badge } from "@chakra-ui/react";
 
-interface UserAvatar {
+interface UserAvatarProps {
   name: string;
   status?: string;
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "2xs" | "xs" | "full";
 }
 
-export function UserAvatar({ name, status = "", size = "md" }: UserAvatar) {
+export function UserAvatar({
+  name,
+  status = "",
+  size = "md",
+}: UserAvatarProps) {
   return (
     <Avatar size={size} name={name}>
       {BadgeStatus(status)}
