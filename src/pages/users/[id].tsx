@@ -56,8 +56,6 @@ interface UserProps {
 }
 
 export default function User({ user, equipments }: UserProps) {
-  const colorStatus = user.status === "active" ? "green" : "orange";
-
   return (
     <>
       <Head>
