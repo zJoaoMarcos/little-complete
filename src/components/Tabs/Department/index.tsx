@@ -25,9 +25,9 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
   return (
     <Tabs colorScheme="purple">
       <TabList>
-        <Tab>Info</Tab>
-        <Tab>Usuários</Tab>
-        <Tab>Equipamentos</Tab>
+        <Tab fontWeight="semibold">Info</Tab>
+        <Tab fontWeight="semibold">Usuários ({users?.totalCount})</Tab>
+        <Tab fontWeight="semibold">Equipamentos ({equipments?.totalCount})</Tab>
       </TabList>
 
       <TabPanels>

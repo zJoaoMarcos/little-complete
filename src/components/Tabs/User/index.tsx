@@ -46,8 +46,8 @@ export function UserTab({ user, equipments }: UserTabProps) {
   return (
     <Tabs colorScheme="purple">
       <TabList>
-        <Tab>Info</Tab>
-        <Tab>Equipamentos</Tab>
+        <Tab fontWeight="semibold">Info</Tab>
+        <Tab fontWeight="semibold">Equipamentos</Tab>
       </TabList>
 
       <TabPanels>
