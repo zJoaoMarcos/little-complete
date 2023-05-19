@@ -1,6 +1,5 @@
+import { UserAvatar } from "@/components/Avatars/UserAvatar";
 import {
-  Avatar,
-  AvatarBadge,
   Flex,
   HStack,
   IconButton,
@@ -41,9 +40,7 @@ export function UserCard({ user }: UserCardProps) {
       shadow={"md"}
     >
       <HStack justifyContent="start">
-        <Avatar name={user.complete_name}>
-          <AvatarBadge borderColor="papayawhip" bg="tomato" boxSize="1em" />
-        </Avatar>
+        <UserAvatar name={user.complete_name} status={user.status || ""} />
         <Flex
           flexDir="column"
           align="start"
