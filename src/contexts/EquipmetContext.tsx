@@ -44,6 +44,11 @@ interface UpdateEquipmentData {
   service_tag: string | null;
 }
 
+interface AssociateEquipmentData {
+  username: string;
+  equipment_id: string;
+}
+
 interface StockProviderContextData {
   createEquipment: UseMutationResult<
     CreateEquipmentData,
@@ -55,6 +60,12 @@ interface StockProviderContextData {
     UpdateEquipmentData,
     unknown,
     UpdateEquipmentData,
+    unknown
+  >;
+  associateEquipment: UseMutationResult<
+    AssociateEquipmentData,
+    unknown,
+    AssociateEquipmentData,
     unknown
   >;
 }
@@ -111,8 +122,34 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     }
   );
 
+  const associateEquipment = useMutation(
+    async (data: AssociateEquipmentData) => {
+      const res = await backend.post<AssociateEquipmentData>(
+        `user-assignments/`,
+        {
+          ...data,
+        }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Equipamento atribuido com sucesso");
+        queryClient.invalidateQueries("equipments");
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
-    <EquipmentContext.Provider value={{ createEquipment, updateEquipment }}>
+    <EquipmentContext.Provider
+      value={{ createEquipment, updateEquipment, associateEquipment }}
+    >
       {children}
     </EquipmentContext.Provider>
   );
