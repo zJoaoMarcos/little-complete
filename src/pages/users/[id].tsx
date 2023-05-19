@@ -1,18 +1,17 @@
+import { UserAvatar, UserBagdeStatus } from "@/components/Avatars/UserAvatar";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { UserTab } from "@/components/Tabs/User";
 import { getUser } from "@/hooks/UseFindUser";
 import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
 import {
-  Avatar,
-  Badge,
   Box,
   Flex,
-  Heading,
   HStack,
+  Heading,
   Text,
-  useColorModeValue,
   VStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -81,8 +80,9 @@ export default function User({ user, equipments }: UserProps) {
           >
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
-                <Avatar
+                <UserAvatar
                   name={concatFirstNameAndLastName(user.complete_name)}
+                  status={user.status}
                   size="lg"
                 />
 
@@ -91,10 +91,12 @@ export default function User({ user, equipments }: UserProps) {
                     {user.complete_name}
                   </Heading>
 
-                  <Text fontWeight="semibold" fontSize={16}>
-                    Status:{" "}
-                    <Badge colorScheme={colorStatus}>{user.status}</Badge>
-                  </Text>
+                  <HStack>
+                    <Text fontWeight="semibold" fontSize={16}>
+                      Status:
+                    </Text>
+                    <UserBagdeStatus status={user.status} />
+                  </HStack>
                 </VStack>
               </HStack>
             </Flex>

@@ -1,4 +1,4 @@
-import { Avatar, AvatarBadge } from "@chakra-ui/react";
+import { Avatar, AvatarBadge, Badge } from "@chakra-ui/react";
 
 interface UserAvatar {
   name: string;
@@ -25,4 +25,19 @@ function BadgeStatus(status: string) {
     );
   }
   return <AvatarBadge borderColor="purple.50" bg="purple.400" boxSize="1em" />;
+}
+interface UserBadgeStatusProps {
+  status: string;
+}
+
+export function UserBagdeStatus({ status = "" }: UserBadgeStatusProps) {
+  if (status === "active") {
+    return <Badge colorScheme="green">Ativo</Badge>;
+  } else if (status === "disabled") {
+    return <Badge colorScheme="red">Desligado</Badge>;
+  } else if (status === "vacation") {
+    return <Badge colorScheme="orange">Férias/Afastado</Badge>;
+  }
+
+  return <Badge colorScheme="purple">verificar</Badge>;
 }
