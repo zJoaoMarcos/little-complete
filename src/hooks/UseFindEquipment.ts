@@ -1,4 +1,5 @@
 import { backend } from "@/lib/backendApi";
+import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface Equipment {
@@ -33,7 +34,7 @@ export async function getEquipment(equipmentId: string): Promise<Equipment> {
 
   const equipment = {
     id: data.equipment.id.trim(),
-    type: data.equipment.type,
+    type: formatData(data.equipment.type),
     brand: data.equipment.brand,
     model: data.equipment.model,
     supplier: data.equipment.supplier,

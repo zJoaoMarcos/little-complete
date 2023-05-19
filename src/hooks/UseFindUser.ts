@@ -12,7 +12,7 @@ interface Equipment {
   warranty: string | null;
   purchase_date: Date | null;
   department: { id: number; name: string } | null;
-  status: string;
+  status: string | null;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
@@ -75,7 +75,7 @@ export async function getUser(userId: string): Promise<User> {
             name: formatData(equipment.department.name),
           }
         : null,
-      status: equipment.status,
+      status: equipment.status ? equipment.status.trim() : null,
       cpu: equipment.cpu,
       ram: equipment.ram,
       slots: equipment.slots,
