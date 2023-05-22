@@ -44,8 +44,12 @@ interface UpdateEquipmentData {
   service_tag: string | null;
 }
 
-interface AssociateEquipmentData {
+interface AssignEquipmentData {
   username: string;
+  equipment_id: string;
+}
+
+interface UnassignEquipmentData {
   equipment_id: string;
 }
 
@@ -62,10 +66,16 @@ interface StockProviderContextData {
     UpdateEquipmentData,
     unknown
   >;
-  associateEquipment: UseMutationResult<
-    AssociateEquipmentData,
+  assignEquipment: UseMutationResult<
+    AssignEquipmentData,
     unknown,
-    AssociateEquipmentData,
+    AssignEquipmentData,
+    unknown
+  >;
+  unassignEquipment: UseMutationResult<
+    UnassignEquipmentData,
+    unknown,
+    UnassignEquipmentData,
     unknown
   >;
 }
@@ -116,20 +126,17 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
       },
       onError: () => {
         toast.error(
-          "Desculpe não conseguimos editar o equipamento, tente mais tarde"
+          "Desculpe não conseguimos desatrubuir o equipamento, tente mais tarde"
         );
       },
     }
   );
 
-  const associateEquipment = useMutation(
-    async (data: AssociateEquipmentData) => {
-      const res = await backend.post<AssociateEquipmentData>(
-        `user-assignments/`,
-        {
-          ...data,
-        }
-      );
+  const assignEquipment = useMutation(
+    async (data: AssignEquipmentData) => {
+      const res = await backend.post<AssignEquipmentData>(`user-assignments/`, {
+        ...data,
+      });
 
       return res.data;
     },
@@ -146,9 +153,35 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     }
   );
 
+  const unassignEquipment = useMutation(
+    async (data: UnassignEquipmentData) => {
+      const res = await backend.delete<UnassignEquipmentData>(
+        `user-assignments/${data.equipment_id}`
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Equipamento atribuido com sucesso");
+        queryClient.invalidateQueries(`user-`);
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
     <EquipmentContext.Provider
-      value={{ createEquipment, updateEquipment, associateEquipment }}
+      value={{
+        createEquipment,
+        updateEquipment,
+        assignEquipment,
+        unassignEquipment,
+      }}
     >
       {children}
     </EquipmentContext.Provider>

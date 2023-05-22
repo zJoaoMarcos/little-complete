@@ -32,9 +32,9 @@ export function AssignEquipmentModal({
 
   const { data } = useFetchInvetoryList({ status });
 
-  const { associateEquipment } = useEquipment();
-  const handleAssociate = async () => {
-    await associateEquipment.mutateAsync({ username, equipment_id: value });
+  const { assignEquipment } = useEquipment();
+  const handleAssign = async () => {
+    await assignEquipment.mutateAsync({ username, equipment_id: value });
 
     onClose();
   };
@@ -62,10 +62,10 @@ export function AssignEquipmentModal({
 
         <ModalFooter>
           <Button
-            form="associate_equip"
+            form="assign_equip"
             colorScheme="purple"
             type="submit"
-            onClick={() => handleAssociate()}
+            onClick={() => handleAssign()}
           >
             Atribuir
           </Button>

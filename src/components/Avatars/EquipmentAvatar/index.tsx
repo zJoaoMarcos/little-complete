@@ -14,7 +14,7 @@ interface EquipmentAvatarProps {
   type: string;
   iconSize?: string;
   avatarSize?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "2xs";
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 function equipmentIcon(type: string, iconSize: string) {
@@ -46,7 +46,7 @@ export function EquipmentAvatar({
 
   return (
     <Avatar size={avatarSize} bgColor="purple.400" icon={icon}>
-      {children}
+      {children && children}
     </Avatar>
   );
 }

@@ -2,6 +2,7 @@ import {
   EquipmentAvatar,
   EquipmentAvatarBadge,
 } from "@/components/Avatars/EquipmentAvatar";
+import { TriggerUnassignEquipment } from "@/components/Modals/UnassignEquipment/Trigger";
 import {
   Flex,
   HStack,
@@ -9,7 +10,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { CaretRight, Prohibit } from "@phosphor-icons/react";
+import { CaretRight } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 interface EquipmentCardProps {
@@ -84,11 +85,7 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
       </HStack>
 
       <HStack spacing={4}>
-        <IconButton
-          aria-label="disable_user"
-          icon={<Prohibit size={22} />}
-          bg="none"
-        />
+        <TriggerUnassignEquipment equipmentId={equipment.id} />
         <IconButton
           onClick={() => push(`/inventory/${equipment.id}`)}
           aria-label="see-more"
