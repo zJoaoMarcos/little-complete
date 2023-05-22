@@ -21,7 +21,7 @@ interface ModalProps {
   department_id: number;
 }
 
-export function AssociateEquipmenteModal({
+export function AssignEquipmentModal({
   isOpen,
   onClose,
   username,
