@@ -26,6 +26,10 @@ interface UpdateUserData {
   smtp: string;
   admission_date: Date | null;
   demission_date: Date | null;
+}
+
+interface UpdateUserStatusData {
+  user_name: string;
   status: string;
 }
 
@@ -40,6 +44,12 @@ interface StockProviderContextData {
     UpdateUserData,
     unknown,
     UpdateUserData,
+    unknown
+  >;
+  updateStatus: UseMutationResult<
+    UpdateUserStatusData,
+    unknown,
+    UpdateUserStatusData,
     unknown
   >;
 }
@@ -96,8 +106,32 @@ export function UserProvider({ children }: UserProviderProps) {
     }
   );
 
+  const updateStatus = useMutation(
+    async (data: UpdateUserStatusData) => {
+      const res = await backend.patch<UpdateUserStatusData>(
+        `users/status/${data.user_name}`,
+        {
+          status: data.status,
+        }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: () => {
+        toast.success("Status do Usuário alterado com sucesso");
+        queryClient.invalidateQueries("user-");
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos alterar o status do usuário, tente mais tarde. "
+        );
+      },
+    }
+  );
+
   return (
-    <StockContext.Provider value={{ createUser, updateUser }}>
+    <StockContext.Provider value={{ createUser, updateUser, updateStatus }}>
       {children}
     </StockContext.Provider>
   );

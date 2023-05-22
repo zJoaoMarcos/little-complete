@@ -1,5 +1,6 @@
 import { UserAvatar, UserBagdeStatus } from "@/components/Avatars/UserAvatar";
 import { Header } from "@/components/Header";
+import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
 import { UserTab } from "@/components/Tabs/User";
 import { getUser } from "@/hooks/UseFindUser";
@@ -97,6 +98,10 @@ export default function User({ user, equipments }: UserProps) {
                   </HStack>
                 </VStack>
               </HStack>
+              <TriggerUpdateUserStatus
+                useName={user.user_name}
+                currentStatus={user.status}
+              />
             </Flex>
 
             <UserTab user={user} equipments={equipments} />
