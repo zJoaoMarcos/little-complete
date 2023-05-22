@@ -20,15 +20,49 @@ export function UserAvatar({
 
 function BadgeStatus(status: string) {
   if (status === "active") {
-    return <AvatarBadge borderColor="green.50" bg="green.300" boxSize="1em" />;
+    return (
+      <AvatarBadge
+        borderColor="green.50"
+        bg="green.300"
+        boxSize="0.80em"
+        border="2px"
+        mr="1"
+        mb="0.2px"
+      />
+    );
   } else if (status === "disabled") {
-    return <AvatarBadge borderColor="red.50" bg="red.700" boxSize="1em" />;
+    return (
+      <AvatarBadge
+        borderColor="red.50"
+        bg="red.700"
+        boxSize="0.80em"
+        border="2px"
+        mr="1"
+        mb="0.2px"
+      />
+    );
   } else if (status === "vacation") {
     return (
-      <AvatarBadge borderColor="orange.50" bg="orange.400" boxSize="1em" />
+      <AvatarBadge
+        borderColor="orange.50"
+        bg="orange.400"
+        boxSize="0.80em"
+        border="2px"
+        mr="1"
+        mb="0.2px"
+      />
     );
   }
-  return <AvatarBadge borderColor="yellow.50" bg="yellow.400" boxSize="1em" />;
+  return (
+    <AvatarBadge
+      borderColor="yellow.50"
+      bg="yellow.400"
+      boxSize="0.80em"
+      border="2px"
+      mr="1"
+      mb="0.2px"
+    />
+  );
 }
 interface UserBadgeStatusProps {
   status: string;
