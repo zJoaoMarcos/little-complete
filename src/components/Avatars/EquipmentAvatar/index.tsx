@@ -88,7 +88,7 @@ export function EquipmentAvatarBadge({
     return (
       <AvatarBadge
         borderColor="blue.50"
-        bg="blue.700"
+        bg="blue.400"
         boxSize={badgeSize}
         border="2px"
         mr="1"
