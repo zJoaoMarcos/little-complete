@@ -21,8 +21,29 @@ interface Data {
   totalCount: number;
 }
 
-export async function getUsersList(skip = 0, take = 0): Promise<Data> {
-  const { data } = await backend.get<Data>(`/users?skip=${skip}&take=${take}`);
+interface FetchParams {
+  page?: number;
+  skip?: number;
+  take?: number;
+  id?: string;
+  departmentId?: number;
+  status?: string;
+}
+
+export async function getUsersList({
+  skip = 0,
+  take = 0,
+  id,
+  status,
+  departmentId,
+}: FetchParams): Promise<Data> {
+  id = id ? `&id=${id}` : "";
+  status = status ? `&status=${status}` : "";
+  const department_id = departmentId ? `&department_id=${departmentId}` : "";
+
+  const { data } = await backend.get<Data>(
+    `/users?equipments?skip=${skip}&take=${take}${id}${department_id}${status}`
+  );
 
   const users = data.users.map((user) => {
     return {
@@ -47,8 +68,19 @@ export async function getUsersList(skip = 0, take = 0): Promise<Data> {
   return { users, totalCount };
 }
 
-export function useFetchUsersList(page?: number, skip = 0, take = 0) {
-  return useQuery(["users", page], () => getUsersList(skip, take), {
-    staleTime: 1000 * 5,
-  });
+export function useFetchUsersList({
+  page,
+  skip = 0,
+  take = 0,
+  id,
+  status,
+  departmentId,
+}: FetchParams) {
+  return useQuery(
+    ["users", page],
+    () => getUsersList({ skip, take, id, status, departmentId }),
+    {
+      staleTime: 1000 * 5,
+    }
+  );
 }
