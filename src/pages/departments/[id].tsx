@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { DepartmentTab } from "@/components/Tabs/Department";
 import { getDepartment } from "@/hooks/UseFetchDepartment";
-import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
+import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { formatData } from "@/utils/formatData";
 import {
   Avatar,

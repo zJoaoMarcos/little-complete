@@ -4,7 +4,7 @@ import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Tr
 import { Sidebar } from "@/components/Sidebar";
 import { UserTab } from "@/components/Tabs/User";
 import { getUser } from "@/hooks/UseFindUser";
-import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
+import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import {
   Box,
   Flex,

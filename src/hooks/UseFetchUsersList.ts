@@ -1,5 +1,5 @@
 import { backend } from "@/lib/backendApi";
-import { concatFirstNameAndLastName } from "@/utils/concatFIrstNameAndLastName";
+import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 

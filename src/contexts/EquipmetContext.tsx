@@ -26,13 +26,13 @@ interface CreateEquipmentData {
 
 interface UpdateEquipmentData {
   id: string;
-  brand: string;
-  model: string;
+  brand: string | null;
+  model: string | null;
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department_id: number;
+  department_id: number | null;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
