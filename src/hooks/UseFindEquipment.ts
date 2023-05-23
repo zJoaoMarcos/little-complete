@@ -43,7 +43,9 @@ export async function getEquipment(equipmentId: string): Promise<Equipment> {
     purchase_date: data.equipment.purchase_date,
     department: {
       id: data.equipment.department.id,
-      name: data.equipment.department.name,
+      name: data.equipment.department.name
+        ? formatData(data.equipment.department.name)
+        : null,
     },
     status: data.equipment.status,
     cpu: data.equipment.cpu,
