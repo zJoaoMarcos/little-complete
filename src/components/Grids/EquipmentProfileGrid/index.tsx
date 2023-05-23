@@ -106,7 +106,7 @@ export function EquipmentProfileGrid({ equipment }: EquipmentProfileGridProps) {
   };
 
   return (
-    <Flex flexDir="column">
+    <Flex flexDir="column" mt="4">
       <HStack ml="auto">
         <Button
           onClick={() => setIsBlocked(!isBlocked)}
