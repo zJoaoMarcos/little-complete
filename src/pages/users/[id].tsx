@@ -1,4 +1,5 @@
-import { UserAvatar, UserBagdeStatus } from "@/components/Avatars/UserAvatar";
+import { UserAvatar } from "@/components/Avatars/UserAvatar";
+import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus";
 import { Header } from "@/components/Header";
 import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import { Sidebar } from "@/components/Sidebar";
