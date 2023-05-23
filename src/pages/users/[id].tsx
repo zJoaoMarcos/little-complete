@@ -82,7 +82,6 @@ export default function User({ user, equipments }: UserProps) {
               <HStack spacing={8}>
                 <UserAvatar
                   name={concatFirstNameAndLastName(user.complete_name)}
-                  status={user.status}
                   size="lg"
                 />
 
@@ -99,6 +98,7 @@ export default function User({ user, equipments }: UserProps) {
                   </HStack>
                 </VStack>
               </HStack>
+
               <TriggerUpdateUserStatus
                 useName={user.user_name}
                 currentStatus={user.status}

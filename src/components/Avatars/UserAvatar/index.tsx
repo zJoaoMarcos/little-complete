@@ -6,61 +6,38 @@ interface UserAvatarProps {
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "2xs" | "xs" | "full";
 }
 
-export function UserAvatar({
-  name,
-  status = "",
-  size = "md",
-}: UserAvatarProps) {
+export function UserAvatar({ name, status, size = "md" }: UserAvatarProps) {
   return (
     <Avatar size={size} name={name}>
-      {BadgeStatus(status)}
+      {status && (
+        <AvatarBadge
+          bg={statusColor(status)}
+          boxSize="0.90em"
+          border="2px"
+          borderColor="white"
+          mr="1"
+        />
+      )}
     </Avatar>
   );
 }
 
-function BadgeStatus(status: string) {
+function statusColor(status: string) {
   if (status === "active") {
-    return (
-      <AvatarBadge
-        borderColor="green.500"
-        bg="green.300"
-        boxSize="0.80em"
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  } else if (status === "disabled") {
-    return (
-      <AvatarBadge
-        borderColor="red.50"
-        bg="red.700"
-        boxSize="0.80em"
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  } else if (status === "vacation") {
-    return (
-      <AvatarBadge
-        borderColor="orange.50"
-        bg="orange.400"
-        boxSize="0.80em"
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
+    return "green.400";
   }
-  return (
-    <AvatarBadge
-      borderColor="yellow.50"
-      bg="yellow.400"
-      boxSize="0.80em"
-      border="2px"
-      mr="1"
-      mb="0.2px"
-    />
-  );
+
+  if (status === "disabled") {
+    return "gray.500";
+  }
+
+  if (status === "vacation") {
+    return "orange.400";
+  }
+
+  if (status === "pendency") {
+    return "red.600";
+  }
+
+  return "yellow.500";
 }
