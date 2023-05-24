@@ -28,7 +28,7 @@ function statusColor(status: string) {
   }
 
   if (status === "disabled") {
-    return "gray.500";
+    return "gray.700";
   }
 
   if (status === "vacation") {
@@ -38,6 +38,4 @@ function statusColor(status: string) {
   if (status === "pendency") {
     return "red.600";
   }
-
-  return "yellow.500";
 }
