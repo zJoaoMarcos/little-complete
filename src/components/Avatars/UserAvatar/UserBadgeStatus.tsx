@@ -18,7 +18,7 @@ export function UserBagdeStatus({ status = "" }: UserBadgeStatusProps) {
   }
 
   if (status === "disabled") {
-    return <Badge colorScheme="gray">Desligado</Badge>;
+    return <Badge colorScheme="blackAlpha">Desligado</Badge>;
   }
 
   return <Badge colorScheme="yellow">verificar</Badge>;
