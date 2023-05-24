@@ -16,6 +16,29 @@ interface EquipmentAvatarProps {
   avatarSize?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "2xs";
 }
 
+export function EquipmentAvatar({
+  type,
+  status,
+  avatarSize = "sm",
+  iconSize = "20",
+}: EquipmentAvatarProps) {
+  const icon = equipmentIcon(type, iconSize);
+  console.log(status);
+  return (
+    <Avatar size={avatarSize} bgColor="purple.400" icon={icon}>
+      {status && (
+        <AvatarBadge
+          bg={statusColor(status)}
+          boxSize="0.90em"
+          border="2px"
+          borderColor="white"
+          mr="1"
+        />
+      )}
+    </Avatar>
+  );
+}
+
 function equipmentIcon(type: string, iconSize: string) {
   type = type.toLocaleLowerCase();
 
@@ -46,6 +69,7 @@ function equipmentIcon(type: string, iconSize: string) {
 }
 
 function statusColor(status: string) {
+  status = status.trim();
   if (status === "avaliable") {
     return "green.400";
   }
@@ -66,104 +90,3 @@ function statusColor(status: string) {
     return "blue.400";
   }
 }
-
-export function EquipmentAvatar({
-  type,
-  status,
-  avatarSize = "sm",
-  iconSize = "20",
-}: EquipmentAvatarProps) {
-  const icon = equipmentIcon(type, iconSize);
-
-  return (
-    <Avatar size={avatarSize} bgColor="purple.400" icon={icon}>
-      {status && (
-        <AvatarBadge
-          bg={statusColor(status)}
-          boxSize="0.90em"
-          border="2px"
-          borderColor="white"
-          mr="1"
-        />
-      )}
-    </Avatar>
-  );
-}
-
-/* interface UserBadgeStatusProps {
-  status?: string | null;
-  badgeSize?: string;
-}
-
-export function EquipmentAvatarBadge({
-  status,
-  badgeSize = "1em",
-}: UserBadgeStatusProps) {
-  status = status?.trim();
-
-  if (status === "avaliable") {
-    return (
-      <AvatarBadge
-        borderColor="green.50"
-        bg="green.300"
-        boxSize={badgeSize}
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  }
-
-  if (status === "pendency") {
-    return (
-      <AvatarBadge
-        borderColor="red.50"
-        bg="red.700"
-        boxSize={badgeSize}
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  }
-
-  if (status === "in use") {
-    return (
-      <AvatarBadge
-        borderColor="blue.50"
-        bg="blue.400"
-        boxSize={badgeSize}
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  }
-
-  if (status === "disabled") {
-    return (
-      <AvatarBadge
-        borderColor="gray.50"
-        bg="gray.400"
-        boxSize={badgeSize}
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  }
-
-  if (status === "maintenace") {
-    return (
-      <AvatarBadge
-        borderColor="orange.50"
-        bg="orange.400"
-        boxSize={badgeSize}
-        border="2px"
-        mr="1"
-        mb="0.2px"
-      />
-    );
-  }
-}
- */

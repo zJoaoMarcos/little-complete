@@ -1,7 +1,4 @@
-import {
-  EquipmentAvatar,
-  EquipmentAvatarBadge,
-} from "@/components/Avatars/EquipmentAvatar";
+import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { TriggerUnassignEquipment } from "@/components/Modals/UnassignEquipment/Trigger";
 import {
   Flex,
@@ -55,12 +52,12 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
       shadow={"md"}
     >
       <HStack justifyContent="start">
-        <EquipmentAvatar avatarSize="md" iconSize="30" type={equipment.type}>
-          <EquipmentAvatarBadge
-            status={equipment.status}
-            badgeSize="0.998rem"
-          />
-        </EquipmentAvatar>
+        <EquipmentAvatar
+          avatarSize="md"
+          iconSize="30"
+          type={equipment.type}
+          status={equipment.status || ""}
+        />
         <Flex
           flexDir="column"
           align="start"
