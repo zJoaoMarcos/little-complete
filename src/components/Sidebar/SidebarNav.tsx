@@ -1,5 +1,6 @@
+import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
-import { Stack } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 import {
   Buildings,
   Notebook,
@@ -8,12 +9,20 @@ import {
   User,
   X,
 } from "@phosphor-icons/react";
-import { IconPendencies } from "../IconsPendencies";
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
 
 export function SidebarNav() {
-  const { data } = useFetchUsersList({ key: "pendency", status: "pendency" });
+  const { data: users } = useFetchUsersList({
+    key: "usersPendencyCount",
+    status: "pendency",
+  });
+  const { data: equips } = useFetchInvetoryList({
+    key: "equipsPendencyCount",
+    status: "pendency",
+  });
+
+  const totalPendency = (users?.totalCount ?? 0) + (equips?.totalCount ?? 0);
 
   return (
     <Stack spacing="8" align="flex-start">
@@ -30,7 +39,20 @@ export function SidebarNav() {
       <NavSection title="CONTROLES">
         <NavLink icon={X} href="/pendency">
           Pendências
-          {data?.totalCount && <IconPendencies pendencies={data.totalCount} />}
+          {totalPendency >= 0 && (
+            <Text
+              ml="1"
+              as="span"
+              bg="pink.500"
+              color="white"
+              fontSize="xs"
+              px="2"
+              py="1"
+              rounded="full"
+            >
+              {totalPendency}
+            </Text>
+          )}
         </NavLink>
 
         <NavLink icon={Notebook} href="/inventory">

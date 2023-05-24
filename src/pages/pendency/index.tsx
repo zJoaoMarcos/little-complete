@@ -9,7 +9,7 @@ export default function Pendency() {
     <>
       <>
         <Head>
-          <title>Pendencias</title>
+          <title>Pendências</title>
         </Head>
 
         <Flex flexDir="column" h="100vh">
