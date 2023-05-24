@@ -28,15 +28,26 @@ interface Equipment {
 
 interface EquipmentListProps {
   equipments: Equipment[] | undefined;
+  isPendency?: boolean;
+  buttonUnassign?: boolean;
 }
 
-export function EquipmentsList({ equipments }: EquipmentListProps) {
+export function EquipmentsList({
+  equipments,
+  isPendency = false,
+  buttonUnassign = false,
+}: EquipmentListProps) {
   return (
     <SimpleGrid columns={2} spacingX={10} spacingY={6} mb={10} w="full">
       <>
         {equipments ? (
           equipments.map((equipment) => (
-            <EquipmentCard key={equipment.id} equipment={equipment} />
+            <EquipmentCard
+              key={equipment.id}
+              equipment={equipment}
+              isPendency={isPendency}
+              buttonUnassign={buttonUnassign}
+            />
           ))
         ) : (
           <Stack w="full">

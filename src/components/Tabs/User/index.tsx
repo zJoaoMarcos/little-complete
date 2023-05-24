@@ -67,7 +67,7 @@ export function UserTab({ user, equipments }: UserTabProps) {
               departmentId={user.department.id}
             />
           </Box>
-          <EquipmentsList equipments={equipments} />
+          <EquipmentsList equipments={equipments} buttonUnassign={true} />
         </TabPanel>
       </TabPanels>
     </Tabs>
