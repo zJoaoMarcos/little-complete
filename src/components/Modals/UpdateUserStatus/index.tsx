@@ -46,10 +46,14 @@ export function UpdateUserStatusModal({
   userName,
   currentStatus,
 }: UpdateUserStatusModalProps) {
+  const filterStatusOptions = defaultStatusOptions.filter(
+    (status) => status.value !== currentStatus
+  );
+
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isDirty },
   } = useForm<UpdateUserStatusData>({
     resolver: zodResolver(UpdateUserStatusSchema),
     defaultValues: { user_name: userName, status: currentStatus },
@@ -90,7 +94,7 @@ export function UpdateUserStatusModal({
           onSubmit={handleSubmit(handleUpdateStatus)}
         >
           <Select {...register("status")}>
-            {defaultStatusOptions.map((status, i) => {
+            {filterStatusOptions.map((status, i) => {
               return (
                 <option key={i} value={status.value}>
                   {status.option}
@@ -106,6 +110,7 @@ export function UpdateUserStatusModal({
             colorScheme="purple"
             type="submit"
             isLoading={isSubmitting}
+            isDisabled={!isDirty}
           >
             Confirmar
           </Button>
