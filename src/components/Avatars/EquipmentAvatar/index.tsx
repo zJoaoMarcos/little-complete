@@ -1,4 +1,4 @@
-import { Avatar, AvatarBadge, Badge } from "@chakra-ui/react";
+import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import {
   Desktop,
   DesktopTower,
@@ -8,13 +8,12 @@ import {
   Printer,
   VirtualReality,
 } from "@phosphor-icons/react";
-import { ReactNode } from "react";
 
 interface EquipmentAvatarProps {
   type: string;
+  status?: string;
   iconSize?: string;
   avatarSize?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "2xs";
-  children?: ReactNode;
 }
 
 function equipmentIcon(type: string, iconSize: string) {
@@ -22,36 +21,76 @@ function equipmentIcon(type: string, iconSize: string) {
 
   if (type === "desktop") {
     return <DesktopTower size={iconSize} />;
-  } else if (type === "monitor") {
+  }
+
+  if (type === "monitor") {
     return <Monitor size={iconSize} />;
-  } else if (type === "telephone") {
+  }
+
+  if (type === "telephone") {
     return <Phone size={iconSize} />;
-  } else if (type === "notebook") {
+  }
+
+  if (type === "notebook") {
     return <Laptop size={iconSize} />;
-  } else if (type === "vr") {
+  }
+
+  if (type === "vr") {
     return <VirtualReality size={iconSize} />;
-  } else if (type === "scanner") {
+  }
+
+  if (type === "scanner") {
     return <Printer size={iconSize} />;
   }
   return <Desktop size={iconSize} />;
 }
 
+function statusColor(status: string) {
+  if (status === "avaliable") {
+    return "green.400";
+  }
+
+  if (status === "disabled") {
+    return "gray.700";
+  }
+
+  if (status === "maintenace") {
+    return "orange.400";
+  }
+
+  if (status === "pendency") {
+    return "red.600";
+  }
+
+  if (status === "in use") {
+    return "blue.400";
+  }
+}
+
 export function EquipmentAvatar({
   type,
+  status,
   avatarSize = "sm",
   iconSize = "20",
-  children,
 }: EquipmentAvatarProps) {
   const icon = equipmentIcon(type, iconSize);
 
   return (
     <Avatar size={avatarSize} bgColor="purple.400" icon={icon}>
-      {children && children}
+      {status && (
+        <AvatarBadge
+          bg={statusColor(status)}
+          boxSize="0.90em"
+          border="2px"
+          borderColor="white"
+          mr="1"
+        />
+      )}
     </Avatar>
   );
 }
 
-interface UserBadgeStatusProps {
+/* interface UserBadgeStatusProps {
   status?: string | null;
   badgeSize?: string;
 }
@@ -127,31 +166,4 @@ export function EquipmentAvatarBadge({
     );
   }
 }
-
-interface EquipmentBadgeStatusProps {
-  status: string;
-}
-
-export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
-  status = status?.trim();
-
-  if (status === "avaliable") {
-    return <Badge colorScheme="green">Disponivel</Badge>;
-  }
-
-  if (status === "disabled") {
-    return <Badge colorScheme="blackAlpha">Sem Concerto</Badge>;
-  }
-
-  if (status === "maintenance") {
-    return <Badge colorScheme="orange">Em Manutenção</Badge>;
-  }
-
-  if (status === "in use") {
-    return <Badge colorScheme="blue">Em Uso</Badge>;
-  }
-
-  if (status === "pendency") {
-    return <Badge colorScheme="red">Pendente</Badge>;
-  }
-}
+ */
