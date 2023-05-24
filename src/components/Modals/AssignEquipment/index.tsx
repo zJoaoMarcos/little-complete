@@ -28,13 +28,15 @@ export function AssignEquipmentModal({
   department_id,
 }: ModalProps) {
   const [value, setValue] = useState("");
-  const [status, setStatus] = useState("avaliable");
 
-  const { data } = useFetchInvetoryList({ status });
+  const { data } = useFetchInvetoryList({ status: "avaliable" });
 
   const { assignEquipment } = useEquipment();
   const handleAssign = async () => {
-    await assignEquipment.mutateAsync({ username, equipment_id: value });
+    await assignEquipment.mutateAsync({
+      user_id: username,
+      equipment_id: value,
+    });
 
     onClose();
   };

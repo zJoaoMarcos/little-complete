@@ -45,7 +45,7 @@ interface UpdateEquipmentData {
 }
 
 interface AssignEquipmentData {
-  username: string;
+  user_id: string;
   equipment_id: string;
 }
 
@@ -134,6 +134,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const assignEquipment = useMutation(
     async (data: AssignEquipmentData) => {
+      console.log(data);
       const res = await backend.post<AssignEquipmentData>(`user-assignments/`, {
         ...data,
       });
