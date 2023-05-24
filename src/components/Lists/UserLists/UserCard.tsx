@@ -1,4 +1,5 @@
 import { UserAvatar } from "@/components/Avatars/UserAvatar";
+import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import {
   Flex,
   HStack,
@@ -6,7 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { CaretRight, Phone, Prohibit } from "@phosphor-icons/react";
+import { CaretRight, Phone } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 interface UserCardProps {
@@ -20,12 +21,14 @@ interface UserCardProps {
     smtp: string;
     admission_date: Date | null;
     demission_date: Date | null;
-    status: string | null;
+    status: string;
   };
 }
 
 export function UserCard({ user }: UserCardProps) {
   const { push } = useRouter();
+
+  const route = user.status === "pendency" ? "pendency" : "users";
 
   return (
     <Flex
@@ -76,13 +79,14 @@ export function UserCard({ user }: UserCardProps) {
       )}
 
       <HStack spacing={4}>
-        <IconButton
-          aria-label="disable_user"
-          icon={<Prohibit size={22} />}
-          bg="none"
+        <TriggerUpdateUserStatus
+          useName={user.user_name}
+          currentStatus={user.status}
+          isIconButton={true}
         />
+
         <IconButton
-          onClick={() => push(`/users/${user.user_name}`)}
+          onClick={() => push(`/${route}/${user.user_name}`)}
           aria-label="see-more"
           icon={<CaretRight size={22} />}
           bg="none"
