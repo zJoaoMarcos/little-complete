@@ -33,6 +33,7 @@ interface Data {
 }
 
 interface FetchParams {
+  key?: string;
   page?: number;
   skip?: number;
   take?: number;
@@ -89,6 +90,7 @@ export async function getInventoryList({
 }
 
 export function useFetchInvetoryList({
+  key = "inventory",
   page,
   skip = 0,
   take = 0,
@@ -97,7 +99,7 @@ export function useFetchInvetoryList({
   departmentId,
 }: FetchParams) {
   return useQuery(
-    ["equipments", page],
+    [key, page],
     () => getInventoryList({ skip, take, id, status, departmentId }),
     {
       staleTime: 1000 * 60, //60 minutes

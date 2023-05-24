@@ -28,6 +28,7 @@ interface FetchParams {
   id?: string;
   departmentId?: number;
   status?: string;
+  key?: string;
 }
 
 export async function getUsersList({
@@ -69,6 +70,7 @@ export async function getUsersList({
 }
 
 export function useFetchUsersList({
+  key = "users",
   page,
   skip = 0,
   take = 0,
@@ -77,7 +79,7 @@ export function useFetchUsersList({
   departmentId,
 }: FetchParams) {
   return useQuery(
-    ["users", page],
+    [key, page ?? undefined],
     () => getUsersList({ skip, take, id, status, departmentId }),
     {
       staleTime: 1000 * 5,
