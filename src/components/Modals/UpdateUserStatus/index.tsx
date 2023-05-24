@@ -56,7 +56,7 @@ export function UpdateUserStatusModal({
     formState: { isSubmitting, isDirty },
   } = useForm<UpdateUserStatusData>({
     resolver: zodResolver(UpdateUserStatusSchema),
-    defaultValues: { user_name: userName, status: currentStatus },
+    defaultValues: { user_name: userName },
   });
 
   const { updateStatus } = useUser();
@@ -93,7 +93,7 @@ export function UpdateUserStatusModal({
           id="update_status"
           onSubmit={handleSubmit(handleUpdateStatus)}
         >
-          <Select {...register("status")}>
+          <Select {...register("status")} placeholder="Selecione o Status">
             {filterStatusOptions.map((status, i) => {
               return (
                 <option key={i} value={status.value}>
