@@ -23,7 +23,6 @@ export function EquipmentAvatar({
   iconSize = "20",
 }: EquipmentAvatarProps) {
   const icon = equipmentIcon(type, iconSize);
-  console.log(status);
   return (
     <Avatar size={avatarSize} bgColor="purple.400" icon={icon}>
       {status && (
