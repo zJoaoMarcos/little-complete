@@ -46,7 +46,7 @@ export function NewUserProfileGrid({
 
   const { createUser } = useUser();
   const { data: departments } = useFetchDepartmentsList();
-  const { data: users } = useFetchUsersList();
+  const { data: users } = useFetchUsersList({});
 
   const handleCreate: SubmitHandler<CreateUserData> = async (data, event) => {
     event?.preventDefault();

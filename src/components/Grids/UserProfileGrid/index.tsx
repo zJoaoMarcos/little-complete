@@ -44,7 +44,7 @@ export function UserProfileGrid({ user }: UserProfileGridProps) {
   const [isEditable, setIsEditable] = useState(true);
 
   const { data: departments } = useFetchDepartmentsList();
-  const { data: users } = useFetchUsersList();
+  const { data: users } = useFetchUsersList({});
 
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
     resolver: zodResolver(UpdateUserSchema),
