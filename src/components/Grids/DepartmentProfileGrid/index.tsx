@@ -53,7 +53,7 @@ export function DepartmentProfileGrid({
 
   const { isSubmitting } = formState;
 
-  const { data: users } = useFetchUsersList();
+  const { data: users } = useFetchUsersList({});
   const { updateDepartment } = useDepartment();
 
   const handleUpdate: SubmitHandler<UpdateDepartmentData> = async (
