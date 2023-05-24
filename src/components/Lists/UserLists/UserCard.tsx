@@ -28,8 +28,6 @@ interface UserCardProps {
 export function UserCard({ user }: UserCardProps) {
   const { push } = useRouter();
 
-  const route = user.status === "pendency" ? "pendency" : "users";
-
   return (
     <Flex
       borderRadius="md"
@@ -86,7 +84,7 @@ export function UserCard({ user }: UserCardProps) {
         />
 
         <IconButton
-          onClick={() => push(`/${route}/${user.user_name}`)}
+          onClick={() => push(`/users/${user.user_name}`)}
           aria-label="see-more"
           icon={<CaretRight size={22} />}
           bg="none"
