@@ -70,13 +70,11 @@ export function EquipmentCard({ equipment }: EquipmentCardProps) {
           pl="2"
         >
           <HStack>
-            <Text fontWeight="semibold">
-              {equipment.type}
-              {" - "}
-            </Text>
-            <Text fontWeight="semibold" color="purple.300">
-              ({equipment.brand} {equipment.model})
-            </Text>
+            {(equipment.brand || equipment.model) && (
+              <Text fontWeight="semibold" color="purple.300" fontSize="sm">
+                ({equipment.brand} {equipment.model})
+              </Text>
+            )}
           </HStack>
           <HStack>
             <Text fontSize="sm">{equipment.id}</Text>
