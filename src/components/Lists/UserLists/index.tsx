@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
 import { UserCard } from "./UserCard";
 
 interface User {
@@ -15,16 +15,21 @@ interface User {
 }
 
 interface UserListProps {
-  users: User[];
+  users: User[] | undefined;
 }
 
 export function UsersList({ users }: UserListProps) {
   return (
     <SimpleGrid columns={1} spacingX={10} spacingY={6} mb={10}>
       <>
-        {users?.map((user) => (
-          <UserCard key={user.user_name} user={user} />
-        ))}
+        {users ? (
+          users?.map((user) => <UserCard key={user.user_name} user={user} />)
+        ) : (
+          <Stack w="full">
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+          </Stack>
+        )}
       </>
     </SimpleGrid>
   );
