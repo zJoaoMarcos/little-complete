@@ -73,7 +73,9 @@ export function EquipmentAvatarBadge({
         mb="0.2px"
       />
     );
-  } else if (status === "disabled") {
+  }
+
+  if (status === "pendency") {
     return (
       <AvatarBadge
         borderColor="red.50"
@@ -84,7 +86,9 @@ export function EquipmentAvatarBadge({
         mb="0.2px"
       />
     );
-  } else if (status === "in use") {
+  }
+
+  if (status === "in use") {
     return (
       <AvatarBadge
         borderColor="blue.50"
@@ -95,7 +99,22 @@ export function EquipmentAvatarBadge({
         mb="0.2px"
       />
     );
-  } else if (status === "maintenace") {
+  }
+
+  if (status === "disabled") {
+    return (
+      <AvatarBadge
+        borderColor="gray.50"
+        bg="gray.400"
+        boxSize={badgeSize}
+        border="2px"
+        mr="1"
+        mb="0.2px"
+      />
+    );
+  }
+
+  if (status === "maintenace") {
     return (
       <AvatarBadge
         borderColor="orange.50"
@@ -107,16 +126,6 @@ export function EquipmentAvatarBadge({
       />
     );
   }
-  return (
-    <AvatarBadge
-      borderColor="yellow.50"
-      bg="yellow.400"
-      boxSize={badgeSize}
-      border="2px"
-      mr="1"
-      mb="0.2px"
-    />
-  );
 }
 
 interface EquipmentBadgeStatusProps {
@@ -128,12 +137,21 @@ export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
 
   if (status === "avaliable") {
     return <Badge colorScheme="green">Disponivel</Badge>;
-  } else if (status === "disabled") {
-    return <Badge colorScheme="red">Sem Concerto</Badge>;
-  } else if (status === "maintenance") {
+  }
+
+  if (status === "disabled") {
+    return <Badge colorScheme="blackAlpha">Sem Concerto</Badge>;
+  }
+
+  if (status === "maintenance") {
     return <Badge colorScheme="orange">Em Manutenção</Badge>;
-  } else if (status === "in use") {
+  }
+
+  if (status === "in use") {
     return <Badge colorScheme="blue">Em Uso</Badge>;
   }
-  return <Badge colorScheme="yellow">Verificar</Badge>;
+
+  if (status === "pendency") {
+    return <Badge colorScheme="red">Pendente</Badge>;
+  }
 }
