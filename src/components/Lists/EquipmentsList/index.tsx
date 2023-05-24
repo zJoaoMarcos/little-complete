@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
 import { EquipmentCard } from "./EquipmentCard";
 
 interface Equipment {
@@ -27,16 +27,23 @@ interface Equipment {
 }
 
 interface EquipmentListProps {
-  equipments: Equipment[];
+  equipments: Equipment[] | undefined;
 }
 
 export function EquipmentsList({ equipments }: EquipmentListProps) {
   return (
-    <SimpleGrid columns={2} spacingX={10} spacingY={6} mb={10}>
+    <SimpleGrid columns={2} spacingX={10} spacingY={6} mb={10} w="full">
       <>
-        {equipments.map((equipment) => (
-          <EquipmentCard key={equipment.id} equipment={equipment} />
-        ))}
+        {equipments ? (
+          equipments.map((equipment) => (
+            <EquipmentCard key={equipment.id} equipment={equipment} />
+          ))
+        ) : (
+          <Stack w="full">
+            <Skeleton height="40px" />
+            <Skeleton height="40px" />
+          </Stack>
+        )}
       </>
     </SimpleGrid>
   );
