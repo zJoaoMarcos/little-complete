@@ -1,10 +1,13 @@
 import { UserAvatar } from "@/components/Avatars/UserAvatar";
 import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus";
 import { UnassignEquipmentsForm } from "@/components/Forms/UnassignEquipments";
+import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import {
   Box,
+  Button,
+  Divider,
   Flex,
   HStack,
   Heading,
@@ -13,6 +16,7 @@ import {
   useColorModeValue,
   useSteps,
 } from "@chakra-ui/react";
+import { XCircle } from "@phosphor-icons/react";
 
 interface Equipment {
   id: string;
@@ -54,7 +58,6 @@ interface PendencyProfileProps {
 }
 
 const steps = [
-  { title: "Acessos", description: "Sistemas & Softwares" },
   { title: "Equipamentos", description: "& Periféricos" },
   { title: "Finalizar", description: "" },
 ];
@@ -62,8 +65,8 @@ const steps = [
 export function PendencyProfile({ user, equipments }: PendencyProfileProps) {
   const avatarName = concatFirstNameAndLastName(user.complete_name);
 
-  const { activeStep } = useSteps({
-    index: 1,
+  const { activeStep, goToNext, goToPrevious } = useSteps({
+    index: 0,
     count: steps.length,
   });
 
@@ -79,7 +82,6 @@ export function PendencyProfile({ user, equipments }: PendencyProfileProps) {
       <Flex mb="10" justify="space-between" align="center">
         <HStack spacing={8}>
           <UserAvatar name={avatarName} size="lg" />
-
           <VStack justify={"start"} alignItems="start">
             <Heading as="h3" fontWeight="semibold" fontSize={18}>
               {user.complete_name}
@@ -93,10 +95,55 @@ export function PendencyProfile({ user, equipments }: PendencyProfileProps) {
             </HStack>
           </VStack>
         </HStack>
+        <TriggerUpdateUserStatus
+          currentStatus={user.status}
+          useName={user.user_name}
+        />
       </Flex>
+
+      <Divider mb="10" />
+
       <UserPendencyStepper activeStep={activeStep} steps={steps} />
 
-      {activeStep === 1 && <UnassignEquipmentsForm equipments={equipments} />}
+      {activeStep === 0 && (
+        <UnassignEquipmentsForm
+          username={user.user_name}
+          equipments={equipments}
+          goToNext={goToNext}
+        />
+      )}
+
+      {activeStep === 1 && <ShutDownForm goToPrevious={goToPrevious} />}
     </Box>
+  );
+}
+
+interface ShutDownFormProps {
+  goToPrevious: () => void;
+}
+
+function ShutDownForm({ goToPrevious }: ShutDownFormProps) {
+  return (
+    <Flex
+      h="150"
+      flexDir="column"
+      alignItems="center"
+      justifyContent="space-between"
+      mt="20"
+    >
+      <XCircle weight="duotone" size={50} color="red" />
+      <Text fontWeight="semibold">Finalizar Desligamento </Text>
+
+      <HStack ml="auto">
+        <Button
+          onClick={() => goToPrevious()}
+          type="button"
+          colorScheme="purple"
+        >
+          Passo Anterior
+        </Button>
+        <Button colorScheme="red">Finalizar</Button>
+      </HStack>
+    </Flex>
   );
 }

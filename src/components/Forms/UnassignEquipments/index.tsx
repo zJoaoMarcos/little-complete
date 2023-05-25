@@ -1,5 +1,5 @@
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 
 interface Equipment {
   id: string;
@@ -29,9 +29,14 @@ interface Equipment {
 interface Props {
   equipments: Equipment[];
   username: string;
+  goToNext: () => void;
 }
 
-export function UnassignEquipmentsForm({ username, equipments }: Props) {
+export function UnassignEquipmentsForm({
+  username,
+  equipments,
+  goToNext,
+}: Props) {
   return (
     <Flex
       as="form"
@@ -40,16 +45,28 @@ export function UnassignEquipmentsForm({ username, equipments }: Props) {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Text fontWeight="semibold" mb="4">
+      <Text fontWeight="semibold" my="10" mr="auto" fontSize="xl">
         Equipametos para retirar:
       </Text>
-      <EquipmentsList
-        equipments={equipments}
-        buttonUnassign={true}
-        columns={1}
-      />
+      {equipments.length === 0 ? (
+        <Text>Usuário não tem equipamentos atribuidos</Text>
+      ) : (
+        <EquipmentsList
+          equipments={equipments}
+          buttonUnassign={true}
+          columns={1}
+        />
+      )}
 
-      <Button colorScheme="purple">Desatribuir todos</Button>
+      <HStack ml="auto">
+        {equipments.length >= 1 && (
+          <Button colorScheme="purple">Desatribuir todos</Button>
+        )}
+
+        <Button colorScheme="purple" type="button" onClick={() => goToNext()}>
+          Próximo Passo
+        </Button>
+      </HStack>
     </Flex>
   );
 }
