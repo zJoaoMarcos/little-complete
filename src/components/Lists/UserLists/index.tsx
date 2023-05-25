@@ -11,7 +11,7 @@ interface User {
   smtp: string;
   admission_date: Date | null;
   demission_date: Date | null;
-  status: string | null;
+  status: string;
 }
 
 interface UserListProps {
