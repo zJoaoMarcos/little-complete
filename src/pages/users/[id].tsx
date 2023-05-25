@@ -1,8 +1,9 @@
 import { Header } from "@/components/Header";
 import { UserProfile } from "@/components/Profiles/UserProfile";
+import { PendencyProfile } from "@/components/Profiles/UserProfile/PendencyProfile";
 import { Sidebar } from "@/components/Sidebar";
 import { getUser } from "@/hooks/UseFindUser";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -60,7 +61,7 @@ export default function User({ user, equipments }: UserProps) {
         <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
           {isPendency ? (
-            <Text>Está Pendente</Text>
+            <PendencyProfile user={user} equipments={equipments} />
           ) : (
             <UserProfile user={user} equipments={equipments} />
           )}

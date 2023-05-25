@@ -35,13 +35,11 @@ interface EquipmentCardProps {
     video: string | null;
     service_tag: string | null;
   };
-  isPendency?: boolean;
   buttonUnassign?: boolean;
 }
 
 export function EquipmentCard({
   equipment,
-  isPendency = false,
   buttonUnassign = false,
 }: EquipmentCardProps) {
   const { push } = useRouter();
@@ -90,16 +88,12 @@ export function EquipmentCard({
           <TriggerUnassignEquipment equipmentId={equipment.id} />
         )}
 
-        {isPendency ? (
-          <Text>Pend</Text>
-        ) : (
-          <IconButton
-            onClick={() => push(`/inventory/${equipment.id}`)}
-            aria-label="see-more"
-            icon={<CaretRight size={22} />}
-            bg="none"
-          />
-        )}
+        <IconButton
+          onClick={() => push(`/inventory/${equipment.id}`)}
+          aria-label="see-more"
+          icon={<CaretRight size={22} />}
+          bg="none"
+        />
       </HStack>
     </Flex>
   );
