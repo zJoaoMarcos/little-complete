@@ -126,7 +126,7 @@ export function UserProvider({ children }: UserProviderProps) {
             queryKey: ["users"],
           }),
           queryClient.invalidateQueries({
-            queryKey: ["usersPendencyCount"],
+            queryKey: ["users-pendencies"],
           }),
           queryClient.invalidateQueries({
             queryKey: ["user", variables.user_name],
