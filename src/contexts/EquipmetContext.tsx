@@ -50,6 +50,7 @@ interface AssignEquipmentData {
 }
 
 interface UnassignEquipmentData {
+  username?: string;
   equipment_id: string;
 }
 
@@ -173,8 +174,11 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     },
     {
       onSuccess: (data, variables) => {
+        Promise.all([
+          queryClient.invalidateQueries(["equipment", variables.equipment_id]),
+          queryClient.invalidateQueries(["user", variables.username]),
+        ]);
         toast.success("Equipamento atribuido com sucesso");
-        queryClient.invalidateQueries(["equipments", variables.equipment_id]);
       },
       onError: () => {
         toast.error(
