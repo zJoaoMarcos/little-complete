@@ -41,7 +41,7 @@ interface Equipment {
   service_tag: string | null;
 }
 
-interface PendencyProfileProps {
+interface ProfilePendencyProps {
   user: {
     user_name: string;
     complete_name: string;
@@ -63,7 +63,7 @@ const steps = [
   { title: "Finalizar", description: "" },
 ];
 
-export function PendencyProfile({ user, equipments }: PendencyProfileProps) {
+export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
   const avatarName = concatFirstNameAndLastName(user.complete_name);
 
   const { activeStep, goToNext, goToPrevious } = useSteps({

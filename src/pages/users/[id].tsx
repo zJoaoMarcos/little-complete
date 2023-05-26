@@ -1,6 +1,5 @@
 import { Header } from "@/components/Header";
 import { UserProfile } from "@/components/Profiles/UserProfile";
-import { PendencyProfile } from "@/components/Profiles/UserProfile/PendencyProfile";
 import { Sidebar } from "@/components/Sidebar";
 import { getUser, useFindUser } from "@/hooks/UseFindUser";
 import { Flex } from "@chakra-ui/react";
@@ -47,8 +46,6 @@ interface UserProps {
 }
 
 export default function User({ user, equipments }: UserProps) {
-  const isPendency = user.status === "pendency";
-
   const { data } = useFindUser(user.user_name, {
     initialData: { user, equipments },
   });
@@ -64,14 +61,7 @@ export default function User({ user, equipments }: UserProps) {
 
         <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
-          {isPendency ? (
-            <PendencyProfile
-              user={data?.user!}
-              equipments={data?.equipments!}
-            />
-          ) : (
-            <UserProfile user={data?.user!} equipments={data?.equipments!} />
-          )}
+          <UserProfile user={user} equipments={equipments} />
         </Flex>
       </Flex>
     </>
