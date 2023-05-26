@@ -14,11 +14,11 @@ import { NavSection } from "./NavSection";
 
 export function SidebarNav() {
   const { data: users } = useFetchUsersList({
-    key: "usersPendencyCount",
+    key: "users-pendencies",
     status: "pendency",
   });
   const { data: equips } = useFetchInvetoryList({
-    key: "equipsPendencyCount",
+    key: "equipments-pendencies",
     status: "pendency",
   });
 
