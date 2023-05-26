@@ -72,7 +72,7 @@ export function UserProvider({ children }: UserProviderProps) {
     {
       onSuccess: () => {
         toast.success("Usuário criado com sucesso");
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries("users");
       },
       onError: (error: AxiosError) => {
         toast.error(
@@ -94,9 +94,11 @@ export function UserProvider({ children }: UserProviderProps) {
       return res.data;
     },
     {
-      onSuccess: () => {
-        toast.success("Dados do Usuário alterado com sucesso");
-        queryClient.invalidateQueries("user");
+      onSuccess: (data, variables) => {
+        toast.success("Dados do usuário alterado com sucesso!");
+        queryClient.invalidateQueries({
+          queryKey: ["user", variables.user_name],
+        });
       },
       onError: () => {
         toast.error(
@@ -108,20 +110,21 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const updateStatus = useMutation(
     async (data: UpdateUserStatusData) => {
-      const res = await backend.patch<UpdateUserStatusData>(
+      const response = await backend.patch<UpdateUserStatusData>(
         `users/status/${data.user_name}`,
         {
           status: data.status,
         }
       );
 
-      return res.data;
+      return response.data;
     },
     {
-      onSuccess: (data: UpdateUserStatusData) => {
-        toast.success("Status do Usuário alterado com sucesso");
-        queryClient.invalidateQueries(`user-${data.user_name}`);
+      onSuccess: (data, variables) => {
+        queryClient.invalidateQueries(["user", variables.user_name]);
+        toast.success("Status do usuário alterado com sucesso");
       },
+
       onError: () => {
         toast.error(
           "Desculpe não conseguimos alterar o status do usuário, tente mais tarde. "

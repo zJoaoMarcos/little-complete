@@ -101,8 +101,8 @@ export function useFindUser(
     "queryKey" | "queryFn"
   >
 ) {
-  return useQuery([`user-${userId}`], () => getUser(userId), {
-    staleTime: 1000 * 60,
-    initialData: options?.initialData, // 60 minutes
+  return useQuery(["user", userId], () => getUser(userId), {
+    staleTime: 1000 * 60, // 60 minutes
+    initialData: options?.initialData,
   }) as UseQueryResult<User, unknown>;
 }

@@ -130,9 +130,9 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
       return res.data;
     },
     {
-      onSuccess: () => {
+      onSuccess: (data, variables) => {
         toast.success("Equipamento salvo com sucesso");
-        queryClient.invalidateQueries("equipments");
+        queryClient.invalidateQueries(["equipments", variables.id]);
       },
       onError: () => {
         toast.error(
@@ -144,7 +144,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const assignEquipment = useMutation(
     async (data: AssignEquipmentData) => {
-      console.log(data);
       const res = await backend.post<AssignEquipmentData>(`user-assignments/`, {
         ...data,
       });
@@ -152,9 +151,9 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
       return res.data;
     },
     {
-      onSuccess: () => {
+      onSuccess: (data, variables) => {
         toast.success("Equipamento atribuido com sucesso");
-        queryClient.invalidateQueries("equipments");
+        queryClient.invalidateQueries(["user", variables.user_id]);
       },
       onError: () => {
         toast.error(
@@ -173,9 +172,9 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
       return res.data;
     },
     {
-      onSuccess: () => {
+      onSuccess: (data, variables) => {
         toast.success("Equipamento atribuido com sucesso");
-        queryClient.invalidateQueries(`user-`);
+        queryClient.invalidateQueries(["equipments", variables.equipment_id]);
       },
       onError: () => {
         toast.error(

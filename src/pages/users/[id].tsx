@@ -61,7 +61,7 @@ export default function User({ user, equipments }: UserProps) {
 
         <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
-          <UserProfile user={user} equipments={equipments} />
+          <UserProfile user={data?.user!} equipments={data?.equipments!} />
         </Flex>
       </Flex>
     </>

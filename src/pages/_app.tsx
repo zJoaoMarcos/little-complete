@@ -11,6 +11,7 @@ import { UserProvider } from "@/contexts/UserContext";
 import { queryClient } from "@/lib/queryClient";
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -39,6 +40,8 @@ export default function App({ Component, pageProps }: AppProps) {
             </EquipmentProvider>
           </StockProvider>
         </ChakraProvider>
+
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </SessionProvider>
   );
