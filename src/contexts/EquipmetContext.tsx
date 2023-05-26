@@ -53,6 +53,10 @@ interface UnassignEquipmentData {
   equipment_id: string;
 }
 
+interface UnassignAllEquipmentsData {
+  username: string;
+}
+
 interface StockProviderContextData {
   createEquipment: UseMutationResult<
     CreateEquipmentData,
@@ -76,6 +80,12 @@ interface StockProviderContextData {
     UnassignEquipmentData,
     unknown,
     UnassignEquipmentData,
+    unknown
+  >;
+  unassignAllEquipments: UseMutationResult<
+    UnassignAllEquipmentsData,
+    unknown,
+    UnassignAllEquipmentsData,
     unknown
   >;
 }
@@ -175,6 +185,27 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     }
   );
 
+  const unassignAllEquipments = useMutation(
+    async (data: UnassignAllEquipmentsData) => {
+      const res = await backend.delete<UnassignAllEquipmentsData>(
+        `user-assignments/all/${data.username}`
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: (data: UnassignAllEquipmentsData) => {
+        toast.success("Equipamento atribuido com sucesso");
+        queryClient.invalidateQueries(`user-${data.username}`);
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
     <EquipmentContext.Provider
       value={{
@@ -182,6 +213,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         updateEquipment,
         assignEquipment,
         unassignEquipment,
+        unassignAllEquipments,
       }}
     >
       {children}

@@ -1,4 +1,5 @@
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
+import { useEquipment } from "@/contexts/EquipmetContext";
 import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 
 interface Equipment {
@@ -37,6 +38,12 @@ export function UnassignEquipmentsForm({
   equipments,
   goToNext,
 }: Props) {
+  const { unassignAllEquipments } = useEquipment();
+
+  const handleUnassign = async () => {
+    await unassignAllEquipments.mutateAsync({ username });
+  };
+
   return (
     <Flex
       as="form"
@@ -60,7 +67,9 @@ export function UnassignEquipmentsForm({
 
       <HStack ml="auto">
         {equipments.length >= 1 && (
-          <Button colorScheme="purple">Desatribuir todos</Button>
+          <Button onClick={() => handleUnassign()} colorScheme="purple">
+            Desatribuir todos
+          </Button>
         )}
 
         <Button colorScheme="purple" type="button" onClick={() => goToNext()}>

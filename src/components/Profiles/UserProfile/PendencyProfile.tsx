@@ -3,6 +3,7 @@ import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus
 import { UnassignEquipmentsForm } from "@/components/Forms/UnassignEquipments";
 import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
+import { useUser } from "@/contexts/UserContext";
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import {
   Box,
@@ -113,16 +114,23 @@ export function PendencyProfile({ user, equipments }: PendencyProfileProps) {
         />
       )}
 
-      {activeStep === 1 && <ShutDownForm goToPrevious={goToPrevious} />}
+      {activeStep === 1 && (
+        <ShutDownForm username={user.user_name} goToPrevious={goToPrevious} />
+      )}
     </Box>
   );
 }
 
 interface ShutDownFormProps {
   goToPrevious: () => void;
+  username: string;
 }
 
-function ShutDownForm({ goToPrevious }: ShutDownFormProps) {
+function ShutDownForm({ goToPrevious, username }: ShutDownFormProps) {
+  const { updateStatus } = useUser();
+  const handleDisabled = async () => {
+    await updateStatus.mutateAsync({ user_name: username, status: "disabled" });
+  };
   return (
     <Flex
       h="150"
@@ -142,7 +150,9 @@ function ShutDownForm({ goToPrevious }: ShutDownFormProps) {
         >
           Passo Anterior
         </Button>
-        <Button colorScheme="red">Finalizar</Button>
+        <Button onClick={handleDisabled} colorScheme="red">
+          Finalizar
+        </Button>
       </HStack>
     </Flex>
   );
