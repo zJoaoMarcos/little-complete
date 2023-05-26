@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { UserProfile } from "@/components/Profiles/UserProfile";
 import { PendencyProfile } from "@/components/Profiles/UserProfile/PendencyProfile";
 import { Sidebar } from "@/components/Sidebar";
-import { getUser } from "@/hooks/UseFindUser";
+import { getUser, useFindUser } from "@/hooks/UseFindUser";
 import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -16,8 +16,8 @@ interface Equipment {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: { id: number; name: string };
-  status: string;
+  department: { id: number | null; name: string | null };
+  status: string | null;
   cpu: string | null;
   ram: string | null;
   slots: number | null;
@@ -49,10 +49,14 @@ interface UserProps {
 export default function User({ user, equipments }: UserProps) {
   const isPendency = user.status === "pendency";
 
+  const { data } = useFindUser(user.user_name, {
+    initialData: { user, equipments },
+  });
+
   return (
     <>
       <Head>
-        <title>{user.user_name}</title>
+        <title>{data?.user.user_name}</title>
       </Head>
 
       <Flex flexDir="column" h="100vh">
@@ -61,9 +65,12 @@ export default function User({ user, equipments }: UserProps) {
         <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
           {isPendency ? (
-            <PendencyProfile user={user} equipments={equipments} />
+            <PendencyProfile
+              user={data?.user!}
+              equipments={data?.equipments!}
+            />
           ) : (
-            <UserProfile user={user} equipments={equipments} />
+            <UserProfile user={data?.user!} equipments={data?.equipments!} />
           )}
         </Flex>
       </Flex>

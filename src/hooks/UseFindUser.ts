@@ -1,6 +1,6 @@
 import { backend } from "@/lib/backendApi";
 import { formatData } from "@/utils/formatData";
-import { useQuery } from "react-query";
+import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
 interface Equipment {
   id: string;
@@ -11,7 +11,10 @@ interface Equipment {
   invoice: string | null;
   warranty: string | null;
   purchase_date: Date | null;
-  department: { id: number; name: string } | null;
+  department: {
+    id: number | null;
+    name: string | null;
+  };
   status: string | null;
   cpu: string | null;
   ram: string | null;
@@ -35,7 +38,7 @@ interface User {
     smtp: string;
     admission_date: Date | null;
     demission_date: Date | null;
-    status: string | null;
+    status: string;
   };
   equipments: Equipment[];
 }
@@ -56,7 +59,7 @@ export async function getUser(userId: string): Promise<User> {
     smtp: data.user.smtp.trim(),
     admission_date: data.user.admission_date,
     demission_date: data.user.demission_date,
-    status: data.user.status ? data.user.status.trim() : null,
+    status: data.user.status.trim(),
   };
 
   const equipments = data.equipments.map((equipment) => {
@@ -69,12 +72,12 @@ export async function getUser(userId: string): Promise<User> {
       invoice: equipment.invoice,
       warranty: equipment.warranty,
       purchase_date: equipment.purchase_date,
-      department: equipment.department
-        ? {
-            id: equipment.department.id,
-            name: formatData(equipment.department.name),
-          }
-        : null,
+      department: {
+        id: equipment.department.id,
+        name: equipment.department.name
+          ? formatData(equipment.department.name)
+          : null,
+      },
       status: equipment.status ? equipment.status.trim() : null,
       cpu: equipment.cpu,
       ram: equipment.ram,
@@ -91,8 +94,15 @@ export async function getUser(userId: string): Promise<User> {
   return { user, equipments };
 }
 
-export function useFindUser(userId: string) {
+export function useFindUser(
+  userId: string,
+  options?: Omit<
+    UseQueryOptions<any, unknown, any, string[]>,
+    "queryKey" | "queryFn"
+  >
+) {
   return useQuery([`user-${userId}`], () => getUser(userId), {
-    staleTime: 1000 * 60, // 60 minutes
-  });
+    staleTime: 1000 * 60,
+    initialData: options?.initialData, // 60 minutes
+  }) as UseQueryResult<User, unknown>;
 }

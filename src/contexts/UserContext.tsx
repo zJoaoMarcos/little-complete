@@ -118,9 +118,9 @@ export function UserProvider({ children }: UserProviderProps) {
       return res.data;
     },
     {
-      onSuccess: () => {
+      onSuccess: (data: UpdateUserStatusData) => {
         toast.success("Status do Usuário alterado com sucesso");
-        queryClient.invalidateQueries("user-");
+        queryClient.invalidateQueries(`user-${data.user_name}`);
       },
       onError: () => {
         toast.error(
