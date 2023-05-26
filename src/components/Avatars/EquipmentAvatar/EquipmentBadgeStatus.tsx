@@ -26,4 +26,6 @@ export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
   if (status === "pendency") {
     return <Badge colorScheme="red">Pendente</Badge>;
   }
+
+  return null;
 }

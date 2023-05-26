@@ -1,12 +1,9 @@
-import {
-  EquipmentAvatar,
-  EquipmentAvatarBadge,
-  EquipmentBagdeStatus,
-} from "@/components/Avatars/EquipmentAvatar";
+import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
+import { EquipmentBagdeStatus } from "@/components/Avatars/EquipmentAvatar/EquipmentBadgeStatus";
 import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
-import { getEquipment } from "@/hooks/UseFindEquipment";
+import { getEquipment, useFindEquipment } from "@/hooks/UseFindEquipment";
 import {
   Box,
   Divider,
@@ -48,6 +45,10 @@ interface EquipmentProps {
 }
 
 export default function Inventory({ equipment }: EquipmentProps) {
+  const { data } = useFindEquipment(equipment.id, {
+    initialData: { equipment },
+  });
+
   return (
     <>
       <Head>
@@ -71,25 +72,25 @@ export default function Inventory({ equipment }: EquipmentProps) {
             <Flex mb="10" justify="space-between" align="center">
               <HStack spacing={8}>
                 <EquipmentAvatar
-                  type={equipment.type}
+                  type={data?.equipment.type!}
                   avatarSize="lg"
                   iconSize="40"
-                >
-                  <EquipmentAvatarBadge
-                    status={equipment.status}
-                    badgeSize="0.80em"
-                  />
-                </EquipmentAvatar>
+                  status={data?.equipment.status || ""}
+                />
+
                 <VStack justify={"start"} alignItems="start">
                   <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                    {equipment.type} -{" "}
+                    {data?.equipment.type} -{" "}
                     <Text as="span" color="purple.400">
-                      {equipment.id}
+                      {data?.equipment.id}
                     </Text>
                   </Heading>
 
                   <Text fontWeight="semibold" fontSize={16}>
-                    Status: <EquipmentBagdeStatus status={equipment.status!} />
+                    Status:{" "}
+                    <EquipmentBagdeStatus
+                      status={data?.equipment.status || ""}
+                    />
                   </Text>
                 </VStack>
               </HStack>
@@ -97,7 +98,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
 
             <Divider />
 
-            <EquipmentProfileGrid equipment={equipment} />
+            <EquipmentProfileGrid equipment={data?.equipment!} />
           </Box>
         </Flex>
       </Flex>

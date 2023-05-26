@@ -121,7 +121,17 @@ export function UserProvider({ children }: UserProviderProps) {
     },
     {
       onSuccess: (data, variables) => {
-        queryClient.invalidateQueries(["user", variables.user_name]);
+        Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: ["users"],
+          }),
+          queryClient.invalidateQueries({
+            queryKey: ["usersPendencyCount"],
+          }),
+          queryClient.invalidateQueries({
+            queryKey: ["user", variables.user_name],
+          }),
+        ]);
         toast.success("Status do usuário alterado com sucesso");
       },
 

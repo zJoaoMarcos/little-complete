@@ -1,6 +1,6 @@
 import { backend } from "@/lib/backendApi";
 import { formatData } from "@/utils/formatData";
-import { useQuery } from "react-query";
+import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
 interface Equipment {
   equipment: {
@@ -62,12 +62,15 @@ export async function getEquipment(equipmentId: string): Promise<Equipment> {
   return { equipment };
 }
 
-export function useFindEquipment(equipmentId: string) {
-  return useQuery(
-    [`equipment-${equipmentId}`],
-    () => getEquipment(equipmentId),
-    {
-      staleTime: 1000 * 60, // 60 minutes
-    }
-  );
+export function useFindEquipment(
+  equipmentId: string,
+  options?: Omit<
+    UseQueryOptions<any, unknown, any, string[]>,
+    "queryKey" | "queryFn"
+  >
+) {
+  return useQuery(["equipment", equipmentId], () => getEquipment(equipmentId), {
+    staleTime: 1000 * 60, // 60 minutes
+    initialData: options?.initialData,
+  }) as UseQueryResult<Equipment, unknown>;
 }
