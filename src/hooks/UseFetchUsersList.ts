@@ -82,7 +82,7 @@ export function useFetchUsersList({
     [key, page ?? undefined],
     () => getUsersList({ skip, take, id, status, departmentId }),
     {
-      staleTime: 1000 * 5,
+      staleTime: 1000 * 60,
     }
   );
 }
