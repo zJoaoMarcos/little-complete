@@ -3,11 +3,7 @@ import { Inter } from "next/font/google";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
-import { DepartmentProvider } from "@/contexts/DepartmentContext";
-import { EquipmentProvider } from "@/contexts/EquipmetContext";
-import { SidebarDrawerProvider } from "@/contexts/SidebarDrawerContext";
-import { StockProvider } from "@/contexts/StockContext";
-import { UserProvider } from "@/contexts/UserContext";
+import { AppProvider } from "@/contexts";
 import { queryClient } from "@/lib/queryClient";
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider } from "react-query";
@@ -25,20 +21,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
-          <StockProvider>
-            <EquipmentProvider>
-              <DepartmentProvider>
-                <UserProvider>
-                  <SidebarDrawerProvider>
-                    <main className="inter.classname">
-                      <ToastContainer theme={"colored"} />
-                      <Component {...pageProps} />
-                    </main>
-                  </SidebarDrawerProvider>
-                </UserProvider>
-              </DepartmentProvider>
-            </EquipmentProvider>
-          </StockProvider>
+          <AppProvider>
+            <main className="inter.classname">
+              <ToastContainer theme={"colored"} />
+              <Component {...pageProps} />
+            </main>
+          </AppProvider>
         </ChakraProvider>
 
         <ReactQueryDevtools />
