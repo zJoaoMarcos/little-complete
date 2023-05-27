@@ -1,23 +1,18 @@
-import { UserAvatar } from "@/components/Avatars/UserAvatar";
-import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus";
 import { UnassignEquipmentsForm } from "@/components/Forms/UnassignEquipments";
-import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
 import { useUser } from "@/contexts/UserContext";
-import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import {
   Box,
   Button,
   Divider,
   Flex,
   HStack,
-  Heading,
   Text,
-  VStack,
   useColorModeValue,
   useSteps,
 } from "@chakra-ui/react";
 import { XCircle } from "@phosphor-icons/react";
+import { ProfileHeader } from "./ProfileHeader";
 
 interface Equipment {
   id: string;
@@ -64,8 +59,6 @@ const steps = [
 ];
 
 export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
-  const avatarName = concatFirstNameAndLastName(user.complete_name);
-
   const { activeStep, goToNext, goToPrevious } = useSteps({
     index: 0,
     count: steps.length,
@@ -80,27 +73,7 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
       overflowX="auto"
       borderRadius="md"
     >
-      <Flex mb="10" justify="space-between" align="center">
-        <HStack spacing={8}>
-          <UserAvatar name={avatarName} size="lg" />
-          <VStack justify={"start"} alignItems="start">
-            <Heading as="h3" fontWeight="semibold" fontSize={18}>
-              {user.complete_name}
-            </Heading>
-
-            <HStack>
-              <Text fontWeight="semibold" fontSize={16}>
-                Status:
-              </Text>
-              <UserBagdeStatus status={user.status} />
-            </HStack>
-          </VStack>
-        </HStack>
-        <TriggerUpdateUserStatus
-          currentStatus={user.status}
-          useName={user.user_name}
-        />
-      </Flex>
+      <ProfileHeader user={user} />
 
       <Divider mb="10" />
 

@@ -1,17 +1,6 @@
-import { UserAvatar } from "@/components/Avatars/UserAvatar";
-import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus";
-import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
 import { UserTab } from "@/components/Tabs/User";
-import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
-import {
-  Box,
-  Flex,
-  HStack,
-  Heading,
-  Text,
-  VStack,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
+import { ProfileHeader } from "./ProfileHeader";
 
 interface Equipment {
   id: string;
@@ -53,8 +42,6 @@ interface ProfileDefaultProps {
 }
 
 export function ProfileDefault({ user, equipments }: ProfileDefaultProps) {
-  const avatarName = concatFirstNameAndLastName(user.complete_name);
-
   return (
     <Box
       flex="1"
@@ -64,29 +51,7 @@ export function ProfileDefault({ user, equipments }: ProfileDefaultProps) {
       overflowX="auto"
       borderRadius="md"
     >
-      <Flex mb="10" justify="space-between" align="center">
-        <HStack spacing={8}>
-          <UserAvatar name={avatarName} size="lg" />
-
-          <VStack justify={"start"} alignItems="start">
-            <Heading as="h3" fontWeight="semibold" fontSize={18}>
-              {user.complete_name}
-            </Heading>
-
-            <HStack>
-              <Text fontWeight="semibold" fontSize={16}>
-                Status:
-              </Text>
-              <UserBagdeStatus status={user.status} />
-            </HStack>
-          </VStack>
-        </HStack>
-
-        <TriggerUpdateUserStatus
-          useName={user.user_name}
-          currentStatus={user.status}
-        />
-      </Flex>
+      <ProfileHeader user={user} />
 
       <UserTab user={user} equipments={equipments} />
     </Box>
