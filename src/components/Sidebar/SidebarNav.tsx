@@ -39,20 +39,7 @@ export function SidebarNav() {
       <NavSection title="CONTROLES">
         <NavLink icon={WarningCircle} href="/pendency">
           Pendências
-          {totalPendency > 0 && (
-            <Text
-              ml="1"
-              as="span"
-              bg="pink.500"
-              color="white"
-              fontSize="xs"
-              px="2"
-              py="1"
-              rounded="full"
-            >
-              {totalPendency}
-            </Text>
-          )}
+          {totalPendency > 0 && <PendenciesIcon quantity={totalPendency} />}
         </NavLink>
 
         <NavLink icon={Notebook} href="/inventory">
@@ -70,5 +57,22 @@ export function SidebarNav() {
         </NavLink>
       </NavSection>
     </Stack>
+  );
+}
+
+function PendenciesIcon({ quantity }: { quantity: number }) {
+  return (
+    <Text
+      ml="1"
+      as="span"
+      bg="pink.500"
+      color="white"
+      fontSize="xs"
+      px="2"
+      py="1"
+      rounded="full"
+    >
+      {quantity}
+    </Text>
   );
 }
