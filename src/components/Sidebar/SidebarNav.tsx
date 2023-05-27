@@ -7,7 +7,7 @@ import {
   Package,
   Storefront,
   User,
-  X,
+  WarningCircle,
 } from "@phosphor-icons/react";
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
@@ -37,9 +37,9 @@ export function SidebarNav() {
       </NavSection>
 
       <NavSection title="CONTROLES">
-        <NavLink icon={X} href="/pendency">
+        <NavLink icon={WarningCircle} href="/pendency">
           Pendências
-          {totalPendency >= 0 && (
+          {totalPendency > 0 && (
             <Text
               ml="1"
               as="span"
