@@ -26,8 +26,12 @@ export function UsersList({ users }: UserListProps) {
           users?.map((user) => <UserCard key={user.user_name} user={user} />)
         ) : (
           <Stack w="full">
-            <Skeleton height="40px" />
-            <Skeleton height="40px" />
+            <Skeleton height="60px" />
+            <Skeleton height="60px" />
+            <Skeleton height="60px" />
+            <Skeleton height="60px" />
+            <Skeleton height="60px" />
+            <Skeleton height="60px" />
           </Stack>
         )}
       </>
