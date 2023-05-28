@@ -1,7 +1,16 @@
-import { Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import Head from "next/head";
+
+import { Logo } from "@/components/Logo";
+import {
+  Button,
+  Flex,
+  Image,
+  SimpleGrid,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -35,30 +44,21 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container maxW={"5xl"}>
-        <Stack
-          textAlign={"center"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          spacing={{ base: 8, md: 10 }}
-          py={{ base: 56 }}
-        >
-          <Heading
-            fontWeight={600}
-            fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
-            lineHeight={"110%"}
-          >
-            Little Complete{" "}
-            <Text as={"span"} color={"purple.400"}>
-              {"</>"}
-            </Text>
-          </Heading>
-          <Text color={"gray.400"} maxW={"3xl"}>
-            Um pouco de tudo, de tudo um pouco. O mió dos miores.
+      <SimpleGrid
+        columns={{ base: 1, md: 2 }}
+        spacing={10}
+        sx={{ height: "100vh" }}
+      >
+        <VStack alignItems="center" justifyContent="center" spacing={10} p="6">
+          <Logo />
+
+          <Text color={"gray.400"}>
+            De tudo um pouco, de pouco um tudo. O mió dos miores.
           </Text>
+
           <Button
             onClick={handleSignIn}
-            rounded={"full"}
+            rounded={6}
             px={10}
             size={"lg"}
             colorScheme={"purple"}
@@ -67,8 +67,17 @@ export default function Home() {
           >
             Entrar
           </Button>
-        </Stack>
-      </Container>
+        </VStack>
+
+        <Flex flex={1} display={{ base: "none", md: "block" }}>
+          <Image
+            src="/signin.jpg"
+            alt="Image Background"
+            objectFit="cover"
+            sx={{ height: "100vh", width: "100vw" }}
+          />
+        </Flex>
+      </SimpleGrid>
     </>
   );
 }
