@@ -1,6 +1,6 @@
-import { UserTab } from "@/components/Tabs/User";
 import { Box, useColorModeValue } from "@chakra-ui/react";
-import { ProfileHeader } from "./ProfileHeader";
+import { UserHeader } from "../UserHeader";
+import { UserTabs } from "./UserTabs";
 
 interface Equipment {
   id: string;
@@ -51,9 +51,9 @@ export function ProfileDefault({ user, equipments }: ProfileDefaultProps) {
       overflowX="auto"
       borderRadius="md"
     >
-      <ProfileHeader user={user} />
+      <UserHeader user={user} />
 
-      <UserTab user={user} equipments={equipments} />
+      <UserTabs user={user} equipments={equipments} />
     </Box>
   );
 }

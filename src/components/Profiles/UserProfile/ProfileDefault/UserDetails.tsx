@@ -25,7 +25,7 @@ const UpdateUserSchema = z.object({
 
 type UpdateUserData = z.infer<typeof UpdateUserSchema>;
 
-interface UserProfileGridProps {
+interface UserDetailsProps {
   user: {
     user_name: string;
     complete_name: string;
@@ -40,7 +40,7 @@ interface UserProfileGridProps {
   };
 }
 
-export function UserProfileGrid({ user }: UserProfileGridProps) {
+export function UserDetails({ user }: UserDetailsProps) {
   const [isEditable, setIsEditable] = useState(true);
 
   const { data: departments } = useFetchDepartmentsList();

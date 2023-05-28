@@ -1,7 +1,7 @@
-import { UserProfileGrid } from "@/components/Grids/UserProfileGrid";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { TriggerAssignEquipment } from "@/components/Modals/AssignEquipment/Trigger";
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { UserDetails } from "./UserDetails";
 
 interface Equipment {
   id: string;
@@ -25,7 +25,7 @@ interface Equipment {
   service_tag: string | null;
 }
 
-interface UserTabProps {
+interface UserTabsProps {
   user: {
     user_name: string;
     complete_name: string;
@@ -42,7 +42,7 @@ interface UserTabProps {
   equipments: Equipment[];
 }
 
-export function UserTab({ user, equipments }: UserTabProps) {
+export function UserTabs({ user, equipments }: UserTabsProps) {
   return (
     <Tabs colorScheme="purple">
       <TabList>
@@ -52,7 +52,7 @@ export function UserTab({ user, equipments }: UserTabProps) {
 
       <TabPanels>
         <TabPanel>
-          <UserProfileGrid user={user} />
+          <UserDetails user={user} />
         </TabPanel>
 
         <TabPanel
@@ -67,6 +67,7 @@ export function UserTab({ user, equipments }: UserTabProps) {
               departmentId={user.department.id}
             />
           </Box>
+
           <EquipmentsList equipments={equipments} buttonUnassign={true} />
         </TabPanel>
       </TabPanels>

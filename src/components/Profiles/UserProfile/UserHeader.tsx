@@ -4,7 +4,7 @@ import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Tr
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { Flex, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 
-interface ProfileHeaderProps {
+interface UserHeaderProps {
   user: {
     user_name: string;
     status: string;
@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
   };
 }
 
-export function ProfileHeader({ user }: ProfileHeaderProps) {
+export function UserHeader({ user }: UserHeaderProps) {
   const avatarName = concatFirstNameAndLastName(user.complete_name);
 
   return (

@@ -12,7 +12,7 @@ import {
   useSteps,
 } from "@chakra-ui/react";
 import { XCircle } from "@phosphor-icons/react";
-import { ProfileHeader } from "./ProfileHeader";
+import { UserHeader } from "./UserHeader";
 
 interface Equipment {
   id: string;
@@ -73,7 +73,7 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
       overflowX="auto"
       borderRadius="md"
     >
-      <ProfileHeader user={user} />
+      <UserHeader user={user} />
 
       <Divider mb="10" />
 
