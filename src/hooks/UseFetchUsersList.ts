@@ -13,7 +13,7 @@ interface User {
   smtp: string;
   admission_date: Date | null;
   demission_date: Date | null;
-  status: string | null;
+  status: string;
 }
 
 interface Data {
@@ -60,7 +60,7 @@ export async function getUsersList({
       smtp: user.smtp.trim(),
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status ? user.status.trim() : null,
+      status: user.status.trim(),
     };
   });
 

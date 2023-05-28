@@ -20,7 +20,7 @@ const updateDepartmentSchema = z.object({
 
 type UpdateDepartmentData = z.infer<typeof updateDepartmentSchema>;
 
-interface DepartmentProfileGridProps {
+interface DepartmentDetailsProps {
   department: {
     id: number;
     name: string;
@@ -31,9 +31,7 @@ interface DepartmentProfileGridProps {
   };
 }
 
-export function DepartmentProfileGrid({
-  department,
-}: DepartmentProfileGridProps) {
+export function DepartmentDetails({ department }: DepartmentDetailsProps) {
   const [isEditable, setIsEditable] = useState(true);
 
   const { register, handleSubmit, formState, reset } =

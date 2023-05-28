@@ -1,6 +1,6 @@
-import { DepartmentProfileGrid } from "@/components/Grids/DepartmentProfileGrid";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { UsersList } from "@/components/Lists/UserLists";
+import { DepartmentDetails } from "@/components/Profiles/DepartmentProfile/DepartmentDetails";
 import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
@@ -37,11 +37,11 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
 
       <TabPanels>
         <TabPanel>
-          <DepartmentProfileGrid department={department} />
+          <DepartmentDetails department={department} />
         </TabPanel>
 
         <TabPanel>
-          <UsersList users={users?.users} />
+          <UsersList users={users?.users!} />
         </TabPanel>
 
         <TabPanel>
