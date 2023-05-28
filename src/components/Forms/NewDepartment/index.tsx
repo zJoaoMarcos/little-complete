@@ -17,7 +17,7 @@ const createDepartmentSchema = z.object({
 
 type CreateDepartmentData = z.infer<typeof createDepartmentSchema>;
 
-export function NewDepartmentProfileGrid() {
+export function NewDepartmentForm() {
   const {
     register,
     handleSubmit,
@@ -28,7 +28,7 @@ export function NewDepartmentProfileGrid() {
   });
 
   const { createDepartment } = useDepartment();
-  const { data: users } = useFetchUsersList();
+  const { data: users } = useFetchUsersList({});
 
   const handleCreateDepartment: SubmitHandler<CreateDepartmentData> = async (
     data,

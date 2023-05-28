@@ -1,4 +1,4 @@
-import { NewDepartmentProfileGrid } from "@/components/Grids/NewDepartmentProfileGrid";
+import { NewDepartmentForm } from "@/components/Forms/NewDepartment";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import {
@@ -45,7 +45,7 @@ export default function NewDepartment() {
 
             <Divider />
 
-            <NewDepartmentProfileGrid />
+            <NewDepartmentForm />
           </Box>
         </Flex>
       </Flex>
