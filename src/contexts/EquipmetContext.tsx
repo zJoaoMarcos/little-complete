@@ -197,9 +197,9 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
       return res.data;
     },
     {
-      onSuccess: (data: UnassignAllEquipmentsData) => {
+      onSuccess: (data, variables) => {
         toast.success("Equipamento atribuido com sucesso");
-        queryClient.invalidateQueries(`user-${data.username}`);
+        queryClient.invalidateQueries(`user-${variables.username}`);
       },
       onError: () => {
         toast.error(
