@@ -22,15 +22,12 @@ const createUserSchema = z.object({
 
 type CreateUserData = z.infer<typeof createUserSchema>;
 
-interface NewUserProfileGridProps {
+interface NewUserFormProps {
   isSending: boolean;
   setIsSending: Dispatch<SetStateAction<boolean>>;
 }
 
-export function NewUserProfileGrid({
-  isSending,
-  setIsSending,
-}: NewUserProfileGridProps) {
+export function NewUserForm({ isSending, setIsSending }: NewUserFormProps) {
   const {
     register,
     handleSubmit,

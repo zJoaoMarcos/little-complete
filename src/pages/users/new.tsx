@@ -1,4 +1,4 @@
-import { NewUserProfileGrid } from "@/components/Grids/NewUserProfileGrid";
+import { NewUserForm } from "@/components/Forms/NewUserForm";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import {
@@ -54,10 +54,7 @@ export default function NewDepartment() {
 
             <Divider />
 
-            <NewUserProfileGrid
-              isSending={isSending}
-              setIsSending={setIsSending}
-            />
+            <NewUserForm isSending={isSending} setIsSending={setIsSending} />
           </Box>
         </Flex>
       </Flex>
