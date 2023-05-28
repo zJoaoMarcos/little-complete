@@ -1,4 +1,4 @@
-import { NewEquipmentProfileGrid } from "@/components/Grids/NewEquipmentProfileGrid";
+import { NewEquipmentForm } from "@/components/Forms/NewEquipmentForm";
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import {
@@ -44,13 +44,13 @@ export default function NewEquipment() {
                 form="create_equipment"
                 colorScheme="purple"
               >
-                Salvar
+                Enviar
               </Button>
             </Flex>
 
             <Divider />
 
-            <NewEquipmentProfileGrid />
+            <NewEquipmentForm />
           </Box>
         </Flex>
       </Flex>

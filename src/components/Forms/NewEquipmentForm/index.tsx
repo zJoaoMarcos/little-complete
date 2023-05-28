@@ -29,7 +29,7 @@ const createEquipmetSchema = z.object({
 
 type CreateEquipmentData = z.infer<typeof createEquipmetSchema>;
 
-export function NewEquipmentProfileGrid() {
+export function NewEquipmentForm() {
   const { data } = useFetchDepartmentsList();
 
   const { register, handleSubmit, formState, reset } =
