@@ -1,5 +1,5 @@
-import { EquipmentProfileGrid } from "@/components/Grids/EquipmentProfileGrid";
 import { Box, Divider, useColorModeValue } from "@chakra-ui/react";
+import { EquipmentDetails } from "./EquipmentDetails";
 import { EquipmentHeader } from "./EquipmentHeader";
 
 interface EquipmentProfileProps {
@@ -43,7 +43,7 @@ export function EquipmentProfile({ equipment }: EquipmentProfileProps) {
 
       <Divider />
 
-      <EquipmentProfileGrid equipment={equipment!} />
+      <EquipmentDetails equipment={equipment!} />
     </Box>
   );
 }

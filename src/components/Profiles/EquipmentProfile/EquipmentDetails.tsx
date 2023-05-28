@@ -32,7 +32,7 @@ const updateEquipmentSchema = z.object({
 
 type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
 
-interface EquipmentProfileGridProps {
+interface EquipmentDetailsProps {
   equipment: {
     id: string;
     type: string;
@@ -59,7 +59,7 @@ interface EquipmentProfileGridProps {
   };
 }
 
-export function EquipmentProfileGrid({ equipment }: EquipmentProfileGridProps) {
+export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
   const [isBlocked, setIsBlocked] = useState(true);
 
   const { data } = useFetchDepartmentsList();
