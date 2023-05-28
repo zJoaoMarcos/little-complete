@@ -1,18 +1,8 @@
 import { Header } from "@/components/Header";
+import { DepartmentProfile } from "@/components/Profiles/DepartmentProfile";
 import { Sidebar } from "@/components/Sidebar";
-import { DepartmentTab } from "@/components/Tabs/Department";
 import { getDepartment } from "@/hooks/UseFetchDepartment";
-import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
-import { formatData } from "@/utils/formatData";
-import {
-  Avatar,
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -40,31 +30,7 @@ export default function Department({ department }: DepartmentProps) {
         <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
           <Sidebar />
 
-          <Box
-            flex="1"
-            h="full"
-            p="8"
-            bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
-            overflowX="auto"
-            borderRadius="md"
-          >
-            <Flex mb="10" justify="space-between" align="center">
-              <HStack spacing={8}>
-                <Avatar
-                  name={concatFirstNameAndLastName(department.name)}
-                  size="lg"
-                />
-
-                <VStack justify={"start"} alignItems="start">
-                  <Heading as="h3" fontWeight="semibold" fontSize={18}>
-                    {formatData(department.name)}
-                  </Heading>
-                </VStack>
-              </HStack>
-            </Flex>
-
-            <DepartmentTab department={department} />
-          </Box>
+          <DepartmentProfile department={department} />
         </Flex>
       </Flex>
     </>
