@@ -2,7 +2,7 @@ import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentBagdeStatus } from "@/components/Avatars/EquipmentAvatar/EquipmentBadgeStatus";
 import { Flex, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 
-interface EquipmentProfileProps {
+interface EquipmentHeaderProps {
   equipment: {
     id: string;
     type: string;
@@ -10,7 +10,7 @@ interface EquipmentProfileProps {
   };
 }
 
-export function ProfileHeader({ equipment }: EquipmentProfileProps) {
+export function EquipmentHeader({ equipment }: EquipmentHeaderProps) {
   return (
     <Flex mb="10" justify="space-between" align="center">
       <HStack spacing={8}>
