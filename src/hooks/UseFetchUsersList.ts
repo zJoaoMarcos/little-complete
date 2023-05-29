@@ -38,7 +38,9 @@ export async function getUsersList({
   status = "",
   departmentId,
 }: FetchParams): Promise<Data> {
-  console.log(id);
+  if (status == "todos") {
+    status = "";
+  }
 
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
   const { data } = await backend.get<Data>(
@@ -78,7 +80,7 @@ export function useFetchUsersList({
   departmentId,
 }: FetchParams) {
   return useQuery(
-    [key, page + id],
+    [key, page + id + status],
     () => getUsersList({ skip, take, id, status, departmentId }),
     {
       staleTime: 1000 * 60, // 60 minutes
