@@ -3,10 +3,15 @@ import { ReactNode } from "react";
 import { Header } from "../Header";
 import { Sidebar } from "../Sidebar";
 
-export function Layout({ children }: { children: ReactNode }) {
+interface LayoutProps {
+  children: ReactNode;
+  setWords?: (words: string) => void;
+}
+
+export function Layout({ children, setWords }: LayoutProps) {
   return (
     <Flex flexDir="column" h="100vh">
-      <Header />
+      <Header setWords={setWords} />
 
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
         <Sidebar />

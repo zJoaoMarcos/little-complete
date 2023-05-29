@@ -13,7 +13,11 @@ import { Logo } from "./Logo";
 import { Profile } from "./Profile";
 import { SearchBox } from "./SearchBox";
 
-export function Header() {
+interface HeaderProps {
+  setWords?: (words: string) => void;
+}
+
+export function Header({ setWords }: HeaderProps) {
   const isWideVersion = useBreakpointValue({ base: false, lg: true });
   const { colorMode, toggleColorMode } = useColorMode();
   const { onOpen } = useSidebarDrawer();
@@ -42,7 +46,7 @@ export function Header() {
       )}
       <Logo />
 
-      {isWideVersion && <SearchBox />}
+      {isWideVersion && setWords && <SearchBox setWords={setWords} />}
 
       <HStack h="full" spacing="4" ml="auto">
         <IconButton

@@ -8,7 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
-export function SearchBox() {
+interface SearchBoxProps {
+  setWords: (words: string) => void;
+}
+
+export function SearchBox({ setWords }: SearchBoxProps) {
   return (
     <Flex
       as="label"
@@ -27,6 +31,7 @@ export function SearchBox() {
           type="text"
           variant="flushed"
           placeholder="Buscar..."
+          onChange={(e) => setWords(e.target.value)}
           focusBorderColor={useColorModeValue("gray.700", "gray.100")}
         />
       </InputGroup>

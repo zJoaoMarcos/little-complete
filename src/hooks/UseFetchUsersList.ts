@@ -35,15 +35,14 @@ export async function getUsersList({
   skip = 0,
   take = 0,
   id,
-  status,
+  status = "",
   departmentId,
 }: FetchParams): Promise<Data> {
-  id = id ? `&id=${id}` : "";
-  status = status ? `&status=${status}` : "";
-  const department_id = departmentId ? `&department_id=${departmentId}` : "";
+  console.log(id);
 
+  const department_id = departmentId ? `&department_id=${departmentId}` : "";
   const { data } = await backend.get<Data>(
-    `/users?equipments?skip=${skip}&take=${take}${id}${department_id}${status}`
+    `/users?equipments?skip=${skip}&take=${take}&id=${id}&status=${status}${department_id}`
   );
 
   const users = data.users.map((user) => {
@@ -74,15 +73,16 @@ export function useFetchUsersList({
   page,
   skip = 0,
   take = 0,
-  id,
-  status,
+  id = "",
+  status = " ",
   departmentId,
 }: FetchParams) {
   return useQuery(
-    [key, page ?? undefined],
+    [key, page + id],
     () => getUsersList({ skip, take, id, status, departmentId }),
     {
-      staleTime: 1000 * 60,
+      staleTime: 1000 * 60, // 60 minutes
+      enabled: true,
     }
   );
 }
