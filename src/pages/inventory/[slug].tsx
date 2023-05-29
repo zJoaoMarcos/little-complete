@@ -1,8 +1,6 @@
-import { Header } from "@/components/Header";
+import { Layout } from "@/components/Layout";
 import { EquipmentProfile } from "@/components/Profiles/EquipmentProfile";
-import { Sidebar } from "@/components/Sidebar";
 import { getEquipment, useFindEquipment } from "@/hooks/UseFindEquipment";
-import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -44,15 +42,9 @@ export default function Inventory({ equipment }: EquipmentProps) {
         <title>Equipment</title>
       </Head>
 
-      <Flex flexDir="column" h="100vh">
-        <Header />
-
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
-          <Sidebar />
-
-          <EquipmentProfile equipment={data?.equipment!} />
-        </Flex>
-      </Flex>
+      <Layout>
+        <EquipmentProfile equipment={data?.equipment!} />
+      </Layout>
     </>
   );
 }

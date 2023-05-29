@@ -1,4 +1,4 @@
-import { Box, Divider, useColorModeValue } from "@chakra-ui/react";
+import { Divider } from "@chakra-ui/react";
 import { EquipmentDetails } from "./EquipmentDetails";
 import { EquipmentHeader } from "./EquipmentHeader";
 
@@ -31,19 +31,12 @@ interface EquipmentProfileProps {
 
 export function EquipmentProfile({ equipment }: EquipmentProfileProps) {
   return (
-    <Box
-      flex="1"
-      h="full"
-      p="8"
-      bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
-      overflowX="auto"
-      borderRadius="md"
-    >
+    <>
       <EquipmentHeader equipment={equipment!} />
 
       <Divider />
 
       <EquipmentDetails equipment={equipment!} />
-    </Box>
+    </>
   );
 }
