@@ -2,13 +2,11 @@ import { UnassignEquipmentsForm } from "@/components/Forms/UnassignEquipments";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
 import { useUser } from "@/contexts/UserContext";
 import {
-  Box,
   Button,
   Divider,
   Flex,
   HStack,
   Text,
-  useColorModeValue,
   useSteps,
 } from "@chakra-ui/react";
 import { XCircle } from "@phosphor-icons/react";
@@ -65,14 +63,7 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
   });
 
   return (
-    <Box
-      flex="1"
-      h="full"
-      p="8"
-      bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
-      overflowX="auto"
-      borderRadius="md"
-    >
+    <>
       <UserHeader user={user} />
 
       <Divider mb="10" />
@@ -90,7 +81,7 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
       {activeStep === 1 && (
         <ShutDownForm username={user.user_name} goToPrevious={goToPrevious} />
       )}
-    </Box>
+    </>
   );
 }
 
