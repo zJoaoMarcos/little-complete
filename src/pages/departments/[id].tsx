@@ -1,8 +1,6 @@
-import { Header } from "@/components/Header";
+import { Layout } from "@/components/Layout";
 import { DepartmentProfile } from "@/components/Profiles/DepartmentProfile";
-import { Sidebar } from "@/components/Sidebar";
 import { getDepartment } from "@/hooks/UseFetchDepartment";
-import { Flex } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -24,15 +22,9 @@ export default function Department({ department }: DepartmentProps) {
         <title> Profile</title>
       </Head>
 
-      <Flex flexDir="column" h="100vh">
-        <Header />
-
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6" pb="10">
-          <Sidebar />
-
-          <DepartmentProfile department={department} />
-        </Flex>
-      </Flex>
+      <Layout>
+        <DepartmentProfile department={department} />
+      </Layout>
     </>
   );
 }

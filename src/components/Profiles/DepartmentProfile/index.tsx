@@ -1,15 +1,7 @@
 import { DepartmentTab } from "@/components/Tabs/Department";
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { formatData } from "@/utils/formatData";
-import {
-  Avatar,
-  Box,
-  Flex,
-  HStack,
-  Heading,
-  VStack,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Avatar, Flex, HStack, Heading, VStack } from "@chakra-ui/react";
 
 interface DepartmentProfileProps {
   department: {
@@ -24,14 +16,7 @@ interface DepartmentProfileProps {
 
 export function DepartmentProfile({ department }: DepartmentProfileProps) {
   return (
-    <Box
-      flex="1"
-      h="full"
-      p="8"
-      bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
-      overflowX="auto"
-      borderRadius="md"
-    >
+    <>
       <Flex mb="10" justify="space-between" align="center">
         <HStack spacing={8}>
           <Avatar
@@ -48,6 +33,6 @@ export function DepartmentProfile({ department }: DepartmentProfileProps) {
       </Flex>
 
       <DepartmentTab department={department} />
-    </Box>
+    </>
   );
 }
