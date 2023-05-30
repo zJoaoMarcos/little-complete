@@ -37,7 +37,7 @@ type IStatusOptions = {
 const defaultStatusOptions: IStatusOptions[] = [
   { value: "active", option: "Ativo" },
   { value: "vacation", option: "Férias/Afastado" },
-  { value: "pendency", option: "Desligado" },
+  { value: "disabled", option: "Desligado" },
 ];
 
 export function UpdateUserStatusModal({
