@@ -5,7 +5,6 @@ import {
   HStack,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Text,
@@ -51,8 +50,8 @@ export function Profile({ showProfileData = true }: ProfileProps) {
           </HStack>
         </MenuButton>
         <MenuList borderColor="gray.600">
-          <MenuItem>Settings</MenuItem>
-          <MenuDivider />
+          {/*  <MenuItem>Settings</MenuItem>
+          <MenuDivider /> */}
           <MenuItem onClick={handleSingOut}>Sign out</MenuItem>
         </MenuList>
       </Menu>
