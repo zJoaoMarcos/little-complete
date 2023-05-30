@@ -91,7 +91,7 @@ export async function getInventoryList({
 
 export function useFetchInvetoryList({
   key = "inventory",
-  page,
+  page = 0,
   skip = 0,
   take = 0,
   id = "",
@@ -99,7 +99,7 @@ export function useFetchInvetoryList({
   departmentId,
 }: FetchParams) {
   return useQuery(
-    [key, page + id + status],
+    [key, page + id + status + departmentId],
     () => getInventoryList({ skip, take, id, status, departmentId }),
     {
       staleTime: 1000 * 60, //60 minutes

@@ -18,7 +18,7 @@ interface DepartmentTabProps {
 
 export function DepartmentTab({ department }: DepartmentTabProps) {
   const { data: equipments } = useFetchInvetoryList({
-    key: `inventory-${department}`,
+    key: `inventory-${department.id}`,
     departmentId: department.id,
   });
 
