@@ -47,7 +47,9 @@ export function UserTabs({ user, equipments }: UserTabsProps) {
     <Tabs colorScheme="purple">
       <TabList>
         <Tab fontWeight="semibold">Info</Tab>
-        <Tab fontWeight="semibold">Equipamentos</Tab>
+        {user.status !== "disabled" && (
+          <Tab fontWeight="semibold">Equipamentos</Tab>
+        )}
       </TabList>
 
       <TabPanels>
