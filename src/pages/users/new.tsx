@@ -2,9 +2,10 @@ import { NewUserForm } from "@/components/Forms/NewUserForm";
 import { Layout } from "@/components/Layout";
 import { Button, Divider, Flex, Heading, HStack } from "@chakra-ui/react";
 import Head from "next/head";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
+import { NextPageWithLayout } from "../_app";
 
-export default function NewDepartment() {
+const NewDepartment: NextPageWithLayout = () => {
   const [isSending, setIsSending] = useState(false);
 
   return (
@@ -13,27 +14,31 @@ export default function NewDepartment() {
         <title>Novo usuário</title>
       </Head>
 
-      <Layout>
-        <Flex mb="10" justify="space-between" align="center">
-          <HStack spacing={8}>
-            <Heading as="h3" fontWeight="semibold" fontSize={18}>
-              Novo Usuário
-            </Heading>
-          </HStack>
-          <Button
-            type="submit"
-            form="create_user"
-            colorScheme="purple"
-            isLoading={isSending}
-          >
-            Enviar
-          </Button>
-        </Flex>
+      <Flex mb="10" justify="space-between" align="center">
+        <HStack spacing={8}>
+          <Heading as="h3" fontWeight="semibold" fontSize={18}>
+            Novo Usuário
+          </Heading>
+        </HStack>
+        <Button
+          type="submit"
+          form="create_user"
+          colorScheme="purple"
+          isLoading={isSending}
+        >
+          Enviar
+        </Button>
+      </Flex>
 
-        <Divider />
+      <Divider />
 
-        <NewUserForm isSending={isSending} setIsSending={setIsSending} />
-      </Layout>
+      <NewUserForm isSending={isSending} setIsSending={setIsSending} />
     </>
   );
-}
+};
+
+NewDepartment.getLayout = function getLayout(chidren: ReactElement) {
+  return <Layout>{chidren}</Layout>;
+};
+
+export default NewDepartment;

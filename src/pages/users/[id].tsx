@@ -3,6 +3,7 @@ import { UserProfile } from "@/components/Profiles/UserProfile";
 import { getUser, useFindUser } from "@/hooks/UseFindUser";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { ReactElement } from "react";
 
 interface Equipment {
   id: string;
@@ -43,7 +44,7 @@ interface UserProps {
   equipments: Equipment[];
 }
 
-export default function User({ user, equipments }: UserProps) {
+const User = ({ user, equipments }: UserProps) => {
   const { data } = useFindUser(user.user_name, {
     initialData: { user, equipments },
   });
@@ -54,12 +55,10 @@ export default function User({ user, equipments }: UserProps) {
         <title>{data?.user.user_name}</title>
       </Head>
 
-      <Layout>
-        <UserProfile user={data?.user!} equipments={data?.equipments!} />
-      </Layout>
+      <UserProfile user={data?.user!} equipments={data?.equipments!} />
     </>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps<
   any,
@@ -76,3 +75,9 @@ export const getServerSideProps: GetServerSideProps<
     },
   };
 };
+
+User.getLayout = function getLayout(children: ReactElement) {
+  return <Layout>{children}</Layout>;
+};
+
+export default User;
