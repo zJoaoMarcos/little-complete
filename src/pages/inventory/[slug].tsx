@@ -3,6 +3,7 @@ import { EquipmentProfile } from "@/components/Profiles/EquipmentProfile";
 import { getEquipment, useFindEquipment } from "@/hooks/UseFindEquipment";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { ReactElement } from "react";
 
 interface EquipmentProps {
   equipment: {
@@ -42,9 +43,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
         <title>Equipment</title>
       </Head>
 
-      <Layout>
-        <EquipmentProfile equipment={data?.equipment!} />
-      </Layout>
+      <EquipmentProfile equipment={data?.equipment!} />
     </>
   );
 }
@@ -62,4 +61,8 @@ export const getServerSideProps: GetServerSideProps<
       equipment: equipment.equipment,
     },
   };
+};
+
+Inventory.getLayout = function getLayout(children: ReactElement) {
+  return <Layout>{children}</Layout>;
 };

@@ -3,6 +3,7 @@ import { DepartmentProfile } from "@/components/Profiles/DepartmentProfile";
 import { getDepartment } from "@/hooks/UseFetchDepartment";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { ReactElement } from "react";
 
 interface DepartmentProps {
   department: {
@@ -22,9 +23,7 @@ export default function Department({ department }: DepartmentProps) {
         <title> Profile</title>
       </Head>
 
-      <Layout>
-        <DepartmentProfile department={department} />
-      </Layout>
+      <DepartmentProfile department={department} />
     </>
   );
 }
@@ -42,4 +41,8 @@ export const getServerSideProps: GetServerSideProps<
       department,
     },
   };
+};
+
+Department.getLayout = function getLayout(children: ReactElement) {
+  return <Layout>{children}</Layout>;
 };
