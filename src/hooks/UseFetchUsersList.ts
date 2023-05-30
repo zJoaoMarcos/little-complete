@@ -84,7 +84,6 @@ export function useFetchUsersList({
     () => getUsersList({ skip, take, id, status, departmentId }),
     {
       staleTime: 1000 * 60, // 60 minutes
-      enabled: true,
     }
   );
 }
