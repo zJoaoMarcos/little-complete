@@ -30,7 +30,7 @@ export async function getDepartment(id: number): Promise<Data> {
   return { department };
 }
 
-export function useFetchDepartment(id: number) {
+export function useFindDepartment(id: number) {
   return useQuery(["departments"], () => getDepartment(id), {
     staleTime: 1000 * 5,
   });
