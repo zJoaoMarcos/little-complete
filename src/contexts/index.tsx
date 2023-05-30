@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { DepartmentProvider } from "./DepartmentContext";
-import { EquipmentProvider } from "./EquipmetContext";
+import { EquipmentProvider } from "./Inventory";
 import { SidebarDrawerProvider } from "./SidebarDrawerContext";
 import { StockProvider } from "./StockContext";
 import { UserProvider } from "./Users";

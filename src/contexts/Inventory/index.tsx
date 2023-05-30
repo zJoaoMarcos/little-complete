@@ -1,103 +1,38 @@
+import useDebounce from "@/hooks/UseDebounce";
+import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import { backend } from "@/lib/backendApi";
 import { queryClient } from "@/lib/queryClient";
-import { createContext, ReactNode, useContext } from "react";
-import { useMutation, UseMutationResult } from "react-query";
+import { createContext, useContext, useState } from "react";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-interface CreateEquipmentData {
-  id: string;
-  brand: string;
-  model: string;
-  supplier: string | null;
-  invoice: string | null;
-  warranty: string | null;
-  purchase_date: Date | null;
-  department_id: number;
-  cpu: string | null;
-  ram: string | null;
-  slots: number | null;
-  storage0_type: string | null;
-  storage0_syze: number | null;
-  storage1_type: string | null;
-  storage1_syze: number | null;
-  video: string | null;
-  service_tag: string | null;
-}
+import {
+  AssignEquipmentData,
+  CreateEquipmentData,
+  EquipmentProviderContextData,
+  EquipmentProviderProps,
+  UnassignAllEquipmentsData,
+  UnassignEquipmentData,
+  UpdateEquipmentData,
+} from "./types";
 
-interface UpdateEquipmentData {
-  id: string;
-  brand: string | null;
-  model: string | null;
-  supplier: string | null;
-  invoice: string | null;
-  warranty: string | null;
-  purchase_date: Date | null;
-  department_id: number | null;
-  cpu: string | null;
-  ram: string | null;
-  slots: number | null;
-  storage0_type: string | null;
-  storage0_syze: number | null;
-  storage1_type: string | null;
-  storage1_syze: number | null;
-  video: string | null;
-  service_tag: string | null;
-}
-
-interface AssignEquipmentData {
-  user_id: string;
-  equipment_id: string;
-}
-
-interface UnassignEquipmentData {
-  username?: string;
-  equipment_id: string;
-}
-
-interface UnassignAllEquipmentsData {
-  username: string;
-}
-
-interface StockProviderContextData {
-  createEquipment: UseMutationResult<
-    CreateEquipmentData,
-    unknown,
-    CreateEquipmentData,
-    unknown
-  >;
-  updateEquipment: UseMutationResult<
-    UpdateEquipmentData,
-    unknown,
-    UpdateEquipmentData,
-    unknown
-  >;
-  assignEquipment: UseMutationResult<
-    AssignEquipmentData,
-    unknown,
-    AssignEquipmentData,
-    unknown
-  >;
-  unassignEquipment: UseMutationResult<
-    UnassignEquipmentData,
-    unknown,
-    UnassignEquipmentData,
-    unknown
-  >;
-  unassignAllEquipments: UseMutationResult<
-    UnassignAllEquipmentsData,
-    unknown,
-    UnassignAllEquipmentsData,
-    unknown
-  >;
-}
-
-const EquipmentContext = createContext({} as StockProviderContextData);
-
-interface EquipmentProviderProps {
-  children: ReactNode;
-}
+const EquipmentContext = createContext({} as EquipmentProviderContextData);
 
 export function EquipmentProvider({ children }: EquipmentProviderProps) {
+  const [search, setSearch] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+
+  const debouncedWords = useDebounce(search, 500);
+
+  const take = 26;
+  const skip = (page - 1) * take;
+  const { data, isLoading, isFetching } = useFetchInvetoryList({
+    page,
+    skip,
+    take,
+    id: debouncedWords,
+  });
+
   const createEquipment = useMutation(
     async (data: CreateEquipmentData) => {
       const res = await backend.post<CreateEquipmentData>("equipments", {
@@ -212,6 +147,13 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
   return (
     <EquipmentContext.Provider
       value={{
+        data,
+        isLoading,
+        isFetching,
+        setPage,
+        page,
+        setSearch,
+        take,
         createEquipment,
         updateEquipment,
         assignEquipment,
