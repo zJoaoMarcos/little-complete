@@ -62,7 +62,7 @@ interface EquipmentDetailsProps {
 export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
   const [isBlocked, setIsBlocked] = useState(true);
 
-  const { data } = useFetchDepartmentsList();
+  const { data } = useFetchDepartmentsList({});
 
   const {
     register,

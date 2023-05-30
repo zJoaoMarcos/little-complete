@@ -43,7 +43,7 @@ interface UserDetailsProps {
 export function UserDetails({ user }: UserDetailsProps) {
   const [isEditable, setIsEditable] = useState(true);
 
-  const { data: departments } = useFetchDepartmentsList();
+  const { data: departments } = useFetchDepartmentsList({});
   const { data: users } = useFetchUsersList({});
 
   const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({

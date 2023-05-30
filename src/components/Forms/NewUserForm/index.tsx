@@ -42,7 +42,7 @@ export function NewUserForm({ isSending, setIsSending }: NewUserFormProps) {
   }, [isSubmitting]);
 
   const { createUser } = useUser();
-  const { data: departments } = useFetchDepartmentsList();
+  const { data: departments } = useFetchDepartmentsList({});
   const { data: users } = useFetchUsersList({});
 
   const handleCreate: SubmitHandler<CreateUserData> = async (data, event) => {
