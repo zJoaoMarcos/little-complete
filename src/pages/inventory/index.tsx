@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
+import { EquipmentListSkeleton } from "@/components/Lists/EquipmentsList/Skeleton";
 import { Pagination } from "@/components/Pagination";
 import useDebounce from "@/hooks/UseDebounce";
 import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
@@ -42,13 +43,8 @@ export default function Inventory() {
             + Novo Equipamento
           </Button>
         </Flex>
-        {isLoading ? (
-          <Flex justify="center">
-            <Spinner />
-          </Flex>
-        ) : (
-          <EquipmentsList equipments={data?.equipments!} />
-        )}
+        {isLoading && <EquipmentListSkeleton />}
+        {data?.equipments && <EquipmentsList equipments={data.equipments} />}
 
         <Pagination
           currentPage={page}
