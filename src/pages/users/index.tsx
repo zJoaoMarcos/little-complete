@@ -95,6 +95,10 @@ const defaultOptions = [
     option: "Ativo",
   },
   {
+    value: "pendency",
+    option: "Pendente",
+  },
+  {
     value: "disabled",
     option: "Desligado",
   },
