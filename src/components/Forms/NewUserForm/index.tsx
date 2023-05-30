@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useUser } from "@/contexts/UserContext";
+import { useUser } from "@/contexts/Users";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { List, SimpleGrid } from "@chakra-ui/react";

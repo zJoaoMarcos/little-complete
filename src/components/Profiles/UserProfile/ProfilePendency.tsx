@@ -1,6 +1,6 @@
 import { UnassignEquipmentsForm } from "@/components/Forms/UnassignEquipments";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
-import { useUser } from "@/contexts/UserContext";
+import { useUser } from "@/contexts/Users";
 import {
   Button,
   Divider,

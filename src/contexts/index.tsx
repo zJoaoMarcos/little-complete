@@ -3,7 +3,7 @@ import { DepartmentProvider } from "./DepartmentContext";
 import { EquipmentProvider } from "./EquipmetContext";
 import { SidebarDrawerProvider } from "./SidebarDrawerContext";
 import { StockProvider } from "./StockContext";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./Users";
 
 export function AppProvider({ children }: { children: ReactNode }) {
   return (

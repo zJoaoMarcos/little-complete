@@ -3,28 +3,23 @@ import { Layout } from "@/components/Layout";
 import { UsersList } from "@/components/Lists/UserLists";
 import { UsersListSkeleton } from "@/components/Lists/UserLists/UsersListSkeleton";
 import { Pagination } from "@/components/Pagination";
-import useDebounce from "@/hooks/UseDebounce";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { useUser } from "@/contexts/Users";
+
 import { Button, Flex, HStack, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
-export default function Users() {
-  const [filter, setFilter] = useState("todos");
-  const [words, setWords] = useState("");
-  const debouncedWords = useDebounce(words, 500);
-
-  const [page, setPage] = useState(1);
-  const take = 20;
-  const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useFetchUsersList({
+export default function User() {
+  const {
+    data,
+    isLoading,
+    isFetching,
+    setFilter,
+    setSearch,
     page,
-    skip,
+    setPage,
     take,
-    id: debouncedWords,
-    status: filter,
-  });
+  } = useUser();
 
   const { push } = useRouter();
 
@@ -34,7 +29,7 @@ export default function Users() {
         <title>Users</title>
       </Head>
 
-      <Layout setWords={setWords}>
+      <Layout setWords={setSearch}>
         <Flex mb="8" justify="space-between" align="center">
           <HStack alignItems="center" justifyContent="center" spacing={"14"}>
             <Heading as="h3" fontWeight="semibold">
