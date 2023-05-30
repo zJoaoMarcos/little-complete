@@ -1,6 +1,6 @@
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useDepartment } from "@/contexts/DepartmentContext";
+import { useDepartment } from "@/contexts/Department";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";

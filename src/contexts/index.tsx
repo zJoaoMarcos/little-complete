@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { DepartmentProvider } from "./DepartmentContext";
+import { DepartmentProvider } from "./Department";
 import { EquipmentProvider } from "./Inventory";
 import { SidebarDrawerProvider } from "./SidebarDrawerContext";
 import { StockProvider } from "./StockContext";

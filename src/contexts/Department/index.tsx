@@ -1,49 +1,36 @@
 import { backend } from "@/lib/backendApi";
 import { queryClient } from "@/lib/queryClient";
 import { AxiosError } from "axios";
-import { ReactNode, createContext, useContext } from "react";
-import { UseMutationResult, useMutation } from "react-query";
+import { createContext, useContext, useState } from "react";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-interface CreateDepartmentData {
-  name: string;
-  cost_center: number;
-  is_board: boolean;
-  board: string;
-  responsible_id: string;
-}
-
-interface UpdateDepartmentData {
-  id: number;
-  name: string | null;
-  cost_center: number | null;
-  is_board: boolean | null;
-  board: string | null;
-  responsible_id: string | null;
-}
-
-interface DepartmentProviderContextData {
-  createDepartment: UseMutationResult<
-    CreateDepartmentData,
-    unknown,
-    CreateDepartmentData,
-    unknown
-  >;
-  updateDepartment: UseMutationResult<
-    UpdateDepartmentData,
-    unknown,
-    UpdateDepartmentData,
-    unknown
-  >;
-}
+import useDebounce from "@/hooks/UseDebounce";
+import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import {
+  CreateDepartmentData,
+  DepartmentProviderContextData,
+  DepartmentsProviderProps,
+  UpdateDepartmentData,
+} from "./type";
 
 const DepartmentContext = createContext({} as DepartmentProviderContextData);
 
-interface DepartmentsProviderProps {
-  children: ReactNode;
-}
-
 export function DepartmentProvider({ children }: DepartmentsProviderProps) {
+  const [search, setSearch] = useState<string>("");
+  const [page, setPage] = useState(1);
+
+  const debouncedWord = useDebounce(search, 500);
+
+  const take = 20;
+  const skip = (page - 1) * take;
+  const { data, isLoading, isFetching } = useFetchDepartmentsList({
+    page,
+    skip,
+    take,
+    id: debouncedWord,
+  });
+
   const createDepartment = useMutation(
     async (data: CreateDepartmentData) => {
       const res = await backend.post<CreateDepartmentData>("departments", {
@@ -90,7 +77,19 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
   );
 
   return (
-    <DepartmentContext.Provider value={{ createDepartment, updateDepartment }}>
+    <DepartmentContext.Provider
+      value={{
+        data,
+        isFetching,
+        isLoading,
+        page,
+        setPage,
+        setSearch,
+        take,
+        createDepartment,
+        updateDepartment,
+      }}
+    >
       {children}
     </DepartmentContext.Provider>
   );

@@ -2,25 +2,14 @@ import { Layout } from "@/components/Layout";
 import { DepartmentsList } from "@/components/Lists/DepartmentsList";
 import { DepartmentListSkeleton } from "@/components/Lists/DepartmentsList/Skeleton";
 import { Pagination } from "@/components/Pagination";
-import useDebounce from "@/hooks/UseDebounce";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { useDepartment } from "@/contexts/Department";
 import { Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export default function Departments() {
-  const [words, setWords] = useState<string>("");
-  const debouncedWord = useDebounce(words, 500);
-  const [page, setPage] = useState(1);
-  const take = 20;
-  const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useFetchDepartmentsList({
-    page,
-    skip,
-    take,
-    id: debouncedWord,
-  });
+  const { data, isLoading, isFetching, page, setPage, take } = useDepartment();
 
   const { push } = useRouter();
 
@@ -30,33 +19,38 @@ export default function Departments() {
         <title>Departamentos</title>
       </Head>
 
-      <Layout setWords={setWords}>
-        <Flex mb="8" justify="space-between" align="center">
-          <Heading as="h3" fontWeight="semibold">
-            Departamentos
-            {!isLoading && isFetching && (
-              <Spinner size="sm" color="white" ml="4" />
-            )}
-          </Heading>
+      <Flex mb="8" justify="space-between" align="center">
+        <Heading as="h3" fontWeight="semibold">
+          Departamentos
+          {!isLoading && isFetching && (
+            <Spinner size="sm" color="white" ml="4" />
+          )}
+        </Heading>
 
-          <Button colorScheme="purple" onClick={() => push("/departments/new")}>
-            + Novo Departamento
-          </Button>
-        </Flex>
+        <Button colorScheme="purple" onClick={() => push("/departments/new")}>
+          + Novo Departamento
+        </Button>
+      </Flex>
 
-        {isLoading && <DepartmentListSkeleton />}
+      {isLoading && <DepartmentListSkeleton />}
 
-        {data?.departments && (
-          <DepartmentsList departments={data.departments} />
-        )}
+      {data?.departments && <DepartmentsList departments={data.departments} />}
 
-        <Pagination
-          currentPage={page}
-          onPageChange={setPage}
-          registersPerPage={take}
-          totalCountofRegisters={data?.totalCount!}
-        />
-      </Layout>
+      <Pagination
+        currentPage={page}
+        onPageChange={setPage}
+        registersPerPage={take}
+        totalCountofRegisters={data?.totalCount!}
+      />
     </>
   );
 }
+
+function DepartmentLayout({ children }: { children: ReactNode }) {
+  const { setSearch } = useDepartment();
+  return <Layout setWords={setSearch}>{children}</Layout>;
+}
+
+Departments.getLayout = function getLayout(children: ReactElement) {
+  return <DepartmentLayout>{children}</DepartmentLayout>;
+};
