@@ -1,5 +1,5 @@
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
-import { useEquipment } from "@/contexts/EquipmetContext";
+import { useEquipment } from "@/contexts/Inventory";
 import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 
 interface Equipment {

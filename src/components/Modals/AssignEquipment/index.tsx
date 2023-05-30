@@ -1,4 +1,4 @@
-import { useEquipment } from "@/contexts/EquipmetContext";
+import { useEquipment } from "@/contexts/Inventory";
 import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import {
   Box,
