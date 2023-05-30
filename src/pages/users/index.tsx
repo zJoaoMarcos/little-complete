@@ -1,6 +1,7 @@
 import { Select } from "@/components/Form/Select";
 import { Layout } from "@/components/Layout";
 import { UsersList } from "@/components/Lists/UserLists";
+import { UsersListSkeleton } from "@/components/Lists/UserLists/UsersListSkeleton";
 import { Pagination } from "@/components/Pagination";
 import useDebounce from "@/hooks/UseDebounce";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
@@ -66,13 +67,9 @@ export default function Users() {
             + Novo Usuário
           </Button>
         </Flex>
-        {isLoading ? (
-          <Flex justify="center">
-            <Spinner />
-          </Flex>
-        ) : (
-          <UsersList users={data?.users!} />
-        )}
+
+        {isLoading && <UsersListSkeleton />}
+        {data?.users && <UsersList users={data.users} />}
 
         <Pagination
           currentPage={page}

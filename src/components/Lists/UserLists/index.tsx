@@ -1,4 +1,5 @@
-import { SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { Warning } from "@phosphor-icons/react";
 import { UserCard } from "./UserCard";
 
 interface User {
@@ -22,17 +23,23 @@ export function UsersList({ users }: UserListProps) {
   return (
     <SimpleGrid columns={1} spacingX={10} spacingY={6} mb={10}>
       <>
-        {users ? (
-          users?.map((user) => <UserCard key={user.user_name} user={user} />)
-        ) : (
-          <Stack w="full">
-            <Skeleton height="60px" />
-            <Skeleton height="60px" />
-            <Skeleton height="60px" />
-            <Skeleton height="60px" />
-            <Skeleton height="60px" />
-            <Skeleton height="60px" />
-          </Stack>
+        {users &&
+          users.map((user) => <UserCard key={user.user_name} user={user} />)}
+
+        {users?.length === 0 && (
+          <Flex
+            w="full"
+            flexDir="column"
+            alignItems="center"
+            justifyContent="center"
+            mt="20"
+          >
+            <Warning color="purple" size={100} />
+            <Text>
+              Infelizmente não conseguimos achar nenhum usuário, tente mais
+              tarde.
+            </Text>
+          </Flex>
         )}
       </>
     </SimpleGrid>
