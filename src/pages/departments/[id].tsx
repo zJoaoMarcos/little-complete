@@ -1,6 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { DepartmentProfile } from "@/components/Profiles/DepartmentProfile";
-import { getDepartment } from "@/hooks/UseFetchDepartment";
+import { getDepartment } from "@/hooks/UseFindDepartment";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ReactElement } from "react";
