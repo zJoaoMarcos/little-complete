@@ -1,6 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { DepartmentsList } from "@/components/Lists/DepartmentsList";
 import { Pagination } from "@/components/Pagination";
+import useDebounce from "@/hooks/UseDebounce";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
@@ -8,14 +9,17 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Departments() {
+  const [words, setWords] = useState<string>("");
+  const debouncedWord = useDebounce(words, 500);
   const [page, setPage] = useState(1);
   const take = 20;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useFetchDepartmentsList(
+  const { data, isLoading, isFetching } = useFetchDepartmentsList({
     page,
     skip,
-    take
-  );
+    take,
+    id: debouncedWord,
+  });
 
   const { push } = useRouter();
 
@@ -25,7 +29,7 @@ export default function Departments() {
         <title>Departamentos</title>
       </Head>
 
-      <Layout>
+      <Layout setWords={setWords}>
         <Flex mb="8" justify="space-between" align="center">
           <Heading as="h3" fontWeight="semibold">
             Departamentos

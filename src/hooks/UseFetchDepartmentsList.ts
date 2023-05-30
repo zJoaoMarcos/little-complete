@@ -16,9 +16,21 @@ interface Data {
   totalCount: number;
 }
 
-export async function getDepartmentsList(skip = 0, take = 0): Promise<Data> {
+interface FetchParams {
+  key?: string;
+  page?: number;
+  skip?: number;
+  take?: number;
+  id?: string;
+}
+
+export async function getDepartmentsList({
+  skip = 0,
+  take = 0,
+  id,
+}: FetchParams): Promise<Data> {
   const { data } = await backend.get<Data>(
-    `/departments?skip=${skip}&take=${take}`
+    `/departments?skip=${skip}&take=${take}&id=${id}`
   );
 
   const departments = data.departments.map((department) => {
@@ -39,8 +51,18 @@ export async function getDepartmentsList(skip = 0, take = 0): Promise<Data> {
   return { departments, totalCount };
 }
 
-export function useFetchDepartmentsList(page?: number, skip = 0, take = 0) {
-  return useQuery(["departments", page], () => getDepartmentsList(skip, take), {
-    staleTime: 1000 * 60, //60 minutes
-  });
+export function useFetchDepartmentsList({
+  key = "departments",
+  page,
+  id = "",
+  skip = 0,
+  take = 0,
+}: FetchParams) {
+  return useQuery(
+    [key, page + id],
+    () => getDepartmentsList({ skip, take, id }),
+    {
+      staleTime: 1000 * 60, //60 minutes
+    }
+  );
 }
