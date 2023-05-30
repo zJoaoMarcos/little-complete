@@ -6,7 +6,7 @@ import { useEquipment } from "@/contexts/Inventory";
 import { Button, Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export default function Inventory() {
   const { data, isLoading, isFetching, page, setPage, take } = useEquipment();
@@ -44,6 +44,12 @@ export default function Inventory() {
   );
 }
 
+function EquipmentsLayout({ children }: { children: ReactNode }) {
+  const { setSearch } = useEquipment();
+
+  return <Layout setWords={setSearch}>{children}</Layout>;
+}
+
 Inventory.getLayout = function getLayout(children: ReactElement) {
-  return <Layout>{children}</Layout>;
+  return <EquipmentsLayout>{children}</EquipmentsLayout>;
 };
