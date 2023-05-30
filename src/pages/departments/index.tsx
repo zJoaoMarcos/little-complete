@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { DepartmentsList } from "@/components/Lists/DepartmentsList";
+import { DepartmentListSkeleton } from "@/components/Lists/DepartmentsList/Skeleton";
 import { Pagination } from "@/components/Pagination";
 import useDebounce from "@/hooks/UseDebounce";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
@@ -42,12 +43,11 @@ export default function Departments() {
             + Novo Departamento
           </Button>
         </Flex>
-        {isLoading ? (
-          <Flex justify="center">
-            <Spinner />
-          </Flex>
-        ) : (
-          <DepartmentsList departments={data?.departments!} />
+
+        {isLoading && <DepartmentListSkeleton />}
+
+        {data?.departments && (
+          <DepartmentsList departments={data.departments} />
         )}
 
         <Pagination
