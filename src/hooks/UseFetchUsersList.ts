@@ -76,7 +76,7 @@ export function useFetchUsersList({
   skip = 0,
   take = 0,
   id = "",
-  status = " ",
+  status = "",
   departmentId,
 }: FetchParams) {
   return useQuery(
