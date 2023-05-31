@@ -70,10 +70,12 @@ export function UserProvider({ children }: UserProviderProps) {
     },
     {
       onSuccess: (data, variables) => {
+        Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: ["user", variables.user_name],
+          }),
+        ]);
         toast.success("Dados do usuário alterado com sucesso!");
-        queryClient.invalidateQueries({
-          queryKey: ["user", variables.user_name],
-        });
       },
       onError: () => {
         toast.error(

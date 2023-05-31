@@ -46,7 +46,11 @@ export function UserDetails({ user }: UserDetailsProps) {
   const { data: departments } = useFetchDepartmentsList({});
   const { data: users } = useFetchUsersList({});
 
-  const { register, handleSubmit, formState, reset } = useForm<UpdateUserData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isDirty, isSubmitting },
+  } = useForm<UpdateUserData>({
     resolver: zodResolver(UpdateUserSchema),
     defaultValues: {
       user_name: user.user_name,
@@ -62,8 +66,6 @@ export function UserDetails({ user }: UserDetailsProps) {
     },
   });
 
-  const { isSubmitting } = formState;
-
   const { updateUser } = useUser();
 
   const handleUpdate: SubmitHandler<UpdateUserData> = async (data, event) => {
@@ -71,7 +73,7 @@ export function UserDetails({ user }: UserDetailsProps) {
 
     await updateUser.mutateAsync(data);
 
-    reset();
+    setIsEditable(!isEditable);
   };
 
   return (
@@ -94,6 +96,7 @@ export function UserDetails({ user }: UserDetailsProps) {
           colorScheme="purple"
           leftIcon={<Archive />}
           isLoading={isSubmitting}
+          isDisabled={!isDirty}
         >
           Enviar
         </Button>
