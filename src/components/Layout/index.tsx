@@ -1,7 +1,7 @@
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import { Header } from "../Header";
-import { Sidebar } from "../Sidebar";
+import { Header } from "./Header";
+import { Sidebar } from "./Sidebar";
 
 interface LayoutProps {
   children: ReactNode;
