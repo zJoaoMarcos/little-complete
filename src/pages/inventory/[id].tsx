@@ -50,11 +50,11 @@ export default function Inventory({ equipment }: EquipmentProps) {
 
 export const getServerSideProps: GetServerSideProps<
   any,
-  { slug: string }
+  { id: string }
 > = async ({ params }) => {
-  const slug = params?.slug;
+  const id = params?.id;
 
-  const equipment = await getEquipment(slug as string);
+  const equipment = await getEquipment(id as string);
 
   return {
     props: {
