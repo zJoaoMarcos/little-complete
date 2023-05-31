@@ -1,20 +1,14 @@
-import { Header } from "@/components/Header";
+import { Layout } from "@/components/Layout";
 import { TriggerCreate } from "@/components/Modals/Create/Trigger";
 import { Pagination } from "@/components/Pagination";
-import { Sidebar } from "@/components/Sidebar";
 import { TableStock } from "@/components/Tables/TableStock";
 import { useStockList } from "@/hooks/UseStockList";
-import {
-  Box,
-  Flex,
-  Heading,
-  Spinner,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
+import { NextPageWithLayout } from "../_app";
 
-export default function Stock() {
+const Stock: NextPageWithLayout = () => {
   const [page, setPage] = useState(1);
   const take = 10;
   const skip = (page - 1) * take;
@@ -26,47 +20,36 @@ export default function Stock() {
         <title>Stock</title>
       </Head>
 
-      <Flex flexDir="column" h="100vh">
-        <Header />
+      <Flex mb="8" justify="space-between" align="center">
+        <Heading as="h3" fontWeight="semibold">
+          Estoque
+          {!isLoading && isFetching && (
+            <Spinner size="sm" color="white" ml="4" />
+          )}
+        </Heading>
 
-        <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-          <Sidebar />
-
-          <Box
-            flex="1"
-            h="full"
-            p="8"
-            bg={useColorModeValue("blackAlpha.50", "whiteAlpha.50")}
-            overflowX="auto"
-            borderRadius="md"
-          >
-            <Flex mb="8" justify="space-between" align="center">
-              <Heading as="h3" fontWeight="semibold">
-                Estoque
-                {!isLoading && isFetching && (
-                  <Spinner size="sm" color="white" ml="4" />
-                )}
-              </Heading>
-
-              <TriggerCreate />
-            </Flex>
-            {isLoading ? (
-              <Flex justify="center">
-                <Spinner />
-              </Flex>
-            ) : (
-              <TableStock items={data?.items} />
-            )}
-
-            <Pagination
-              currentPage={page}
-              onPageChange={setPage}
-              registersPerPage={take}
-              totalCountofRegisters={data?.totalCount!}
-            />
-          </Box>
-        </Flex>
+        <TriggerCreate />
       </Flex>
+      {isLoading ? (
+        <Flex justify="center">
+          <Spinner />
+        </Flex>
+      ) : (
+        <TableStock items={data?.items} />
+      )}
+
+      <Pagination
+        currentPage={page}
+        onPageChange={setPage}
+        registersPerPage={take}
+        totalCountofRegisters={data?.totalCount!}
+      />
     </>
   );
-}
+};
+
+Stock.getLayout = function getLayout(children: ReactElement) {
+  return <Layout>{children}</Layout>;
+};
+
+export default Stock;
