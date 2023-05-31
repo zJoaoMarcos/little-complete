@@ -76,6 +76,11 @@ export interface AssignEquipmentData {
   equipment_id: string;
 }
 
+export interface UpdateEquipmentStatusData {
+  equipment_id: string;
+  status: string;
+}
+
 export interface UnassignEquipmentData {
   username?: string;
   equipment_id: string;
@@ -125,6 +130,12 @@ export interface EquipmentProviderContextData {
     UnassignAllEquipmentsData,
     unknown,
     UnassignAllEquipmentsData,
+    unknown
+  >;
+  updateEquipmentStatus: UseMutationResult<
+    UpdateEquipmentStatusData,
+    unknown,
+    UpdateEquipmentStatusData,
     unknown
   >;
 }

@@ -47,7 +47,7 @@ export async function getEquipment(equipmentId: string): Promise<Equipment> {
         ? formatData(data.equipment.department.name)
         : null,
     },
-    status: data.equipment.status,
+    status: data.equipment.status?.trim() ?? null,
     cpu: data.equipment.cpu,
     ram: data.equipment.ram,
     slots: data.equipment.slots,

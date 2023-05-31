@@ -1,5 +1,6 @@
 import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentBagdeStatus } from "@/components/Avatars/EquipmentAvatar/EquipmentBadgeStatus";
+import { TriggerUpdateEquipmentStatus } from "@/components/Modals/UpdateEquipmentStatus/Trigger";
 import { Flex, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 
 interface EquipmentHeaderProps {
@@ -29,6 +30,12 @@ export function EquipmentHeader({ equipment }: EquipmentHeaderProps) {
           </Text>
         </VStack>
       </HStack>
+      {equipment.status !== "pendency" && (
+        <TriggerUpdateEquipmentStatus
+          currentStatus={equipment.status!}
+          equipment_id={equipment.id}
+        />
+      )}
     </Flex>
   );
 }

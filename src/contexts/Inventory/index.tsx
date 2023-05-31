@@ -14,6 +14,7 @@ import {
   UnassignAllEquipmentsData,
   UnassignEquipmentData,
   UpdateEquipmentData,
+  UpdateEquipmentStatusData,
 } from "./types";
 
 const EquipmentContext = createContext({} as EquipmentProviderContextData);
@@ -144,6 +145,32 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     }
   );
 
+  const updateEquipmentStatus = useMutation(
+    async (data: UpdateEquipmentStatusData) => {
+      const res = await backend.patch<UpdateEquipmentStatusData>(
+        `equipments/status/${data.equipment_id}`,
+        {
+          ...data,
+        }
+      );
+
+      return res.data;
+    },
+    {
+      onSuccess: (data, variables) => {
+        toast.success("Equipamento atribuido com sucesso");
+        queryClient.invalidateQueries({
+          queryKey: ["equipment", variables.equipment_id],
+        });
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
+        );
+      },
+    }
+  );
+
   return (
     <EquipmentContext.Provider
       value={{
@@ -159,6 +186,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         assignEquipment,
         unassignEquipment,
         unassignAllEquipments,
+        updateEquipmentStatus,
       }}
     >
       {children}

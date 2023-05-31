@@ -46,7 +46,7 @@ export function Header({ setWords }: HeaderProps) {
       )}
       <Logo />
 
-      {isWideVersion && setWords && <SearchBox setWords={setWords} />}
+      {setWords && <SearchBox setWords={setWords} />}
 
       <HStack h="full" spacing="4" ml="auto">
         <IconButton
