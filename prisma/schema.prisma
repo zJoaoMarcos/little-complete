@@ -21,87 +21,70 @@ model stock {
 }
 
 model departments {
-  id             String   @id @db.Char(50)
+  id             Int      @id @default(autoincrement())
+  department     String?  @unique @db.Char(50)
   cost_center    Int?
-  location       String?  @db.Char(50)
   is_board       Boolean?
   board          String?  @db.Char(50)
   responsible_id String?  @db.Char(50)
-  user_adm       String?  @db.Char(50)
 }
 
-model machines {
-  id            String          @id @db.Char(13)
-  model         String?         @db.Char(15)
-  cpu           String?         @db.Char(10)
-  ram           String?         @db.Char(10)
-  storage0_type String?         @db.Char(5)
-  storage0_syze Int?
-  storage1_type String?         @db.Char(5)
-  storage1_syze Int?
-  video         String?         @db.Char(20)
-  supplier      String?         @db.Char(50)
-  invoice       String?         @db.Char(50)
-  warranty      String?         @db.Char(10)
-  purchase_date String?         @db.Char(20)
-  service_tag   String?         @db.Char(50)
-  machines_user machines_user[]
+model systems {
+  id          Int     @id @default(autoincrement())
+  name        String? @db.Char(30)
+  description String? @db.Char(20)
+  type        String? @db.Char(50)
+  cost        Float?
+  quantity    Int?
+  invoice     String? @db.Char(50)
 }
 
-model machines_user {
-  id          Int       @id @default(autoincrement())
-  user_id     String?   @db.Char(12)
-  machines_id String?   @db.Char(13)
-  machines    machines? @relation(fields: [machines_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users       users?    @relation(fields: [user_id], references: [username], onDelete: NoAction, onUpdate: NoAction)
+model users {
+  username        String            @id @db.Char(50)
+  complete_name   String?           @db.Char(100)
+  title           String?           @db.Char(50)
+  department_id   String?           @db.Char(50)
+  telephone       Int?
+  direct_boss     String?           @db.Char(50)
+  smtp            String?           @unique @db.Char(50)
+  admission_date  DateTime?         @db.Date
+  demission_date  DateTime?         @db.Date
+  status          String?           @db.Char(50)
+  equipments_user equipments_user[]
 }
 
-model mobile {
-  id             Int           @id
-  status         String?       @db.Char(20)
-  operator       String?       @db.Char(10)
-  owner          String?       @db.Char(20)
-  model          String?       @db.Char(20)
-  imei           BigInt?
-  phone_state    String?       @db.Char(20)
-  block          Boolean?
-  plan_value     Float?
-  gb_month       Float?
-  invoice        String?       @db.Char(50)
-  admission_date Int?
-  contract_term  Int?
-  mobile_user    mobile_user[]
+model equipments {
+  id              String            @id @db.Char(13)
+  brand           String?           @db.Char(20)
+  model           String?           @db.Char(15)
+  supplier        String?           @db.Char(50)
+  invoice         String?           @db.Char(50)
+  warranty        String?           @db.Char(10)
+  purchase_date   String?           @db.Char(20)
+  department      String?           @db.Char(50)
+  status          String?           @db.Char(30)
+  cpu             String?           @db.Char(10)
+  ram             String?           @db.Char(10)
+  slots           Int?
+  storage0_type   String?           @db.Char(5)
+  storage0_syze   Int?
+  storage1_type   String?           @db.Char(5)
+  storage1_syze   Int?
+  video           String?           @db.Char(20)
+  service_tag     String?           @db.Char(50)
+  equipments_user equipments_user[]
 }
 
-model mobile_user {
-  id        Int     @id @default(autoincrement())
-  user_id   String? @db.Char(12)
-  mobile_id Int?
-  mobile    mobile? @relation(fields: [mobile_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users     users?  @relation(fields: [user_id], references: [username], onDelete: NoAction, onUpdate: NoAction)
+model equipments_user {
+  id           Int         @id @default(autoincrement())
+  user_id      String?     @db.Char(12)
+  equipment_id String?     @db.Char(13)
+  equipments   equipments? @relation(fields: [equipment_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        users?      @relation(fields: [user_id], references: [username], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model monitor {
-  id            String         @id @db.Char(50)
-  model         String?        @db.Char(50)
-  size          Int?
-  supplier      String?        @db.Char(50)
-  invoice       String?        @db.Char(50)
-  warranty      DateTime?      @db.Date
-  purchase_date DateTime?      @db.Date
-  monitor_user  monitor_user[]
-}
-
-model monitor_user {
-  id         Int      @id @default(autoincrement())
-  user_id    String?  @db.Char(12)
-  monitor_id String?  @db.Char(12)
-  monitor    monitor? @relation(fields: [monitor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users      users?   @relation(fields: [user_id], references: [username], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model stock_movements {
-  id            String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+model stock_transactions {
+  id            String   @id(map: "stock_movements_pkey") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   stock_id      String   @db.Uuid
   movement_type String   @db.VarChar(50)
   partner       String   @db.VarChar(100)
@@ -110,61 +93,4 @@ model stock_movements {
   created_at    DateTime @default(now())
   created_by    String   @db.VarChar(100)
   value         String?
-}
-
-model systems {
-  id           Int            @id @default(autoincrement())
-  name         String?        @db.Char(30)
-  description  String?        @db.Char(20)
-  type         String?        @db.Char(50)
-  cost         Float?
-  quantity     Int?
-  invoice      String?        @db.Char(50)
-  systems_user systems_user[]
-}
-
-model systems_user {
-  id        Int      @id @default(autoincrement())
-  user_id   String?  @db.Char(12)
-  system_id Int?
-  username  String?  @db.Char(50)
-  systems   systems? @relation(fields: [system_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users     users?   @relation(fields: [user_id], references: [username], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model telephone {
-  id             String           @id @db.Char(20)
-  label          String?          @db.Char(20)
-  model          String?          @db.Char(20)
-  supplier       String?          @db.Char(50)
-  invoice        String?          @db.Char(50)
-  purchase_date  DateTime?        @db.Date
-  telephone_user telephone_user[]
-}
-
-model telephone_user {
-  id           Int        @id @default(autoincrement())
-  user_id      String?    @db.Char(12)
-  telephone_id String?    @db.Char(20)
-  telephone    telephone? @relation(fields: [telephone_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users        users?     @relation(fields: [user_id], references: [username], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model users {
-  username       String           @id @db.Char(50)
-  complete_name  String?          @db.Char(100)
-  display_name   String?          @db.Char(100)
-  title          String?          @db.Char(50)
-  department_id  String?          @db.Char(50)
-  direct_boss    String?          @db.Char(50)
-  location_id    String?          @db.Char(50)
-  smtp           String?          @unique @db.Char(50)
-  admission_date DateTime?        @db.Date
-  demission_date DateTime?        @db.Date
-  status         String?          @db.Char(50)
-  machines_user  machines_user[]
-  mobile_user    mobile_user[]
-  monitor_user   monitor_user[]
-  systems_user   systems_user[]
-  telephone_user telephone_user[]
 }

@@ -40,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           amount: updateAmount,
         },
       }),
-      prisma.stock_movements.create({
+      prisma.stock_transactions.create({
         data: {
           stock_id: item_id,
           movement_type: type,
