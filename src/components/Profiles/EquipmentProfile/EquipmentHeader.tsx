@@ -30,12 +30,11 @@ export function EquipmentHeader({ equipment }: EquipmentHeaderProps) {
           </Text>
         </VStack>
       </HStack>
-      {equipment.status !== "pendency" && (
-        <TriggerUpdateEquipmentStatus
-          currentStatus={equipment.status!}
-          equipment_id={equipment.id}
-        />
-      )}
+
+      <TriggerUpdateEquipmentStatus
+        currentStatus={equipment.status!}
+        equipment_id={equipment.id}
+      />
     </Flex>
   );
 }
