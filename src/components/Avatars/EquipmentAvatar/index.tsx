@@ -77,7 +77,7 @@ function statusColor(status: string) {
     return "gray.700";
   }
 
-  if (status === "maintenace") {
+  if (status === "maintenance") {
     return "orange.400";
   }
 
