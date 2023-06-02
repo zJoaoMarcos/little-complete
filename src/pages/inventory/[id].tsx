@@ -8,33 +8,43 @@ import { ReactElement } from "react";
 interface EquipmentProps {
   equipment: {
     id: string;
-    type: string;
-    brand: string;
-    model: string;
-    supplier: string | null;
-    invoice: string | null;
-    warranty: string | null;
-    purchase_date: Date | null;
+    status: string;
+    currentUser: string | null;
+    patrimony: string | null;
+    type: string | null;
+    brand: string | null;
+    model: string | null;
+    serviceTag: string | null;
+    purchase: {
+      invoice: string | null;
+      supplier: string | null;
+      purchaseDate: Date | null;
+      warranty: string | null;
+    };
     department: {
       id: number | null;
       name: string | null;
     };
-    status: string | null;
-    cpu: string | null;
-    ram: string | null;
-    slots: number | null;
-    storage0_type: string | null;
-    storage0_syze: number | null;
-    storage1_type: string | null;
-    storage1_syze: number | null;
-    video: string | null;
-    service_tag: string | null;
+    config: {
+      cpu: string | null;
+      ram: string | null;
+      video: string | null;
+      storage: {
+        slots: number | null;
+        storage0Type: string | null;
+        storage0Syze: number | null;
+        storage1Type: string | null;
+        storage1Syze: number | null;
+      };
+    };
   };
 }
 
 export default function Inventory({ equipment }: EquipmentProps) {
   const { data } = useFindEquipment(equipment.id, {
-    initialData: { equipment },
+    options: {
+      initialData: equipment,
+    },
   });
 
   return (
@@ -43,7 +53,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
         <title>Equipment</title>
       </Head>
 
-      <EquipmentProfile equipment={data?.equipment!} />
+      <EquipmentProfile equipment={data!} />
     </>
   );
 }
@@ -56,9 +66,11 @@ export const getServerSideProps: GetServerSideProps<
 
   const equipment = await getEquipment(id as string);
 
+  console.log(equipment.id);
+
   return {
     props: {
-      equipment: equipment.equipment,
+      equipment: equipment,
     },
   };
 };

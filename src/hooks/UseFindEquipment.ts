@@ -1,76 +1,92 @@
 import { backend } from "@/lib/backendApi";
-import { formatData } from "@/utils/formatData";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
-interface Equipment {
-  equipment: {
-    id: string;
-    type: string;
-    brand: string;
-    model: string;
-    supplier: string | null;
+interface EquipmentProps {
+  id: string;
+  status: string;
+  currentUser: string | null;
+  patrimony: string | null;
+  type: string | null;
+  brand: string | null;
+  model: string | null;
+  serviceTag: string | null;
+  purchase: {
     invoice: string | null;
+    supplier: string | null;
+    purchaseDate: Date | null;
     warranty: string | null;
-    purchase_date: Date | null;
-    department: {
-      id: number | null;
-      name: string | null;
-    };
-    status: string | null;
+  };
+  department: {
+    id: number | null;
+    name: string | null;
+  };
+  config: {
     cpu: string | null;
     ram: string | null;
-    slots: number | null;
-    storage0_type: string | null;
-    storage0_syze: number | null;
-    storage1_type: string | null;
-    storage1_syze: number | null;
     video: string | null;
-    service_tag: string | null;
+    storage: {
+      slots: number | null;
+      storage0Type: string | null;
+      storage0Syze: number | null;
+      storage1Type: string | null;
+      storage1Syze: number | null;
+    };
   };
 }
 
-export async function getEquipment(equipmentId: string): Promise<Equipment> {
-  const { data } = await backend.get<Equipment>(`equipments/${equipmentId}`);
+export async function getEquipment(
+  equipmentId: string
+): Promise<EquipmentProps> {
+  const { data } = await backend.get<EquipmentProps>(
+    `inventory/equipment/${equipmentId}`
+  );
 
   const equipment = {
-    id: data.equipment.id.trim(),
-    type: formatData(data.equipment.type),
-    brand: data.equipment.brand,
-    model: data.equipment.model,
-    supplier: data.equipment.supplier,
-    invoice: data.equipment.invoice,
-    warranty: data.equipment.warranty,
-    purchase_date: data.equipment.purchase_date,
-    department: {
-      id: data.equipment.department.id,
-      name: data.equipment.department.name
-        ? formatData(data.equipment.department.name)
-        : null,
+    id: data.id,
+    status: data.status.trim() ?? null,
+    currentUser: data.currentUser,
+    patrimony: data.patrimony,
+    type: data.type,
+    brand: data.brand,
+    model: data.model,
+    serviceTag: data.serviceTag,
+    purchase: {
+      warranty: data.purchase.warranty,
+      invoice: data.purchase.invoice,
+      supplier: data.purchase.supplier,
+      purchaseDate: data.purchase.purchaseDate,
     },
-    status: data.equipment.status?.trim() ?? null,
-    cpu: data.equipment.cpu,
-    ram: data.equipment.ram,
-    slots: data.equipment.slots,
-    storage0_type: data.equipment.storage0_type,
-    storage0_syze: data.equipment.storage0_syze,
-    storage1_type: data.equipment.storage1_type,
-    storage1_syze: data.equipment.storage1_syze,
-    video: data.equipment.video,
-    service_tag: data.equipment.service_tag,
+    department: {
+      id: data.department.id,
+      name: data.department.name,
+    },
+    config: {
+      cpu: data.config.cpu,
+      ram: data.config.ram,
+      video: data.config.video,
+      storage: {
+        slots: data.config.storage.slots,
+        storage0Type: data.config.storage.storage0Type,
+        storage0Syze: data.config.storage.storage0Syze,
+        storage1Type: data.config.storage.storage1Type,
+        storage1Syze: data.config.storage.storage1Syze,
+      },
+    },
   };
 
-  return { equipment };
+  return equipment;
 }
 
-export function useFindEquipment(
-  equipmentId: string,
+interface QueryOptions {
   options?: Omit<
     UseQueryOptions<any, unknown, any, string[]>,
     "queryKey" | "queryFn"
-  >
-) {
+  >;
+}
+
+export function useFindEquipment(equipmentId: string, options?: QueryOptions) {
   return useQuery(["equipment", equipmentId], () => getEquipment(equipmentId), {
     staleTime: 1000 * 60, // 60 minutes
-    initialData: options?.initialData,
-  }) as UseQueryResult<Equipment, unknown>;
+    ...options,
+  }) as UseQueryResult<EquipmentProps, unknown>;
 }

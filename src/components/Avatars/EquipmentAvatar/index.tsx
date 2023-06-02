@@ -1,16 +1,16 @@
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import {
-  Desktop,
   DesktopTower,
   Laptop,
   Monitor,
   Phone,
   Printer,
+  Question,
   VirtualReality,
 } from "@phosphor-icons/react";
 
 interface EquipmentAvatarProps {
-  type: string;
+  type: string | null;
   status?: string;
   iconSize?: string;
   avatarSize?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "2xs";
@@ -38,9 +38,7 @@ export function EquipmentAvatar({
   );
 }
 
-function equipmentIcon(type: string, iconSize: string) {
-  type = type.toLocaleLowerCase();
-
+function equipmentIcon(type: string | null, iconSize: string) {
   if (type === "desktop") {
     return <DesktopTower size={iconSize} />;
   }
@@ -64,11 +62,11 @@ function equipmentIcon(type: string, iconSize: string) {
   if (type === "scanner") {
     return <Printer size={iconSize} />;
   }
-  return <Desktop size={iconSize} />;
+
+  return <Question size={iconSize} />;
 }
 
 function statusColor(status: string) {
-  status = status.trim();
   if (status === "avaliable") {
     return "green.400";
   }

@@ -35,27 +35,35 @@ type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
 interface EquipmentDetailsProps {
   equipment: {
     id: string;
-    type: string;
+    status: string;
+    currentUser: string | null;
+    patrimony: string | null;
+    type: string | null;
     brand: string | null;
     model: string | null;
-    supplier: string | null;
-    invoice: string | null;
-    warranty: string | null;
-    purchase_date: Date | null;
+    serviceTag: string | null;
+    purchase: {
+      invoice: string | null;
+      supplier: string | null;
+      purchaseDate: Date | null;
+      warranty: string | null;
+    };
     department: {
       id: number | null;
       name: string | null;
     };
-    status: string | null;
-    cpu: string | null;
-    ram: string | null;
-    slots: number | null;
-    storage0_type: string | null;
-    storage0_syze: number | null;
-    storage1_type: string | null;
-    storage1_syze: number | null;
-    video: string | null;
-    service_tag: string | null;
+    config: {
+      cpu: string | null;
+      ram: string | null;
+      video: string | null;
+      storage: {
+        slots: number | null;
+        storage0Type: string | null;
+        storage0Syze: number | null;
+        storage1Type: string | null;
+        storage1Syze: number | null;
+      };
+    };
   };
 }
 
@@ -68,26 +76,25 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
     register,
     handleSubmit,
     formState: { isSubmitting },
-    reset,
   } = useForm<UpdateEquipmentData>({
     resolver: zodResolver(updateEquipmentSchema),
     defaultValues: {
       id: equipment.id,
       brand: equipment.brand ? equipment.brand : undefined,
       model: equipment.model ? equipment.model : undefined,
-      supplier: equipment.supplier,
-      invoice: equipment.invoice,
-      warranty: equipment.warranty,
-      purchase_date: equipment.purchase_date,
-      cpu: equipment.cpu,
-      ram: equipment.ram,
-      slots: equipment.slots ?? undefined,
-      service_tag: equipment.service_tag,
-      storage0_type: equipment.storage0_type,
-      storage0_syze: equipment.storage0_syze,
-      storage1_type: equipment.storage1_type ?? undefined,
-      storage1_syze: equipment.storage1_syze ?? undefined,
-      video: equipment.video,
+      supplier: equipment.purchase.supplier,
+      invoice: equipment.purchase.invoice,
+      warranty: equipment.purchase.warranty,
+      purchase_date: equipment.purchase.purchaseDate,
+      cpu: equipment.config.cpu,
+      ram: equipment.config.ram,
+      slots: equipment.config.storage.slots ?? undefined,
+      service_tag: equipment.serviceTag,
+      storage0_type: equipment.config.storage.storage0Type,
+      storage0_syze: equipment.config.storage.storage0Syze,
+      storage1_type: equipment.config.storage.storage1Type ?? undefined,
+      storage1_syze: equipment.config.storage.storage1Syze ?? undefined,
+      video: equipment.config.video,
       department_id: equipment.department.id ?? undefined,
     },
   });

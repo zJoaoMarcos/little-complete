@@ -1,12 +1,10 @@
 import { Badge } from "@chakra-ui/react";
 
 interface EquipmentBadgeStatusProps {
-  status: string;
+  status: string | null;
 }
 
 export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
-  status = status?.trim();
-
   if (status === "avaliable") {
     return <Badge colorScheme="green">Disponivel</Badge>;
   }
@@ -27,5 +25,5 @@ export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
     return <Badge colorScheme="red">Pendente</Badge>;
   }
 
-  return null;
+  return <Badge colorScheme="orange">VERIFICAR</Badge>;
 }
