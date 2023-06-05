@@ -36,7 +36,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const createEquipment = useMutation(
     async (data: CreateEquipmentData) => {
-      const res = await backend.post<CreateEquipmentData>("equipments", {
+      const res = await backend.post<CreateEquipmentData>("equipment", {
         ...data,
       });
 
@@ -58,7 +58,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
   const updateEquipment = useMutation(
     async (data: UpdateEquipmentData) => {
       const res = await backend.patch<UpdateEquipmentData>(
-        `equipments/${data.id}`,
+        `inventory/equipment/${data.id}`,
         {
           ...data,
         }
