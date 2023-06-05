@@ -53,7 +53,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
   return (
     <>
       <Head>
-        <title>Equipment</title>
+        <title>Equipamento - {data?.id}</title>
       </Head>
 
       <EquipmentProfile equipment={data!} />
