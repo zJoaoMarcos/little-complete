@@ -41,9 +41,12 @@ interface EquipmentProps {
 }
 
 export default function Inventory({ equipment }: EquipmentProps) {
-  const { data } = useFindEquipment(equipment.id, {
+  const { data } = useFindEquipment({
+    equipmentId: equipment.id,
     options: {
-      initialData: equipment,
+      initialData: {
+        ...equipment,
+      },
     },
   });
 
@@ -66,11 +69,9 @@ export const getServerSideProps: GetServerSideProps<
 
   const equipment = await getEquipment(id as string);
 
-  console.log(equipment.id);
-
   return {
     props: {
-      equipment: equipment,
+      equipment,
     },
   };
 };

@@ -54,7 +54,7 @@ export async function getInventoryList({
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
 
   const { data } = await backend.get<Data>(
-    `equipments?skip=${skip}&take=${take}${id}${department_id}${status}`
+    `inventory/equipments?skip=${skip}&take=${take}${id}${department_id}${status}`
   );
 
   const equipments = data.equipments.map((equipment) => {

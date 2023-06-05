@@ -77,14 +77,15 @@ export async function getEquipment(
   return equipment;
 }
 
-interface QueryOptions {
+interface Params {
+  equipmentId: string;
   options?: Omit<
     UseQueryOptions<any, unknown, any, string[]>,
     "queryKey" | "queryFn"
   >;
 }
 
-export function useFindEquipment(equipmentId: string, options?: QueryOptions) {
+export function useFindEquipment({ equipmentId, options }: Params) {
   return useQuery(["equipment", equipmentId], () => getEquipment(equipmentId), {
     staleTime: 1000 * 60, // 60 minutes
     ...options,
