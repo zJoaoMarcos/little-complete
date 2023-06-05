@@ -5,7 +5,6 @@ import {
   Monitor,
   Phone,
   Printer,
-  Question,
   VirtualReality,
 } from "@phosphor-icons/react";
 
@@ -39,31 +38,29 @@ export function EquipmentAvatar({
 }
 
 function equipmentIcon(type: string | null, iconSize: string) {
-  if (type === "desktop") {
+  if (type === "Desktop") {
     return <DesktopTower size={iconSize} />;
   }
 
-  if (type === "monitor") {
+  if (type === "Monitor") {
     return <Monitor size={iconSize} />;
   }
 
-  if (type === "telephone") {
+  if (type === "Telephone") {
     return <Phone size={iconSize} />;
   }
 
-  if (type === "notebook") {
+  if (type === "Notebook") {
     return <Laptop size={iconSize} />;
   }
 
-  if (type === "vr") {
+  if (type === "Vr") {
     return <VirtualReality size={iconSize} />;
   }
 
-  if (type === "scanner") {
+  if (type === "Scanner") {
     return <Printer size={iconSize} />;
   }
-
-  return <Question size={iconSize} />;
 }
 
 function statusColor(status: string) {

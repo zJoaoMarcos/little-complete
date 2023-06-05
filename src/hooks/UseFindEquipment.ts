@@ -1,4 +1,5 @@
 import { backend } from "@/lib/backendApi";
+import { formatData } from "@/utils/formatData";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
 interface EquipmentProps {
@@ -43,12 +44,12 @@ export async function getEquipment(
 
   const equipment = {
     id: data.id,
-    status: data.status.trim() ?? null,
+    status: data.status.trim(),
     currentUser: data.currentUser,
     patrimony: data.patrimony,
-    type: data.type,
-    brand: data.brand,
-    model: data.model,
+    type: formatData(data.type),
+    brand: formatData(data.brand),
+    model: formatData(data.model),
     serviceTag: data.serviceTag,
     purchase: {
       warranty: data.purchase.warranty,
@@ -58,11 +59,11 @@ export async function getEquipment(
     },
     department: {
       id: data.department.id,
-      name: data.department.name,
+      name: formatData(data.department.name),
     },
     config: {
       cpu: data.config.cpu,
-      ram: data.config.ram,
+      ram: formatData(data.config.ram),
       video: data.config.video,
       storage: {
         slots: data.config.storage.slots,

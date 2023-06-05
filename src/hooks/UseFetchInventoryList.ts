@@ -1,4 +1,5 @@
 import { backend } from "@/lib/backendApi";
+import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
 interface EquipmentProps {
@@ -67,16 +68,16 @@ export async function getInventoryList({
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id,
-      status: equipment.status,
+      status: equipment.status.trim(),
       currentUser: equipment.currentUser,
       patrimony: equipment.patrimony,
-      type: equipment.type,
-      brand: equipment.brand,
+      type: formatData(equipment.type),
+      brand: formatData(equipment.brand),
       model: equipment.model,
       serviceTag: equipment.serviceTag,
       department: {
         id: equipment.department.id,
-        name: equipment.department.name,
+        name: formatData(equipment.department.name),
       },
       purchase: {
         warranty: equipment.purchase.warranty,
@@ -86,7 +87,7 @@ export async function getInventoryList({
       },
       config: {
         cpu: equipment.config.cpu,
-        ram: equipment.config.ram,
+        ram: formatData(equipment.config.ram),
         video: equipment.config.video,
         storage: {
           slots: equipment.config.storage.slots,
