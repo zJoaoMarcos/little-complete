@@ -36,7 +36,7 @@ export async function getDepartmentsList({
   const departments = data.departments.map((department) => {
     return {
       id: department.id,
-      name: formatData(department.name),
+      name: formatData(department.name)!,
       cost_center: department.cost_center,
       is_board: department.is_board,
       board: department.board ? formatData(department.board) : null,

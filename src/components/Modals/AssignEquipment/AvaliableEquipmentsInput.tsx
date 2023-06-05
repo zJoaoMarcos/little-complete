@@ -60,27 +60,35 @@ function RadioCard({ children, ...rest }: RadioCardProps) {
 
 interface Equipment {
   id: string;
-  type: string;
-  brand: string;
-  model: string;
-  supplier: string | null;
-  invoice: string | null;
-  warranty: string | null;
-  purchase_date: Date | null;
+  status: string;
+  currentUser: string | null;
+  patrimony: string | null;
+  type: string | null;
+  brand: string | null;
+  model: string | null;
+  serviceTag: string | null;
+  purchase: {
+    invoice: string | null;
+    supplier: string | null;
+    purchaseDate: Date | null;
+    warranty: string | null;
+  };
   department: {
     id: number | null;
     name: string | null;
   };
-  status: string | null;
-  cpu: string | null;
-  ram: string | null;
-  slots: number | null;
-  storage0_type: string | null;
-  storage0_syze: number | null;
-  storage1_type: string | null;
-  storage1_syze: number | null;
-  video: string | null;
-  service_tag: string | null;
+  config: {
+    cpu: string | null;
+    ram: string | null;
+    video: string | null;
+    storage: {
+      slots: number | null;
+      storage0Type: string | null;
+      storage0Syze: number | null;
+      storage1Type: string | null;
+      storage1Syze: number | null;
+    };
+  };
 }
 
 interface Props {
@@ -155,7 +163,7 @@ export function AvaliableEquipmentsInput({ setValue, equipments }: Props) {
                         borderColor="purple.400"
                         rounded={6}
                         _focus={{ border: "none" }}
-                        value={`Armazenamento  - ${equip.storage0_type}/ ${equip.storage0_syze}`}
+                        value={`Armazenamento  - ${equip.config.storage.storage0Type}/ ${equip.config.storage.storage0Syze}`}
                         readOnly
                         size="xs"
                       />
@@ -166,7 +174,7 @@ export function AvaliableEquipmentsInput({ setValue, equipments }: Props) {
                         borderColor="purple.400"
                         rounded={6}
                         _focus={{ border: "none" }}
-                        value={`Placa de Video - ${equip.video}`}
+                        value={`Placa de Video - ${equip.config.video}`}
                         readOnly
                         size="xs"
                       />
@@ -174,7 +182,7 @@ export function AvaliableEquipmentsInput({ setValue, equipments }: Props) {
                         borderColor="purple.400"
                         rounded={6}
                         _focus={{ border: "none" }}
-                        value={`Processador - ${equip.cpu}`}
+                        value={`Processador - ${equip.config.cpu}`}
                         readOnly
                         size="xs"
                       />
@@ -182,7 +190,7 @@ export function AvaliableEquipmentsInput({ setValue, equipments }: Props) {
                         borderColor="purple.400"
                         rounded={6}
                         _focus={{ border: "none" }}
-                        value={`Memória - ${equip.ram}`}
+                        value={`Memória - ${equip.config.ram}`}
                         readOnly
                         size="xs"
                       />
@@ -190,7 +198,7 @@ export function AvaliableEquipmentsInput({ setValue, equipments }: Props) {
                         borderColor="purple.400"
                         rounded={6}
                         _focus={{ border: "none" }}
-                        value={`Armazenamento 1 - ${equip.storage1_type}/ ${equip.storage1_syze}`}
+                        value={`Armazenamento 1 - ${equip.config.storage.storage1Type}/ ${equip.config.storage.storage0Type}`}
                         readOnly
                         size="xs"
                       />

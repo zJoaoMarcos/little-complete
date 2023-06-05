@@ -20,7 +20,7 @@ export async function getDepartment(id: number): Promise<Data> {
 
   const department = {
     id: data.department.id,
-    name: formatData(data.department.name),
+    name: formatData(data.department.name)!,
     cost_center: data.department.cost_center,
     is_board: data.department.is_board,
     board: data.department.board ? formatData(data.department.board) : null,

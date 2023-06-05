@@ -51,10 +51,10 @@ export async function getUsersList({
     return {
       user_name: user.user_name.trim(),
       complete_name: concatFirstNameAndLastName(user.complete_name),
-      title: formatData(user.title),
+      title: formatData(user.title)!,
       department: {
         id: user.department.id,
-        name: formatData(user.department.name),
+        name: formatData(user.department.name)!,
       },
       telephone: user.telephone,
       direct_boss: user.direct_boss.trim(),
