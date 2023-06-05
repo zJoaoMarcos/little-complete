@@ -10,8 +10,16 @@ import { useRouter } from "next/router";
 import { ReactElement, ReactNode } from "react";
 
 export default function Inventory() {
-  const { data, isLoading, isFetching, setFilter, page, setPage, take } =
-    useEquipment();
+  const {
+    data,
+    isLoading,
+    isFetching,
+    setFilter,
+    setType,
+    page,
+    setPage,
+    take,
+  } = useEquipment();
 
   const { push } = useRouter();
 
@@ -29,6 +37,7 @@ export default function Inventory() {
               <Spinner size="sm" color="white" ml="4" />
             )}
           </Heading>
+
           <Select
             name="filter"
             onChange={(e) => setFilter(e.target.value)}
@@ -37,7 +46,25 @@ export default function Inventory() {
             _placeholder={{ mt: "2px" }}
             size="sm"
           >
-            {defaultOptions.map((item, i) => {
+            {filterOptions.map((item, i) => {
+              return (
+                <option key={i} value={item.value}>
+                  {item.option}
+                </option>
+              );
+            })}
+          </Select>
+
+          <Select
+            label=""
+            name="type"
+            onChange={(e) => setType(e.target.value)}
+            variant="unstyled"
+            _hover={{ bg: "none" }}
+            _placeholder={{ mt: "2px" }}
+            size="sm"
+          >
+            {typeOptions.map((item, i) => {
               return (
                 <option key={i} value={item.value}>
                   {item.option}
@@ -65,7 +92,17 @@ export default function Inventory() {
   );
 }
 
-const defaultOptions = [
+const typeOptions = [
+  { value: "", option: "" },
+  { value: "desktop", option: "Desktop" },
+  { value: "notebook", option: "Notebook" },
+  { value: "telephone", option: "Ramal" },
+  { value: "monitor", option: "Monitor" },
+  { value: "vr", option: "Óculos VR" },
+  { value: "scanner", option: "Scanner" },
+];
+
+const filterOptions = [
   {
     value: "",
     option: "Todos",

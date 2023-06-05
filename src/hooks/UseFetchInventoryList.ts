@@ -48,6 +48,7 @@ interface FetchParams {
   id?: string;
   departmentId?: number;
   status?: string;
+  type?: string;
 }
 
 export async function getInventoryList({
@@ -55,12 +56,13 @@ export async function getInventoryList({
   take = 0,
   id,
   status,
+  type,
   departmentId,
 }: FetchParams): Promise<Data> {
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
 
   const { data } = await backend.get<Data>(
-    `inventory/equipments?skip=${skip}&take=${take}&id=${id}&status=${status}${department_id}`
+    `inventory/equipments?skip=${skip}&take=${take}&id=${id}&status=${status}&type=${type}${department_id}`
   );
 
   const equipments = data.equipments.map((equipment) => {
@@ -109,12 +111,13 @@ export function useFetchInvetoryList({
   skip = 0,
   take = 0,
   id = "",
+  type = "",
   status,
   departmentId,
 }: FetchParams) {
   return useQuery(
-    [key, page + id + status + departmentId],
-    () => getInventoryList({ skip, take, id, status, departmentId }),
+    [key, page + id + status + departmentId + type],
+    () => getInventoryList({ skip, take, id, status, departmentId, type }),
     {
       staleTime: 1000 * 60, //60 minutes
     }

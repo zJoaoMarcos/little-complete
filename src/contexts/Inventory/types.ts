@@ -107,6 +107,7 @@ export interface EquipmentProviderContextData {
   isFetching: boolean;
   isLoading: boolean;
   setSearch: Dispatch<SetStateAction<string>>;
+  setType: Dispatch<SetStateAction<string>>;
   take: number;
   page: number;
   setFilter: Dispatch<SetStateAction<string>>;
