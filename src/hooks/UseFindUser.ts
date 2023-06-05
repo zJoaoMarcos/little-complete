@@ -2,29 +2,37 @@ import { backend } from "@/lib/backendApi";
 import { formatData } from "@/utils/formatData";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
-interface Equipment {
+interface EquipmentProps {
   id: string;
-  type: string;
-  brand: string;
-  model: string;
-  supplier: string | null;
-  invoice: string | null;
-  warranty: string | null;
-  purchase_date: Date | null;
+  status: string;
+  currentUser: string | null;
+  patrimony: string | null;
+  type: string | null;
+  brand: string | null;
+  model: string | null;
+  serviceTag: string | null;
+  purchase: {
+    invoice: string | null;
+    supplier: string | null;
+    purchaseDate: Date | null;
+    warranty: string | null;
+  };
   department: {
     id: number | null;
     name: string | null;
   };
-  status: string | null;
-  cpu: string | null;
-  ram: string | null;
-  slots: number | null;
-  storage0_type: string | null;
-  storage0_syze: number | null;
-  storage1_type: string | null;
-  storage1_syze: number | null;
-  video: string | null;
-  service_tag: string | null;
+  config: {
+    cpu: string | null;
+    ram: string | null;
+    video: string | null;
+    storage: {
+      slots: number | null;
+      storage0Type: string | null;
+      storage0Syze: number | null;
+      storage1Type: string | null;
+      storage1Syze: number | null;
+    };
+  };
 }
 
 interface User {
@@ -40,7 +48,7 @@ interface User {
     demission_date: Date | null;
     status: string;
   };
-  equipments: Equipment[];
+  equipments: EquipmentProps[];
 }
 
 export async function getUser(userId: string): Promise<User> {
@@ -48,11 +56,11 @@ export async function getUser(userId: string): Promise<User> {
 
   const user = {
     user_name: data.user.user_name.trim(),
-    complete_name: formatData(data.user.complete_name),
-    title: formatData(data.user.title),
+    complete_name: formatData(data.user.complete_name)!,
+    title: formatData(data.user.title)!,
     department: {
       id: data.user.department.id,
-      name: formatData(data.user.department.name),
+      name: formatData(data.user.department.name)!,
     },
     telephone: data.user.telephone ? data.user.telephone : null,
     direct_boss: data.user.direct_boss,
@@ -64,30 +72,36 @@ export async function getUser(userId: string): Promise<User> {
 
   const equipments = data.equipments.map((equipment) => {
     return {
-      id: equipment.id.trim(),
+      id: equipment.id,
+      status: equipment.status.trim(),
+      currentUser: equipment.currentUser,
+      patrimony: equipment.patrimony,
       type: formatData(equipment.type),
-      brand: equipment.brand,
+      brand: formatData(equipment.brand),
       model: equipment.model,
-      supplier: equipment.supplier ? equipment.supplier : null,
-      invoice: equipment.invoice,
-      warranty: equipment.warranty,
-      purchase_date: equipment.purchase_date,
+      serviceTag: equipment.serviceTag,
       department: {
         id: equipment.department.id,
-        name: equipment.department.name
-          ? formatData(equipment.department.name)
-          : null,
+        name: formatData(equipment.department.name),
       },
-      status: equipment.status ? equipment.status.trim() : null,
-      cpu: equipment.cpu,
-      ram: equipment.ram,
-      slots: equipment.slots,
-      storage0_type: equipment.storage0_type,
-      storage0_syze: equipment.storage0_syze,
-      storage1_type: equipment.storage1_type,
-      storage1_syze: equipment.storage1_syze,
-      video: equipment.video,
-      service_tag: equipment.service_tag,
+      purchase: {
+        warranty: equipment.purchase.warranty,
+        invoice: equipment.purchase.invoice,
+        supplier: equipment.purchase.supplier,
+        purchaseDate: equipment.purchase.purchaseDate,
+      },
+      config: {
+        cpu: equipment.config.cpu,
+        ram: formatData(equipment.config.ram),
+        video: equipment.config.video,
+        storage: {
+          slots: equipment.config.storage.slots,
+          storage0Type: equipment.config.storage.storage0Type,
+          storage0Syze: equipment.config.storage.storage0Syze,
+          storage1Type: equipment.config.storage.storage1Type,
+          storage1Syze: equipment.config.storage.storage1Syze,
+        },
+      },
     };
   });
 
