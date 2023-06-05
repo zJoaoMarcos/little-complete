@@ -57,12 +57,10 @@ export async function getInventoryList({
   status,
   departmentId,
 }: FetchParams): Promise<Data> {
-  id = id ? `&id=${id}` : "";
-  status = status ? `&status=${status}` : "";
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
 
   const { data } = await backend.get<Data>(
-    `inventory/equipments?skip=${skip}&take=${take}${id}${department_id}${status}`
+    `inventory/equipments?skip=${skip}&take=${take}&id=${id}&status=${status}${department_id}`
   );
 
   const equipments = data.equipments.map((equipment) => {
@@ -111,7 +109,7 @@ export function useFetchInvetoryList({
   skip = 0,
   take = 0,
   id = "",
-  status = "",
+  status,
   departmentId,
 }: FetchParams) {
   return useQuery(

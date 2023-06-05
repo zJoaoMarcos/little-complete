@@ -109,6 +109,7 @@ export interface EquipmentProviderContextData {
   setSearch: Dispatch<SetStateAction<string>>;
   take: number;
   page: number;
+  setFilter: Dispatch<SetStateAction<string>>;
   setPage: Dispatch<SetStateAction<number>>;
   createEquipment: UseMutationResult<
     CreateEquipmentData,

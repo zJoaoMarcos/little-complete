@@ -21,6 +21,7 @@ const EquipmentContext = createContext({} as EquipmentProviderContextData);
 
 export function EquipmentProvider({ children }: EquipmentProviderProps) {
   const [search, setSearch] = useState<string>("");
+  const [filter, setFilter] = useState<string>("");
   const [page, setPage] = useState<number>(1);
 
   const debouncedWords = useDebounce(search, 500);
@@ -32,6 +33,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     skip,
     take,
     id: debouncedWords,
+    status: filter,
   });
 
   const createEquipment = useMutation(
@@ -181,6 +183,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         isFetching,
         setPage,
         page,
+        setFilter,
         setSearch,
         take,
         createEquipment,
