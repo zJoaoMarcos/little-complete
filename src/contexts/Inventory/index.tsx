@@ -150,7 +150,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
   const updateEquipmentStatus = useMutation(
     async (data: UpdateEquipmentStatusData) => {
       const res = await backend.patch<UpdateEquipmentStatusData>(
-        `equipments/status/${data.equipment_id}`,
+        `inventory/equipment/status/${data.equipment_id}`,
         {
           ...data,
         }
