@@ -75,7 +75,8 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    reset,
+    formState: { isSubmitting, isDirty },
   } = useForm<UpdateEquipmentData>({
     resolver: zodResolver(updateEquipmentSchema),
     defaultValues: {
@@ -112,11 +113,16 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
     setIsBlocked(true);
   };
 
+  const handleCancel = () => {
+    setIsBlocked(!isBlocked);
+    reset();
+  };
+
   return (
     <Flex flexDir="column" mt="4">
       <HStack ml="auto">
         <Button
-          onClick={() => setIsBlocked(!isBlocked)}
+          onClick={handleCancel}
           leftIcon={isBlocked ? <Pencil /> : <X />}
           colorScheme={isBlocked ? "purple" : "red"}
         >
@@ -132,6 +138,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
           colorScheme="purple"
           leftIcon={<Archive />}
           isLoading={isSubmitting}
+          isDisabled={!isDirty}
         >
           Enviar
         </Button>
