@@ -67,7 +67,7 @@ export async function getUser(userId: string): Promise<User> {
     smtp: data.user.smtp.trim(),
     admission_date: data.user.admission_date,
     demission_date: data.user.demission_date,
-    status: data.user.status.trim(),
+    status: data.user.status.trim().toLocaleLowerCase(),
   };
 
   const equipments = data.equipments.map((equipment) => {

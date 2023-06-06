@@ -64,7 +64,7 @@ function equipmentIcon(type: string | null, iconSize: string) {
 }
 
 function statusColor(status: string) {
-  if (status === "avaliable") {
+  if (status === "available") {
     return "green.400";
   }
 

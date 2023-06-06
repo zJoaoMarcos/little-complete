@@ -30,7 +30,7 @@ interface UpdateEquipmentStatusModalProps {
 }
 
 const defaultStatusOptions = [
-  { value: "avaliable", option: "Disponivel" },
+  { value: "available", option: "Disponivel" },
   { value: "maintenance", option: "Manutenção" },
   { value: "disabled", option: "Descarte" },
 ];

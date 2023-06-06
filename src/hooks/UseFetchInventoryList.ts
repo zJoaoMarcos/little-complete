@@ -68,7 +68,7 @@ export async function getInventoryList({
   const equipments = data.equipments.map((equipment) => {
     return {
       id: equipment.id,
-      status: equipment.status.trim(),
+      status: equipment.status.trim().toLocaleLowerCase(),
       currentUser: equipment.currentUser,
       patrimony: equipment.patrimony,
       type: formatData(equipment.type),

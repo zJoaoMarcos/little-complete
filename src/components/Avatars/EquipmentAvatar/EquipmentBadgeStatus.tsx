@@ -5,7 +5,7 @@ interface EquipmentBadgeStatusProps {
 }
 
 export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
-  if (status === "avaliable") {
+  if (status === "available") {
     return <Badge colorScheme="green">Disponivel</Badge>;
   }
 
