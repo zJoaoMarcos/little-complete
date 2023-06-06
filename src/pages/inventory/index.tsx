@@ -93,7 +93,7 @@ export default function Inventory() {
 }
 
 const typeOptions = [
-  { value: "", option: "" },
+  { value: "", option: "Todos" },
   { value: "desktop", option: "Desktop" },
   { value: "notebook", option: "Notebook" },
   { value: "telephone", option: "Ramal" },
@@ -108,7 +108,7 @@ const filterOptions = [
     option: "Todos",
   },
   {
-    value: "avaliable",
+    value: "available",
     option: "Disponivel",
   },
   {
