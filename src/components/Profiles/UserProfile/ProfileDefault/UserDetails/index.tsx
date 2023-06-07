@@ -1,44 +1,16 @@
-import { Select } from "@/components/Form/Select";
-import { Input } from "@/components/Form/input";
-import { useUser } from "@/contexts/Users";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
 
-const UpdateUserSchema = z.object({
-  user_name: z.string(),
-  complete_name: z.string(),
-  title: z.string(),
-  department_id: z.coerce.number(),
-  telephone: z.coerce.number().nullable(),
-  direct_boss: z.string(),
-  smtp: z.string(),
-  demission_date: z.date().nullable(),
-  admission_date: z.date().nullable(),
-  status: z.string(),
-});
-
-type UpdateUserData = z.infer<typeof UpdateUserSchema>;
-
-interface UserDetailsProps {
-  user: {
-    user_name: string;
-    complete_name: string;
-    title: string;
-    department: { id: number; name: string };
-    telephone: number | null;
-    direct_boss: string;
-    smtp: string;
-    admission_date: Date | null;
-    demission_date: Date | null;
-    status: string | null;
-  };
-}
+import { Select } from "@/components/Form/Select";
+import { Input } from "@/components/Form/input";
+import { useUser } from "@/contexts/Users";
+import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { UpdateUserSchema } from "./schema";
+import { UpdateUserData, UserDetailsProps } from "./types";
 
 export function UserDetails({ user }: UserDetailsProps) {
   const [isEditable, setIsEditable] = useState(true);
@@ -129,6 +101,7 @@ export function UserDetails({ user }: UserDetailsProps) {
           <Select
             label="Departamento"
             {...register("department_id")}
+            size="md"
             isDisabled={isEditable}
           >
             <option value={user.department.id}>{user.department.name}</option>
@@ -141,8 +114,9 @@ export function UserDetails({ user }: UserDetailsProps) {
 
           <Select
             label="Chefia Imediata"
+            size="md"
             {...register("direct_boss")}
-            isDisabled={isEditable}
+            isDisabled
           >
             <option value={user.direct_boss}>{user.direct_boss}</option>
             {users?.users.map((user) => (
@@ -176,13 +150,15 @@ export function UserDetails({ user }: UserDetailsProps) {
             isReadOnly={isEditable}
           />
 
-          <Input
-            size="md"
-            label="Data de Demissão"
-            {...register("demission_date")}
-            type="date"
-            isReadOnly={isEditable}
-          />
+          {user.status === "disabled" && (
+            <Input
+              size="md"
+              label="Data de Demissão"
+              {...register("demission_date")}
+              type="date"
+              isReadOnly={isEditable}
+            />
+          )}
         </List>
       </SimpleGrid>
     </Flex>
