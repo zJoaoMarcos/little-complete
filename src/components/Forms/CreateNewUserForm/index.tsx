@@ -1,57 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { List, SimpleGrid } from "@chakra-ui/react";
+
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useUser } from "@/contexts/Users";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
-import { List, SimpleGrid } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { useEffect } from "react";
+import { NewUserFormProps } from "./types";
+import { UseCreateUser } from "./useCreateUser";
 
-const createUserSchema = z.object({
-  user_name: z.string().nonempty(),
-  complete_name: z.string().nonempty(),
-  title: z.string(),
-  department_id: z.coerce.number(),
-  telephone: z.coerce.number().nullable(),
-  direct_boss: z.string().nonempty(),
-  smtp: z.string().nonempty(),
-});
-
-type CreateUserData = z.infer<typeof createUserSchema>;
-
-interface NewUserFormProps {
-  isSending: boolean;
-  setIsSending: Dispatch<SetStateAction<boolean>>;
-}
-
-export function NewUserForm({ isSending, setIsSending }: NewUserFormProps) {
+export function CreateNewUserForm({
+  isSending,
+  setIsSending,
+}: NewUserFormProps) {
   const {
-    register,
     handleSubmit,
-    formState: { isSubmitting },
-    reset,
-  } = useForm<CreateUserData>({
-    resolver: zodResolver(createUserSchema),
-  });
+    register,
+    handleCreate,
+    isSubmitting,
+    departments,
+    users,
+  } = UseCreateUser();
 
   useEffect(() => {
-    () => setIsSending(!isSending);
+    setIsSending(!isSending);
   }, [isSubmitting]);
-
-  const { createUser } = useUser();
-  const { data: departments } = useFetchDepartmentsList({});
-  const { data: users } = useFetchUsersList({});
-
-  const handleCreate: SubmitHandler<CreateUserData> = async (data, event) => {
-    event?.preventDefault();
-
-    await createUser.mutateAsync(data);
-
-    reset();
-  };
 
   return (
     <SimpleGrid

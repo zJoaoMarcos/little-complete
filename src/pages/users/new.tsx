@@ -1,6 +1,6 @@
-import { NewUserForm } from "@/components/Forms/NewUserForm";
+import { CreateNewUserForm } from "@/components/Forms/CreateNewUserForm";
 import { Layout } from "@/components/Layout";
-import { Button, Divider, Flex, Heading, HStack } from "@chakra-ui/react";
+import { Button, Divider, Flex, HStack, Heading } from "@chakra-ui/react";
 import Head from "next/head";
 import { ReactElement, useState } from "react";
 import { NextPageWithLayout } from "../_app";
@@ -32,7 +32,7 @@ const NewDepartment: NextPageWithLayout = () => {
 
       <Divider />
 
-      <NewUserForm isSending={isSending} setIsSending={setIsSending} />
+      <CreateNewUserForm isSending={isSending} setIsSending={setIsSending} />
     </>
   );
 };
