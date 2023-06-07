@@ -1,51 +1,23 @@
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useDepartment } from "@/contexts/Department";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { useCreateDepartment } from "./useCreateDepartment";
 
-const createDepartmentSchema = z.object({
-  name: z.string(),
-  cost_center: z.coerce.number(),
-  is_board: z.boolean(),
-  board: z.string(),
-  responsible_id: z.string(),
-});
-
-type CreateDepartmentData = z.infer<typeof createDepartmentSchema>;
-
-export function NewDepartmentForm() {
+export function CreateNewDepartmentForm() {
   const {
-    register,
+    handleCreate,
     handleSubmit,
-    formState: { isSubmitting },
-    reset,
-  } = useForm<CreateDepartmentData>({
-    resolver: zodResolver(createDepartmentSchema),
-  });
-
-  const { createDepartment } = useDepartment();
-  const { data: users } = useFetchUsersList({});
-
-  const handleCreateDepartment: SubmitHandler<CreateDepartmentData> = async (
-    data,
-    event
-  ) => {
-    event?.preventDefault();
-
-    await createDepartment.mutateAsync(data);
-
-    reset();
-  };
+    isSubmitting,
+    register,
+    departments,
+    users,
+  } = useCreateDepartment();
 
   return (
     <SimpleGrid
       as="form"
       id="new_department"
-      onSubmit={handleSubmit(handleCreateDepartment)}
+      onSubmit={handleSubmit(handleCreate)}
       columns={{ base: 1, md: 2 }}
       spacing={10}
       marginTop={8}
@@ -58,13 +30,18 @@ export function NewDepartmentForm() {
         placeholder="Ex: Tecnologia da Informação"
       />
 
-      <Input
-        size="sm"
-        {...register("board")}
+      <Select
         label="Board"
-        type="text"
-        placeholder="Ex: Vice Presidência"
-      />
+        {...register("board")}
+        size="sm"
+        placeholder="Selecione o responsável"
+      >
+        {departments?.departments.map((department) => (
+          <option key={department.id} value={department.id}>
+            {department.name}
+          </option>
+        ))}
+      </Select>
 
       <Input
         size="sm"
@@ -76,16 +53,21 @@ export function NewDepartmentForm() {
 
       <Checkbox
         size="md"
-        mb="auto"
+        mt="8"
         colorScheme="purple"
         borderColor="purple"
         {...register("is_board")}
         placeholder="É Diretoria"
       >
-        É uma Diretoria ?
+        É uma diretoria ?
       </Checkbox>
 
-      <Select label="Responsável" {...register("responsible_id")}>
+      <Select
+        label="Responsável"
+        {...register("responsible_id")}
+        size="sm"
+        placeholder="Selecione o responsável"
+      >
         {users?.users.map((user) => (
           <option key={user.user_name} value={user.user_name}>
             {user.user_name}

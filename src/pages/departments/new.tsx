@@ -1,4 +1,4 @@
-import { NewDepartmentForm } from "@/components/Forms/NewDepartment";
+import { CreateNewDepartmentForm } from "@/components/Forms/CreateNewDepartmentForm";
 import { Layout } from "@/components/Layout";
 import { Divider, Flex, Heading, HStack, VStack } from "@chakra-ui/react";
 import Head from "next/head";
@@ -23,7 +23,7 @@ export default function NewDepartment() {
 
       <Divider />
 
-      <NewDepartmentForm />
+      <CreateNewDepartmentForm />
     </>
   );
 }
