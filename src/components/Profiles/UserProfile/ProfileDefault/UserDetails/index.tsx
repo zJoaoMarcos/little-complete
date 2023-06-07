@@ -1,52 +1,25 @@
 import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useUser } from "@/contexts/Users";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
-import { UpdateUserSchema } from "./schema";
-import { UpdateUserData, UserDetailsProps } from "./types";
+import { UseUpdateUser } from "./UseUpdateUser";
+import { UserDetailsProps } from "./types";
 
 export function UserDetails({ user }: UserDetailsProps) {
-  const [isEditable, setIsEditable] = useState(true);
-
-  const { data: departments } = useFetchDepartmentsList({});
-  const { data: users } = useFetchUsersList({});
-
   const {
-    register,
     handleSubmit,
-    formState: { isDirty, isSubmitting },
-  } = useForm<UpdateUserData>({
-    resolver: zodResolver(UpdateUserSchema),
-    defaultValues: {
-      user_name: user.user_name,
-      complete_name: user.complete_name,
-      title: user.title,
-      department_id: user.department.id,
-      telephone: user.telephone,
-      direct_boss: user.direct_boss,
-      smtp: user.smtp,
-      admission_date: user.admission_date,
-      demission_date: user.demission_date,
-      status: user.status ? user.status : undefined,
-    },
-  });
+    handleUpdate,
+    isDirty,
+    isEditable,
+    isSubmitting,
+    register,
+    setIsEditable,
+    users,
+    departments,
+  } = UseUpdateUser({ user });
 
-  const { updateUser } = useUser();
-
-  const handleUpdate: SubmitHandler<UpdateUserData> = async (data, event) => {
-    event?.preventDefault();
-
-    await updateUser.mutateAsync(data);
-
-    setIsEditable(!isEditable);
-  };
+  console.log(isDirty);
 
   return (
     <Flex flexDir="column">

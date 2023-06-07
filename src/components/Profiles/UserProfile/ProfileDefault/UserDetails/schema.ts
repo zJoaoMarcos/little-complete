@@ -10,5 +10,4 @@ export const UpdateUserSchema = z.object({
   smtp: z.string(),
   demission_date: z.coerce.date().nullable(),
   admission_date: z.coerce.date().nullable(),
-  status: z.string(),
 });
