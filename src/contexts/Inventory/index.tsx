@@ -40,9 +40,12 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const createEquipment = useMutation(
     async (data: CreateEquipmentData) => {
-      const res = await backend.post<CreateEquipmentData>("equipment", {
-        ...data,
-      });
+      const res = await backend.post<CreateEquipmentData>(
+        "inventory/equipment",
+        {
+          ...data,
+        }
+      );
 
       return res.data;
     },
