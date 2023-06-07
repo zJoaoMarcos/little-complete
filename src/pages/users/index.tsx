@@ -20,7 +20,7 @@ const Users: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Users</title>
+        <title>Usuários</title>
       </Head>
 
       <Flex mb="8" justify="space-between" align="center">

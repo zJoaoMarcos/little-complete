@@ -43,7 +43,7 @@ export function SidebarNav() {
         </NavLink>
 
         <NavLink icon={Notebook} href="/inventory">
-          Equipamentos
+          Inventário
         </NavLink>
 
         <NavLink icon={Package} href="/stock">
