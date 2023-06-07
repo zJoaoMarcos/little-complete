@@ -127,6 +127,8 @@ export function NewEquipmentForm() {
 
         <Select
           {...register("storage0_type")}
+          label="Tipo do Armazenamento"
+          size="md"
           placeholder="Tipo de Armazenamento"
         >
           <option value="hd">HD</option>
@@ -144,6 +146,7 @@ export function NewEquipmentForm() {
           {...register("storage1_type")}
           placeholder="Tipo de Armazenamento"
           label="Tipo de Armazenamento (1)"
+          size="md"
         >
           <option value="hd">HD</option>
           <option value="ssd">SSD</option>
