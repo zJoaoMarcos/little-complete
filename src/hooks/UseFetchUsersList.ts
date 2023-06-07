@@ -61,7 +61,7 @@ export async function getUsersList({
       smtp: user.smtp.trim(),
       admission_date: user.admission_date,
       demission_date: user.demission_date,
-      status: user.status.trim(),
+      status: user.status.trim().toLocaleLowerCase(),
     };
   });
 
