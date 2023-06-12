@@ -6,8 +6,8 @@ interface EquipmentProps {
   id: string;
   status: string;
   currentUser: string | null;
-  patrimony: string | null;
-  type: string | null;
+  patrimony: string;
+  type: string;
   brand: string | null;
   model: string | null;
   serviceTag: string | null;
@@ -47,7 +47,7 @@ export async function getEquipment(
     status: data.status.trim(),
     currentUser: data.currentUser,
     patrimony: data.patrimony,
-    type: formatData(data.type),
+    type: formatData(data.type)!,
     brand: formatData(data.brand),
     model: formatData(data.model),
     serviceTag: data.serviceTag,

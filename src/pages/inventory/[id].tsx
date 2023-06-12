@@ -10,8 +10,8 @@ interface EquipmentProps {
     id: string;
     status: string;
     currentUser: string | null;
-    patrimony: string | null;
-    type: string | null;
+    patrimony: string;
+    type: string;
     brand: string | null;
     model: string | null;
     serviceTag: string | null;
