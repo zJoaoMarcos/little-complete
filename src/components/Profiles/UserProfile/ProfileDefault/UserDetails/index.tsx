@@ -19,8 +19,6 @@ export function UserDetails({ user }: UserDetailsProps) {
     departments,
   } = UseUpdateUser({ user });
 
-  console.log(isDirty);
-
   return (
     <Flex flexDir="column">
       <HStack ml="auto">
