@@ -43,6 +43,8 @@ export interface CreateEquipmentData {
   id: string;
   brand: string;
   model: string;
+  type: string;
+  patrimony: string;
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;
@@ -63,6 +65,8 @@ export interface UpdateEquipmentData {
   id: string;
   brand: string | null;
   model: string | null;
+  type: string;
+  patrimony: string;
   supplier: string | null;
   invoice: string | null;
   warranty: string | null;

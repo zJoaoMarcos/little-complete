@@ -1,122 +1,25 @@
+import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
+import { Archive, Pencil, X } from "@phosphor-icons/react";
+
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useEquipment } from "@/contexts/Inventory";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
 import { formatData } from "@/utils/formatData";
-import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Archive, Pencil, X } from "@phosphor-icons/react";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-
-const updateEquipmentSchema = z.object({
-  id: z.string(),
-  brand: z.nullable(z.string()),
-  model: z.nullable(z.string()),
-  supplier: z.nullable(z.string()),
-  invoice: z.nullable(z.string()),
-  warranty: z.nullable(z.string()),
-  purchase_date: z.nullable(z.coerce.date()),
-  cpu: z.nullable(z.string()),
-  ram: z.nullable(z.string()),
-  video: z.nullable(z.string()),
-  slots: z.nullable(z.coerce.number()),
-  storage0_type: z.nullable(z.string()),
-  storage0_syze: z.nullable(z.coerce.number()),
-  storage1_type: z.nullable(z.string()),
-  storage1_syze: z.nullable(z.coerce.number()),
-  service_tag: z.nullable(z.string()),
-  department_id: z.coerce.number(),
-});
-
-type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
-
-interface EquipmentDetailsProps {
-  equipment: {
-    id: string;
-    status: string;
-    currentUser: string | null;
-    patrimony: string | null;
-    type: string | null;
-    brand: string | null;
-    model: string | null;
-    serviceTag: string | null;
-    purchase: {
-      invoice: string | null;
-      supplier: string | null;
-      purchaseDate: Date | null;
-      warranty: string | null;
-    };
-    department: {
-      id: number | null;
-      name: string | null;
-    };
-    config: {
-      cpu: string | null;
-      ram: string | null;
-      video: string | null;
-      storage: {
-        slots: number | null;
-        storage0Type: string | null;
-        storage0Syze: number | null;
-        storage1Type: string | null;
-        storage1Syze: number | null;
-      };
-    };
-  };
-}
+import { useEditEquipment } from "./UseEditEquipment";
+import { EquipmentDetailsProps } from "./types";
 
 export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
-  const [isBlocked, setIsBlocked] = useState(true);
-
-  const { data } = useFetchDepartmentsList({});
-
   const {
-    register,
+    handleCancel,
+    handleUpdate,
     handleSubmit,
-    reset,
-    formState: { isSubmitting, isDirty },
-  } = useForm<UpdateEquipmentData>({
-    resolver: zodResolver(updateEquipmentSchema),
-    defaultValues: {
-      id: equipment.id,
-      brand: equipment.brand ? equipment.brand : undefined,
-      model: equipment.model ? equipment.model : undefined,
-      supplier: equipment.purchase.supplier,
-      invoice: equipment.purchase.invoice,
-      warranty: equipment.purchase.warranty,
-      purchase_date: equipment.purchase.purchaseDate,
-      cpu: equipment.config.cpu,
-      ram: equipment.config.ram,
-      slots: equipment.config.storage.slots ?? undefined,
-      service_tag: equipment.serviceTag,
-      storage0_type: equipment.config.storage.storage0Type,
-      storage0_syze: equipment.config.storage.storage0Syze,
-      storage1_type: equipment.config.storage.storage1Type ?? undefined,
-      storage1_syze: equipment.config.storage.storage1Syze ?? undefined,
-      video: equipment.config.video,
-      department_id: equipment.department.id ?? undefined,
-    },
-  });
+    register,
+    isBlocked,
+    isDirty,
+    isSubmitting,
+    departementList,
+  } = useEditEquipment({ equipment });
 
-  const { updateEquipment } = useEquipment();
-
-  const handleUpdate: SubmitHandler<UpdateEquipmentData> = async (
-    data,
-    event
-  ) => {
-    event?.preventDefault();
-
-    await updateEquipment.mutateAsync({ ...data });
-
-    setIsBlocked(true);
-  };
-
-  const handleCancel = () => {
-    setIsBlocked(!isBlocked);
-    reset();
-  };
+  console.log(equipment);
 
   return (
     <Flex flexDir="column" mt="4">
@@ -143,6 +46,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
           Enviar
         </Button>
       </HStack>
+
       <SimpleGrid
         as="form"
         id="update_equipment"
@@ -160,6 +64,22 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
             isDisabled={!isBlocked}
           />
 
+          <Input
+            label="Tipo"
+            size="md"
+            {...register("type")}
+            isReadOnly={isBlocked}
+            isDisabled={!isBlocked}
+          />
+
+          <Input
+            label="Patrimônio"
+            size="md"
+            {...register("patrimony")}
+            isReadOnly={isBlocked}
+            isDisabled={!isBlocked}
+          />
+
           <Select
             size="md"
             label="Departamento"
@@ -171,7 +91,8 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
                 {equipment.department.name}
               </option>
             )}
-            {data?.departments.map((department) => (
+
+            {departementList?.departments.map((department) => (
               <option key={department.id} value={department.id}>
                 {formatData(department.name)}
               </option>

@@ -1,8 +1,9 @@
-import { Divider } from "@chakra-ui/react";
-import { EquipmentDetails } from "./EquipmentDetails";
-import { EquipmentHeader } from "./EquipmentHeader";
+import { z } from "zod";
+import { updateEquipmentSchema } from "./schema";
 
-interface EquipmentProfileProps {
+export type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
+
+export interface EquipmentDetailsProps {
   equipment: {
     id: string;
     status: string;
@@ -35,16 +36,4 @@ interface EquipmentProfileProps {
       };
     };
   };
-}
-
-export function EquipmentProfile({ equipment }: EquipmentProfileProps) {
-  return (
-    <>
-      <EquipmentHeader equipment={equipment} />
-
-      <Divider />
-
-      <EquipmentDetails equipment={equipment!} />
-    </>
-  );
 }

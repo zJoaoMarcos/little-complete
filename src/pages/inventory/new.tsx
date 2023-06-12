@@ -1,4 +1,4 @@
-import { NewEquipmentForm } from "@/components/Forms/NewEquipmentForm";
+import { CreateNewEquipmentForm } from "@/components/Forms/CreateNewEquipmentForm";
 import { Layout } from "@/components/Layout";
 import { Button, Divider, Flex, Heading, HStack } from "@chakra-ui/react";
 import Head from "next/head";
@@ -24,7 +24,7 @@ export default function NewEquipment() {
 
       <Divider />
 
-      <NewEquipmentForm />
+      <CreateNewEquipmentForm />
     </>
   );
 }
