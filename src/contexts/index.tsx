@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { DepartmentProvider } from "./Department";
 import { EquipmentProvider } from "./Inventory";
 import { SidebarDrawerProvider } from "./SidebarDrawerContext";
-import { StockProvider } from "./StockContext";
 import { UserProvider } from "./Users";
 
 export function AppProvider({ children }: { children: ReactNode }) {
@@ -10,9 +9,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     <SidebarDrawerProvider>
       <DepartmentProvider>
         <UserProvider>
-          <EquipmentProvider>
-            <StockProvider>{children}</StockProvider>
-          </EquipmentProvider>
+          <EquipmentProvider>{children}</EquipmentProvider>
         </UserProvider>
       </DepartmentProvider>
     </SidebarDrawerProvider>

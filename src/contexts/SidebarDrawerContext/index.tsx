@@ -1,13 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useDisclosure, UseDisclosureReturn } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { createContext, ReactNode, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 
-interface SideBarDrawerProviderProps {
-  children: ReactNode;
-}
-
-type SidebarDrawerContextData = UseDisclosureReturn;
+import { SideBarDrawerProviderProps, SidebarDrawerContextData } from "./types";
 
 const SidebarDrawerContext = createContext({} as SidebarDrawerContextData);
 
