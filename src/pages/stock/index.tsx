@@ -1,10 +1,14 @@
 import { Layout } from "@/components/Layout";
-import { Flex, Heading } from "@chakra-ui/react";
+import { StockList } from "@/components/Lists/StockList";
+import { useStockList } from "@/hooks/UseStockList";
+import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { ReactElement } from "react";
 import { NextPageWithLayout } from "../_app";
 
 const Stock: NextPageWithLayout = () => {
+  const { data, isFetching, isLoading } = useStockList(1);
+
   return (
     <>
       <Head>
@@ -12,10 +16,11 @@ const Stock: NextPageWithLayout = () => {
       </Head>
 
       <Flex mb="8" justify="space-between" align="center">
-        <Heading as="h3" fontWeight="semibold">
+        <Heading as="h2" fontWeight="semibold" size="lg">
           Estoque
         </Heading>
       </Flex>
+      {isLoading ? <Spinner /> : <StockList stockList={data?.stockList!} />}
     </>
   );
 };
