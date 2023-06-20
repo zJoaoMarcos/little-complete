@@ -5,7 +5,6 @@ import {
   Buildings,
   Notebook,
   Package,
-  Storefront,
   User,
   WarningCircle,
 } from "@phosphor-icons/react";
@@ -48,12 +47,6 @@ export function SidebarNav() {
 
         <NavLink icon={Package} href="/stock">
           Estoque
-        </NavLink>
-      </NavSection>
-
-      <NavSection title="COMPRAS">
-        <NavLink icon={Storefront} href="/shop">
-          Lista de Compras
         </NavLink>
       </NavSection>
     </Stack>
