@@ -1,13 +1,13 @@
 import { createContext, useContext, useState } from "react";
 
-import { backend } from "@/lib/backendApi";
-import { queryClient } from "@/lib/queryClient";
 import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
 import useDebounce from "@/hooks/UseDebounce";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
 import {
   CreateUserData,
   StockProviderContextData,
@@ -38,7 +38,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const createUser = useMutation(
     async (data: CreateUserData) => {
-      const res = await backend.post<CreateUserData>("users", {
+      const res = await api.post<CreateUserData>("users", {
         ...data,
       });
 
@@ -59,12 +59,9 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const updateUser = useMutation(
     async (data: UpdateUserData) => {
-      const res = await backend.patch<UpdateUserData>(
-        `users/${data.user_name}`,
-        {
-          ...data,
-        }
-      );
+      const res = await api.patch<UpdateUserData>(`users/${data.user_name}`, {
+        ...data,
+      });
 
       return res.data;
     },
@@ -87,7 +84,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const updateStatus = useMutation(
     async (data: UpdateUserStatusData) => {
-      const response = await backend.patch<UpdateUserStatusData>(
+      const response = await api.patch<UpdateUserStatusData>(
         `users/status/${data.user_name}`,
         {
           status: data.status,

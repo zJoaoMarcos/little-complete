@@ -1,4 +1,4 @@
-import { backend } from "@/lib/backendApi";
+import { api } from "@/services/api";
 import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
@@ -61,7 +61,7 @@ export async function getInventoryList({
 }: FetchParams): Promise<Data> {
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
 
-  const { data } = await backend.get<Data>(
+  const { data } = await api.get<Data>(
     `inventory/equipments?skip=${skip}&take=${take}&id=${id}&status=${status}&type=${type}${department_id}`
   );
 

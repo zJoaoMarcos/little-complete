@@ -1,4 +1,4 @@
-import { backend } from "@/lib/backendApi";
+import { api } from "@/services/api";
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
@@ -43,7 +43,7 @@ export async function getUsersList({
   }
 
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
-  const { data } = await backend.get<Data>(
+  const { data } = await api.get<Data>(
     `/users?equipments?skip=${skip}&take=${take}&id=${id}&status=${status}${department_id}`
   );
 

@@ -1,4 +1,4 @@
-import { backend } from "@/lib/backendApi";
+import { api } from "@/services/api";
 import { formatData } from "@/utils/formatData";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
@@ -38,7 +38,7 @@ interface EquipmentProps {
 export async function getEquipment(
   equipmentId: string
 ): Promise<EquipmentProps> {
-  const { data } = await backend.get<EquipmentProps>(
+  const { data } = await api.get<EquipmentProps>(
     `inventory/equipment/${equipmentId}`
   );
 

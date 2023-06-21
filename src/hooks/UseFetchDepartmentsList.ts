@@ -1,4 +1,4 @@
-import { backend } from "@/lib/backendApi";
+import { api } from "@/services/api";
 import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
@@ -29,7 +29,7 @@ export async function getDepartmentsList({
   take = 0,
   id,
 }: FetchParams): Promise<Data> {
-  const { data } = await backend.get<Data>(
+  const { data } = await api.get<Data>(
     `/departments?skip=${skip}&take=${take}&id=${id}`
   );
 

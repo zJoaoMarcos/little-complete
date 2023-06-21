@@ -1,5 +1,3 @@
-import { backend } from "@/lib/backendApi";
-import { queryClient } from "@/lib/queryClient";
 import { AxiosError } from "axios";
 import { createContext, useContext, useState } from "react";
 import { useMutation } from "react-query";
@@ -7,6 +5,8 @@ import { toast } from "react-toastify";
 
 import useDebounce from "@/hooks/UseDebounce";
 import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
 import {
   CreateDepartmentData,
   DepartmentProviderContextData,
@@ -33,7 +33,7 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
 
   const createDepartment = useMutation(
     async (data: CreateDepartmentData) => {
-      const res = await backend.post<CreateDepartmentData>("departments", {
+      const res = await api.post<CreateDepartmentData>("departments", {
         ...data,
       });
 
@@ -54,7 +54,7 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
 
   const updateDepartment = useMutation(
     async (data: UpdateDepartmentData) => {
-      const res = await backend.patch<UpdateDepartmentData>(
+      const res = await api.patch<UpdateDepartmentData>(
         `departments/${data.id}`,
         {
           ...data,

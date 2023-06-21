@@ -1,9 +1,9 @@
-import { backend } from "@/lib/backendApi";
+import { api } from "@/services/api";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 import { GetStockListResponse } from "./type";
 
 export async function fetchStockList(): Promise<GetStockListResponse> {
-  const { data } = await backend.get<GetStockListResponse>("stock");
+  const { data } = await api.get<GetStockListResponse>("stock");
 
   const totalCount = data.totalCount;
 

@@ -1,4 +1,4 @@
-import { backend } from "@/lib/backendApi";
+import { api } from "@/services/api";
 import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
@@ -16,7 +16,7 @@ interface Data {
 }
 
 export async function getDepartment(id: number): Promise<Data> {
-  const { data } = await backend.get<Data>(`/departments/${id}`);
+  const { data } = await api.get<Data>(`/departments/${id}`);
 
   const department = {
     id: data.department.id,

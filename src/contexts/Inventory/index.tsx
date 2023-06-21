@@ -1,11 +1,11 @@
 import useDebounce from "@/hooks/UseDebounce";
 import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
-import { backend } from "@/lib/backendApi";
-import { queryClient } from "@/lib/queryClient";
 import { createContext, useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
 import {
   AssignEquipmentData,
   CreateEquipmentData,
@@ -40,12 +40,9 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const createEquipment = useMutation(
     async (data: CreateEquipmentData) => {
-      const res = await backend.post<CreateEquipmentData>(
-        "inventory/equipment",
-        {
-          ...data,
-        }
-      );
+      const res = await api.post<CreateEquipmentData>("inventory/equipment", {
+        ...data,
+      });
 
       return res.data;
     },
@@ -64,7 +61,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const updateEquipment = useMutation(
     async (data: UpdateEquipmentData) => {
-      const res = await backend.patch<UpdateEquipmentData>(
+      const res = await api.patch<UpdateEquipmentData>(
         `inventory/equipment/${data.id}`,
         {
           ...data,
@@ -88,7 +85,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const assignEquipment = useMutation(
     async (data: AssignEquipmentData) => {
-      const res = await backend.post<AssignEquipmentData>(`user-assignments/`, {
+      const res = await api.post<AssignEquipmentData>(`user-assignments/`, {
         ...data,
       });
 
@@ -109,7 +106,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const unassignEquipment = useMutation(
     async (data: UnassignEquipmentData) => {
-      const res = await backend.delete<UnassignEquipmentData>(
+      const res = await api.delete<UnassignEquipmentData>(
         `user-assignments/${data.equipment_id}`
       );
 
@@ -133,7 +130,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const unassignAllEquipments = useMutation(
     async (data: UnassignAllEquipmentsData) => {
-      const res = await backend.delete<UnassignAllEquipmentsData>(
+      const res = await api.delete<UnassignAllEquipmentsData>(
         `user-assignments/all/${data.username}`
       );
 
@@ -156,7 +153,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const updateEquipmentStatus = useMutation(
     async (data: UpdateEquipmentStatusData) => {
-      const res = await backend.patch<UpdateEquipmentStatusData>(
+      const res = await api.patch<UpdateEquipmentStatusData>(
         `inventory/equipment/status/${data.equipment_id}`,
         {
           ...data,

@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { AppProvider } from "@/contexts";
-import { queryClient } from "@/lib/queryClient";
+import { queryClient } from "@/services/queryClient";
 import { NextPage } from "next";
 import { SessionProvider } from "next-auth/react";
 import { ReactElement, ReactNode } from "react";
