@@ -4,12 +4,39 @@ import { CategoryIconProps } from "./types";
 
 export function CategoryIcon({ category }: CategoryIconProps) {
   if (category === "hardware") {
-    return <Icon as={Cpu} />;
+    return (
+      <Icon
+        as={Cpu}
+        bgColor="purple.200"
+        borderRadius="full"
+        w="8"
+        h="8"
+        p="1"
+      />
+    );
   }
 
   if (category === "peripherals") {
-    return <Icon as={Usb} />;
+    return (
+      <Icon
+        as={Usb}
+        bgColor="purple.200"
+        borderRadius="full"
+        w="8"
+        h="8"
+        p="1"
+      />
+    );
   }
 
-  return <Icon as={Cube} />;
+  return (
+    <Icon
+      as={Cube}
+      bgColor="purple.200"
+      borderRadius="full"
+      w="8"
+      h="8"
+      p="1"
+    />
+  );
 }
