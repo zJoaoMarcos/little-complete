@@ -38,8 +38,8 @@ export function EditStockItemModal({
         <ModalCloseButton />
 
         <ModalBody
-          id="update_item"
           as="form"
+          id="update_item"
           onSubmit={handleSubmit(handleEditItem)}
         >
           <VStack spacing="2">

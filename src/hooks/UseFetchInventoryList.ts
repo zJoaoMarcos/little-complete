@@ -62,7 +62,7 @@ export async function getInventoryList({
   const department_id = departmentId ? `&department_id=${departmentId}` : "";
 
   const { data } = await api.get<Data>(
-    `inventory/equipments?skip=${skip}&take=${take}&id=${id}&status=${status}&type=${type}${department_id}`
+    `equipments?skip=${skip}&take=${take}&id=${id}&status=${status}&type=${type}${department_id}`
   );
 
   const equipments = data.equipments.map((equipment) => {

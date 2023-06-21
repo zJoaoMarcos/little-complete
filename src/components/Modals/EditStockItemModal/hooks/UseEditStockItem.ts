@@ -41,8 +41,7 @@ export const UseEditStockItem = () => {
   ) => {
     event?.preventDefault();
 
-    console.log("passou", data);
-    /* await editStockItem.mutateAsync(data); */
+    await editStockItem.mutateAsync(data);
   };
 
   return {
