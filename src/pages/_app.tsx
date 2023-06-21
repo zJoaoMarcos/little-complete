@@ -1,5 +1,4 @@
 import type { AppProps } from "next/app";
-import { Inter } from "next/font/google";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -12,11 +11,6 @@ import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const inter = Inter({
-  weight: ["300", "500", "700"],
-  subsets: ["latin"],
-});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -35,7 +29,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
           <AppProvider>
-            <main className="inter.classname">
+            <main>
               <ToastContainer theme={"colored"} />
               {getLayout(<Component {...pageProps} />)}
             </main>
