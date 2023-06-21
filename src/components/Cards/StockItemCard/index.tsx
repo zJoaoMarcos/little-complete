@@ -5,11 +5,11 @@ import {
   CardFooter,
   CardHeader,
   HStack,
-  IconButton,
   Text,
 } from "@chakra-ui/react";
-import { ArrowsClockwise, DotsThreeVertical } from "@phosphor-icons/react";
+import { ArrowsClockwise } from "@phosphor-icons/react";
 
+import { TriggerEditStockItem } from "@/components/Modals/EditStockItemModal/Trigger";
 import { CategoryIcon } from "./CategoryIcon";
 import { StockItemCardProps } from "./types";
 
@@ -20,12 +20,7 @@ export function StockItemCard({ item }: StockItemCardProps) {
         <HStack justifyContent="space-between" mb="1">
           <CategoryIcon category={item.category} />
 
-          <IconButton
-            aria-label="about-item"
-            icon={<DotsThreeVertical size={20} />}
-            borderRadius="full"
-            bgColor="transparent"
-          />
+          <TriggerEditStockItem item={item} />
         </HStack>
 
         <HStack fontWeight="semibold" fontSize="sm">
