@@ -5,25 +5,20 @@ import {
   CardFooter,
   CardHeader,
   HStack,
-  Icon,
   IconButton,
   Text,
 } from "@chakra-ui/react";
-import { Cpu, DotsThreeVertical } from "@phosphor-icons/react";
+import { DotsThreeVertical } from "@phosphor-icons/react";
 
-export function StockItemCard() {
+import { CategoryIcon } from "./CategoryIcon";
+import { StockItemCardProps } from "./types";
+
+export function StockItemCard({ item }: StockItemCardProps) {
   return (
-    <Card maxW="xl">
+    <Card minW="4xs">
       <CardHeader>
         <HStack justifyContent="space-between" mb="1">
-          <Icon
-            as={Cpu}
-            p="1"
-            w={8}
-            h={8}
-            bgColor="purple.400"
-            rounded="full"
-          />
+          <CategoryIcon category={item.category} />
 
           <IconButton
             aria-label="about-item"
@@ -34,24 +29,24 @@ export function StockItemCard() {
         </HStack>
 
         <HStack fontWeight="semibold">
-          <Text>SSD:</Text>
-          <Text color="purple.600">Kingston</Text>
+          <Text>{item.type}:</Text>
+          <Text color="purple.600">{item.brand}</Text>
         </HStack>
       </CardHeader>
 
       <CardBody>
         <HStack>
           <Text fontWeight="semibold">Modelo:</Text>
-          <Text>240GB</Text>
+          <Text>{item.model}</Text>
         </HStack>
 
         <HStack>
           <Text fontWeight="semibold">Qtd:</Text>
-          <Text>8</Text>
+          <Text>{item.amount}</Text>
         </HStack>
       </CardBody>
 
-      <CardFooter>
+      <CardFooter w="full" display="flex" justifyContent="center">
         <Button colorScheme="purple">Movimentar</Button>
       </CardFooter>
     </Card>

@@ -1,4 +1,3 @@
-import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { Stack, Text } from "@chakra-ui/react";
 import {
@@ -16,12 +15,12 @@ export function SidebarNav() {
     key: "users-pendencies",
     status: "pendency",
   });
-  const { data: equips } = useFetchInvetoryList({
+  /*  const { data: equips } = useFetchInvetoryList({
     key: "equipments-pendencies",
     status: "pendency",
-  });
+  }); */
 
-  const totalPendency = (users?.totalCount ?? 0) + (equips?.totalCount ?? 0);
+  const totalPendency = users?.totalCount ?? 0;
 
   return (
     <Stack spacing="8" align="flex-start">

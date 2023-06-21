@@ -18,6 +18,9 @@ const Stock: NextPageWithLayout = () => {
       <Flex mb="8" justify="space-between" align="center">
         <Heading as="h2" fontWeight="semibold" size="lg">
           Estoque
+          {!isLoading && isFetching && (
+            <Spinner size="sm" color="white" ml="4" />
+          )}
         </Heading>
       </Flex>
       {isLoading ? <Spinner /> : <StockList stockList={data?.stockList!} />}

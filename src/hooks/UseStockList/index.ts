@@ -1,5 +1,6 @@
-import { api } from "@/services/api";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
+
+import { api } from "@/services/api";
 import { GetStockListResponse } from "./type";
 
 export async function fetchStockList(): Promise<GetStockListResponse> {
