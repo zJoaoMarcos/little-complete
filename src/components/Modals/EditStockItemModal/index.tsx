@@ -13,6 +13,7 @@ import {
 
 import { Input } from "@/components/Form/input";
 import { Archive } from "@phosphor-icons/react";
+import { UseEditStockItem } from "./hooks/UseEditStockItem";
 import { EditStockItemModalProps } from "./types";
 
 export function EditStockItemModal({
@@ -20,29 +21,52 @@ export function EditStockItemModal({
   isOpen,
   onClose,
 }: EditStockItemModalProps) {
+  const { register, errors, handleSubmit, handleEditItem } = UseEditStockItem();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm">
       <ModalOverlay />
 
       <ModalContent>
         <ModalHeader>
-          Editar <Text as="span">{item.model}</Text>
+          Editar{" "}
+          <Text as="span" color="purple">
+            {item.model}
+          </Text>
         </ModalHeader>
 
         <ModalCloseButton />
 
-        <ModalBody as="form">
+        <ModalBody
+          id="update_item"
+          as="form"
+          onSubmit={handleSubmit(handleEditItem)}
+        >
           <VStack spacing="2">
-            <Input name="brand" label="Fabricante" />
-            <Input name="model" label="Modelo" />
-            <Input name="type" label="Tipo" />
-            <Input name="category" label="Category" />
-            <Input name="amount" label="Amount" />
+            <Input
+              {...register("brand")}
+              error={errors.brand}
+              label="Fabricante"
+            />
+            <Input {...register("model")} error={errors.model} label="Modelo" />
+            <Input {...register("type")} error={errors.type} label="Tipo" />
+            <Input
+              {...register("category")}
+              error={errors.category}
+              label="Category"
+            />
           </VStack>
         </ModalBody>
 
         <ModalFooter>
-          <Button leftIcon={<Archive />}>Salvar</Button>
+          <Button
+            form="update_item"
+            type="submit"
+            leftIcon={<Archive />}
+            colorScheme="purple"
+          >
+            Salvar
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
