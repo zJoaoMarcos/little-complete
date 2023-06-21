@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -7,9 +6,9 @@ import {
   HStack,
   Text,
 } from "@chakra-ui/react";
-import { ArrowsClockwise } from "@phosphor-icons/react";
 
 import { TriggerEditStockItem } from "@/components/Modals/EditStockItemModal/Trigger";
+import { TriggerTransactionStockItem } from "@/components/Modals/TransactionStockItemModal/Trigger";
 import { CategoryIcon } from "./CategoryIcon";
 import { StockItemCardProps } from "./types";
 
@@ -42,15 +41,7 @@ export function StockItemCard({ item }: StockItemCardProps) {
       </CardBody>
 
       <CardFooter display="flex" justifyContent="center">
-        <Button
-          w="full"
-          size="sm"
-          border="1px"
-          borderColor="purple.400"
-          leftIcon={<ArrowsClockwise />}
-        >
-          Movimentar
-        </Button>
+        <TriggerTransactionStockItem item={item} />
       </CardFooter>
     </Card>
   );
