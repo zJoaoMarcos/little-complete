@@ -6,15 +6,13 @@ import { queryClient } from "@/services/queryClient";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { EntryTransactionItemSchema } from "./schema";
-import { EntryTransactionItemData, UseEntryTransactionItemProps } from "./type";
+import { EntryTransactionItemData } from "./type";
 
-export const useEntryTransactionItem = ({
-  item,
-}: UseEntryTransactionItemProps) => {
+export const useEntryTransactionItem = (itemId: string) => {
   const { register, handleSubmit } = useForm<EntryTransactionItemData>({
     resolver: zodResolver(EntryTransactionItemSchema),
     defaultValues: {
-      id: item.id,
+      id: itemId,
     },
   });
 
