@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { StockList } from "@/components/Lists/StockList";
+import { TriggerNewItemModal } from "@/components/Modals/RegisterNewItemModal/Trigger";
 import { useStockList } from "@/hooks/UseStockList";
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
@@ -22,7 +23,10 @@ const Stock: NextPageWithLayout = () => {
             <Spinner size="sm" color="white" ml="4" />
           )}
         </Heading>
+
+        <TriggerNewItemModal />
       </Flex>
+
       {isLoading ? <Spinner /> : <StockList stockList={data?.stockList!} />}
     </>
   );
