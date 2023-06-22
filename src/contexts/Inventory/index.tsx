@@ -8,7 +8,6 @@ import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import {
   AssignEquipmentData,
-  CreateEquipmentData,
   EquipmentProviderContextData,
   EquipmentProviderProps,
   UnassignAllEquipmentsData,
@@ -37,27 +36,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     status: filter,
     type: type,
   });
-
-  const createEquipment = useMutation(
-    async (data: CreateEquipmentData) => {
-      const res = await api.post<CreateEquipmentData>("inventory/equipment", {
-        ...data,
-      });
-
-      return res.data;
-    },
-    {
-      onSuccess: () => {
-        toast.success("Equipamento registrado com sucesso");
-        queryClient.invalidateQueries("equipments");
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos registrar o equipamento, tente mais tarde"
-        );
-      },
-    }
-  );
 
   const updateEquipment = useMutation(
     async (data: UpdateEquipmentData) => {
@@ -189,7 +167,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         setType,
         setSearch,
         take,
-        createEquipment,
         updateEquipment,
         assignEquipment,
         unassignEquipment,
