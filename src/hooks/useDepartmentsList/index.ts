@@ -32,7 +32,7 @@ export async function getDepartmentsList({
 
 export function useDepartmentsList({
   key = "departments",
-  page,
+  page = 1,
   id = "",
   skip = 0,
   take = 0,

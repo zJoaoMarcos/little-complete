@@ -16,7 +16,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
     isBlocked,
     isDirty,
     isSubmitting,
-    departementList,
+    departmentList,
   } = useEditEquipment({ equipment });
 
   console.log(equipment);
@@ -92,7 +92,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
               </option>
             )}
 
-            {departementList?.departments.map((department) => (
+            {departmentList?.departments.map((department) => (
               <option key={department.id} value={department.id}>
                 {formatData(department.name)}
               </option>

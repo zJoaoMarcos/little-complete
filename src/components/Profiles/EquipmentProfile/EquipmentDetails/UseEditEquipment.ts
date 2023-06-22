@@ -3,14 +3,16 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useEquipment } from "@/contexts/Inventory";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { useDepartmentsList } from "@/hooks/useDepartmentsList";
 import { updateEquipmentSchema } from "./schema";
 import { EquipmentDetailsProps, UpdateEquipmentData } from "./types";
 
 export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
   const [isBlocked, setIsBlocked] = useState(true);
 
-  const { data: departementList } = useFetchDepartmentsList({});
+  const { data: departmentList } = useDepartmentsList({
+    key: "select-department",
+  });
   const { updateEquipment } = useEquipment();
 
   const {
@@ -67,6 +69,6 @@ export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
     isBlocked,
     isSubmitting,
     isDirty,
-    departementList,
+    departmentList,
   };
 };
