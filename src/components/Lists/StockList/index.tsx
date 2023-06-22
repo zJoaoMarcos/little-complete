@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { StockItemCard } from "@/components/Cards/StockItemCard";
+import { StockItemCard } from "./StockItemCard";
 import { UseStockItems } from "./hooks/UseStockItems";
 import { StockListProps } from "./types";
 
