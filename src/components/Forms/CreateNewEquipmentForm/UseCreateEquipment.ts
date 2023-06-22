@@ -1,16 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import { useDepartmentsList } from "@/hooks/useDepartmentsList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { createEquipmetSchema } from "./schema";
 import { CreateEquipmentData } from "./types";
 
 export const useCreateEquipment = () => {
-  const { data: departmentList } = useFetchDepartmentsList({});
+  const [hasExtraStorage, setHasExtraStorage] = useState(false);
+
+  const { data: departmentList } = useDepartmentsList({
+    key: "select-department",
+  });
 
   const {
     register,
@@ -66,5 +71,7 @@ export const useCreateEquipment = () => {
     register,
     isDirty,
     isSubmitting,
+    hasExtraStorage,
+    setHasExtraStorage,
   };
 };

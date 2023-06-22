@@ -38,9 +38,7 @@ interface EquipmentProps {
 export async function getEquipment(
   equipmentId: string
 ): Promise<EquipmentProps> {
-  const { data } = await api.get<EquipmentProps>(
-    `inventory/equipment/${equipmentId}`
-  );
+  const { data } = await api.get<EquipmentProps>(`/equipment/${equipmentId}`);
 
   const equipment = {
     id: data.id,
