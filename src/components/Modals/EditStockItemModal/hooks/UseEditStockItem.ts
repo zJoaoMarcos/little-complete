@@ -6,15 +6,23 @@ import { toast } from "react-toastify";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import { editStockItemSchema } from "./schema";
-import { EditStockItemData } from "./types";
 
-export const UseEditStockItem = () => {
+import { EditStockItemData, useEditStockItemProps } from "./types";
+
+export const UseEditStockItem = ({ item }: useEditStockItemProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<EditStockItemData>({
     resolver: zodResolver(editStockItemSchema),
+    defaultValues: {
+      id: item.id,
+      category: item.category,
+      brand: item.brand,
+      model: item.model,
+      type: item.type,
+    },
   });
 
   const editStockItem = useMutation(

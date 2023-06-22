@@ -21,7 +21,9 @@ export function EditStockItemModal({
   isOpen,
   onClose,
 }: EditStockItemModalProps) {
-  const { register, errors, handleSubmit, handleEditItem } = UseEditStockItem();
+  const { register, errors, handleSubmit, handleEditItem } = UseEditStockItem({
+    item,
+  });
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm">
@@ -31,7 +33,7 @@ export function EditStockItemModal({
         <ModalHeader>
           Editar{" "}
           <Text as="span" color="purple">
-            {item.model}
+            {item.type} - {item.model}
           </Text>
         </ModalHeader>
 
