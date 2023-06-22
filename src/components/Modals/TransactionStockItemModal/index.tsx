@@ -28,7 +28,7 @@ export function TransactionStockItemModal({
   const [transactionType, setTransactionType] = useState("entry");
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
 
       <ModalContent>

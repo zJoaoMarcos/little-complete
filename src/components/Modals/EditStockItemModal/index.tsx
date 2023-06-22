@@ -26,7 +26,7 @@ export function EditStockItemModal({
   });
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
       <ModalOverlay />
 
       <ModalContent>
