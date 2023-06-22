@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 
-import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
@@ -9,7 +8,6 @@ import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import {
-  CreateUserData,
   StockProviderContextData,
   UpdateUserData,
   UpdateUserStatusData,
@@ -35,27 +33,6 @@ export function UserProvider({ children }: UserProviderProps) {
     id: debouncedWords,
     status: filter,
   });
-
-  const createUser = useMutation(
-    async (data: CreateUserData) => {
-      const res = await api.post<CreateUserData>("users", {
-        ...data,
-      });
-
-      return res.data;
-    },
-    {
-      onSuccess: () => {
-        toast.success("Usuário criado com sucesso");
-        queryClient.invalidateQueries("users");
-      },
-      onError: (error: AxiosError) => {
-        toast.error(
-          `Desculpe não conseguimos criar o usuário, tente mais tarde. ${error.response?.data}`
-        );
-      },
-    }
-  );
 
   const updateUser = useMutation(
     async (data: UpdateUserData) => {
@@ -123,7 +100,6 @@ export function UserProvider({ children }: UserProviderProps) {
         data,
         isLoading,
         isFetching,
-        createUser,
         updateUser,
         updateStatus,
         setFilter,

@@ -59,12 +59,7 @@ export interface StockProviderContextData {
   take: number;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  createUser: UseMutationResult<
-    CreateUserData,
-    unknown,
-    CreateUserData,
-    unknown
-  >;
+
   updateUser: UseMutationResult<
     UpdateUserData,
     unknown,
