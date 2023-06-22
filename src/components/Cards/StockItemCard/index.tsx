@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 import { TriggerEditStockItem } from "@/components/Modals/EditStockItemModal/Trigger";
-import { TriggerTransactionStockItem } from "@/components/Modals/TransactionStockItemModal/Trigger";
+import { TriggerTransactionStockItem } from "@/components/Modals/TransactionItemModal/Trigger";
 import { CategoryIcon } from "./CategoryIcon";
 import { StockItemCardProps } from "./types";
 

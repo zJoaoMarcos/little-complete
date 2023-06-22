@@ -3,7 +3,11 @@ import { Stack } from "@chakra-ui/react";
 import { Input } from "@/components/Form/input";
 import { useOutpuTransactionItem } from "../hooks/UseOutputTransactionItem";
 
-export function OutputTransactionForm(itemId: string) {
+interface Props {
+  itemId: string;
+}
+
+export function OutputTransactionForm({ itemId }: Props) {
   const { handleSubmit, handleOutputTransactionItem, register } =
     useOutpuTransactionItem(itemId);
 
