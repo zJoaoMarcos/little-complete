@@ -9,6 +9,7 @@ import { EquipmentDetailsProps, UpdateEquipmentData } from "./types";
 
 export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
   const [isBlocked, setIsBlocked] = useState(true);
+  const [hasExtraStorage, setHasExtraStorage] = useState(false);
 
   const { data: departmentList } = useDepartmentsList({
     key: "select-department",
@@ -70,5 +71,7 @@ export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
     isSubmitting,
     isDirty,
     departmentList,
+    hasExtraStorage,
+    setHasExtraStorage,
   };
 };

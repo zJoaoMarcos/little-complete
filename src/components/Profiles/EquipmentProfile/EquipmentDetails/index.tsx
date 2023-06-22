@@ -1,5 +1,12 @@
-import { Button, Flex, HStack, List, SimpleGrid } from "@chakra-ui/react";
-import { Archive, Pencil, X } from "@phosphor-icons/react";
+import {
+  Button,
+  Flex,
+  HStack,
+  IconButton,
+  SimpleGrid,
+  VStack,
+} from "@chakra-ui/react";
+import { Archive, Minus, Pencil, Plus, X } from "@phosphor-icons/react";
 
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
@@ -17,6 +24,8 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
     isDirty,
     isSubmitting,
     departmentList,
+    hasExtraStorage,
+    setHasExtraStorage,
   } = useEditEquipment({ equipment });
 
   console.log(equipment);
@@ -55,7 +64,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
         spacing={10}
         marginTop={8}
       >
-        <List spacing={6}>
+        <VStack spacing={6}>
           <Input
             size="md"
             {...register("id")}
@@ -148,9 +157,9 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
             label="Nota fiscal"
             isReadOnly={isBlocked}
           />
-        </List>
+        </VStack>
 
-        <List spacing={6}>
+        <VStack spacing={6}>
           <Input
             size="md"
             {...register("cpu")}
@@ -196,22 +205,35 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
             type="number"
           />
 
-          <Input
-            size="md"
-            {...register("storage1_type")}
-            label="Tipo de Armazenamento (2)"
-            isReadOnly={isBlocked}
-            type="text"
+          <IconButton
+            aria-label="extra-storage"
+            borderRadius="full"
+            bgColor="purple.200"
+            icon={hasExtraStorage ? <Minus /> : <Plus />}
+            onClick={() => setHasExtraStorage(!hasExtraStorage)}
           />
 
-          <Input
-            size="md"
-            {...register("storage1_syze")}
-            label="Tamanho de Armazenamento (2)"
-            isReadOnly={isBlocked}
-            type="number"
-          />
-        </List>
+          {hasExtraStorage && (
+            <>
+              <Input
+                {...register("storage1_syze")}
+                label="Tamanho de Armazenamento (2)"
+                type="number"
+                size="md"
+              />
+
+              <Select
+                {...register("storage1_type")}
+                placeholder="Tipo de Armazenamento"
+                label="Tipo de Armazenamento (2)"
+                size="md"
+              >
+                <option value="hd">HD</option>
+                <option value="ssd">SSD</option>
+              </Select>
+            </>
+          )}
+        </VStack>
       </SimpleGrid>
     </Flex>
   );
