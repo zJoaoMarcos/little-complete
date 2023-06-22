@@ -2,8 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useEquipment } from "@/contexts/Inventory";
 import { useDepartmentsList } from "@/hooks/useDepartmentsList";
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { updateEquipmentSchema } from "./schema";
 import { EquipmentDetailsProps, UpdateEquipmentData } from "./types";
 
@@ -14,7 +17,25 @@ export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
   const { data: departmentList } = useDepartmentsList({
     key: "select-department",
   });
-  const { updateEquipment } = useEquipment();
+
+  const updateEquipment = useMutation(
+    async (data: UpdateEquipmentData) => {
+      await api.patch<UpdateEquipmentData>(`inventory/equipment/${data.id}`, {
+        ...data,
+      });
+    },
+    {
+      onSuccess: (data, variables) => {
+        toast.success("Equipamento salvo com sucesso");
+        queryClient.invalidateQueries(["equipments", variables.id]);
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos desatrubuir o equipamento, tente mais tarde"
+        );
+      },
+    }
+  );
 
   const {
     register,

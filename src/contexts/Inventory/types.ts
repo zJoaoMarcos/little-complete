@@ -116,12 +116,7 @@ export interface EquipmentProviderContextData {
   page: number;
   setFilter: Dispatch<SetStateAction<string>>;
   setPage: Dispatch<SetStateAction<number>>;
-  updateEquipment: UseMutationResult<
-    UpdateEquipmentData,
-    unknown,
-    UpdateEquipmentData,
-    unknown
-  >;
+
   assignEquipment: UseMutationResult<
     AssignEquipmentData,
     unknown,

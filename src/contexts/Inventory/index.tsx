@@ -12,7 +12,6 @@ import {
   EquipmentProviderProps,
   UnassignAllEquipmentsData,
   UnassignEquipmentData,
-  UpdateEquipmentData,
   UpdateEquipmentStatusData,
 } from "./types";
 
@@ -36,30 +35,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     status: filter,
     type: type,
   });
-
-  const updateEquipment = useMutation(
-    async (data: UpdateEquipmentData) => {
-      const res = await api.patch<UpdateEquipmentData>(
-        `inventory/equipment/${data.id}`,
-        {
-          ...data,
-        }
-      );
-
-      return res.data;
-    },
-    {
-      onSuccess: (data, variables) => {
-        toast.success("Equipamento salvo com sucesso");
-        queryClient.invalidateQueries(["equipments", variables.id]);
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos desatrubuir o equipamento, tente mais tarde"
-        );
-      },
-    }
-  );
 
   const assignEquipment = useMutation(
     async (data: AssignEquipmentData) => {
@@ -167,7 +142,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         setType,
         setSearch,
         take,
-        updateEquipment,
         assignEquipment,
         unassignEquipment,
         unassignAllEquipments,
