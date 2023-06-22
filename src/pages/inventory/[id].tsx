@@ -1,9 +1,10 @@
-import { Layout } from "@/components/Layout";
-import { EquipmentProfile } from "@/components/Profiles/EquipmentProfile";
-import { getEquipment, useFindEquipment } from "@/hooks/UseFindEquipment";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ReactElement } from "react";
+
+import { Layout } from "@/components/Layout";
+import { EquipmentProfile } from "@/components/Profiles/EquipmentProfile";
+import { getEquipment, useFindEquipment } from "@/hooks/useFindEquipment";
 
 interface EquipmentProps {
   equipment: {

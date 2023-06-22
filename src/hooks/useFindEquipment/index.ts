@@ -1,44 +1,11 @@
 import { api } from "@/services/api";
-import { formatData } from "@/utils/formatData";
 import { UseQueryOptions, UseQueryResult, useQuery } from "react-query";
 
-interface EquipmentProps {
-  id: string;
-  status: string;
-  currentUser: string | null;
-  patrimony: string;
-  type: string;
-  brand: string | null;
-  model: string | null;
-  serviceTag: string | null;
-  purchase: {
-    invoice: string | null;
-    supplier: string | null;
-    purchaseDate: Date | null;
-    warranty: string | null;
-  };
-  department: {
-    id: number | null;
-    name: string | null;
-  };
-  config: {
-    cpu: string | null;
-    ram: string | null;
-    video: string | null;
-    storage: {
-      slots: number | null;
-      storage0Type: string | null;
-      storage0Syze: number | null;
-      storage1Type: string | null;
-      storage1Syze: number | null;
-    };
-  };
-}
+import { formatData } from "@/utils/formatData";
+import { Equipment } from "./types";
 
-export async function getEquipment(
-  equipmentId: string
-): Promise<EquipmentProps> {
-  const { data } = await api.get<EquipmentProps>(`/equipment/${equipmentId}`);
+export async function getEquipment(equipmentId: string): Promise<Equipment> {
+  const { data } = await api.get<Equipment>(`/equipments/${equipmentId}`);
 
   const equipment = {
     id: data.id,
@@ -88,5 +55,5 @@ export function useFindEquipment({ equipmentId, options }: Params) {
   return useQuery(["equipment", equipmentId], () => getEquipment(equipmentId), {
     staleTime: 1000 * 60, // 60 minutes
     ...options,
-  }) as UseQueryResult<EquipmentProps, unknown>;
+  }) as UseQueryResult<Equipment, unknown>;
 }
