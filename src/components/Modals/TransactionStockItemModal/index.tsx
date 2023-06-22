@@ -1,12 +1,23 @@
 import {
+  Button,
+  Divider,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Radio,
+  RadioGroup,
+  Stack,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
+
+import { Archive } from "@phosphor-icons/react";
+import { EntryTransactionItemForm } from "./Forms/EntryTransactionItemForm";
+import { OutputTransactionForm } from "./Forms/OutputTransactionItemForm";
 import { TransactionStockItemModalProps } from "./types";
 
 export function TransactionStockItemModal({
@@ -14,6 +25,8 @@ export function TransactionStockItemModal({
   isOpen,
   onClose,
 }: TransactionStockItemModalProps) {
+  const [transactionType, setTransactionType] = useState("entry");
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -23,9 +36,47 @@ export function TransactionStockItemModal({
           Movimentação do Item: <Text as="span">{item.model}</Text>
         </ModalHeader>
 
-        <ModalBody>Movimenta Movi</ModalBody>
+        <ModalCloseButton />
 
-        <ModalFooter></ModalFooter>
+        <ModalBody>
+          <RadioGroup colorScheme="purple" defaultValue="entry">
+            <Text>Qual é o tipo de movimentação ?</Text>
+            <Stack spacing={6} direction="row" mt="2">
+              <Radio
+                value="entry"
+                onChange={(e) => setTransactionType(e.target.value)}
+              >
+                Entrada
+              </Radio>
+              <Radio
+                value="output"
+                onChange={(e) => setTransactionType(e.target.value)}
+              >
+                Saída
+              </Radio>
+            </Stack>
+          </RadioGroup>
+
+          <Divider my="3" />
+
+          {transactionType === "entry" && (
+            <EntryTransactionItemForm item={item} />
+          )}
+          {transactionType === "output" && (
+            <OutputTransactionForm item={item} />
+          )}
+        </ModalBody>
+
+        <ModalFooter>
+          <Button
+            type="submit"
+            form="transaction"
+            colorScheme="purple"
+            leftIcon={<Archive />}
+          >
+            Salvar
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );

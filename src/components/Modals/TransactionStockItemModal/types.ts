@@ -1,4 +1,4 @@
-export interface StockItem {
+interface StockItem {
   id: string;
   brand: string;
   model: string;
