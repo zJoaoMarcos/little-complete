@@ -17,6 +17,10 @@ export function EquipmentBagdeStatus({ status }: EquipmentBadgeStatusProps) {
     return <Badge colorScheme="orange">Em Manutenção</Badge>;
   }
 
+  if (status === "borrowed") {
+    return <Badge colorScheme="orange">Empréstimo</Badge>;
+  }
+
   if (status === "in use") {
     return <Badge colorScheme="blue">Em Uso</Badge>;
   }

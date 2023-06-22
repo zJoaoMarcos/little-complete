@@ -1,6 +1,8 @@
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import {
   DesktopTower,
+  DeviceMobile,
+  DeviceTablet,
   Laptop,
   Monitor,
   Phone,
@@ -58,6 +60,14 @@ function equipmentIcon(type: string | null, iconSize: string) {
     return <VirtualReality size={iconSize} />;
   }
 
+  if (type === "Tablet") {
+    return <DeviceTablet size={iconSize} />;
+  }
+
+  if (type === "Smartphone") {
+    return <DeviceMobile size={iconSize} />;
+  }
+
   if (type === "Scanner") {
     return <Printer size={iconSize} />;
   }
@@ -74,6 +84,10 @@ function statusColor(status: string) {
 
   if (status === "maintenance") {
     return "orange.400";
+  }
+
+  if (status === "borrwed") {
+    return "orange.500";
   }
 
   if (status === "pendency") {
