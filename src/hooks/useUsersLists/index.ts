@@ -70,7 +70,7 @@ export async function getUsersList({
   return { users, totalCount };
 }
 
-export function useFetchUsersList({
+export function useUsersList({
   key = "users",
   page,
   skip = 0,

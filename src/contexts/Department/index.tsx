@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-import useDebounce from "@/hooks/UseDebounce";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
+import useDebounce from "@/hooks/useDebounce";
+import { useDepartmentsList } from "@/hooks/useDepartmentsList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import {
@@ -24,7 +24,7 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
 
   const take = 20;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useFetchDepartmentsList({
+  const { data, isLoading, isFetching } = useDepartmentsList({
     page,
     skip,
     take,

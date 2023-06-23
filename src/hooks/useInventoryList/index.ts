@@ -105,7 +105,7 @@ export async function getInventoryList({
   return { equipments, totalCount };
 }
 
-export function useFetchInvetoryList({
+export function useInvetoryList({
   key = "inventory",
   page = 0,
   skip = 0,

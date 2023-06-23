@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-import useDebounce from "@/hooks/UseDebounce";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import useDebounce from "@/hooks/useDebounce";
+import { useUsersList } from "@/hooks/useUsersLists";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import {
@@ -26,7 +26,7 @@ export function UserProvider({ children }: UserProviderProps) {
   const take = 20;
   const skip = (page - 1) * take;
 
-  const { data, isLoading, isFetching } = useFetchUsersList({
+  const { data, isLoading, isFetching } = useUsersList({
     page,
     skip,
     take,

@@ -1,9 +1,9 @@
-import useDebounce from "@/hooks/UseDebounce";
-import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
 import { createContext, useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
+import useDebounce from "@/hooks/useDebounce";
+import { useInvetoryList } from "@/hooks/useInventoryList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import {
@@ -27,7 +27,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
 
   const take = 26;
   const skip = (page - 1) * take;
-  const { data, isLoading, isFetching } = useFetchInvetoryList({
+  const { data, isLoading, isFetching } = useInvetoryList({
     page,
     skip,
     take,
