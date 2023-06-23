@@ -4,3 +4,8 @@ export interface AssignEquipmentModalProps {
   username: string;
   department_id: number;
 }
+
+export interface TriggerAssignEquipmentProps {
+  userName: string;
+  departmentId: number;
+}

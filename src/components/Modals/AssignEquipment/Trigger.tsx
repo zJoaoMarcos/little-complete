@@ -1,16 +1,13 @@
 import { Button, useDisclosure } from "@chakra-ui/react";
 import { Plus } from "@phosphor-icons/react";
-import { AssignEquipmentModal } from ".";
 
-interface TriggerAssignEquipment {
-  userName: string;
-  departmentId: number;
-}
+import { AssignEquipmentModal } from ".";
+import { TriggerAssignEquipmentProps } from "./types";
 
 export function TriggerAssignEquipment({
   userName,
   departmentId,
-}: TriggerAssignEquipment) {
+}: TriggerAssignEquipmentProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
