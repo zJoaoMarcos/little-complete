@@ -1,16 +1,16 @@
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { UsersList } from "@/components/Lists/UserLists";
-import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { useInvetoryList } from "@/hooks/useInventoryList";
+import { useUsersList } from "@/hooks/useUsersLists";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 export function PendencyTabs() {
-  const { data: equipments } = useFetchInvetoryList({
+  const { data: equipments } = useInvetoryList({
     key: "equipments-pendencies",
     status: "pendency",
   });
 
-  const { data: users } = useFetchUsersList({
+  const { data: users } = useUsersList({
     key: "users-pendencies",
     status: "pendency",
   });

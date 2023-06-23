@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useUser } from "@/contexts/Users";
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { useDepartmentsList } from "@/hooks/useDepartmentsList";
+import { useUsersList } from "@/hooks/useUsersLists";
 import { useState } from "react";
 import { UpdateUserSchema } from "./schema";
 import { UpdateUserData, UserDetailsProps } from "./types";
@@ -11,8 +11,8 @@ import { UpdateUserData, UserDetailsProps } from "./types";
 export const UseUpdateUser = ({ user }: UserDetailsProps) => {
   const [isEditable, setIsEditable] = useState(true);
 
-  const { data: departments } = useFetchDepartmentsList({});
-  const { data: users } = useFetchUsersList({});
+  const { data: departments } = useDepartmentsList({});
+  const { data: users } = useUsersList({});
 
   const {
     register,

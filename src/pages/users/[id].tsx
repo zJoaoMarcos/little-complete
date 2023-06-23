@@ -1,6 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { UserProfile } from "@/components/Profiles/UserProfile";
-import { getUser, useFindUser } from "@/hooks/UseFindUser";
+import { getUser, useFindUser } from "@/hooks/useFindUser";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ReactElement } from "react";

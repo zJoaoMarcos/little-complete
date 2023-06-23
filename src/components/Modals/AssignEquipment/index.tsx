@@ -1,5 +1,5 @@
 import { useEquipment } from "@/contexts/Inventory";
-import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
+import { useInvetoryList } from "@/hooks/useInventoryList";
 import {
   Box,
   Button,
@@ -29,7 +29,7 @@ export function AssignEquipmentModal({
 }: ModalProps) {
   const [value, setValue] = useState("");
 
-  const { data } = useFetchInvetoryList({ status: "avaliable" });
+  const { data } = useInvetoryList({ status: "avaliable" });
 
   const { assignEquipment } = useEquipment();
   const handleAssign = async () => {
