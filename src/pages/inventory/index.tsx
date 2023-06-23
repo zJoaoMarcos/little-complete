@@ -39,12 +39,13 @@ export default function Inventory() {
           </Heading>
 
           <Select
+            mt="2"
             name="filter"
             onChange={(e) => setFilter(e.target.value)}
             variant="unstyled"
             _hover={{ bg: "none" }}
             _placeholder={{ mt: "2px" }}
-            size="sm"
+            size="md"
           >
             {filterOptions.map((item, i) => {
               return (
@@ -56,13 +57,14 @@ export default function Inventory() {
           </Select>
 
           <Select
+            mt="2"
             label=""
             name="type"
             onChange={(e) => setType(e.target.value)}
             variant="unstyled"
             _hover={{ bg: "none" }}
             _placeholder={{ mt: "2px" }}
-            size="sm"
+            size="md"
           >
             {typeOptions.map((item, i) => {
               return (
