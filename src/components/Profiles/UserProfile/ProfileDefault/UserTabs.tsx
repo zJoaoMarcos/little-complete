@@ -1,5 +1,5 @@
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
-import { TriggerAssignEquipment } from "@/components/Modals/AssignEquipment/Trigger";
+import { TriggerAssignEquipment } from "@/components/Modals/AssignEquipmentModal/Trigger";
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { UserDetails } from "./UserDetails";
 
