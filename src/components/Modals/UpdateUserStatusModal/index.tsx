@@ -1,5 +1,4 @@
 import { Select } from "@/components/Form/Select";
-import { useUser } from "@/contexts/Users";
 import {
   Button,
   Modal,
@@ -11,30 +10,10 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { useUpdateUserStatus } from "./hooks/useUpdateUserStatus";
+import { UpdateUserStatusModalProps } from "./types";
 
-const UpdateUserStatusSchema = z.object({
-  user_name: z.string().nonempty(),
-  status: z.string().nonempty(),
-});
-
-type UpdateUserStatusData = z.infer<typeof UpdateUserStatusSchema>;
-
-interface UpdateUserStatusModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  userName: string;
-  currentStatus: string;
-}
-
-type IStatusOptions = {
-  value: string;
-  option: string;
-};
-
-const defaultStatusOptions: IStatusOptions[] = [
+const defaultStatusOptions = [
   { value: "active", option: "Ativo" },
   { value: "vacation", option: "Férias/Afastado" },
   { value: "disabled", option: "Desligado" },
@@ -50,26 +29,8 @@ export function UpdateUserStatusModal({
     (status) => status.value !== currentStatus
   );
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, isDirty },
-  } = useForm<UpdateUserStatusData>({
-    resolver: zodResolver(UpdateUserStatusSchema),
-    defaultValues: { user_name: userName },
-  });
-
-  const { updateStatus } = useUser();
-  const handleUpdateStatus: SubmitHandler<UpdateUserStatusData> = async (
-    data,
-    event
-  ) => {
-    event?.preventDefault();
-
-    await updateStatus.mutateAsync(data);
-
-    onClose();
-  };
+  const { handleSubmit, handleUpdateStatus, isDirty, isSubmitting, register } =
+    useUpdateUserStatus(userName, onClose);
 
   return (
     <Modal

@@ -1,18 +1,14 @@
 import { Button, IconButton, useDisclosure } from "@chakra-ui/react";
 import { ArrowsClockwise } from "@phosphor-icons/react";
-import { UpdateUserStatusModal } from ".";
 
-interface TriggerAssignEquipment {
-  useName: string;
-  currentStatus: string;
-  isIconButton?: boolean;
-}
+import { UpdateUserStatusModal } from ".";
+import { TriggerAssignEquipmentProps } from "./types";
 
 export function TriggerUpdateUserStatus({
   useName,
   isIconButton = false,
   currentStatus,
-}: TriggerAssignEquipment) {
+}: TriggerAssignEquipmentProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>

@@ -1,5 +1,5 @@
 import { UserAvatar } from "@/components/Avatars/UserAvatar";
-import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
+import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatusModal/Trigger";
 import {
   Flex,
   HStack,

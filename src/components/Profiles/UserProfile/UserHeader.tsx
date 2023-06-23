@@ -1,6 +1,6 @@
 import { UserAvatar } from "@/components/Avatars/UserAvatar";
 import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus";
-import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatus/Trigger";
+import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatusModal/Trigger";
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { Flex, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import { UserHeaderProps } from "./types";

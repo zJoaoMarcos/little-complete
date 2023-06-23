@@ -66,10 +66,4 @@ export interface StockProviderContextData {
     UpdateUserData,
     unknown
   >;
-  updateStatus: UseMutationResult<
-    UpdateUserStatusData,
-    unknown,
-    UpdateUserStatusData,
-    unknown
-  >;
 }
