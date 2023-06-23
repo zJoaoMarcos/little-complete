@@ -1,14 +1,11 @@
 import { IconButton, useDisclosure } from "@chakra-ui/react";
 import { Prohibit } from "@phosphor-icons/react";
 import { UnassignEquipmentModal } from ".";
-
-interface TriggerAssignEquipment {
-  equipmentId: string;
-}
+import { TriggerAssignEquipmentProps } from "./types";
 
 export function TriggerUnassignEquipment({
   equipmentId,
-}: TriggerAssignEquipment) {
+}: TriggerAssignEquipmentProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>

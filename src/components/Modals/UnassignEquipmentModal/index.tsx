@@ -1,4 +1,3 @@
-import { useEquipment } from "@/contexts/Inventory";
 import {
   Button,
   Modal,
@@ -10,24 +9,15 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-
-interface UnassignEquipmentModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  equipmentId: string;
-}
+import { useUnassignEquipment } from "./hooks/useUnassignEquipment";
+import { UnassignEquipmentModalProps } from "./types";
 
 export function UnassignEquipmentModal({
   isOpen,
   onClose,
   equipmentId,
 }: UnassignEquipmentModalProps) {
-  const { unassignEquipment } = useEquipment();
-  const handleUnassign = async () => {
-    await unassignEquipment.mutateAsync({ equipment_id: equipmentId });
-
-    onClose();
-  };
+  const { handleUnassign } = useUnassignEquipment(equipmentId, onClose);
 
   return (
     <Modal

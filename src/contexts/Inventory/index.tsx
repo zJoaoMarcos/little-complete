@@ -6,13 +6,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { useInvetoryList } from "@/hooks/useInventoryList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
-import {
-  AssignEquipmentData,
-  EquipmentProviderContextData,
-  EquipmentProviderProps,
-  UnassignAllEquipmentsData,
-  UnassignEquipmentData,
-} from "./types";
+import { EquipmentProviderContextData, EquipmentProviderProps } from "./types";
 
 const EquipmentContext = createContext({} as EquipmentProviderContextData);
 
@@ -47,30 +41,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
       onSuccess: (data, variables) => {
         toast.success("Equipamento atribuido com sucesso");
         queryClient.invalidateQueries(["user", variables.user_id]);
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
-        );
-      },
-    }
-  );
-
-  const unassignEquipment = useMutation(
-    async (data: UnassignEquipmentData) => {
-      const res = await api.delete<UnassignEquipmentData>(
-        `user-assignments/${data.equipment_id}`
-      );
-
-      return res.data;
-    },
-    {
-      onSuccess: (data, variables) => {
-        Promise.all([
-          queryClient.invalidateQueries(["equipment", variables.equipment_id]),
-          queryClient.invalidateQueries(["user", variables.username]),
-        ]);
-        toast.success("Equipamento atribuido com sucesso");
       },
       onError: () => {
         toast.error(
@@ -115,9 +85,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         setType,
         setSearch,
         take,
-        assignEquipment,
-        unassignEquipment,
-        unassignAllEquipments,
       }}
     >
       {children}

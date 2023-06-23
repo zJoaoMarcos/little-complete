@@ -9,7 +9,7 @@ import { CaretRight } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
-import { TriggerUnassignEquipment } from "@/components/Modals/UnassignEquipment/Trigger";
+import { TriggerUnassignEquipment } from "@/components/Modals/UnassignEquipmentModal/Trigger";
 import { EquipmentCardProps } from "./type";
 
 export function EquipmentCard({
