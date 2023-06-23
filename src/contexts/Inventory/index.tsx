@@ -25,29 +25,6 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     type: type,
   });
 
-  /* const unassignAllEquipments = useMutation(
-    async (data: UnassignAllEquipmentsData) => {
-      const res = await api.delete<UnassignAllEquipmentsData>(
-        `user-assignments/all/${data.username}`
-      );
-
-      return res.data;
-    },
-    {
-      onSuccess: (data, variables) => {
-        toast.success("Equipamento atribuido com sucesso");
-        queryClient.invalidateQueries({
-          queryKey: ["user", variables.username],
-        });
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
-        );
-      },
-    }
-  ); */
-
   return (
     <EquipmentContext.Provider
       value={{

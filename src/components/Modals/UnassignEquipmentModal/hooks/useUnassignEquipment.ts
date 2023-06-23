@@ -11,7 +11,7 @@ export const useUnassignEquipment = (
   const unassignEquipment = useMutation(
     async (data: UnassignEquipmentData) => {
       await api.delete<UnassignEquipmentData>(
-        `user-assignments/${data.equipment_id}`
+        `/equipments/assign/${data.equipment_id}`
       );
     },
     {

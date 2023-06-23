@@ -1,4 +1,4 @@
-import { UnassignEquipmentsForm } from "@/components/Forms/UnassignEquipments";
+import { UnassignEquipmentsForm } from "@/components/Forms/UnassignAllEquipmentsForm";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
 import { useUser } from "@/contexts/Users";
 import {
