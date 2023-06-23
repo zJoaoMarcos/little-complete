@@ -135,10 +135,4 @@ export interface EquipmentProviderContextData {
     UnassignAllEquipmentsData,
     unknown
   >;
-  updateEquipmentStatus: UseMutationResult<
-    UpdateEquipmentStatusData,
-    unknown,
-    UpdateEquipmentStatusData,
-    unknown
-  >;
 }

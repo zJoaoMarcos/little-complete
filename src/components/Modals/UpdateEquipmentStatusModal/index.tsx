@@ -1,5 +1,3 @@
-import { Select } from "@/components/Form/Select";
-import { useEquipment } from "@/contexts/Inventory";
 import {
   Button,
   Modal,
@@ -11,23 +9,10 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
 
-const UpdateEquipmentStatusSchema = z.object({
-  equipment_id: z.string().nonempty(),
-  status: z.string().nonempty(),
-});
-
-type UpdateEquipmentStatusData = z.infer<typeof UpdateEquipmentStatusSchema>;
-
-interface UpdateEquipmentStatusModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  equipment_id: string;
-  currentStatus: string;
-}
+import { Select } from "@/components/Form/Select";
+import { UpdateEquipmentStatusModalProps } from "./hooks/types";
+import { useUpdateEquipmentStatus } from "./hooks/useUpdateEquipmentStatus";
 
 const defaultStatusOptions = [
   { value: "available", option: "Disponivel" },
@@ -45,27 +30,8 @@ export function UpdateEquipmentStatusModal({
     (status) => status.value !== currentStatus
   );
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, isDirty },
-  } = useForm<UpdateEquipmentStatusData>({
-    resolver: zodResolver(UpdateEquipmentStatusSchema),
-    defaultValues: { equipment_id: equipment_id },
-  });
-
-  const { updateEquipmentStatus } = useEquipment();
-
-  const handleUpdateStatus: SubmitHandler<UpdateEquipmentStatusData> = async (
-    data,
-    event
-  ) => {
-    event?.preventDefault();
-
-    await updateEquipmentStatus.mutateAsync(data);
-
-    onClose();
-  };
+  const { handleSubmit, handleUpdateStatus, isDirty, isSubmitting, register } =
+    useUpdateEquipmentStatus(equipment_id);
 
   return (
     <Modal
