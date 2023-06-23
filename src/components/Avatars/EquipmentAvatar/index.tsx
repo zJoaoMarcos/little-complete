@@ -1,5 +1,6 @@
 import { Avatar, AvatarBadge } from "@chakra-ui/react";
 import {
+  ComputerTower,
   DesktopTower,
   DeviceMobile,
   DeviceTablet,
@@ -23,9 +24,12 @@ export function EquipmentAvatar({
   avatarSize = "sm",
   iconSize = "20",
 }: EquipmentAvatarProps) {
-  const icon = equipmentIcon(type, iconSize);
   return (
-    <Avatar size={avatarSize} bgColor="purple.400" icon={icon}>
+    <Avatar
+      size={avatarSize}
+      bgColor="purple.400"
+      icon={<EquipmentIcon type={type} iconSize={iconSize} />}
+    >
       {status && (
         <AvatarBadge
           bg={statusColor(status)}
@@ -39,7 +43,12 @@ export function EquipmentAvatar({
   );
 }
 
-function equipmentIcon(type: string | null, iconSize: string) {
+interface EquipmentIconProps {
+  type: string | null;
+  iconSize: string;
+}
+
+function EquipmentIcon({ type, iconSize }: EquipmentIconProps) {
   if (type === "Desktop") {
     return <DesktopTower size={iconSize} />;
   }
@@ -71,6 +80,8 @@ function equipmentIcon(type: string | null, iconSize: string) {
   if (type === "Scanner") {
     return <Printer size={iconSize} />;
   }
+
+  return <ComputerTower size={iconSize} />;
 }
 
 function statusColor(status: string) {
