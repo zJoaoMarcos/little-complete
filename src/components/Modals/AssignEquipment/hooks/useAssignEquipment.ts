@@ -16,7 +16,7 @@ export const useAssignEquipment = (userId: string, onClose: () => void) => {
 
   const assignEquipment = useMutation(
     async (data: AssignEquipmentData) => {
-      const res = await api.post<AssignEquipmentData>(`user-assignments/`, {
+      const res = await api.post<AssignEquipmentData>(`equipments/assign/`, {
         user_id: data.userId,
         equipment_id: data.equipmentId,
       });

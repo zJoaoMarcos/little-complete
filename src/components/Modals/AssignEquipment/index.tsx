@@ -9,7 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { AvaliableEquipmentsInput } from "./AvaliableEquipmentsInput";
+import { EquipmentRadioGroup } from "./EquipmentRadioGroup";
 import { useAssignEquipment } from "./hooks/useAssignEquipment";
 import { AssignEquipmentModalProps } from "./types";
 
@@ -37,7 +37,7 @@ export function AssignEquipmentModal({
         <ModalCloseButton />
         <ModalBody>
           <Box as="form" id="update_item">
-            <AvaliableEquipmentsInput
+            <EquipmentRadioGroup
               equipments={data?.equipments!}
               setValue={setValue}
             />

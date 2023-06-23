@@ -1,6 +1,6 @@
 import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentBagdeStatus } from "@/components/Avatars/EquipmentAvatar/EquipmentBadgeStatus";
-import { TriggerUpdateEquipmentStatus } from "@/components/Modals/UpdateEquipmentStatus/Trigger";
+import { TriggerUpdateEquipmentStatus } from "@/components/Modals/UpdateEquipmentStatusModal/Trigger";
 import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
 
 interface EquipmentHeaderProps {
