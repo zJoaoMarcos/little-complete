@@ -13,11 +13,9 @@ import { NavSection } from "./NavSection";
 
 export function SidebarNav() {
   const { data: users } = useUsersList({
-    key: "users-pendencies",
     status: "pendency",
   });
   const { data: equips } = useInvetoryList({
-    key: "equipments-pendencies",
     status: "pendency",
   });
 

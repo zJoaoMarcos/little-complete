@@ -1,11 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 
 import useDebounce from "@/hooks/useDebounce";
 import { useInvetoryList } from "@/hooks/useInventoryList";
-import { api } from "@/services/api";
-import { queryClient } from "@/services/queryClient";
 import { EquipmentProviderContextData, EquipmentProviderProps } from "./types";
 
 const EquipmentContext = createContext({} as EquipmentProviderContextData);
@@ -29,28 +25,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
     type: type,
   });
 
-  const assignEquipment = useMutation(
-    async (data: AssignEquipmentData) => {
-      const res = await api.post<AssignEquipmentData>(`user-assignments/`, {
-        ...data,
-      });
-
-      return res.data;
-    },
-    {
-      onSuccess: (data, variables) => {
-        toast.success("Equipamento atribuido com sucesso");
-        queryClient.invalidateQueries(["user", variables.user_id]);
-      },
-      onError: () => {
-        toast.error(
-          "Desculpe não conseguimos atribuir o equipamento, tente mais tarde"
-        );
-      },
-    }
-  );
-
-  const unassignAllEquipments = useMutation(
+  /* const unassignAllEquipments = useMutation(
     async (data: UnassignAllEquipmentsData) => {
       const res = await api.delete<UnassignAllEquipmentsData>(
         `user-assignments/all/${data.username}`
@@ -71,7 +46,7 @@ export function EquipmentProvider({ children }: EquipmentProviderProps) {
         );
       },
     }
-  );
+  ); */
 
   return (
     <EquipmentContext.Provider

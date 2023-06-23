@@ -1,5 +1,3 @@
-import { useEquipment } from "@/contexts/Inventory";
-import { useInvetoryList } from "@/hooks/useInventoryList";
 import {
   Box,
   Button,
@@ -11,35 +9,19 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { AvaliableEquipmentsInput } from "./AvaliableEquipmentsInput";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  username: string;
-  department_id: number;
-}
+import { useAssignEquipment } from "./hooks/useAssignEquipment";
+import { AssignEquipmentModalProps } from "./types";
 
 export function AssignEquipmentModal({
   isOpen,
   onClose,
   username,
-  department_id,
-}: ModalProps) {
-  const [value, setValue] = useState("");
-
-  const { data } = useInvetoryList({ status: "avaliable" });
-
-  const { assignEquipment } = useEquipment();
-  const handleAssign = async () => {
-    await assignEquipment.mutateAsync({
-      user_id: username,
-      equipment_id: value,
-    });
-
-    onClose();
-  };
+}: AssignEquipmentModalProps) {
+  const { data, handleAssign, setValue } = useAssignEquipment(
+    username,
+    onClose
+  );
 
   return (
     <Modal

@@ -112,11 +112,11 @@ export function useInvetoryList({
   take = 0,
   id = "",
   type = "",
-  status,
+  status = "",
   departmentId,
 }: FetchParams) {
   return useQuery(
-    [key, page + id + status + departmentId + type],
+    [key, page + status + type],
     () => getInventoryList({ skip, take, id, status, departmentId, type }),
     {
       staleTime: 1000 * 60, //60 minutes
