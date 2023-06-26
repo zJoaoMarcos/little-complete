@@ -6,6 +6,7 @@ import {
   AccordionPanel,
   Box,
   HStack,
+  SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 
@@ -42,17 +43,14 @@ export function StockList({ stockList }: StockListProps) {
               </AccordionButton>
             </h2>
 
-            <AccordionPanel
-              pb={4}
-              display="flex"
-              w="full"
-              justifyContent="space-between"
-            >
-              {data?.items
-                .filter((item) => item.type === group.itemType)
-                .map((item) => {
-                  return <StockItemCard key={item.id} item={item} />;
-                })}
+            <AccordionPanel>
+              <SimpleGrid columns={{ base: 4, md: 5 }} spacing="4">
+                {data?.items
+                  .filter((item) => item.type === group.itemType)
+                  .map((item) => {
+                    return <StockItemCard key={item.id} item={item} />;
+                  })}
+              </SimpleGrid>
             </AccordionPanel>
           </AccordionItem>
         );
