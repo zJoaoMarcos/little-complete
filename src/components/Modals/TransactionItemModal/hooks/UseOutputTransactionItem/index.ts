@@ -10,7 +10,10 @@ import { queryClient } from "@/services/queryClient";
 import { OutputTransactionItemSchema } from "./schema";
 import { OutputTransactionItemData } from "./types";
 
-export const useOutpuTransactionItem = (itemId: string) => {
+export const useOutpuTransactionItem = (
+  itemId: string,
+  onClose: () => void
+) => {
   const {
     register,
     handleSubmit,
@@ -56,6 +59,7 @@ export const useOutpuTransactionItem = (itemId: string) => {
     await outputTransactionItem.mutateAsync(data);
 
     reset();
+    onClose();
   };
 
   return { register, handleSubmit, handleOutputTransactionItem, usersList };

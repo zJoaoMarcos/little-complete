@@ -5,11 +5,12 @@ import { useEntryTransactionItem } from "../hooks/UseEntryTransactionItem";
 
 interface Props {
   itemId: string;
+  onClose: () => void;
 }
 
-export function EntryTransactionItemForm({ itemId }: Props) {
+export function EntryTransactionItemForm({ itemId, onClose }: Props) {
   const { register, handleEntryTransaction, handleSubmit } =
-    useEntryTransactionItem(itemId);
+    useEntryTransactionItem(itemId, onClose);
 
   return (
     <Stack

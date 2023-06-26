@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 import { EntryTransactionItemSchema } from "./schema";
 import { EntryTransactionItemData } from "./type";
 
-export const useEntryTransactionItem = (itemId: string) => {
+export const useEntryTransactionItem = (
+  itemId: string,
+  onClose: () => void
+) => {
   const { register, handleSubmit } = useForm<EntryTransactionItemData>({
     resolver: zodResolver(EntryTransactionItemSchema),
     defaultValues: {
@@ -47,6 +50,8 @@ export const useEntryTransactionItem = (itemId: string) => {
     event?.preventDefault();
 
     await entryTransactionItem.mutateAsync(data);
+
+    onClose();
   };
 
   return { register, handleSubmit, handleEntryTransaction };

@@ -60,10 +60,10 @@ export function TransactionStockItemModal({
           <Divider my="3" />
 
           {transactionType === "entry" && (
-            <EntryTransactionItemForm itemId={item.id} />
+            <EntryTransactionItemForm itemId={item.id} onClose={onClose} />
           )}
           {transactionType === "output" && (
-            <OutputTransactionForm itemId={item.id} />
+            <OutputTransactionForm itemId={item.id} onClose={onClose} />
           )}
         </ModalBody>
 

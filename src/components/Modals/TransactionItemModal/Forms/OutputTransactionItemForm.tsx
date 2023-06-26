@@ -6,11 +6,12 @@ import { useOutpuTransactionItem } from "../hooks/UseOutputTransactionItem";
 
 interface Props {
   itemId: string;
+  onClose: () => void;
 }
 
-export function OutputTransactionForm({ itemId }: Props) {
+export function OutputTransactionForm({ itemId, onClose }: Props) {
   const { handleSubmit, handleOutputTransactionItem, register, usersList } =
-    useOutpuTransactionItem(itemId);
+    useOutpuTransactionItem(itemId, onClose);
 
   return (
     <Stack
