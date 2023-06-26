@@ -1,8 +1,8 @@
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { UsersList } from "@/components/Lists/UserLists";
 import { DepartmentDetails } from "@/components/Profiles/DepartmentProfile/DepartmentDetails";
-import { useFetchInvetoryList } from "@/hooks/UseFetchInventoryList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { useInvetoryList } from "@/hooks/useInventoryList";
+import { useUsersList } from "@/hooks/useUsersLists";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 interface DepartmentTabProps {
@@ -17,12 +17,12 @@ interface DepartmentTabProps {
 }
 
 export function DepartmentTab({ department }: DepartmentTabProps) {
-  const { data: equipments } = useFetchInvetoryList({
+  const { data: equipments } = useInvetoryList({
     key: `inventory-${department.id}`,
     departmentId: department.id,
   });
 
-  const { data: users } = useFetchUsersList({
+  const { data: users } = useUsersList({
     key: `user-${department.id}`,
     departmentId: department.id,
   });

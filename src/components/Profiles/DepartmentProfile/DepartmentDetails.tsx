@@ -1,7 +1,7 @@
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useDepartment } from "@/contexts/Department";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { useUsersList } from "@/hooks/useUsersLists";
 import { Button, Checkbox, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
@@ -51,7 +51,7 @@ export function DepartmentDetails({ department }: DepartmentDetailsProps) {
 
   const { isSubmitting } = formState;
 
-  const { data: users } = useFetchUsersList({});
+  const { data: users } = useUsersList({ key: "all-users-list", page: 0 });
   const { updateDepartment } = useDepartment();
 
   const handleUpdate: SubmitHandler<UpdateDepartmentData> = async (
