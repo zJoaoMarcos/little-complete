@@ -1,7 +1,7 @@
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { Button, Checkbox, SimpleGrid } from "@chakra-ui/react";
-import { useCreateDepartment } from "./useCreateDepartment";
+import { useCreateDepartment } from "./hooks/useCreateDepartment";
 
 export function CreateNewDepartmentForm() {
   const {
@@ -33,7 +33,7 @@ export function CreateNewDepartmentForm() {
       <Select
         label="Board"
         {...register("board")}
-        size="sm"
+        size="lg"
         placeholder="Selecione o responsável"
       >
         {departments?.departments.map((department) => (

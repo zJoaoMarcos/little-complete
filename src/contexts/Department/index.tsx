@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { createContext, useContext, useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
@@ -8,7 +7,6 @@ import { useDepartmentsList } from "@/hooks/useDepartmentsList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import {
-  CreateDepartmentData,
   DepartmentProviderContextData,
   DepartmentsProviderProps,
   UpdateDepartmentData,
@@ -30,27 +28,6 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
     take,
     id: debouncedWord,
   });
-
-  const createDepartment = useMutation(
-    async (data: CreateDepartmentData) => {
-      const res = await api.post<CreateDepartmentData>("departments", {
-        ...data,
-      });
-
-      return res.data;
-    },
-    {
-      onSuccess: () => {
-        toast.success("Departamento criado com sucesso");
-        queryClient.invalidateQueries("department");
-      },
-      onError: (err: AxiosError) => {
-        toast.error(
-          `Desculpe não conseguimos criar o departamento ${err.response?.data}, tente mais tarde`
-        );
-      },
-    }
-  );
 
   const updateDepartment = useMutation(
     async (data: UpdateDepartmentData) => {
@@ -86,7 +63,6 @@ export function DepartmentProvider({ children }: DepartmentsProviderProps) {
         setPage,
         setSearch,
         take,
-        createDepartment,
         updateDepartment,
       }}
     >
