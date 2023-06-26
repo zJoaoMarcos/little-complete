@@ -5,5 +5,5 @@ export const EntryTransactionItemSchema = z.object({
   price: z.string(),
   amount: z.coerce.number(),
   supplier: z.string(),
-  nf: z.string(),
+  invoice: z.string(),
 });

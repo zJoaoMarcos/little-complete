@@ -7,7 +7,7 @@ export function CategoryIcon({ category }: CategoryIconProps) {
     return (
       <Icon
         as={Cpu}
-        bgColor="purple.200"
+        bgColor="purple.100"
         borderRadius="full"
         w="8"
         h="8"
@@ -20,7 +20,7 @@ export function CategoryIcon({ category }: CategoryIconProps) {
     return (
       <Icon
         as={Usb}
-        bgColor="purple.200"
+        bgColor="purple.100"
         borderRadius="full"
         w="8"
         h="8"
@@ -32,7 +32,7 @@ export function CategoryIcon({ category }: CategoryIconProps) {
   return (
     <Icon
       as={Cube}
-      bgColor="purple.200"
+      bgColor="purple.100"
       borderRadius="full"
       w="8"
       h="8"

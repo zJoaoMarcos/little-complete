@@ -14,6 +14,7 @@ export function TriggerTransactionStockItem({
         size="sm"
         onClick={onOpen}
         colorScheme="purple"
+        w="full"
         leftIcon={<ArrowClockwise />}
       >
         Movimentar

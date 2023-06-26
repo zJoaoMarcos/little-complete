@@ -21,7 +21,7 @@ export function EntryTransactionItemForm({ itemId, onClose }: Props) {
     >
       <Input {...register("price")} label="Preço" />
       <Input {...register("amount")} label="Quantidade" />
-      <Input {...register("nf")} label="Nota Fiscal" />
+      <Input {...register("invoice")} label="Nota Fiscal" />
       <Input {...register("supplier")} label="Fornecedor" />
     </Stack>
   );

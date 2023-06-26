@@ -1,28 +1,44 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-import { api } from "@/services/api";
-import { queryClient } from "@/services/queryClient";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+
+import { useStockList } from "@/hooks/useStockList";
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
 import { RegisterNewItemSchema } from "./schema";
 import { RegisterNewItemData } from "./type";
 
-export const useRegisterNewItem = () => {
-  const { register, handleSubmit } = useForm<RegisterNewItemData>({
+export const useRegisterNewItem = (onClose: () => void) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<RegisterNewItemData>({
     resolver: zodResolver(RegisterNewItemSchema),
+    defaultValues: {
+      isNewTypeGroup: false,
+    },
   });
+
+  const isNewType = watch("isNewTypeGroup");
+  const { data: session } = useSession();
+  const { data: typeList } = useStockList(0);
 
   const registerNewItem = useMutation(
     async (data: RegisterNewItemData) => {
-      await api.post("items/", {
+      await api.post("stock/items/", {
+        createdBy: session?.user?.email,
         ...data,
       });
     },
     {
       onSuccess: () => {
         toast.success("Item registrado com sucesso");
-        queryClient.invalidateQueries("stockList");
+        queryClient.invalidateQueries("stock-list");
+        queryClient.invalidateQueries("stock-items");
       },
       onError: (err) => {
         toast.error(
@@ -40,7 +56,16 @@ export const useRegisterNewItem = () => {
     event?.preventDefault();
 
     await registerNewItem.mutateAsync(data);
+
+    onClose();
   };
 
-  return { register, handleSubmit, handleRegister };
+  return {
+    register,
+    handleSubmit,
+    handleRegister,
+    typeList,
+    isNewType,
+    errors,
+  };
 };

@@ -14,7 +14,7 @@ import { StockItemCardProps } from "./types";
 
 export function StockItemCard({ item }: StockItemCardProps) {
   return (
-    <Card minW="4xs">
+    <Card h="240" w="140">
       <CardHeader>
         <HStack justifyContent="space-between" mb="1">
           <CategoryIcon category={item.category} />

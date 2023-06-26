@@ -25,11 +25,11 @@ export function RegisterNewItemModal({
         <ModalCloseButton />
 
         <ModalBody>
-          <NewItemForm />
+          <NewItemForm onClose={onClose} />
         </ModalBody>
 
         <ModalFooter>
-          <Button type="submit" colorScheme="purple">
+          <Button type="submit" form="new-item" colorScheme="purple">
             Enviar
           </Button>
         </ModalFooter>

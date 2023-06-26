@@ -4,7 +4,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   HStack,
   SimpleGrid,
   Text,
@@ -18,33 +17,42 @@ export function StockList({ stockList }: StockListProps) {
   const { data, isLoading, isFetching } = UseStockItems();
 
   return (
-    <Accordion allowMultiple w="full">
+    <Accordion allowMultiple>
       {stockList.map((group) => {
         return (
           <AccordionItem key={group.id}>
-            <h2>
-              <AccordionButton>
-                <Box as="span" flex="1" textAlign="left">
-                  <HStack
-                    spacing={20}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    p="2"
-                  >
-                    <Text>Tipo: {group.itemType}</Text>
+            <HStack as="span" flexDir="row" justifyContent="space-between">
+              <HStack w="full" flexDir="row" justifyContent="space-between">
+                <Text p="3" mr="auto">
+                  Tipo: {group.itemType}
+                </Text>
 
-                    <Text>Qtd: {group.amount}</Text>
+                <Text p="3" textAlign="center">
+                  Quantidade: {group.amount}
+                </Text>
 
-                    <Text>Qtd. Min: {group.amountMin}</Text>
-                  </HStack>
-                </Box>
+                <Text p="3">Qtd. Minima: {group.amountMin}</Text>
+              </HStack>
 
+              <AccordionButton
+                w="10"
+                alignItems="center"
+                justifyContent="center"
+                rounded="md"
+                color="black"
+                display="flex"
+                _hover={{ bgColor: "transparent" }}
+              >
                 <AccordionIcon />
               </AccordionButton>
-            </h2>
+            </HStack>
 
-            <AccordionPanel>
-              <SimpleGrid columns={{ base: 4, md: 5 }} spacing="4">
+            <AccordionPanel w="full">
+              <SimpleGrid
+                w="full"
+                columns={{ base: 2, sm: 2, md: 4 }}
+                spacing="4"
+              >
                 {data?.items
                   .filter((item) => item.type === group.itemType)
                   .map((item) => {
