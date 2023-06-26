@@ -1,9 +1,12 @@
-import { api } from "@/services/api";
-import { queryClient } from "@/services/queryClient";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+
+import { useUsersList } from "@/hooks/useUsersLists";
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
 import { OutputTransactionItemSchema } from "./schema";
 import { OutputTransactionItemData } from "./types";
 
@@ -20,9 +23,13 @@ export const useOutpuTransactionItem = (itemId: string) => {
     },
   });
 
+  const { data: session } = useSession();
+  const { data: usersList } = useUsersList({ key: "all-users-list" });
+
   const outputTransactionItem = useMutation(
     async (data: OutputTransactionItemData) => {
       await api.post(`stock/items/${data.id}/transaction/output`, {
+        createdBy: session?.user?.email,
         ...data,
       });
     },
@@ -50,5 +57,5 @@ export const useOutpuTransactionItem = (itemId: string) => {
     reset();
   };
 
-  return { register, handleSubmit, handleOutputTransactionItem };
+  return { register, handleSubmit, handleOutputTransactionItem, usersList };
 };

@@ -1,5 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 
+import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useOutpuTransactionItem } from "../hooks/UseOutputTransactionItem";
 
@@ -8,7 +9,7 @@ interface Props {
 }
 
 export function OutputTransactionForm({ itemId }: Props) {
-  const { handleSubmit, handleOutputTransactionItem, register } =
+  const { handleSubmit, handleOutputTransactionItem, register, usersList } =
     useOutpuTransactionItem(itemId);
 
   return (
@@ -18,8 +19,21 @@ export function OutputTransactionForm({ itemId }: Props) {
       onSubmit={handleSubmit(handleOutputTransactionItem)}
       direction="column"
     >
-      <Input {...register("amount")} label="Quantidade" />
-      <Input {...register("requester")} label="Requisitante" />
+      <Input {...register("amount")} label="Quantidade" placeholder="Ex: 8" />
+
+      <Select
+        {...register("requester")}
+        label="Requisitante"
+        placeholder="Selecione o requisitante"
+      >
+        <>
+          {usersList?.users.map((user) => (
+            <option key={user.user_name} value={user.user_name}>
+              {user.user_name}
+            </option>
+          ))}
+        </>
+      </Select>
     </Stack>
   );
 }

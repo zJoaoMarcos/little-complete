@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
+import { useSession } from "next-auth/react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { EntryTransactionItemSchema } from "./schema";
@@ -16,9 +17,12 @@ export const useEntryTransactionItem = (itemId: string) => {
     },
   });
 
+  const { data: session } = useSession();
+
   const entryTransactionItem = useMutation(
     async (data: EntryTransactionItemData) => {
       await api.post(`stock/items/${data.id}/transaction/entry`, {
+        createdBy: session?.user?.email,
         ...data,
       });
     },
