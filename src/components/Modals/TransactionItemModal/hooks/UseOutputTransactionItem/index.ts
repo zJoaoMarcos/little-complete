@@ -36,7 +36,8 @@ export const useOutpuTransactionItem = (itemId: string) => {
     {
       onSuccess: () => {
         toast.success("Transação realizada com sucesso");
-        queryClient.invalidateQueries("stockItems");
+        queryClient.invalidateQueries("stock-items");
+        queryClient.invalidateQueries("stock-list");
       },
       onError: (err) => {
         toast.error(

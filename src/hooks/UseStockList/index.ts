@@ -30,7 +30,7 @@ export function useStockList(
     "queryKey" | "queryFn"
   >
 ) {
-  return useQuery(["stockList", String(page)], () => fetchStockList(), {
+  return useQuery(["stock-list", String(page)], () => fetchStockList(), {
     ...options,
     staleTime: 60,
   }) as UseQueryResult<GetStockListResponse, unknown>;

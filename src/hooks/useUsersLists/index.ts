@@ -72,7 +72,7 @@ export async function getUsersList({
 
 export function useUsersList({
   key = "users",
-  page,
+  page = 0,
   skip = 0,
   take = 0,
   id = "",

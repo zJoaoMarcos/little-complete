@@ -1,7 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { StockList } from "@/components/Lists/StockList";
 import { TriggerNewItemModal } from "@/components/Modals/RegisterNewItemModal/Trigger";
-import { useStockList } from "@/hooks/UseStockList";
+import { useStockList } from "@/hooks/useStockList";
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { ReactElement } from "react";

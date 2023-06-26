@@ -29,7 +29,7 @@ export function UseStockItems(
     "queryKey" | "queryFn"
   >
 ) {
-  return useQuery(["stockItems"], fetchStockItems, {
+  return useQuery(["stock-items"], fetchStockItems, {
     ...options,
     staleTime: 60,
   }) as UseQueryResult<GetStockItemsResponse, unknown>;
