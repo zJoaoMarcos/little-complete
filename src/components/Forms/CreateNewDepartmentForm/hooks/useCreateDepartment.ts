@@ -46,8 +46,9 @@ export const useCreateDepartment = () => {
       },
       onError: (err: AxiosError) => {
         toast.error(
-          `Desculpe não conseguimos criar o departamento, tente mais tarde.${err.response?.data?.error}`
+          `Desculpe não conseguimos criar o departamento, tente mais tarde.`
         );
+        console.log(err);
       },
     }
   );
