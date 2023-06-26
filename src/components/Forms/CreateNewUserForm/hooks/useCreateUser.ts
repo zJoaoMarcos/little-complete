@@ -3,8 +3,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-import { useFetchDepartmentsList } from "@/hooks/UseFetchDepartmentsList";
-import { useFetchUsersList } from "@/hooks/UseFetchUsersList";
+import { useDepartmentsList } from "@/hooks/useDepartmentsList";
+import { useUsersList } from "@/hooks/useUsersLists";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import { createUserSchema } from "./schema";
@@ -42,8 +42,11 @@ export const UseCreateUser = () => {
     }
   );
 
-  const { data: users } = useFetchUsersList({});
-  const { data: departments } = useFetchDepartmentsList({});
+  const { data: users } = useUsersList({ key: "all-users-list", page: 0 });
+  const { data: departments } = useDepartmentsList({
+    key: "all-departments-list",
+    page: 0,
+  });
 
   const handleCreate: SubmitHandler<CreateUserData> = async (data, event) => {
     event?.preventDefault();

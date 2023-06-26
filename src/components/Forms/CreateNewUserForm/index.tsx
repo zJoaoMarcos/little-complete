@@ -4,8 +4,8 @@ import { List, SimpleGrid } from "@chakra-ui/react";
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { useEffect } from "react";
+import { UseCreateUser } from "./hooks/useCreateUser";
 import { NewUserFormProps } from "./types";
-import { UseCreateUser } from "./useCreateUser";
 
 export function CreateNewUserForm({
   isSending,
