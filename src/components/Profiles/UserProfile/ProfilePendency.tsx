@@ -1,6 +1,5 @@
 import { UnassignEquipmentsForm } from "@/components/Forms/UnassignAllEquipmentsForm";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
-import { useUser } from "@/contexts/Users";
 import {
   Button,
   Divider,
@@ -11,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { XCircle } from "@phosphor-icons/react";
 import { UserHeader } from "./UserHeader";
+import { useHandleDisabledUser } from "./hooks/useHandleDisabledUser";
 import { ProfilePendencyProps } from "./types";
 
 const steps = [
@@ -27,11 +27,8 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
   return (
     <>
       <UserHeader user={user} />
-
       <Divider mb="10" />
-
       <UserPendencyStepper activeStep={activeStep} steps={steps} />
-
       {activeStep === 0 && (
         <UnassignEquipmentsForm
           username={user.user_name}
@@ -39,10 +36,10 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
           goToNext={goToNext}
         />
       )}
-
       {activeStep === 1 && (
         <ShutDownForm username={user.user_name} goToPrevious={goToPrevious} />
       )}
+      e
     </>
   );
 }
@@ -53,10 +50,8 @@ interface ShutDownFormProps {
 }
 
 function ShutDownForm({ goToPrevious, username }: ShutDownFormProps) {
-  const { updateStatus } = useUser();
-  const handleDisabled = async () => {
-    await updateStatus.mutateAsync({ user_name: username, status: "disabled" });
-  };
+  const { handleDisabled } = useHandleDisabledUser(username);
+
   return (
     <Flex
       h="150"
