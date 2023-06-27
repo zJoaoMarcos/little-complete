@@ -2,6 +2,7 @@ import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { Checkbox, VStack } from "@chakra-ui/react";
 import { useRegisterNewItem } from "./hooks/useRegisterNewItem";
+import { StockGroup } from "./types";
 
 export function NewItemForm({ onClose }: { onClose: () => void }) {
   const { handleRegister, handleSubmit, register, isNewType, typeList } =
@@ -31,7 +32,7 @@ export function NewItemForm({ onClose }: { onClose: () => void }) {
           label="Tipo"
           placeholder="Selecione o tipo"
         >
-          {typeList?.stockList.map((type) => (
+          {typeList?.stockList.map((type: StockGroup) => (
             <option value={type.itemType} key={type.id}>
               {type.itemType}
             </option>
