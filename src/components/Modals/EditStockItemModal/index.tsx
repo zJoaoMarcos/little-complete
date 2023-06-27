@@ -8,23 +8,17 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 
-import { Input } from "@/components/Form/input";
 import { Archive } from "@phosphor-icons/react";
-import { useEditStockItem } from "./hooks/UseEditStockItem";
-import { EditStockItemModalProps } from "./types";
+import { EditItemForm } from "./EditItemForm";
+import { EditItemModalProps } from "./types";
 
 export function EditStockItemModal({
   item,
   isOpen,
   onClose,
-}: EditStockItemModalProps) {
-  const { register, errors, handleSubmit, handleEditItem } = useEditStockItem({
-    item,
-  });
-
+}: EditItemModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
       <ModalOverlay />
@@ -40,25 +34,7 @@ export function EditStockItemModal({
         <ModalCloseButton />
 
         <ModalBody>
-          <VStack
-            spacing="2"
-            as="form"
-            id="update_item"
-            onSubmit={handleSubmit(handleEditItem)}
-          >
-            <Input
-              {...register("brand")}
-              error={errors.brand}
-              label="Fabricante"
-            />
-            <Input {...register("model")} error={errors.model} label="Modelo" />
-            <Input {...register("type")} error={errors.type} label="Tipo" />
-            <Input
-              {...register("category")}
-              error={errors.category}
-              label="Category"
-            />
-          </VStack>
+          <EditItemForm item={item} onClose={onClose} />
         </ModalBody>
 
         <ModalFooter>

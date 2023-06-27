@@ -10,12 +10,17 @@ export interface StockItem {
   createdBy: string;
 }
 
-export interface TriggerEditStockItemProps {
+export interface TriggerEditItemProps {
   item: StockItem;
 }
 
-export interface EditStockItemModalProps {
+export interface EditItemModalProps {
   item: StockItem;
   isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface EditItemFormProps {
+  item: StockItem;
   onClose: () => void;
 }

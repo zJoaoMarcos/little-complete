@@ -2,9 +2,9 @@ import { IconButton, useDisclosure } from "@chakra-ui/react";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 
 import { EditStockItemModal } from ".";
-import { TriggerEditStockItemProps } from "./types";
+import { TriggerEditItemProps } from "./types";
 
-export function TriggerEditStockItem({ item }: TriggerEditStockItemProps) {
+export function TriggerEditStockItem({ item }: TriggerEditItemProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

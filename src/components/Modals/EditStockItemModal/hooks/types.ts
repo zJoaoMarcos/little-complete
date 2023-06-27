@@ -3,8 +3,9 @@ import { editStockItemSchema } from "./schema";
 
 export type EditStockItemData = z.infer<typeof editStockItemSchema>;
 
-export interface useEditStockItemProps {
+export interface useEditItemProps {
   item: StockItem;
+  onClose: () => void;
 }
 
 interface StockItem {

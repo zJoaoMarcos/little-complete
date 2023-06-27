@@ -7,9 +7,9 @@ import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import { editStockItemSchema } from "./schema";
 
-import { EditStockItemData, useEditStockItemProps } from "./types";
+import { EditStockItemData, useEditItemProps } from "./types";
 
-export const useEditStockItem = ({ item }: useEditStockItemProps) => {
+export const useEditItem = ({ item, onClose }: useEditItemProps) => {
   const {
     register,
     handleSubmit,
@@ -50,6 +50,8 @@ export const useEditStockItem = ({ item }: useEditStockItemProps) => {
     event?.preventDefault();
 
     await editStockItem.mutateAsync(data);
+
+    onClose();
   };
 
   return {
