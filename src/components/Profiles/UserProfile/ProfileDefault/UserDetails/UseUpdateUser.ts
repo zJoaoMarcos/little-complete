@@ -1,10 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { useUser } from "@/contexts/Users";
 import { useDepartmentsList } from "@/hooks/useDepartmentsList";
 import { useUsersList } from "@/hooks/useUsersLists";
+import { api } from "@/services/api";
+import { queryClient } from "@/services/queryClient";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { UpdateUserSchema } from "./schema";
 import { UpdateUserData, UserDetailsProps } from "./types";
 
@@ -33,14 +36,37 @@ export const UseUpdateUser = ({ user }: UserDetailsProps) => {
     },
   });
 
-  const { updateUser } = useUser();
+  const updateUser = useMutation(
+    async (data: UpdateUserData) => {
+      const res = await api.patch<UpdateUserData>(`users/${data.user_name}`, {
+        ...data,
+      });
+
+      return res.data;
+    },
+    {
+      onSuccess: (data, variables) => {
+        Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: ["user", variables.user_name],
+          }),
+        ]);
+        toast.success("Dados do usuário alterado com sucesso!");
+        setIsEditable(!isEditable);
+      },
+      onError: () => {
+        toast.error(
+          "Desculpe não conseguimos alterar os dados do usuário, tente mais tarde. "
+        );
+        setIsEditable(!isEditable);
+      },
+    }
+  );
 
   const handleUpdate: SubmitHandler<UpdateUserData> = async (data, event) => {
     event?.preventDefault();
 
     await updateUser.mutateAsync(data);
-
-    setIsEditable(!isEditable);
   };
   return {
     handleSubmit,

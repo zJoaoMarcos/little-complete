@@ -20,7 +20,7 @@ export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
 
   const updateEquipment = useMutation(
     async (data: UpdateEquipmentData) => {
-      await api.patch<UpdateEquipmentData>(`inventory/equipment/${data.id}`, {
+      await api.patch<UpdateEquipmentData>(`/equipments/${data.id}`, {
         ...data,
       });
     },
@@ -41,7 +41,7 @@ export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty, errors },
   } = useForm<UpdateEquipmentData>({
     resolver: zodResolver(updateEquipmentSchema),
     defaultValues: {
@@ -53,17 +53,17 @@ export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
       supplier: equipment.purchase.supplier,
       invoice: equipment.purchase.invoice,
       warranty: equipment.purchase.warranty,
-      purchase_date: equipment.purchase.purchaseDate,
+      purchaseDate: equipment.purchase.purchaseDate,
       cpu: equipment.config.cpu,
       ram: equipment.config.ram,
       slots: equipment.config.storage.slots ?? undefined,
-      service_tag: equipment.serviceTag,
-      storage0_type: equipment.config.storage.storage0Type,
-      storage0_syze: equipment.config.storage.storage0Syze,
-      storage1_type: equipment.config.storage.storage1Type ?? undefined,
-      storage1_syze: equipment.config.storage.storage1Syze ?? undefined,
+      serviceTag: equipment.serviceTag,
+      storage0Type: equipment.config.storage.storage0Type,
+      storage0Syze: equipment.config.storage.storage0Syze,
+      storage1Type: equipment.config.storage.storage1Type,
+      storage1Syze: equipment.config.storage.storage1Syze,
       video: equipment.config.video,
-      department_id: equipment.department.id ?? undefined,
+      departmentId: equipment.department.id ?? undefined,
     },
   });
 

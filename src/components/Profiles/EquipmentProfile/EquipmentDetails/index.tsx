@@ -28,8 +28,6 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
     setHasExtraStorage,
   } = useEditEquipment({ equipment });
 
-  console.log(equipment);
-
   return (
     <Flex flexDir="column" mt="4">
       <HStack ml="auto">
@@ -92,7 +90,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
           <Select
             size="md"
             label="Departamento"
-            {...register("department_id")}
+            {...register("departmentId")}
             isDisabled={isBlocked}
           >
             {equipment.department.id && (
@@ -124,7 +122,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
 
           <Input
             size="md"
-            {...register("service_tag")}
+            {...register("serviceTag")}
             label="Service Tag"
             isReadOnly={isBlocked}
           />
@@ -138,7 +136,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
 
           <Input
             size="md"
-            {...register("purchase_date")}
+            {...register("purchaseDate")}
             label="Data de Compra"
             isReadOnly={isBlocked}
             type="date"
@@ -191,7 +189,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
 
           <Input
             size="md"
-            {...register("storage0_type")}
+            {...register("storage0Type")}
             label="Tipo de Armazenamento"
             isReadOnly={isBlocked}
             type="text"
@@ -199,7 +197,7 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
 
           <Input
             size="md"
-            {...register("storage0_syze")}
+            {...register("storage0Syze")}
             label="Tamanho de Armazenamento"
             isReadOnly={isBlocked}
             type="number"
@@ -216,14 +214,14 @@ export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
           {hasExtraStorage && (
             <>
               <Input
-                {...register("storage1_syze")}
+                {...register("storage1Syze")}
                 label="Tamanho de Armazenamento (2)"
                 type="number"
                 size="md"
               />
 
               <Select
-                {...register("storage1_type")}
+                {...register("storage1Type")}
                 placeholder="Tipo de Armazenamento"
                 label="Tipo de Armazenamento (2)"
                 size="md"

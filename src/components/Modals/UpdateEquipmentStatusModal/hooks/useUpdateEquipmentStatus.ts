@@ -11,7 +11,7 @@ export const useUpdateEquipmentStatus = (equipmentId: string) => {
   const updateEquipmentStatus = useMutation(
     async (data: UpdateEquipmentStatusData) => {
       const res = await api.patch<UpdateEquipmentStatusData>(
-        `inventory/equipment/status/${data.equipment_id}`,
+        `/equipments/status/${data.equipment_id}`,
         {
           ...data,
         }
