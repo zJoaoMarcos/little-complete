@@ -17,7 +17,7 @@ export function NewItemForm({ onClose }: { onClose: () => void }) {
       <Input {...register("brand")} label="Marca" />
       <Input {...register("model")} label="Modelo" />
       <Checkbox size="lg" {...register("isNewTypeGroup")} colorScheme="purple">
-        É um novo Tipo ?
+        É um novo Grupo de Tipo ?
       </Checkbox>
 
       {isNewType ? (
