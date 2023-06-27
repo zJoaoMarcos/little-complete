@@ -23,7 +23,7 @@ export async function fetchStockList(): Promise<GetStockListResponse> {
   };
 }
 
-export function useStockList(
+export function useStockGroupList(
   page: number,
   options?: Omit<
     UseQueryOptions<any, unknown, any, string[]>,

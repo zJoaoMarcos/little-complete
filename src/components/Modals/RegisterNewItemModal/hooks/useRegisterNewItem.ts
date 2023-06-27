@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-import { useStockList } from "@/hooks/useStockList";
+import { useStockGroupList } from "@/hooks/useStockGroupList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import { RegisterNewItemSchema } from "./schema";
@@ -25,7 +25,7 @@ export const useRegisterNewItem = (onClose: () => void) => {
 
   const isNewType = watch("isNewTypeGroup");
   const { data: session } = useSession();
-  const { data: typeList } = useStockList(0);
+  const { data: typeList } = useStockGroupList(0);
 
   const registerNewItem = useMutation(
     async (data: RegisterNewItemData) => {

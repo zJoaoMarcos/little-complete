@@ -1,14 +1,14 @@
 import { Layout } from "@/components/Layout";
 import { StockList } from "@/components/Lists/StockList";
 import { TriggerNewItemModal } from "@/components/Modals/RegisterNewItemModal/Trigger";
-import { useStockList } from "@/hooks/useStockList";
+import { useStockGroupList } from "@/hooks/useStockGroupList";
 import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { ReactElement } from "react";
 import { NextPageWithLayout } from "../_app";
 
 const Stock: NextPageWithLayout = () => {
-  const { data, isFetching, isLoading } = useStockList(1);
+  const { data, isFetching, isLoading } = useStockGroupList(1);
 
   return (
     <>
