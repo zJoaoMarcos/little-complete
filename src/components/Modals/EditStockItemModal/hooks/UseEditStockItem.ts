@@ -9,7 +9,7 @@ import { editStockItemSchema } from "./schema";
 
 import { EditStockItemData, useEditStockItemProps } from "./types";
 
-export const UseEditStockItem = ({ item }: useEditStockItemProps) => {
+export const useEditStockItem = ({ item }: useEditStockItemProps) => {
   const {
     register,
     handleSubmit,

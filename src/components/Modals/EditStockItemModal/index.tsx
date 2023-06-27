@@ -13,7 +13,7 @@ import {
 
 import { Input } from "@/components/Form/input";
 import { Archive } from "@phosphor-icons/react";
-import { UseEditStockItem } from "./hooks/UseEditStockItem";
+import { useEditStockItem } from "./hooks/UseEditStockItem";
 import { EditStockItemModalProps } from "./types";
 
 export function EditStockItemModal({
@@ -21,7 +21,7 @@ export function EditStockItemModal({
   isOpen,
   onClose,
 }: EditStockItemModalProps) {
-  const { register, errors, handleSubmit, handleEditItem } = UseEditStockItem({
+  const { register, errors, handleSubmit, handleEditItem } = useEditStockItem({
     item,
   });
 
@@ -39,12 +39,13 @@ export function EditStockItemModal({
 
         <ModalCloseButton />
 
-        <ModalBody
-          as="form"
-          id="update_item"
-          onSubmit={handleSubmit(handleEditItem)}
-        >
-          <VStack spacing="2">
+        <ModalBody>
+          <VStack
+            spacing="2"
+            as="form"
+            id="update_item"
+            onSubmit={handleSubmit(handleEditItem)}
+          >
             <Input
               {...register("brand")}
               error={errors.brand}
