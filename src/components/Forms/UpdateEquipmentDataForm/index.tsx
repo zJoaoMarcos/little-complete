@@ -11,7 +11,7 @@ import { Archive, Minus, Pencil, Plus, X } from "@phosphor-icons/react";
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { formatData } from "@/utils/formatData";
-import { useEditEquipment } from "./hooks/UseEditEquipment";
+import { useEditEquipment } from "./hooks/useEditEquipment";
 import { UdpateEquipmentDataFormProps } from "./types";
 
 export function UdpateEquipmentDataForm({
