@@ -7,7 +7,6 @@ import { UnassignAllEquipmentsProps } from "./types";
 export function UnassignEquipmentsForm({
   username,
   equipments,
-  goToNext,
 }: UnassignAllEquipmentsProps) {
   const { handleUnassign } = useUnassignAllEquipments(username);
 
@@ -15,13 +14,10 @@ export function UnassignEquipmentsForm({
     <Flex
       as="form"
       flexDir="column"
-      mt="10"
       justifyContent="space-between"
-      alignItems="center"
+      w="full"
+      p="4"
     >
-      <Text fontWeight="semibold" my="10" mr="auto" fontSize="xl">
-        Equipametos para retirar:
-      </Text>
       {equipments.length === 0 ? (
         <Text>Usuário não tem equipamentos atribuidos</Text>
       ) : (
@@ -33,15 +29,11 @@ export function UnassignEquipmentsForm({
       )}
 
       <HStack ml="auto">
-        {equipments.length >= 1 && (
-          <Button onClick={() => handleUnassign()} colorScheme="purple">
+        {equipments.length > 1 && (
+          <Button onClick={handleUnassign} colorScheme="purple">
             Desatribuir todos
           </Button>
         )}
-
-        <Button colorScheme="purple" type="button" onClick={() => goToNext()}>
-          Próximo Passo
-        </Button>
       </HStack>
     </Flex>
   );

@@ -34,5 +34,4 @@ interface Equipment {
 export interface UnassignAllEquipmentsProps {
   equipments: Equipment[];
   username: string;
-  goToNext: () => void;
 }
