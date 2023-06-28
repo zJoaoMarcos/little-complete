@@ -16,8 +16,8 @@ import {
 import { useState } from "react";
 
 import { Archive } from "@phosphor-icons/react";
-import { EntryTransactionItemForm } from "./Forms/EntryTransactionItemForm";
-import { OutputTransactionForm } from "./Forms/OutputTransactionItemForm";
+import { EntryTransactionItemForm } from "./EntryTransactionItemForm";
+import { OutputTransactionForm } from "./OutputTransactionItemForm";
 import { TransactionStockItemModalProps } from "./types";
 
 export function TransactionStockItemModal({
@@ -62,6 +62,7 @@ export function TransactionStockItemModal({
           {transactionType === "entry" && (
             <EntryTransactionItemForm itemId={item.id} onClose={onClose} />
           )}
+
           {transactionType === "output" && (
             <OutputTransactionForm itemId={item.id} onClose={onClose} />
           )}

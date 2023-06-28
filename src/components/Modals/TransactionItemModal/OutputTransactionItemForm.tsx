@@ -2,7 +2,7 @@ import { Stack } from "@chakra-ui/react";
 
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useOutpuTransactionItem } from "../hooks/UseOutputTransactionItem";
+import { useOutpuTransactionItem } from "./hooks/useOutputTransactionItem";
 
 interface Props {
   itemId: string;

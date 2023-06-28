@@ -1,7 +1,7 @@
 import { Stack } from "@chakra-ui/react";
 
 import { Input } from "@/components/Form/input";
-import { useEntryTransactionItem } from "../hooks/UseEntryTransactionItem";
+import { useEntryTransactionItem } from "./hooks/useEntryTransactionItem";
 
 interface Props {
   itemId: string;
