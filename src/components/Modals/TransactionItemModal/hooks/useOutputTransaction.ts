@@ -10,10 +10,7 @@ import { queryClient } from "@/services/queryClient";
 import { OutputTransactionItemSchema } from "./schema";
 import { OutputTransactionItemData } from "./types";
 
-export const useOutpuTransactionItem = (
-  itemId: string,
-  onClose: () => void
-) => {
+export const useOutputTransaction = (itemId: string, onClose: () => void) => {
   const {
     register,
     handleSubmit,

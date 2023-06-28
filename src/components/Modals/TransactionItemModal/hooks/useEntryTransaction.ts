@@ -1,18 +1,15 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
-import { EntryTransactionItemSchema } from "./schema";
-import { EntryTransactionItemData } from "./type";
 
-export const useEntryTransactionItem = (
-  itemId: string,
-  onClose: () => void
-) => {
+import { EntryTransactionItemSchema } from "./schema";
+import { EntryTransactionItemData } from "./types";
+
+export const useEntryTransaction = (itemId: string, onClose: () => void) => {
   const { register, handleSubmit } = useForm<EntryTransactionItemData>({
     resolver: zodResolver(EntryTransactionItemSchema),
     defaultValues: {

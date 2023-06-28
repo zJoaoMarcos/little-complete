@@ -1,7 +1,7 @@
 import { Stack } from "@chakra-ui/react";
 
 import { Input } from "@/components/Form/input";
-import { useEntryTransactionItem } from "./hooks/useEntryTransactionItem";
+import { useEntryTransaction } from "./hooks/useEntryTransaction";
 
 interface Props {
   itemId: string;
@@ -10,7 +10,7 @@ interface Props {
 
 export function EntryTransactionItemForm({ itemId, onClose }: Props) {
   const { register, handleEntryTransaction, handleSubmit } =
-    useEntryTransactionItem(itemId, onClose);
+    useEntryTransaction(itemId, onClose);
 
   return (
     <Stack

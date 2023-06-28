@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { EntryTransactionItemSchema } from "./schema";
+import {
+  EntryTransactionItemSchema,
+  OutputTransactionItemSchema,
+} from "./schema";
 
 interface StockItem {
   id: string;
@@ -17,10 +20,18 @@ export interface EntryTransactionFormProps {
   item: StockItem;
 }
 
+export interface UseEntryTransactionItemProps {
+  item: StockItem;
+}
+
 export type EntryTransactionItemData = z.infer<
   typeof EntryTransactionItemSchema
 >;
 
-export interface UseEntryTransactionItemProps {
+export type OutputTransactionItemData = z.infer<
+  typeof OutputTransactionItemSchema
+>;
+
+export interface OutputTransactionFormProps {
   item: StockItem;
 }
