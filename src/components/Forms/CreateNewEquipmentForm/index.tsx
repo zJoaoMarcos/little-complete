@@ -2,7 +2,7 @@ import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { IconButton, SimpleGrid, VStack } from "@chakra-ui/react";
 import { Minus, Plus } from "@phosphor-icons/react";
-import { useCreateEquipment } from "./UseCreateEquipment";
+import { useCreateEquipment } from "./hooks/useCreateEquipment";
 
 export function CreateNewEquipmentForm() {
   const {
@@ -12,6 +12,7 @@ export function CreateNewEquipmentForm() {
     register,
     hasExtraStorage,
     setHasExtraStorage,
+    typesOfEquipments,
   } = useCreateEquipment();
 
   return (
@@ -25,7 +26,17 @@ export function CreateNewEquipmentForm() {
     >
       <VStack spacing={6}>
         <Input size="md" {...register("id")} label="ID" isRequired />
-        <Input {...register("type")} label="Tipo" size="md" />
+        <Select
+          {...register("type")}
+          label="Tipo"
+          placeholder="Selecione o Tipo"
+        >
+          {typesOfEquipments.map((type) => (
+            <option key={type.value} value={type.value}>
+              {type.option}
+            </option>
+          ))}
+        </Select>
         <Input {...register("patrimony")} label="Patrimônio" size="md" />
         <Select
           {...register("department_id")}
@@ -41,10 +52,10 @@ export function CreateNewEquipmentForm() {
         </Select>
         <Input {...register("brand")} label="Fabricante" size="md" />
         <Input {...register("model")} label="Modelo" size="md" />
-        <Input {...register("service_tag")} label="Service Tag" size="md" />
+        <Input {...register("serviceTag")} label="Service Tag" size="md" />
         <Input {...register("supplier")} label="Fornecedor" size="md" />
         <Input
-          {...register("purchase_date")}
+          {...register("purchaseDate")}
           size="md"
           label="Data de Compra"
           type="date"
@@ -64,14 +75,14 @@ export function CreateNewEquipmentForm() {
           size="md"
         />
         <Input
-          {...register("storage0_syze")}
+          {...register("storage0Syze")}
           label="Tamanho de Armazenamento"
           type="number"
           size="md"
         />
 
         <Select
-          {...register("storage0_type")}
+          {...register("storage0Type")}
           label="Tipo do Armazenamento"
           placeholder="Tipo de Armazenamento"
           size="lg"
@@ -91,16 +102,16 @@ export function CreateNewEquipmentForm() {
         {hasExtraStorage && (
           <>
             <Input
-              {...register("storage1_syze")}
+              {...register("storage1Syze")}
               label="Tamanho de Armazenamento (2)"
               type="number"
               size="md"
             />
 
             <Select
-              {...register("storage1_type")}
-              placeholder="Tipo de Armazenamento"
+              {...register("storage1Type")}
               label="Tipo de Armazenamento (2)"
+              placeholder="Tipo de Armazenamento"
               size="md"
             >
               <option value="hd">HD</option>
