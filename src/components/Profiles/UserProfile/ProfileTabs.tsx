@@ -1,11 +1,11 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
+import { UpdateUserDataForm } from "@/components/Forms/UpdateUserDataForm";
 import { EquipmentsList } from "@/components/Lists/EquipmentsList";
 import { TriggerAssignEquipment } from "@/components/Modals/AssignEquipmentModal/Trigger";
-import { UserDetails } from "./UserDetails";
-import { UserTabsProps } from "./types";
+import { ProfileTabsProps } from "./types";
 
-export function UserTabs({ user, equipments }: UserTabsProps) {
+export function ProfileTabs({ user, equipments }: ProfileTabsProps) {
   return (
     <Tabs colorScheme="purple">
       <TabList>
@@ -17,7 +17,7 @@ export function UserTabs({ user, equipments }: UserTabsProps) {
 
       <TabPanels>
         <TabPanel>
-          <UserDetails user={user} />
+          <UpdateUserDataForm user={user} />
         </TabPanel>
 
         <TabPanel

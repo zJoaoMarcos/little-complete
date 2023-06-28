@@ -3,10 +3,10 @@ import { Archive, Pencil, X } from "@phosphor-icons/react";
 
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { UseUpdateUser } from "./UseUpdateUser";
-import { UserDetailsProps } from "./types";
+import { useUpdateUser } from "./hooks/useUpdateUser";
+import { UseUpdateDataFormProps } from "./types";
 
-export function UserDetails({ user }: UserDetailsProps) {
+export function UpdateUserDataForm({ user }: UseUpdateDataFormProps) {
   const {
     handleSubmit,
     handleUpdate,
@@ -17,7 +17,7 @@ export function UserDetails({ user }: UserDetailsProps) {
     setIsEditable,
     users,
     departments,
-  } = UseUpdateUser({ user });
+  } = useUpdateUser({ user });
 
   return (
     <Flex flexDir="column">

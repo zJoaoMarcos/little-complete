@@ -1,5 +1,5 @@
-import { Header } from "../Header";
-import { UserTabs } from "./UserTabs";
+import { Header } from "./Header";
+import { ProfileTabs } from "./ProfileTabs";
 import { ProfileDefaultProps } from "./types";
 
 export function ProfileDefault({ user, equipments }: ProfileDefaultProps) {
@@ -7,7 +7,7 @@ export function ProfileDefault({ user, equipments }: ProfileDefaultProps) {
     <>
       <Header user={user} />
 
-      <UserTabs user={user} equipments={equipments} />
+      <ProfileTabs user={user} equipments={equipments} />
     </>
   );
 }

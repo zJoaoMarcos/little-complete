@@ -1,9 +1,4 @@
-import { z } from "zod";
-import { UpdateUserSchema } from "./schema";
-
-export type UpdateUserData = z.infer<typeof UpdateUserSchema>;
-
-export interface UserDetailsProps {
+export interface UseUpdateDataFormProps {
   user: {
     user_name: string;
     complete_name: string;

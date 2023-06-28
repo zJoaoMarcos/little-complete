@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { UpdateUserStatusData } from "./types";
 
-export const useHandleDisabledUser = (username: string) => {
+export const useDisableUser = (username: string) => {
   const updateStatus = useMutation(
     async (data: UpdateUserStatusData) => {
       const response = await api.patch<UpdateUserStatusData>(

@@ -72,3 +72,37 @@ export interface HeaderProps {
     complete_name: string;
   };
 }
+
+export interface ProfileDefaultProps {
+  user: {
+    user_name: string;
+    complete_name: string;
+    title: string;
+    department: { id: number; name: string };
+    telephone: number | null;
+    direct_boss: string;
+    smtp: string;
+    admission_date: Date | null;
+    demission_date: Date | null;
+    status: string;
+  };
+
+  equipments: Equipment[];
+}
+
+export interface ProfileTabsProps {
+  user: {
+    user_name: string;
+    complete_name: string;
+    title: string;
+    department: { id: number; name: string };
+    telephone: number | null;
+    direct_boss: string;
+    smtp: string;
+    admission_date: Date | null;
+    demission_date: Date | null;
+    status: string | null;
+  };
+
+  equipments: Equipment[];
+}
