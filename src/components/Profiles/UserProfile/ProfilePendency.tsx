@@ -9,7 +9,7 @@ import {
   useSteps,
 } from "@chakra-ui/react";
 import { XCircle } from "@phosphor-icons/react";
-import { UserHeader } from "./UserHeader";
+import { Header } from "./Header";
 import { useHandleDisabledUser } from "./hooks/useHandleDisabledUser";
 import { ProfilePendencyProps } from "./types";
 
@@ -26,7 +26,7 @@ export function ProfilePendency({ user, equipments }: ProfilePendencyProps) {
 
   return (
     <>
-      <UserHeader user={user} />
+      <Header user={user} />
       <Divider mb="10" />
       <UserPendencyStepper activeStep={activeStep} steps={steps} />
       {activeStep === 0 && (

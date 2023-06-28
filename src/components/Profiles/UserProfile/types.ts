@@ -65,7 +65,7 @@ export interface ProfilePendencyProps {
   equipments: Equipment[];
 }
 
-export interface UserHeaderProps {
+export interface HeaderProps {
   user: {
     user_name: string;
     status: string;

@@ -1,10 +1,10 @@
 import { Badge } from "@chakra-ui/react";
 
-interface UserBadgeStatusProps {
+interface UserStatusBadgeProps {
   status: string;
 }
 
-export function UserBagdeStatus({ status = "" }: UserBadgeStatusProps) {
+export function UserStatusBadge({ status = "" }: UserStatusBadgeProps) {
   if (status === "active") {
     return <Badge colorScheme="green">Ativo</Badge>;
   }

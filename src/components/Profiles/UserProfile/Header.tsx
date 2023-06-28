@@ -1,11 +1,11 @@
 import { UserAvatar } from "@/components/Avatars/UserAvatar";
-import { UserBagdeStatus } from "@/components/Avatars/UserAvatar/UserBadgeStatus";
+import { UserStatusBadge } from "@/components/Avatars/UserAvatar/UserStatusBadge";
 import { TriggerUpdateUserStatus } from "@/components/Modals/UpdateUserStatusModal/Trigger";
 import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { Flex, HStack, Heading, Text, VStack } from "@chakra-ui/react";
-import { UserHeaderProps } from "./types";
+import { HeaderProps } from "./types";
 
-export function UserHeader({ user }: UserHeaderProps) {
+export function Header({ user }: HeaderProps) {
   const avatarName = concatFirstNameAndLastName(user.complete_name);
 
   return (
@@ -23,7 +23,7 @@ export function UserHeader({ user }: UserHeaderProps) {
               Status:
             </Text>
 
-            <UserBagdeStatus status={user.status} />
+            <UserStatusBadge status={user.status} />
           </HStack>
         </VStack>
       </HStack>
