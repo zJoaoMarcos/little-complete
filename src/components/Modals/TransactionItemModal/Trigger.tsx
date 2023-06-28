@@ -1,11 +1,12 @@
 import { Button, useDisclosure } from "@chakra-ui/react";
 import { ArrowClockwise } from "@phosphor-icons/react";
+
 import { TransactionStockItemModal } from ".";
-import { TriggerEditStockItemProps } from "../EditStockItemModal/types";
+import { TriggerTransactionStockItemProps } from "./types";
 
 export function TriggerTransactionStockItem({
   item,
-}: TriggerEditStockItemProps) {
+}: TriggerTransactionStockItemProps) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
