@@ -1,5 +1,4 @@
-import { useInvetoryList } from "@/hooks/useInventoryList";
-import { useUsersList } from "@/hooks/useUsersLists";
+import { useSidebarDrawer } from "@/contexts/SidebarDrawerContext";
 import { Stack, Text } from "@chakra-ui/react";
 import {
   Buildings,
@@ -12,14 +11,7 @@ import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
 
 export function SidebarNav() {
-  const { data: users } = useUsersList({
-    status: "pendency",
-  });
-  const { data: equips } = useInvetoryList({
-    status: "pendency",
-  });
-
-  const totalPendency = (users?.totalCount ?? 0) + (equips?.totalCount ?? 0);
+  const { totalPendencies } = useSidebarDrawer();
 
   return (
     <Stack spacing="8" align="flex-start">
@@ -36,7 +28,7 @@ export function SidebarNav() {
       <NavSection title="CONTROLES">
         <NavLink icon={WarningCircle} href="/pendency">
           Pendências
-          {totalPendency > 0 && <PendenciesIcon quantity={totalPendency} />}
+          {totalPendencies > 0 && <PendenciesIcon quantity={totalPendencies} />}
         </NavLink>
 
         <NavLink icon={Notebook} href="/inventory">

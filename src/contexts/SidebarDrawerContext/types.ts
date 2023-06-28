@@ -4,4 +4,7 @@ export interface SideBarDrawerProviderProps {
   children: React.ReactNode;
 }
 
-export type SidebarDrawerContextData = UseDisclosureReturn;
+export interface SidebarDrawerContextData {
+  disclousure: UseDisclosureReturn;
+  totalPendencies: number;
+}

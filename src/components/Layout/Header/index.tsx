@@ -20,7 +20,9 @@ interface HeaderProps {
 export function Header({ setWords }: HeaderProps) {
   const isWideVersion = useBreakpointValue({ base: false, lg: true });
   const { colorMode, toggleColorMode } = useColorMode();
-  const { onOpen } = useSidebarDrawer();
+  const {
+    disclousure: { onOpen },
+  } = useSidebarDrawer();
 
   return (
     <Flex
