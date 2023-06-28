@@ -1,69 +1,22 @@
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
-import { useDepartment } from "@/contexts/Department";
-import { useUsersList } from "@/hooks/useUsersLists";
 import { Button, Checkbox, Flex, HStack, SimpleGrid } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Archive, Pencil, X } from "@phosphor-icons/react";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { useUpdateDepartment } from "./hooks/useUpdateDepartment";
+import { UpdateDepartmentDataFormProps } from "./types";
 
-const updateDepartmentSchema = z.object({
-  id: z.coerce.number(),
-  name: z.string(),
-  cost_center: z.coerce.number().nullable(),
-  is_board: z.boolean().nullable(),
-  board: z.string().nullable(),
-  responsible_id: z.string().nullable(),
-});
-
-type UpdateDepartmentData = z.infer<typeof updateDepartmentSchema>;
-
-interface DepartmentDetailsProps {
-  department: {
-    id: number;
-    name: string;
-    cost_center: number | null;
-    is_board: boolean | null;
-    board: string | null;
-    responsible_id: string | null;
-  };
-}
-
-export function DepartmentDetails({ department }: DepartmentDetailsProps) {
-  const [isEditable, setIsEditable] = useState(true);
-
-  const { register, handleSubmit, formState, reset } =
-    useForm<UpdateDepartmentData>({
-      resolver: zodResolver(updateDepartmentSchema),
-      defaultValues: {
-        id: department.id,
-        name: department.name,
-        cost_center: department.cost_center,
-        is_board: department.is_board,
-        board: department.board,
-        responsible_id: department.responsible_id
-          ? department.responsible_id
-          : null,
-      },
-    });
-
-  const { isSubmitting } = formState;
-
-  const { data: users } = useUsersList({ key: "all-users-list", page: 0 });
-  const { updateDepartment } = useDepartment();
-
-  const handleUpdate: SubmitHandler<UpdateDepartmentData> = async (
-    data,
-    event
-  ) => {
-    event?.preventDefault();
-
-    await updateDepartment.mutateAsync(data);
-
-    setIsEditable(true);
-  };
+export function UpdateDepartmentDataForm({
+  department,
+}: UpdateDepartmentDataFormProps) {
+  const {
+    handleSubmit,
+    handleUpdate,
+    register,
+    isEditable,
+    setIsEditable,
+    users,
+    isSubmitting,
+  } = useUpdateDepartment({ department });
 
   return (
     <Flex flexDir="column">

@@ -1,18 +1,9 @@
-import { DepartmentTab } from "@/components/Tabs/Department";
-import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
-import { formatData } from "@/utils/formatData";
 import { Avatar, Flex, HStack, Heading, VStack } from "@chakra-ui/react";
 
-interface DepartmentProfileProps {
-  department: {
-    id: number;
-    name: string;
-    cost_center: number;
-    is_board: boolean;
-    board: string;
-    responsible_id: string;
-  };
-}
+import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
+import { formatData } from "@/utils/formatData";
+import { ProfileTabs } from "./ProfileTabs";
+import { DepartmentProfileProps } from "./types";
 
 export function DepartmentProfile({ department }: DepartmentProfileProps) {
   return (
@@ -32,7 +23,7 @@ export function DepartmentProfile({ department }: DepartmentProfileProps) {
         </HStack>
       </Flex>
 
-      <DepartmentTab department={department} />
+      <ProfileTabs department={department} />
     </>
   );
 }

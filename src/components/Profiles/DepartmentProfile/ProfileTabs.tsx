@@ -1,22 +1,13 @@
-import { EquipmentsList } from "@/components/Lists/EquipmentsList";
-import { UsersList } from "@/components/Lists/UserLists";
-import { DepartmentDetails } from "@/components/Profiles/DepartmentProfile/DepartmentDetails";
-import { useInvetoryList } from "@/hooks/useInventoryList";
-import { useUsersList } from "@/hooks/useUsersLists";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
-interface DepartmentTabProps {
-  department: {
-    id: number;
-    name: string;
-    cost_center: number | null;
-    is_board: boolean | null;
-    board: string | null;
-    responsible_id: string | null;
-  };
-}
+import { UpdateDepartmentDataForm } from "@/components/Forms/UpdateDepartmentDataForm";
+import { EquipmentsList } from "@/components/Lists/EquipmentsList";
+import { UsersList } from "@/components/Lists/UserLists";
+import { useInvetoryList } from "@/hooks/useInventoryList";
+import { useUsersList } from "@/hooks/useUsersLists";
+import { ProfileTabsProps } from "./types";
 
-export function DepartmentTab({ department }: DepartmentTabProps) {
+export function ProfileTabs({ department }: ProfileTabsProps) {
   const { data: equipments } = useInvetoryList({
     key: `inventory-${department.id}`,
     departmentId: department.id,
@@ -37,7 +28,7 @@ export function DepartmentTab({ department }: DepartmentTabProps) {
 
       <TabPanels>
         <TabPanel>
-          <DepartmentDetails department={department} />
+          <UpdateDepartmentDataForm department={department} />
         </TabPanel>
 
         <TabPanel>
