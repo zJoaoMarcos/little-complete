@@ -1,5 +1,4 @@
 import { api } from "@/services/api";
-import { concatFirstNameAndLastName } from "@/utils/concatFirstNameAndLastName";
 import { formatData } from "@/utils/formatData";
 import { useQuery } from "react-query";
 
@@ -50,7 +49,7 @@ export async function getUsersList({
   const users = data.users.map((user) => {
     return {
       user_name: user.user_name.trim(),
-      complete_name: concatFirstNameAndLastName(user.complete_name),
+      complete_name: user.complete_name,
       title: formatData(user.title)!,
       department: {
         id: user.department.id,

@@ -41,7 +41,7 @@ export function UserCard({ user }: UserCardProps) {
       shadow={"md"}
     >
       <HStack justifyContent="start">
-        <UserAvatar name={user.complete_name} status={user.status || ""} />
+        <UserAvatar name={user.complete_name} status={user.status} />
         <Flex
           flexDir="column"
           align="start"
@@ -80,7 +80,7 @@ export function UserCard({ user }: UserCardProps) {
         <TriggerUpdateUserStatus
           useName={user.user_name}
           currentStatus={user.status}
-          isIconButton={true}
+          isIconButton
         />
 
         <IconButton
