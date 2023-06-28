@@ -1,7 +1,8 @@
+import { Divider, useSteps } from "@chakra-ui/react";
+
 import { ShutDownUserForm } from "@/components/Forms/ShutDownUserForm/indext";
 import { UnassignEquipmentsForm } from "@/components/Forms/UnassignAllEquipmentsForm";
 import { UserPendencyStepper } from "@/components/Steppers/UserPendencyStepper";
-import { Divider, useSteps } from "@chakra-ui/react";
 import { Header } from "./Header";
 import { ProfilePendencyProps } from "./types";
 

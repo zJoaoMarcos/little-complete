@@ -1,16 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 
 import { useDepartmentsList } from "@/hooks/useDepartmentsList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
-import { useMutation } from "react-query";
-import { toast } from "react-toastify";
 import { updateEquipmentSchema } from "./schema";
-import { EquipmentDetailsProps, UpdateEquipmentData } from "./types";
+import { UpdateEquipmentData, UseUpdateEquipmentParams } from "./types";
 
-export const useEditEquipment = ({ equipment }: EquipmentDetailsProps) => {
+export const useEditEquipment = ({ equipment }: UseUpdateEquipmentParams) => {
   const [isBlocked, setIsBlocked] = useState(true);
   const [hasExtraStorage, setHasExtraStorage] = useState(false);
 

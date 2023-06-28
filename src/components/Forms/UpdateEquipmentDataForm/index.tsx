@@ -11,10 +11,12 @@ import { Archive, Minus, Pencil, Plus, X } from "@phosphor-icons/react";
 import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { formatData } from "@/utils/formatData";
-import { useEditEquipment } from "./UseEditEquipment";
-import { EquipmentDetailsProps } from "./types";
+import { useEditEquipment } from "./hooks/UseEditEquipment";
+import { UdpateEquipmentDataFormProps } from "./types";
 
-export function EquipmentDetails({ equipment }: EquipmentDetailsProps) {
+export function UdpateEquipmentDataForm({
+  equipment,
+}: UdpateEquipmentDataFormProps) {
   const {
     handleCancel,
     handleUpdate,

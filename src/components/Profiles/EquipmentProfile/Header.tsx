@@ -1,17 +1,11 @@
+import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
+
 import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentBagdeStatus } from "@/components/Avatars/EquipmentAvatar/EquipmentBadgeStatus";
 import { TriggerUpdateEquipmentStatus } from "@/components/Modals/UpdateEquipmentStatusModal/Trigger";
-import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { HeaderProps } from "./types";
 
-interface EquipmentHeaderProps {
-  equipment: {
-    id: string;
-    type: string | null;
-    status: string | null;
-  };
-}
-
-export function EquipmentHeader({ equipment }: EquipmentHeaderProps) {
+export function Header({ equipment }: HeaderProps) {
   return (
     <Flex mb="10" justify="space-between" align="center">
       <HStack spacing={8}>

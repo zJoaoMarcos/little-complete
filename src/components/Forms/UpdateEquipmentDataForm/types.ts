@@ -1,9 +1,4 @@
-import { z } from "zod";
-import { updateEquipmentSchema } from "./schema";
-
-export type UpdateEquipmentData = z.infer<typeof updateEquipmentSchema>;
-
-export interface EquipmentDetailsProps {
+export interface UdpateEquipmentDataFormProps {
   equipment: {
     id: string;
     status: string;
