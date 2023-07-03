@@ -73,6 +73,7 @@ export function UpdateDepartmentDataForm({
         />
 
         <Checkbox
+          mt="10"
           size="md"
           mb="auto"
           colorScheme="purple"
@@ -87,7 +88,7 @@ export function UpdateDepartmentDataForm({
         <Select
           label="Responsável"
           {...register("responsible_id")}
-          size="md"
+          size="lg"
           isDisabled={isEditable}
         >
           {department.responsible_id && (
