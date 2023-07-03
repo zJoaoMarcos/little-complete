@@ -2,12 +2,14 @@ import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import Head from "next/head";
 
+import { Input } from "@/components/Form/input";
 import { Logo } from "@/components/Logo";
 import {
   Button,
   Flex,
   Image,
   SimpleGrid,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -56,17 +58,30 @@ export default function Home() {
             De tudo um pouco, de pouco um tudo. O mió dos miores.
           </Text>
 
-          <Button
-            onClick={handleSignIn}
-            rounded={6}
-            px={10}
-            size={"lg"}
-            colorScheme={"purple"}
-            bg={"purple.400"}
-            _hover={{ bg: "purple.500" }}
+          <Stack
+            w={{ base: "320px", sm: "400px", md: "480px" }}
+            p="10"
+            spacing="10"
+            border="1px"
+            borderColor="gray.200"
+            rounded="lg"
+            shadow="md"
           >
-            Entrar
-          </Button>
+            <VStack spacing="4">
+              <Input name="email" placeholder="E-mail" />
+              <Input name="password" placeholder="Senha" />
+            </VStack>
+
+            <Button
+              onClick={handleSignIn}
+              size={"lg"}
+              colorScheme={"purple"}
+              bg={"purple.400"}
+              _hover={{ bg: "purple.500" }}
+            >
+              Entrar
+            </Button>
+          </Stack>
         </VStack>
 
         <Flex flex={1} display={{ base: "none", md: "block" }}>
