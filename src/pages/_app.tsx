@@ -6,7 +6,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { AppProvider } from "@/contexts";
 import { queryClient } from "@/services/queryClient";
 import { NextPage } from "next";
-import { SessionProvider } from "next-auth/react";
 import { ReactElement, ReactNode } from "react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -26,19 +25,17 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
-    <SessionProvider session={pageProps.session}>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider>
-          <AppProvider>
-            <main>
-              <ToastContainer theme={"colored"} />
-              {getLayout(<Component {...pageProps} />)}
-            </main>
-          </AppProvider>
-        </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider>
+        <AppProvider>
+          <main>
+            <ToastContainer theme={"colored"} />
+            {getLayout(<Component {...pageProps} />)}
+          </main>
+        </AppProvider>
+      </ChakraProvider>
 
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </SessionProvider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
