@@ -1,18 +1,8 @@
+import { Input } from "@/components/Form/input";
+import { Logo } from "@/components/Logo";
 import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import Head from "next/head";
-
-import { Input } from "@/components/Form/input";
-import { Logo } from "@/components/Logo";
-import {
-  Button,
-  Flex,
-  Image,
-  SimpleGrid,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -43,56 +33,28 @@ export default function Home() {
       <Head>
         <title>Sign In</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <SimpleGrid
-        columns={{ base: 1, md: 2 }}
-        spacing={10}
-        sx={{ height: "100vh" }}
-      >
-        <VStack alignItems="center" justifyContent="center" spacing={10} p="6">
+      <div className="w-screen h-screen flex flex-col justify-center sm:flex-row gap-8 p-4">
+        <div className="flex flex-col gap-2 p-2 items-center sm:items-start justify-center">
           <Logo />
 
-          <Text color={"gray.400"}>
-            De tudo um pouco, de pouco um tudo. O mió dos miores.
-          </Text>
+          <p className="font-semibold md:text-3xl mt-4 flex-wrap text-purple-500 sm:w-80">
+            De tudo um pouco, de pouco um tudo. O mió dos miores
+          </p>
+        </div>
 
-          <Stack
-            w={{ base: "320px", sm: "400px", md: "480px" }}
-            p="10"
-            spacing="10"
-            border="1px"
-            borderColor="gray.200"
-            rounded="lg"
-            shadow="md"
-          >
-            <VStack spacing="4">
-              <Input name="email" placeholder="E-mail" />
-              <Input name="password" placeholder="Senha" />
-            </VStack>
+        <div className="flex flex-col items-center justify-center sm:w-full sm:max-w-[660px]">
+          <div className="flex flex-col bg-gray-200 gap-4 rounded-md p-6 sm:p-10 w-full sm:w-3/4 ">
+            <Input name="email" type="string" label="E-mail" />
+            <Input name="password" type="password" label="Senha" />
 
-            <Button
-              onClick={handleSignIn}
-              size={"lg"}
-              colorScheme={"purple"}
-              bg={"purple.400"}
-              _hover={{ bg: "purple.500" }}
-            >
+            <button className="w-full py-2 bg-purple-600 rounded-md text-white font-semibold">
               Entrar
-            </Button>
-          </Stack>
-        </VStack>
-
-        <Flex flex={1} display={{ base: "none", md: "block" }}>
-          <Image
-            src="/signin.jpg"
-            alt="Image Background"
-            objectFit="cover"
-            sx={{ height: "100vh", width: "100vw" }}
-          />
-        </Flex>
-      </SimpleGrid>
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
