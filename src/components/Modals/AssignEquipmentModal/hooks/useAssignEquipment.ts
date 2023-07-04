@@ -7,11 +7,22 @@ import { toast } from "react-toastify";
 import { AssignEquipmentData } from "./type";
 
 export const useAssignEquipment = (userId: string, onClose: () => void) => {
+  const [type, setType] = useState("notebook");
   const [value, setValue] = useState("");
+
+  const typeOptions = [
+    { value: "desktop", option: "Desktop" },
+    { value: "notebook", option: "Notebook" },
+    { value: "telephone", option: "Ramal" },
+    { value: "monitor", option: "Monitor" },
+    { value: "vr", option: "Óculos VR" },
+    { value: "scanner", option: "Scanner" },
+  ];
 
   const { data } = useInvetoryList({
     key: "assign-equipment",
     status: "available",
+    type,
   });
 
   const assignEquipment = useMutation(
@@ -45,5 +56,5 @@ export const useAssignEquipment = (userId: string, onClose: () => void) => {
     onClose();
   };
 
-  return { handleAssign, data, setValue };
+  return { handleAssign, data, setValue, setType, typeOptions };
 };
