@@ -1,7 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { UserProfile } from "@/components/Profiles/UserProfile";
 import { getUser, useFindUser } from "@/hooks/useFindUser";
-import { GetServerSideProps } from "next";
+import { withSSRAuth } from "@/utils/withSSRAuth";
 import Head from "next/head";
 import { ReactElement } from "react";
 
@@ -60,10 +60,9 @@ const User = ({ user, equipments }: UserProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<
-  any,
-  { id: string }
-> = async ({ params }) => {
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+  const { params } = ctx;
+
   const id = params?.id;
 
   const { user, equipments } = await getUser(id as string);
@@ -74,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<
       equipments,
     },
   };
-};
+});
 
 User.getLayout = function getLayout(children: ReactElement) {
   return <Layout>{children}</Layout>;

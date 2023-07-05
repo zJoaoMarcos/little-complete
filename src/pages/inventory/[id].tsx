@@ -1,10 +1,10 @@
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ReactElement } from "react";
 
 import { Layout } from "@/components/Layout";
 import { EquipmentProfile } from "@/components/Profiles/EquipmentProfile";
 import { getEquipment, useFindEquipment } from "@/hooks/useFindEquipment";
+import { withSSRAuth } from "@/utils/withSSRAuth";
 
 interface EquipmentProps {
   equipment: {
@@ -62,10 +62,7 @@ export default function Inventory({ equipment }: EquipmentProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<
-  any,
-  { id: string }
-> = async ({ params }) => {
+export const getServerSideProps = withSSRAuth(async ({ params }) => {
   const id = params?.id;
 
   const equipment = await getEquipment(id as string);
@@ -75,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<
       equipment,
     },
   };
-};
+});
 
 Inventory.getLayout = function getLayout(children: ReactElement) {
   return <Layout>{children}</Layout>;
