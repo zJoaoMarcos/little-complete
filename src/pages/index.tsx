@@ -1,6 +1,7 @@
 import { Input } from "@/components/Form/input";
 import { Logo } from "@/components/Logo";
 import { AuthContext } from "@/contexts/Auth";
+import { withSSRGuest } from "@/utils/withSSRGuest";
 import Head from "next/head";
 import { FormEvent, useContext, useState } from "react";
 
@@ -67,3 +68,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = withSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  };
+});
