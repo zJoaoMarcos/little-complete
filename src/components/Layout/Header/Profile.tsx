@@ -47,7 +47,9 @@ export function Profile({ showProfileData = true }: ProfileProps) {
           </HStack>
         </MenuButton>
         <MenuList borderColor="gray.200">
-          <p className="px-2 text-xs">{user?.email}</p>
+          <p className="px-2 text-xs text-purple-600 font-semibold">
+            {user?.email}
+          </p>
 
           <MenuDivider />
 
