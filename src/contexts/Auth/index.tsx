@@ -32,8 +32,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       api
         .get("auth/me")
         .then((response) => {
-          const { email } = response.data;
-          setUser({ email });
+          const { email, username, displayName } = response.data;
+          setUser({ email, username, displayName });
         })
         .catch(() => {
           signOut();
@@ -47,8 +47,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email,
         password,
       });
-      console.log(response.data);
-      const { accessToken, refreshToken } = response.data;
+      const { accessToken, refreshToken, displayName, username } =
+        response.data;
 
       setCookie(undefined, "littlecomplete.token", accessToken, {
         maxAge: 60 * 60 * 24 * 30, // 30 days
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       api.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
 
-      setUser({ email });
+      setUser({ email, displayName, username });
 
       Router.push("/users");
     } catch (err) {

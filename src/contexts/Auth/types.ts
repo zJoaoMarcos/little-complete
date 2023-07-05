@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 
 export interface User {
   email: string;
+  username: string;
+  displayName: string;
 }
 
 export type SignInParams = {
