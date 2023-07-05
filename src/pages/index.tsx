@@ -1,29 +1,8 @@
 import { Input } from "@/components/Form/input";
 import { Logo } from "@/components/Logo";
 import { AuthContext } from "@/contexts/Auth";
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { FormEvent, useContext, useState } from "react";
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/stock",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session,
-    },
-  };
-};
 
 export default function Home() {
   const [email, setEmail] = useState("");
