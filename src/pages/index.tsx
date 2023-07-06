@@ -1,27 +1,9 @@
-import { Input } from "@/components/Form/input";
+import { SignInForm } from "@/components/Forms/SignInForm";
 import { Logo } from "@/components/Logo";
-import { AuthContext } from "@/contexts/Auth";
 import { withSSRGuest } from "@/utils/withSSRGuest";
 import Head from "next/head";
-import { FormEvent, useContext, useState } from "react";
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const { signIn } = useContext(AuthContext);
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-
-    const data = {
-      email,
-      password,
-    };
-
-    await signIn(data);
-  }
-
   return (
     <>
       <Head>
@@ -39,30 +21,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col items-center justify-center sm:w-full sm:max-w-[660px]">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col bg-gray-200 gap-4 rounded-md p-6 sm:p-10 w-full sm:w-3/4 "
-          >
-            <Input
-              name="email"
-              type="string"
-              label="E-mail"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              name="password"
-              type="password"
-              label="Senha"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <button
-              type="submit"
-              className="w-full py-3 bg-purple-500 rounded-md dtext-white font-semibold text-white text-lg hover:bg-purple-600"
-            >
-              Entrar
-            </button>
-          </form>
+          <SignInForm />
         </div>
       </div>
     </>
