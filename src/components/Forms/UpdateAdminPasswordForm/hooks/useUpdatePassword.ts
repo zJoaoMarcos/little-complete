@@ -26,7 +26,8 @@ export const useUpdatePassword = () => {
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         toast.error(
           "Desculpe não conseguimos alterar a sua senha, tente mais tarde"
         );
