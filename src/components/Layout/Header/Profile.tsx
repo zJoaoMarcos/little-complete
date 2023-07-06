@@ -13,6 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { CaretDown } from "@phosphor-icons/react";
+import Router from "next/router";
 
 interface ProfileProps {
   showProfileData?: boolean;
@@ -53,7 +54,15 @@ export function Profile({ showProfileData = true }: ProfileProps) {
 
           <MenuDivider />
 
-          <MenuItem onClick={handleSingOut}>Sign out</MenuItem>
+          <MenuItem
+            onClick={() => Router.push("admin/update_password")}
+            fontSize="sm"
+          >
+            Alterar senha
+          </MenuItem>
+          <MenuItem onClick={handleSingOut} fontSize="sm">
+            Sign out
+          </MenuItem>
         </MenuList>
       </Menu>
     </Flex>
