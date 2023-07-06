@@ -37,6 +37,10 @@ export function withSSRAuth<P extends { [key: string]: any }>(
           },
         };
       }
+
+      return {
+        redirect: { destination: "/error", permanent: false },
+      };
     }
   };
 }
