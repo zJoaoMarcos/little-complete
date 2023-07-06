@@ -1,5 +1,6 @@
 import { AuthTokenError } from "@/errors/AuthTokenError";
 import axios, { AxiosError } from "axios";
+import { GetServerSidePropsContext } from "next";
 import { signOut } from "next-auth/react";
 import { parseCookies, setCookie } from "nookies";
 
@@ -10,7 +11,9 @@ interface AxiosErrorResponse {
 let isRefreshing = false;
 let failedRequestsQueue: any = [];
 
-export function setupApiClient(ctx = undefined) {
+export function setupApiClient(
+  ctx: GetServerSidePropsContext | undefined = undefined
+) {
   let cookies = parseCookies(ctx);
 
   const api = axios.create({
@@ -25,11 +28,13 @@ export function setupApiClient(ctx = undefined) {
       return response;
     },
     (error: AxiosError<AxiosErrorResponse>) => {
+      console.log(error);
       if (error.response?.status === 401) {
         if (error.response.data?.message === "token.expired") {
-          cookies = parseCookies();
+          cookies = parseCookies(ctx);
 
           const { "littlecomplete.refreshToken": refreshToken } = cookies;
+
           const originalConfig = error.config;
 
           if (!isRefreshing) {
