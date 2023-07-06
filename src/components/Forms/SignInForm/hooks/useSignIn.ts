@@ -13,8 +13,6 @@ export const useSignIn = () => {
     resolver: zodResolver(SignInSchema),
   });
 
-  console.log(errors);
-
   const { signIn } = useAuth();
 
   const handleSignIn: SubmitHandler<SignInData> = async (data, event) => {
