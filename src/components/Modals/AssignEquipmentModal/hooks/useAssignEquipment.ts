@@ -11,8 +11,8 @@ export const useAssignEquipment = (userId: string, onClose: () => void) => {
   const [value, setValue] = useState("");
 
   const typeOptions = [
-    { value: "desktop", option: "Desktop" },
     { value: "notebook", option: "Notebook" },
+    { value: "desktop", option: "Desktop" },
     { value: "telephone", option: "Ramal" },
     { value: "monitor", option: "Monitor" },
     { value: "vr", option: "Óculos VR" },

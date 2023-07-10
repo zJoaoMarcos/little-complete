@@ -1,8 +1,9 @@
-import { Flex, HStack, Text, VStack } from "@chakra-ui/react";
+import { Flex, HStack, Link, Text, VStack } from "@chakra-ui/react";
 
 import { EquipmentAvatar } from "@/components/Avatars/EquipmentAvatar";
 import { EquipmentBagdeStatus } from "@/components/Avatars/EquipmentAvatar/EquipmentBadgeStatus";
 import { TriggerUpdateEquipmentStatus } from "@/components/Modals/UpdateEquipmentStatusModal/Trigger";
+import { User } from "@phosphor-icons/react";
 import { HeaderProps } from "./types";
 
 export function Header({ equipment }: HeaderProps) {
@@ -23,9 +24,22 @@ export function Header({ equipment }: HeaderProps) {
             </Text>
           </HStack>
 
-          <Text fontWeight="semibold" fontSize={16}>
-            Status: <EquipmentBagdeStatus status={equipment.status} />
-          </Text>
+          {equipment.currentUser && (
+            <HStack align="center" justify="center">
+              <User weight="bold" size={20} />
+              <Link
+                color="purple.400"
+                fontWeight="semibold"
+                href={`/users/${equipment.currentUser}`}
+              >
+                {equipment.currentUser}
+              </Link>
+              <p>|</p>
+              <Text fontWeight="semibold" fontSize={16}>
+                status: <EquipmentBagdeStatus status={equipment.status} />
+              </Text>
+            </HStack>
+          )}
         </VStack>
       </HStack>
 

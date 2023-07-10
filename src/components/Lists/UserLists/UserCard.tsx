@@ -8,6 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { CaretRight, Phone } from "@phosphor-icons/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 interface UserCardProps {
@@ -84,8 +85,10 @@ export function UserCard({ user }: UserCardProps) {
         />
 
         <IconButton
-          onClick={() => push(`/users/${user.user_name}`)}
+          /* onClick={() => push(`/users/${user.user_name}`)} */
           aria-label="see-more"
+          as={Link}
+          href={`/users/${user.user_name}`}
           icon={<CaretRight size={22} />}
           bg="none"
         />

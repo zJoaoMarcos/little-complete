@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
@@ -24,13 +23,11 @@ export const useRegisterNewItem = (onClose: () => void) => {
   });
 
   const isNewType = watch("isNewTypeGroup");
-  const { data: session } = useSession();
   const { data: typeList } = useStockGroupList(0);
 
   const registerNewItem = useMutation(
     async (data: RegisterNewItemData) => {
       await api.post("stock/items/", {
-        createdBy: session?.user?.email,
         ...data,
       });
     },

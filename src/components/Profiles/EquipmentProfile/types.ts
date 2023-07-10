@@ -3,6 +3,7 @@ export interface HeaderProps {
     id: string;
     type: string | null;
     status: string | null;
+    currentUser: string | null;
   };
 }
 
