@@ -15,7 +15,7 @@ export function EquipmentRadioGroup({
 
   return (
     <VStack {...getRootProps()}>
-      {equipments.map((equip) => {
+      {equipments?.map((equip) => {
         return (
           <EquipmentRadioCard
             key={equip.id}
