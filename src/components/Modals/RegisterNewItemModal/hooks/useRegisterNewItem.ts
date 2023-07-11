@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 
-import { useStockGroupList } from "@/hooks/useStockGroupList";
 import { api } from "@/services/api";
 import { queryClient } from "@/services/queryClient";
 import { RegisterNewItemSchema } from "./schema";
@@ -23,8 +22,6 @@ export const useRegisterNewItem = (onClose: () => void) => {
   });
 
   const isNewType = watch("isNewTypeGroup");
-  const { data: typeList } = useStockGroupList(0);
-
   const registerNewItem = useMutation(
     async (data: RegisterNewItemData) => {
       await api.post("stock/items/", {
@@ -61,7 +58,6 @@ export const useRegisterNewItem = (onClose: () => void) => {
     register,
     handleSubmit,
     handleRegister,
-    typeList,
     isNewType,
     errors,
   };

@@ -16,6 +16,7 @@ export function TriggerEditStockItem({ item }: TriggerEditItemProps) {
         icon={<DotsThreeVertical size="20" />}
         borderRadius="full"
         bgColor="transparent"
+        ml="auto"
         _hover={{ borderColor: "purple.100", border: "1px" }}
       />
 

@@ -2,10 +2,9 @@ import { Select } from "@/components/Form/Select";
 import { Input } from "@/components/Form/input";
 import { Checkbox, VStack } from "@chakra-ui/react";
 import { useRegisterNewItem } from "./hooks/useRegisterNewItem";
-import { StockGroup } from "./types";
 
 export function NewItemForm({ onClose }: { onClose: () => void }) {
-  const { handleRegister, handleSubmit, register, isNewType, typeList } =
+  const { handleRegister, handleSubmit, register, isNewType } =
     useRegisterNewItem(onClose);
 
   return (
@@ -20,25 +19,6 @@ export function NewItemForm({ onClose }: { onClose: () => void }) {
       <Checkbox size="lg" {...register("isNewTypeGroup")} colorScheme="purple">
         É um novo Grupo de Tipo ?
       </Checkbox>
-
-      {isNewType ? (
-        <>
-          <Input {...register("newTypeName")} label="Novo Tipo" />
-          <Input {...register("newTypeAmountMin")} label="Quantidade Min" />
-        </>
-      ) : (
-        <Select
-          {...register("type")}
-          label="Tipo"
-          placeholder="Selecione o tipo"
-        >
-          {typeList?.stockList.map((type: StockGroup) => (
-            <option value={type.itemType} key={type.id}>
-              {type.itemType}
-            </option>
-          ))}
-        </Select>
-      )}
 
       <Select
         {...register("category")}
