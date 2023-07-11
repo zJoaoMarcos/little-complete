@@ -16,7 +16,7 @@ export function CardItem({ item }: CardItemProps) {
     <div className="w-52 h-48 flex flex-col items-center justify-between rounded-md border p-4 bg-gray-50 shadow-md">
       <div className="w-full flex flex-row items-center justify-center border-gray-200 border-b">
         <p className="font-semibold text-purple-400 text-xs text-center">
-          {item.type} - {item.model}
+          {item.type} {item.model && `- ${item.model}`}
         </p>
 
         <TriggerEditStockItem item={item} />
