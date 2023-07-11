@@ -1,3 +1,4 @@
+import { RegisterNewItemForm } from "@/components/Forms/RegisterNewItemForm/indext";
 import {
   Button,
   Modal,
@@ -8,7 +9,6 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { NewItemForm } from "./NewItemForm";
 import { RegisterNewItemModalProps } from "./types";
 
 export function RegisterNewItemModal({
@@ -25,7 +25,7 @@ export function RegisterNewItemModal({
         <ModalCloseButton />
 
         <ModalBody>
-          <NewItemForm onClose={onClose} />
+          <RegisterNewItemForm onClose={onClose} />
         </ModalBody>
 
         <ModalFooter>

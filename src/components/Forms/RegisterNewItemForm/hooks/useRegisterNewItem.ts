@@ -13,15 +13,10 @@ export const useRegisterNewItem = (onClose: () => void) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<RegisterNewItemData>({
     resolver: zodResolver(RegisterNewItemSchema),
-    defaultValues: {
-      isNewTypeGroup: false,
-    },
   });
 
-  const isNewType = watch("isNewTypeGroup");
   const registerNewItem = useMutation(
     async (data: RegisterNewItemData) => {
       await api.post("stock/items/", {
@@ -54,11 +49,18 @@ export const useRegisterNewItem = (onClose: () => void) => {
     onClose();
   };
 
+  const categories = [
+    { id: 1, name: "Hardware", value: "hardware" },
+    { id: 2, name: "Periféricos", value: "peripherals" },
+    { id: 3, name: "Cabos", value: "cables" },
+    { id: 4, name: "Outros", value: "others" },
+  ];
+
   return {
     register,
     handleSubmit,
     handleRegister,
-    isNewType,
     errors,
+    categories,
   };
 };
