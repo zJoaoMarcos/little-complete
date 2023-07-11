@@ -24,22 +24,24 @@ export function Header({ equipment }: HeaderProps) {
             </Text>
           </HStack>
 
-          {equipment.currentUser && (
-            <HStack align="center" justify="center">
-              <User weight="bold" size={20} />
-              <Link
-                color="purple.400"
-                fontWeight="semibold"
-                href={`/users/${equipment.currentUser}`}
-              >
-                {equipment.currentUser}
-              </Link>
-              <p>|</p>
-              <Text fontWeight="semibold" fontSize={16}>
-                status: <EquipmentBagdeStatus status={equipment.status} />
-              </Text>
-            </HStack>
-          )}
+          <HStack align="center" justify="center">
+            {equipment.currentUser && (
+              <>
+                <User weight="bold" size={20} />
+                <Link
+                  color="purple.400"
+                  fontWeight="semibold"
+                  href={`/users/${equipment.currentUser}`}
+                >
+                  {equipment.currentUser}
+                </Link>
+                <p>|</p>
+              </>
+            )}
+            <Text fontWeight="semibold" fontSize={16}>
+              status: <EquipmentBagdeStatus status={equipment.status} />
+            </Text>
+          </HStack>
         </VStack>
       </HStack>
 
